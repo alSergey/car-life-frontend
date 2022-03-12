@@ -14,30 +14,42 @@ import {
     Title,
     View
 } from "@vkontakte/vkui";
-import React, {useState} from "react";
-import {ID_GARAGE, ID_INFO, ID_MEMBERS, ID_POSTS} from "../constants/config";
+import React, {useEffect, useState} from "react";
+import {ID_GARAGE, ID_INFO, ID_MEMBERS, ID_POSTS} from "../../constants/config";
+import {apiGetEvent} from "./action/action";
+import {emptyEventData} from "./action/action.consts";
 
 interface Props {
     id: string;
-    imageUrl: string;
-    title: string;
-    date: string;
-    time: string;
-    address: string;
-    description: string;
+    eventPage: number;
 }
 
-const Event: React.FC<Props> = (props) => {
+
+export const EventPage: React.FC<Props> = (props) => {
     const [activeTab, setActiveTab] = useState(ID_INFO);
-    const {imageUrl, id, title, date, time, address, description} = props;
+    const [eventData, setEventData] = useState(emptyEventData);
+    const { id, eventPage } = props;
+
+    useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = async (): Promise<void> => {
+        try {
+            const data = await apiGetEvent(eventPage)
+            setEventData(data)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     return (
-        <View activePanel="event" id={id}>
-            <Panel id="event">
+            <Panel id={id}>
                 <PanelHeader>Событие</PanelHeader>
-                <img src={imageUrl} alt={''}/>
+                <img src={eventData.photo} alt={''}/>
                 <Group separator="hide" style={{marginLeft: 15}}>
-                    <Title level="1" style={{ marginBottom: 16 }} weight="bold">{title}</Title>
-                    <Title level="3" weight="semibold">{date} {time}</Title>
+                    <Title level="1" style={{ marginBottom: 16 }} weight="bold">{eventData.name}</Title>
+                    <Title level="3" weight="semibold">{eventData.event_date}</Title>
                     <Div style={{justifyContent: "center", paddingBottom: 0, paddingLeft: 0}}>
                         <Button
                             mode="outline"
@@ -72,9 +84,9 @@ const Event: React.FC<Props> = (props) => {
                         </SimpleCell>
                         <Group style={{padding: 15}}>
                             <Title level="3" weight="semibold" style={{ marginBottom: 16 }}>
-                                {address}
+                                Москва
                             </Title>
-                            <Text weight="regular">{description}</Text>
+                            <Text weight="regular">{eventData.description}</Text>
                         </Group>
                     </Group>
                 )}
@@ -99,8 +111,5 @@ const Event: React.FC<Props> = (props) => {
                     </Group>
                 )}
             </Panel>
-        </View>
     );
 }
-
-export default Event;

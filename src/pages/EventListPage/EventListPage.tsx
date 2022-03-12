@@ -12,9 +12,10 @@ import styles from './EventListPage.module.css'
 
 interface Props {
     id: string;
+    onClick: (id: number) => void;
 }
 
-export const EventListPage: React.FC<Props> = ({id}) => {
+export const EventListPage: React.FC<Props> = ({id, onClick}) => {
     const [searchText, setSearchText] = useState('')
     const [activeTab, setActiveTab] = useState('event')
 
@@ -49,9 +50,7 @@ export const EventListPage: React.FC<Props> = ({id}) => {
                     <div className={styles.eventList}>
                         <EventListWidget
                             searchText={searchText}
-                            onClick={(id) => {
-                                console.log(id)
-                            }}
+                            onClick={(id) => onClick(id)}
                         />
                     </div>
                 )
