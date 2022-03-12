@@ -19,9 +19,9 @@ export const CreateEventWidget: React.FC<Props> = ({onSubmit}) => {
     const [form, setFormData] = useState(emptyEventForm)
     const [error, setError] = useState('')
 
-    const handleSubmit = (): void => {
+    const handleSubmit = async (): Promise<void> => {
         try {
-            sendEvent(form)
+            await sendEvent(form)
             onSubmit()
         } catch (err) {
             setError(err.message)

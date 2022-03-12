@@ -4,17 +4,18 @@ import {ContentCard } from "@vkontakte/vkui";
 interface Props {
     title: string;
     date: string;
-    time: string;
     img: string;
+    onClick: () => void;
 }
 
-export const EventCard: React.FC<Props> = ({title, date, time, img}) => {
+export const EventCard: React.FC<Props> = ({title, date, img, onClick}) => {
     return (
         <ContentCard
             header={title}
             image={img}
-            caption={`${date} ${time}`}
+            caption={new Date(date).toDateString()}
             maxHeight={150}
+            onClick={onClick}
         />
     )
 }

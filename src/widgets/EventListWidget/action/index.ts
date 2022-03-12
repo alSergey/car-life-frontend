@@ -1,0 +1,1 @@
+export {apiGetEvents} from './action'

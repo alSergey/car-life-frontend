@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import {Tabbar, TabbarItem} from "@vkontakte/vkui";
 import {Icon28LocationMapOutline, Icon28NewsfeedOutline, Icon28UserCircleOutline} from "@vkontakte/icons";
-import {ID_CLUBS, ID_MAP, ID_PROFILE} from "../../constants/config";
-import exp from "constants";
+import {ID_MAIN, ID_MAP, ID_PROFILE} from "../../constants/config";
 
 interface Props {
     activeStory: string;
@@ -11,13 +10,13 @@ interface Props {
     onProfileClick: () => void;
 }
 
-const NavBar: React.FC<Props> = (props) => {
-    const {activeStory, onClubsClick, onMapClick, onProfileClick} = props;
+export const NavBar: React.FC<Props> = ({activeStory, onClubsClick, onMapClick, onProfileClick}) => {
+
     return (
             <Tabbar>
                 <TabbarItem
-                    selected={activeStory === ID_CLUBS}
-                    data-story={ID_CLUBS}
+                    selected={activeStory === ID_MAIN}
+                    data-story={ID_MAIN}
                     onClick={onClubsClick}
                     text="Клубы"
                 >
@@ -42,5 +41,3 @@ const NavBar: React.FC<Props> = (props) => {
             </Tabbar>
     );
 }
-
-export default NavBar;

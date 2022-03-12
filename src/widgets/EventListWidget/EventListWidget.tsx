@@ -1,30 +1,64 @@
-import React from "react";
-import {
-    CardGrid
-} from "@vkontakte/vkui";
+import React, {useEffect, useState} from "react";
+import {CardGrid, Footer} from "@vkontakte/vkui";
 import {EventCard} from "../../components/EventCard";
+import {apiGetEvents} from "./action";
+import {EventData} from "./action/action.types";
 
-export const EventListWidget: React.FC = () => {
+interface Props {
+    searchText: string;
+    onClick: (id: number) => void;
+}
+
+const defaultEventList: EventData[] = []
+
+export const EventListWidget: React.FC<Props> = ({searchText, onClick}) => {
+    const [eventList, setEventList] = useState(defaultEventList)
+    const [filteredEventList, setFilteredEventList] = useState(defaultEventList)
+
+    useEffect(() => {
+        getEvents()
+    }, [])
+
+    useEffect(() => {
+        filterEvents()
+    }, [searchText])
+
+    const filterEvents = (): void => {
+        const data = eventList.filter(({name}) => name.includes(searchText))
+        setFilteredEventList(data)
+    }
+
+    const getEvents = async (): Promise<void> => {
+        try {
+            const data = await apiGetEvents()
+            console.log(data)
+            setEventList(data)
+            setFilteredEventList(data)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     return (
-        <CardGrid size="l">
-            <EventCard
-                title="Новое"
-                date="22.11.2021"
-                time="11:12"
-                img="https://pbs.twimg.com/profile_images/1173161429266030592/lJCNA_JC_400x400.jpg"
-            />
-            <EventCard
-                title="Новое"
-                date="22.11.2021"
-                time="11:12"
-                img="https://pbs.twimg.com/profile_images/1173161429266030592/lJCNA_JC_400x400.jpg"
-            />
-            <EventCard
-                title="Новое"
-                date="22.11.2021"
-                time="11:12"
-                img="https://pbs.twimg.com/profile_images/1173161429266030592/lJCNA_JC_400x400.jpg"
-            />
-        </CardGrid>
+        <div>
+            <CardGrid size="l">
+                {
+                    filteredEventList.map(({id, name, event_date, photo}) => (
+                        <EventCard
+                            key={id}
+                            title={name}
+                            date={event_date}
+                            img="https://pbs.twimg.com/profile_images/1173161429266030592/lJCNA_JC_400x400.jpg"
+                            onClick={() => onClick(id)}
+                        />
+                    ))
+                }
+            </CardGrid>
+            {
+                filteredEventList.length === 0 && (
+                    <Footer>Ничего не найдено</Footer>
+                )
+            }
+        </div>
     )
 }
