@@ -4,17 +4,15 @@ import axios from "axios";
 
 export const sendEvent = (form: EventForm) => {
     if (!isEventFormFilled(form)) throw new Error('Не заполнены все поля')
-
+    console.log(form.date, ' ', form.time);
    return axios.post('http://localhost:8080/api/v1/event/create', {
-       id: 1,
        name: form.name,
        club: {
            id: 1,
        },
        description: form.description,
-       event_date: new Date().toISOString(),
+       event_date: new Date(`${form.date}T${form.time}Z`).toISOString(),
        latitude: form.location.latitude,
        longitude: form.location.longitude,
-       avatar: 'https://pbs.twimg.com/profile_images/1173161429266030592/lJCNA_JC_400x400.jpg'
    })
 }
