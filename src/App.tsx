@@ -4,39 +4,29 @@ import {
     Epic,
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
-import Clubs from "./pages/Clubs";
-import Map from "./pages/Map";
-import Profile from "./pages/Profile";
-import NavBar from "./components/NavBar/NavBar";
-import {ID_CLUBS, ID_MAP, ID_PROFILE} from "./constants/config";
+import {MainTab} from "./tabs/MainTab";
+import {MapTab} from "./tabs/MapTab";
+import {ProfileTab} from "./tabs/ProfileTab";
+import {NavBar} from "./components/NavBar";
+import {ID_MAIN, ID_MAP, ID_PROFILE} from "./constants/config";
 import Event from "./pages/Event";
 
 const App: React.FC = () => {
-    const [activeView, setActiveView] = useState(ID_CLUBS);
-
-    const clubsClick = () => {
-       setActiveView(ID_CLUBS);
-    }
-    const mapClick = () => {
-        setActiveView(ID_MAP);
-    }
-
-    const profileClick = () => {
-        setActiveView(ID_PROFILE);
-
-    }
+    const [activeView, setActiveView] = useState(ID_MAIN);
 
 	return (
         <AppRoot>
             <Epic activeStory={activeView} tabbar={
                 <NavBar
                     activeStory={activeView}
-                    onClubsClick={clubsClick}
-                    onMapClick={mapClick}
-                    onProfileClick={profileClick}
+                    onClubsClick={() => setActiveView(ID_MAIN)}
+                    onMapClick={() => setActiveView(ID_MAP)}
+                    onProfileClick={() => setActiveView(ID_PROFILE)}
                 />
                 }>
-                    <Clubs id={ID_CLUBS}/>
+                    <MainTab id={ID_MAIN}/>
+                    <MapTab id={ID_MAP}/>
+                    <ProfileTab id={ID_PROFILE}/>
                     {/*<Event id={ID_CLUBS}*/}
                     {/*   imageUrl={"https://a.d-cd.net/PQAAAgANmOA-1920.jpg"}*/}
                     {/*   title={"Meeting meeting"}*/}
@@ -54,8 +44,6 @@ const App: React.FC = () => {
                     {/*       "come from the following parameters. Any missing fields are given the lowest possible value (1 for day and 0 for every other component). " +*/}
                     {/*       "The parameter values are all evaluated against the local time zone, rather than UTC.\n"}*/}
                     {/*/>*/}
-                    <Map id={ID_MAP}/>
-                    <Profile id={ID_PROFILE}/>
             </Epic>
         </AppRoot>
 	);

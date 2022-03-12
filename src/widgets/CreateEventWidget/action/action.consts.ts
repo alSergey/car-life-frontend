@@ -7,7 +7,7 @@ export const emptyEventForm: EventForm = {
     time: '',
     location: {
         description: 'Москва',
-        longitude: '',
-        latitude: '',
+        longitude: 0,
+        latitude: 0,
     },
 }

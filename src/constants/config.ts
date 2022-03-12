@@ -1,6 +1,6 @@
-export const ID_CLUBS = "clubs-page";
-export const ID_MAP = "map-page";
-export const ID_PROFILE = "profile-page";
+export const ID_MAIN = "main-tab";
+export const ID_MAP = "map-tab";
+export const ID_PROFILE = "profile-tab";
 export const ID_INFO = "meet-info";
 export const ID_MEMBERS = "meet-members";
 export const ID_GARAGE = "meet-garage";

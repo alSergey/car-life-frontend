@@ -1,7 +1,7 @@
 interface EventLocation {
     description: string;
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
 }
 
 export interface EventForm {
