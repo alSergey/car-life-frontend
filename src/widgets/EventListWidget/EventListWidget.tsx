@@ -48,7 +48,7 @@ export const EventListWidget: React.FC<Props> = ({searchText, onClick}) => {
                             key={id}
                             title={name}
                             date={event_date}
-                            img="https://pbs.twimg.com/profile_images/1173161429266030592/lJCNA_JC_400x400.jpg"
+                            img={photo}
                             onClick={() => onClick(id)}
                         />
                     ))
