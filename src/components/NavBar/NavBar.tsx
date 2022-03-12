@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import {Tabbar, TabbarItem} from "@vkontakte/vkui";
 import {Icon28LocationMapOutline, Icon28NewsfeedOutline, Icon28UserCircleOutline} from "@vkontakte/icons";
 import {ID_CLUBS, ID_MAP, ID_PROFILE} from "../../constants/config";
-import exp from "constants";
 
 interface Props {
     activeStory: string;
