@@ -13,7 +13,7 @@ export const EventCard: React.FC<Props> = ({title, date, img, onClick}) => {
         <ContentCard
             header={title}
             image={img}
-            caption={new Date(date).toDateString()}
+            caption={new Date(date).toLocaleString()}
             maxHeight={150}
             onClick={onClick}
         />

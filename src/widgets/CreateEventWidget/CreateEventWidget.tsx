@@ -24,6 +24,7 @@ export const CreateEventWidget: React.FC<Props> = ({onSubmit}) => {
             await sendEvent(form)
             onSubmit()
         } catch (err) {
+            console.error(err)
             setError(err.message)
         }
     }

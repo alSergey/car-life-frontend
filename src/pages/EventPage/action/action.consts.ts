@@ -10,5 +10,5 @@ export const emptyEventData: EventData = {
         latitude: 0,
         longitude: 0,
     },
-    photo: '',
+    avatar: '',
 }

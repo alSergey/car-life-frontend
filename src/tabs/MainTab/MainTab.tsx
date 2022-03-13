@@ -18,7 +18,7 @@ export const MainTab: React.FC<Props> = ({id}) => {
                 setActivePanel('panel1.2')
             }}
         />
-        <EventPage id="panel1.2" eventPage={eventId}/>
+        <EventPage id="panel1.2" eventPage={eventId} onClick={() => setActivePanel('panel1.1')}/>
     </View>
  );
 }

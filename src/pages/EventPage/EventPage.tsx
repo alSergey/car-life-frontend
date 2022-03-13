@@ -4,7 +4,7 @@ import {
     Div, Gallery,
     Group, Header,
     Panel,
-    PanelHeader,
+    PanelHeader, PanelHeaderBack,
     SimpleCell,
     SizeType,
     Subhead,
@@ -22,13 +22,14 @@ import {emptyEventData} from "./action/action.consts";
 interface Props {
     id: string;
     eventPage: number;
+    onClick: () => void;
 }
 
 
 export const EventPage: React.FC<Props> = (props) => {
     const [activeTab, setActiveTab] = useState(ID_INFO);
     const [eventData, setEventData] = useState(emptyEventData);
-    const { id, eventPage } = props;
+    const { id, eventPage, onClick} = props;
 
     useEffect(() => {
         getData()
@@ -45,11 +46,15 @@ export const EventPage: React.FC<Props> = (props) => {
 
     return (
             <Panel id={id}>
-                <PanelHeader>Событие</PanelHeader>
-                <img src={eventData.photo} alt={''}/>
+                <PanelHeader
+                    left={<PanelHeaderBack onClick={onClick}/>}
+                >
+                    Событие
+                </PanelHeader>
+                <img src={eventData.avatar} alt={''}/>
                 <Group separator="hide" style={{marginLeft: 15}}>
                     <Title level="1" style={{ marginBottom: 16 }} weight="bold">{eventData.name}</Title>
-                    <Title level="3" weight="semibold">{eventData.event_date}</Title>
+                    <Title level="3" weight="semibold">{new Date(eventData.event_date).toLocaleString()}</Title>
                     <Div style={{justifyContent: "center", paddingBottom: 0, paddingLeft: 0}}>
                         <Button
                             mode="outline"

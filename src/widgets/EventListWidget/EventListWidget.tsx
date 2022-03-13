@@ -31,7 +31,6 @@ export const EventListWidget: React.FC<Props> = ({searchText, onClick}) => {
     const getEvents = async (): Promise<void> => {
         try {
             const data = await apiGetEvents()
-            console.log(data)
             setEventList(data)
             setFilteredEventList(data)
         } catch (err) {
@@ -43,12 +42,12 @@ export const EventListWidget: React.FC<Props> = ({searchText, onClick}) => {
         <div>
             <CardGrid size="l">
                 {
-                    filteredEventList.map(({id, name, event_date, photo}) => (
+                    filteredEventList.map(({id, name, event_date, avatar}) => (
                         <EventCard
                             key={id}
                             title={name}
                             date={event_date}
-                            img={photo}
+                            img={avatar}
                             onClick={() => onClick(id)}
                         />
                     ))

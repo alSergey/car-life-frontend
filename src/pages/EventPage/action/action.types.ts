@@ -8,5 +8,5 @@ export interface EventData {
         latitude: number
         longitude: number
     }
-    photo: string
+    avatar: string
 }
