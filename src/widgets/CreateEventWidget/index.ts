@@ -1,1 +1,1 @@
-export {CreateEventWidget} from './CreateEventWidget'
+export { CreateEventWidget } from "./CreateEventWidget";

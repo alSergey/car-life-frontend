@@ -1,0 +1,22 @@
+name: Frontend Build
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Node
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Eslint
+      - uses: npm run eslint
+
+      - name: Stylelint
+      - uses: npm run stylelint
+
+      - name: Typescript
+      - uses: tsc

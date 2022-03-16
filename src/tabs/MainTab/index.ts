@@ -1,1 +1,1 @@
-export {MainTab} from './MainTab'
+export { MainTab } from "./MainTab";

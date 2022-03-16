@@ -1,1 +1,1 @@
-export {MapTab} from './MapTab'
+export { MapTab } from "./MapTab";

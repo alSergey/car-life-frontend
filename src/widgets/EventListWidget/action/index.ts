@@ -1,1 +1,1 @@
-export {apiGetEvents} from './action'
+export { apiGetEvents } from "./action";

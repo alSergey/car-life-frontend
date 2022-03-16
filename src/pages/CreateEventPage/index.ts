@@ -1,1 +1,1 @@
-export {CreateEventPage} from './CreateEventPage'
+export { CreateEventPage } from "./CreateEventPage";
