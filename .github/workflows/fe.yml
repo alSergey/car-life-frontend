@@ -6,8 +6,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Node
+      - name: Checkout
       - uses: actions/checkout@v2
+
+      - name: Install Node
       - uses: actions/setup-node@v1
         with:
           node-version: 16

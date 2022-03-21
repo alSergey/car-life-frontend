@@ -1,4 +1,4 @@
-import { Panel, PanelHeader, View } from "@vkontakte/vkui";
+import { View } from "@vkontakte/vkui";
 import React from "react";
 
 interface Props {
@@ -6,9 +6,5 @@ interface Props {
 }
 
 export const MapTab: React.FC<Props> = ({ id }) => (
-	<View activePanel="panel2.1" id={id}>
-		<Panel id="panel2.1">
-			<PanelHeader>Карта</PanelHeader>
-		</Panel>
-	</View>
+	<View activePanel="panel" id={id} />
 );

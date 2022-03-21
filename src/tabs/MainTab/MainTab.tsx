@@ -1,29 +1,68 @@
 import { View } from "@vkontakte/vkui";
 import React, { useState } from "react";
-import { EventListPage } from "../../pages/EventListPage";
-import { EventPage } from "../../pages/EventPage/EventPage";
+import { MainListPage } from "../../pages/main/MainListPage";
+import { EventPage } from "../../pages/main/EventPage";
+import { CreateEventPage } from "../../pages/main/CreateEventPage";
+import { CreateClubPage } from "../../pages/main/CreateClubPage";
+import { ClubPage } from "../../pages/main/ClubPage";
 
 interface Props {
 	id: string;
 }
 
+enum Pages {
+	Main = "main",
+	CreateEvent = "createEvent",
+	Event = "event",
+	CreateClub = "createClub",
+	Club = "club",
+}
+
 export const MainTab: React.FC<Props> = ({ id }) => {
-	const [activePanel, setActivePanel] = useState("panel1.1");
+	const [activePanel, setActivePanel] = useState(Pages.Main);
 	const [eventId, setEventId] = useState(0);
+	const [clubId, setClubId] = useState(0);
 
 	return (
 		<View activePanel={activePanel} id={id}>
-			<EventListPage
-				id="panel1.1"
-				onClick={(panelId) => {
-					setEventId(panelId);
-					setActivePanel("panel1.2");
+			<MainListPage
+				id={Pages.Main}
+				onEventCreateClick={() => setActivePanel(Pages.CreateEvent)}
+				onEventClick={(clickEventId) => {
+					setEventId(clickEventId);
+					setActivePanel(Pages.Event);
+				}}
+				onClubCreateClick={() => setActivePanel(Pages.CreateClub)}
+				onClubClick={(clickClubId) => {
+					setClubId(clickClubId);
+					setActivePanel(Pages.Club);
+				}}
+			/>
+			<CreateEventPage
+				id={Pages.CreateEvent}
+				onBackClick={() => setActivePanel(Pages.Main)}
+				onSubmit={(clickEventId) => {
+					setEventId(clickEventId);
+					setActivePanel(Pages.Event);
 				}}
 			/>
 			<EventPage
-				id="panel1.2"
-				eventPage={eventId}
-				onClick={() => setActivePanel("panel1.1")}
+				id={Pages.Event}
+				eventId={eventId}
+				onBackClick={() => setActivePanel(Pages.Main)}
+			/>
+			<CreateClubPage
+				id={Pages.CreateClub}
+				onBackClick={() => setActivePanel(Pages.Main)}
+				onSubmit={(clickClubId) => {
+					setClubId(clickClubId);
+					setActivePanel(Pages.Club);
+				}}
+			/>
+			<ClubPage
+				id={Pages.Club}
+				clubId={clubId}
+				onBackClick={() => setActivePanel(Pages.Main)}
 			/>
 		</View>
 	);

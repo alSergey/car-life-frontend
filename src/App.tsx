@@ -5,10 +5,15 @@ import { MainTab } from "./tabs/MainTab";
 import { MapTab } from "./tabs/MapTab";
 import { ProfileTab } from "./tabs/ProfileTab";
 import { NavBar } from "./components/NavBar";
-import { ID_MAIN, ID_MAP, ID_PROFILE } from "./constants/config";
+
+enum Tab {
+	Main = "main",
+	Map = "map",
+	Profile = "profile",
+}
 
 const App: React.FC = () => {
-	const [activeView, setActiveView] = useState(ID_MAIN);
+	const [activeView, setActiveView] = useState(Tab.Main);
 
 	return (
 		<AppRoot>
@@ -17,15 +22,18 @@ const App: React.FC = () => {
 				tabbar={
 					<NavBar
 						activeStory={activeView}
-						onClubsClick={() => setActiveView(ID_MAIN)}
-						onMapClick={() => setActiveView(ID_MAP)}
-						onProfileClick={() => setActiveView(ID_PROFILE)}
+						mainTab={Tab.Main}
+						mapTab={Tab.Map}
+						profileTab={Tab.Profile}
+						onMainClick={() => setActiveView(Tab.Main)}
+						onMapClick={() => setActiveView(Tab.Map)}
+						onProfileClick={() => setActiveView(Tab.Profile)}
 					/>
 				}
 			>
-				<MainTab id={ID_MAIN} />
-				<MapTab id={ID_MAP} />
-				<ProfileTab id={ID_PROFILE} onSubmit={() => setActiveView(ID_MAIN)} />
+				<MainTab id={Tab.Main} />
+				<MapTab id={Tab.Main} />
+				<ProfileTab id={Tab.Profile} />
 			</Epic>
 		</AppRoot>
 	);
