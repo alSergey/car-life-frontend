@@ -1,0 +1,1 @@
+export { apiGetEventGarage } from "./action";

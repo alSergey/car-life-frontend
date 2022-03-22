@@ -1,0 +1,1 @@
+export { EventPosts } from "./EventPosts";
