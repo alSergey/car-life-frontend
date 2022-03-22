@@ -6,10 +6,10 @@
   "scripts": {
     "start": "cross-env PORT=10888 HTTPS=false react-scripts start",
     "build": "react-scripts build",
-    "generate": "node scripts/generate.js",
     "predeploy": "npm run build",
     "deploy": "vk-miniapps-deploy",
     "tunnel": "vk-tunnel --insecure=1 --http-protocol=http --ws-protocol=wss --host=localhost --port=3000",
+    "generate": "node scripts/generate.js",
     "eslint": "eslint --ext .js,jsx,.ts,.tsx .",
     "eslint:fix": "npm run eslint -- --fix",
     "stylelint": "stylelint '**/*.css'",
