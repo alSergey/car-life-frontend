@@ -59,7 +59,7 @@ export const EventPage: React.FC<Props> = ({ id, eventId, onBackClick }) => {
 				src="https://klike.net/uploads/posts/2019-05/medium/1559021804_2.jpg"
 				alt=""
 			/>
-			<Group separator="hide" style={{ marginLeft: 15 }}>
+			<Group separator="hide" style={{ marginLeft: 15, marginRight: 15 }}>
 				<Title level="1" style={{ marginBottom: 5 }} weight="bold">
 					{eventData.name}
 				</Title>
