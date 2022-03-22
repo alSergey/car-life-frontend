@@ -1,0 +1,1 @@
+export { apiGetEventPosts } from "./action";

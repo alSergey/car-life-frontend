@@ -1,23 +1,20 @@
 import {
-	Avatar,
 	Button,
-	Div,
-	Gallery,
 	Group,
-	Header,
 	Panel,
 	PanelHeader,
 	PanelHeaderBack,
-	SimpleCell,
-	Tabs,
-	TabsItem,
-	Text,
 	Title,
+	Text,
 } from "@vkontakte/vkui";
 import React, { useEffect, useState } from "react";
-
-import styles from "./EventPage.module.css";
 import { emptyEventData, getEvent } from "./api";
+import { EventInfo } from "../../../components/EventInfo";
+import { EventMembers } from "../../../widgets/EventMembers";
+import { EventGarage } from "../../../widgets/EventGarage";
+import { EventPosts } from "../../../widgets/EventPosts";
+import { EventBar } from "../../../components/EventBar";
+import styles from "./EventPage.module.css";
 
 interface Props {
 	id: string;
@@ -25,7 +22,7 @@ interface Props {
 	onBackClick: () => void;
 }
 
-enum Tab {
+export enum Tab {
 	Info = "info",
 	Members = "members",
 	Garage = "garage",
@@ -58,99 +55,28 @@ export const EventPage: React.FC<Props> = ({ id, eventId, onBackClick }) => {
 			>
 				Событие
 			</PanelHeader>
-			<img src={eventData.avatar} alt="" />
+			<img
+				src="https://klike.net/uploads/posts/2019-05/medium/1559021804_2.jpg"
+				alt=""
+			/>
 			<Group separator="hide" style={{ marginLeft: 15 }}>
-				<Title level="1" style={{ marginBottom: 16 }} weight="bold">
+				<Title level="1" style={{ marginBottom: 5 }} weight="bold">
 					{eventData.name}
 				</Title>
-				<Title level="3" weight="semibold">
+				<Text weight="regular" style={{ marginBottom: 10 }}>
 					{new Date(eventData.event_date).toLocaleString()}
-				</Title>
-				<Div
-					style={{ justifyContent: "center", paddingBottom: 0, paddingLeft: 0 }}
-				>
-					<Button mode="outline" size="m" type="submit" width={200}>
-						Участвовать
-					</Button>
-				</Div>
+				</Text>
+				<Button stretched size="m">
+					Участвовать
+				</Button>
 			</Group>
-			<Tabs style={{ fontSize: "10px", lineHeight: "12px" }}>
-				<TabsItem
-					selected={activeTab === Tab.Info}
-					onClick={() => setActiveTab(Tab.Info)}
-				>
-					Подробности
-				</TabsItem>
-				<TabsItem
-					selected={activeTab === Tab.Members}
-					onClick={() => setActiveTab(Tab.Members)}
-				>
-					Участники
-				</TabsItem>
-				<TabsItem
-					selected={activeTab === Tab.Garage}
-					onClick={() => setActiveTab(Tab.Garage)}
-				>
-					Гараж
-				</TabsItem>
-				<TabsItem
-					selected={activeTab === Tab.Posts}
-					onClick={() => setActiveTab(Tab.Posts)}
-				>
-					Посты
-				</TabsItem>
-			</Tabs>
+			<EventBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === Tab.Info && (
-				<Group>
-					<SimpleCell
-						before={
-							<Avatar src="https://lowdaily.ru/wp-content/uploads/2018/06/royal-auto-show-DSC04553.jpg" />
-						}
-					>
-						Car Club
-					</SimpleCell>
-					<Group style={{ padding: 15 }}>
-						<Title level="3" weight="semibold" style={{ marginBottom: 16 }}>
-							Москва
-						</Title>
-						<Text weight="regular">{eventData.description}</Text>
-					</Group>
-				</Group>
+				<EventInfo description={eventData.description} />
 			)}
-			{activeTab === Tab.Members && <Group>Здесь скоро будут участники</Group>}
-			{activeTab === Tab.Garage && (
-				<Group header={<Header mode="secondary">Вы увидите</Header>}>
-					<Gallery
-						slideWidth="100%"
-						align="center"
-						style={{ height: "300px" }}
-						bullets="dark"
-						showArrows
-					>
-						<div
-							style={{
-								backgroundImage:
-									"url('https://i.ytimg.com/vi/0zler_phm3M/maxresdefault.jpg')",
-								backgroundSize: "cover",
-							}}
-						/>
-						<div
-							style={{
-								backgroundImage:
-									"url('https://i.pinimg.com/originals/8b/33/dc/8b33dce321d56d9bf1248981d276864f.jpg')",
-								backgroundSize: "cover",
-							}}
-						/>
-						<div
-							style={{
-								backgroundImage: "url('https://a.d-cd.net/ee6e5a6s-960.jpg')",
-								backgroundSize: "cover",
-							}}
-						/>
-					</Gallery>
-				</Group>
-			)}
-			{activeTab === Tab.Posts && <Group>Здесь скоро будут посты</Group>}
+			{activeTab === Tab.Members && <EventMembers id={eventData.id} />}
+			{activeTab === Tab.Garage && <EventGarage id={eventData.id} />}
+			{activeTab === Tab.Posts && <EventPosts id={eventData.id} />}
 		</Panel>
 	);
 };
