@@ -16,6 +16,14 @@ export interface ModelsClub {
   id: number;
   name: string;
   participants_count: number;
+  tags: string[];
+}
+
+export interface ModelsCreateClubRequest {
+  avatar: string;
+  description: string;
+  name: string;
+  tags: string[];
 }
 
 export interface ModelsCreateEventRequest {
@@ -36,6 +44,11 @@ export interface ModelsEvent {
   id: number;
   latitude: number;
   longitude: number;
+  name: string;
+}
+
+export interface ModelsTag {
+  id: number;
   name: string;
 }
 
@@ -180,7 +193,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary create a club
      * @request POST:/club/create
      */
-    createCreate: (body: ModelsClub, params: RequestParams = {}) =>
+    createCreate: (body: ModelsCreateClubRequest, params: RequestParams = {}) =>
       this.request<ModelsClub, UtilsError>({
         path: `/club/create`,
         method: "POST",
@@ -199,9 +212,30 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary get clubs list
      * @request GET:/clubs
      */
-    clubsList: (params: RequestParams = {}) =>
+    clubsList: (
+      query?: { IdGt?: number; IdLte?: number; Limit?: number; Query?: string },
+      params: RequestParams = {},
+    ) =>
       this.request<ModelsClub[], UtilsError>({
         path: `/clubs`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting tags list
+     *
+     * @tags Clubs
+     * @name TagsList
+     * @summary get tags list
+     * @request GET:/clubs/tags
+     */
+    tagsList: (params: RequestParams = {}) =>
+      this.request<ModelsTag[], UtilsError>({
+        path: `/clubs/tags`,
         method: "GET",
         type: ContentType.Json,
         format: "json",
@@ -271,10 +305,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary get events list
      * @request GET:/events
      */
-    eventsList: (params: RequestParams = {}) =>
+    eventsList: (
+      query?: { IdGt?: number; IdLte?: number; Limit?: number; Query?: string },
+      params: RequestParams = {},
+    ) =>
       this.request<ModelsEvent[], UtilsError>({
         path: `/events`,
         method: "GET",
+        query: query,
         type: ContentType.Json,
         format: "json",
         ...params,

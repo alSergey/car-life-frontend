@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	FormItem,
 	FormLayout,
@@ -9,9 +9,12 @@ import {
 	Textarea,
 	File,
 } from "@vkontakte/vkui";
+import { ChipsSelect } from "@vkontakte/vkui/unstable";
 import {
 	createNewClub,
+	emptyClubTags,
 	emptyCreateClubForm,
+	getTagsList,
 	isCreateClubFormFilled,
 } from "./api";
 import { Icon24Camera } from "@vkontakte/icons";
@@ -21,6 +24,7 @@ interface Props {
 }
 
 export const CreateClubWidget: React.FC<Props> = ({ onSubmit }) => {
+	const [tags, setTags] = useState(emptyClubTags);
 	const [form, setFormData] = useState(emptyCreateClubForm);
 	const [error, setError] = useState("");
 
@@ -35,6 +39,19 @@ export const CreateClubWidget: React.FC<Props> = ({ onSubmit }) => {
 			setError(err.message);
 		}
 	};
+
+	const handleGetTags = async (): Promise<void> => {
+		try {
+			const data = await getTagsList();
+			setTags(data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	useEffect(() => {
+		handleGetTags();
+	}, []);
 
 	return (
 		<FormLayout
@@ -72,6 +89,19 @@ export const CreateClubWidget: React.FC<Props> = ({ onSubmit }) => {
 						setFormData({
 							...form,
 							description: value,
+						});
+					}}
+				/>
+			</FormItem>
+			<FormItem top="Теги">
+				<ChipsSelect
+					value={form.tags}
+					options={tags}
+					placeholder="Не выбраны"
+					onChange={(value) => {
+						setFormData({
+							...form,
+							tags: value,
 						});
 					}}
 				/>

@@ -1,1 +1,0 @@
-export { apiGetEventMembers } from "./action";

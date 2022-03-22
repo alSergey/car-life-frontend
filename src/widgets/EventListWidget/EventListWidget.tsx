@@ -11,14 +11,9 @@ interface Props {
 export const EventListWidget: React.FC<Props> = ({ searchText, onClick }) => {
 	const [eventList, setEventList] = useState(emptyEventList);
 
-	const filteredEventList = React.useMemo(
-		() => eventList.filter(({ name }) => name?.includes(searchText)),
-		[eventList, searchText]
-	);
-
 	const handleGetEventList = async (): Promise<void> => {
 		try {
-			const data = await getEventList();
+			const data = await getEventList(searchText);
 			setEventList(data);
 		} catch (err) {
 			console.error(err);
@@ -27,12 +22,12 @@ export const EventListWidget: React.FC<Props> = ({ searchText, onClick }) => {
 
 	useEffect(() => {
 		handleGetEventList();
-	}, []);
+	}, [searchText]);
 
 	return (
 		<div>
 			<CardGrid size="l">
-				{filteredEventList.map(({ id, name, event_date, avatar }) => (
+				{eventList.map(({ id, name, event_date, avatar }) => (
 					<EventCard
 						key={id}
 						title={name}
@@ -42,7 +37,7 @@ export const EventListWidget: React.FC<Props> = ({ searchText, onClick }) => {
 					/>
 				))}
 			</CardGrid>
-			{filteredEventList.length === 0 && <Footer>Ничего не найдено</Footer>}
+			{eventList.length === 0 && <Footer>Ничего не найдено</Footer>}
 		</div>
 	);
 };

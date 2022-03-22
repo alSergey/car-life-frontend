@@ -1,7 +1,6 @@
 import {
 	Avatar,
 	Group,
-	Header,
 	HorizontalCell,
 	HorizontalScroll,
 } from "@vkontakte/vkui";

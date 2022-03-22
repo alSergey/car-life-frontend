@@ -1,8 +1,22 @@
-import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
+import {
+	Avatar,
+	Div,
+	Group,
+	Panel,
+	PanelHeader,
+	PanelHeaderBack,
+	Title,
+	Text,
+} from "@vkontakte/vkui";
 import React, { useEffect, useState } from "react";
 
 import styles from "./ClubPage.module.css";
 import { emptyClubData, getClub } from "./api";
+import { ClubBar } from "./ClubBar";
+import { ClubEvents } from "./ClubEvents";
+import { ClubGarage } from "./ClubGarage";
+import { ClubMembers } from "./ClubMembers";
+import { ClubSubscribers } from "./ClubSubscribers";
 
 interface Props {
 	id: string;
@@ -10,7 +24,15 @@ interface Props {
 	onBackClick: () => void;
 }
 
+export enum Tab {
+	Events = "events",
+	Garage = "garage",
+	Members = "members",
+	Subscribers = "subscribers",
+}
+
 export const ClubPage: React.FC<Props> = ({ id, clubId, onBackClick }) => {
+	const [activeTab, setActiveTab] = useState(Tab.Events);
 	const [clubData, setClubData] = useState(emptyClubData);
 
 	const handleGetClubData = async (): Promise<void> => {
@@ -35,6 +57,22 @@ export const ClubPage: React.FC<Props> = ({ id, clubId, onBackClick }) => {
 			>
 				Клуб
 			</PanelHeader>
+			<Div className={styles.top}>
+				<Group className={styles.topTitle}>
+					<Title level="3" weight="semibold">
+						{clubData.name}
+					</Title>
+					<Text weight="regular" style={{ color: "var(--text_secondary)" }}>
+						{clubData.tags.join(", ")}
+					</Text>
+				</Group>
+				<Avatar size={96} src="https://a.d-cd.net/PQAAAgANmOA-1920.jpg" />
+			</Div>
+			<ClubBar activeTab={activeTab} setActive={setActiveTab} />
+			{activeTab === Tab.Events && <ClubEvents />}
+			{activeTab === Tab.Garage && <ClubGarage />}
+			{activeTab === Tab.Members && <ClubMembers />}
+			{activeTab === Tab.Subscribers && <ClubSubscribers />}
 		</Panel>
 	);
 };

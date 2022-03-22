@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AppRoot, Epic } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
+import "@vkontakte/vkui/dist/unstable.css";
 import { MainTab } from "./tabs/MainTab";
 import { MapTab } from "./tabs/MapTab";
 import { ProfileTab } from "./tabs/ProfileTab";

@@ -6,6 +6,7 @@ export const getClub = (id: number): Promise<ClubData> => {
 		id: data.id,
 		name: data.name,
 		description: data.description,
+		tags: data.tags,
 		avatar: data.avatar,
 	}));
 };

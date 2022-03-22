@@ -3,7 +3,11 @@ import { EventData } from "./api.types";
 export const emptyEventData: EventData = {
 	id: 0,
 	name: "",
-	club: 1,
+	club: {
+		id: 1,
+		name: "",
+		avatar: "",
+	},
 	description: "",
 	event_date: "",
 	location: {

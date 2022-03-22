@@ -1,3 +1,3 @@
-export { createNewClub } from "./api";
+export { getTagsList, createNewClub } from "./api";
 export { isCreateClubFormFilled } from "./api.utils";
-export { emptyCreateClubForm } from "./api.consts";
+export { emptyCreateClubForm, emptyClubTags } from "./api.consts";

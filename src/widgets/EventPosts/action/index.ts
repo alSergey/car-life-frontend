@@ -1,1 +1,0 @@
-export { apiGetEventPosts } from "./action";

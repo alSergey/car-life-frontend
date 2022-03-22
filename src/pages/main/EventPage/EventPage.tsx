@@ -9,11 +9,11 @@ import {
 } from "@vkontakte/vkui";
 import React, { useEffect, useState } from "react";
 import { emptyEventData, getEvent } from "./api";
-import { EventInfo } from "../../../components/EventInfo";
-import { EventMembers } from "../../../widgets/EventMembers";
-import { EventGarage } from "../../../widgets/EventGarage";
-import { EventPosts } from "../../../widgets/EventPosts";
-import { EventBar } from "../../../components/EventBar";
+import { EventInfo } from "./EventInfo";
+import { EventMembers } from "./EventMembers";
+import { EventGarage } from "./EventGarage";
+import { EventPosts } from "./EventPosts";
+import { EventBar } from "./EventBar";
 import styles from "./EventPage.module.css";
 
 interface Props {
@@ -71,9 +71,7 @@ export const EventPage: React.FC<Props> = ({ id, eventId, onBackClick }) => {
 				</Button>
 			</Group>
 			<EventBar activeTab={activeTab} setActive={setActiveTab} />
-			{activeTab === Tab.Info && (
-				<EventInfo description={eventData.description} />
-			)}
+			{activeTab === Tab.Info && <EventInfo event={eventData} />}
 			{activeTab === Tab.Members && <EventMembers id={eventData.id} />}
 			{activeTab === Tab.Garage && <EventGarage id={eventData.id} />}
 			{activeTab === Tab.Posts && <EventPosts id={eventData.id} />}
