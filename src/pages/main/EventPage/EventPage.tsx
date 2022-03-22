@@ -1,11 +1,11 @@
 import {
 	Button,
-	Div,
 	Group,
 	Panel,
 	PanelHeader,
 	PanelHeaderBack,
 	Title,
+	Text,
 } from "@vkontakte/vkui";
 import React, { useEffect, useState } from "react";
 import { emptyEventData, getEvent } from "./api";
@@ -55,21 +55,20 @@ export const EventPage: React.FC<Props> = ({ id, eventId, onBackClick }) => {
 			>
 				Событие
 			</PanelHeader>
-			<img src={eventData.avatar} alt="" />
+			<img
+				src="https://klike.net/uploads/posts/2019-05/medium/1559021804_2.jpg"
+				alt=""
+			/>
 			<Group separator="hide" style={{ marginLeft: 15 }}>
-				<Title level="1" style={{ marginBottom: 16 }} weight="bold">
+				<Title level="1" style={{ marginBottom: 5 }} weight="bold">
 					{eventData.name}
 				</Title>
-				<Title level="3" weight="semibold">
+				<Text weight="regular" style={{ marginBottom: 10 }}>
 					{new Date(eventData.event_date).toLocaleString()}
-				</Title>
-				<Div
-					style={{ justifyContent: "center", paddingBottom: 0, paddingLeft: 0 }}
-				>
-					<Button mode="outline" size="m" type="submit" width={200}>
-						Участвовать
-					</Button>
-				</Div>
+				</Text>
+				<Button stretched size="m">
+					Участвовать
+				</Button>
 			</Group>
 			<EventBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === Tab.Info && (
