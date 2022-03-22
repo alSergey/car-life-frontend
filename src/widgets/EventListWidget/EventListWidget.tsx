@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { CardGrid, Footer } from "@vkontakte/vkui";
-import { EventCard } from "../../components/EventCard";
-import { apiGetEvents } from "./action";
-import { EventData } from "./action/action.types";
+import { EventCard } from "./EventCard";
+import { emptyEventList, getEventList } from "./api";
 
 interface Props {
 	searchText: string;
 	onClick: (id: number) => void;
 }
 
-const defaultEventList: EventData[] = [];
-
-export const EventListWidget: React.FC<Props> = (props) => {
-	const { searchText, onClick } = props;
-	const [eventList, setEventList] = useState(defaultEventList);
+export const EventListWidget: React.FC<Props> = ({ searchText, onClick }) => {
+	const [eventList, setEventList] = useState(emptyEventList);
 
 	const filteredEventList = React.useMemo(
-		() => eventList.filter(({ name }) => name.includes(searchText)),
+		() => eventList.filter(({ name }) => name?.includes(searchText)),
 		[eventList, searchText]
 	);
 
-	const getEvents = async (): Promise<void> => {
+	const handleGetEventList = async (): Promise<void> => {
 		try {
-			const data = await apiGetEvents();
+			const data = await getEventList();
 			setEventList(data);
 		} catch (err) {
 			console.error(err);
@@ -30,7 +26,7 @@ export const EventListWidget: React.FC<Props> = (props) => {
 	};
 
 	useEffect(() => {
-		getEvents();
+		handleGetEventList();
 	}, []);
 
 	return (

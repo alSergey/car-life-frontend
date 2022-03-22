@@ -1,48 +1,43 @@
 import { Tabs, TabsItem } from "@vkontakte/vkui";
-import {
-	ID_GARAGE,
-	ID_INFO,
-	ID_MEMBERS,
-	ID_POSTS,
-} from "../../constants/config";
 import React from "react";
+import { Tab } from "../../pages/main/EventPage/EventPage";
 
 interface Props {
 	activeTab: string;
-	setActive: (tab: string) => void;
+	setActive: (tab: Tab) => void;
 }
 
 export const EventBar: React.FC<Props> = ({ activeTab, setActive }) => {
 	return (
 		<Tabs style={{ fontSize: "10px", lineHeight: "12px" }}>
 			<TabsItem
-				selected={activeTab === ID_INFO}
+				selected={activeTab === Tab.Info}
 				onClick={() => {
-					setActive(ID_INFO);
+					setActive(Tab.Info);
 				}}
 			>
 				Подробности
 			</TabsItem>
 			<TabsItem
-				selected={activeTab === ID_MEMBERS}
+				selected={activeTab === Tab.Members}
 				onClick={() => {
-					setActive(ID_MEMBERS);
+					setActive(Tab.Members);
 				}}
 			>
 				Участники
 			</TabsItem>
 			<TabsItem
-				selected={activeTab === ID_GARAGE}
+				selected={activeTab === Tab.Garage}
 				onClick={() => {
-					setActive(ID_GARAGE);
+					setActive(Tab.Garage);
 				}}
 			>
 				Гараж
 			</TabsItem>
 			<TabsItem
-				selected={activeTab === ID_POSTS}
+				selected={activeTab === Tab.Posts}
 				onClick={() => {
-					setActive(ID_POSTS);
+					setActive(Tab.Posts);
 				}}
 			>
 				Посты

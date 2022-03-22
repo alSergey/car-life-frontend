@@ -1,33 +1,32 @@
 import React, { useState } from "react";
 import {
 	FormItem,
-	Input,
-	Textarea,
 	FormLayout,
 	Button,
-	FormLayoutGroup,
 	FormStatus,
 	FixedLayout,
+	Input,
+	Textarea,
 	File,
 } from "@vkontakte/vkui";
-import { Icon24Camera } from "@vkontakte/icons";
 import {
-	emptyCreateEventForm,
-	createNewEvent,
-	isCreateEventFormFilled,
+	createNewClub,
+	emptyCreateClubForm,
+	isCreateClubFormFilled,
 } from "./api";
+import { Icon24Camera } from "@vkontakte/icons";
 
 interface Props {
-	onSubmit: (eventId: number) => void;
+	onSubmit: (clubId: number) => void;
 }
 
-export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
-	const [form, setFormData] = useState(emptyCreateEventForm);
+export const CreateClubWidget: React.FC<Props> = ({ onSubmit }) => {
+	const [form, setFormData] = useState(emptyCreateClubForm);
 	const [error, setError] = useState("");
 
 	const handleSubmit = async (): Promise<void> => {
 		try {
-			const id = await createNewEvent(form);
+			const id = await createNewClub(form);
 			if (!id) return;
 
 			onSubmit(id);
@@ -77,35 +76,6 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 					}}
 				/>
 			</FormItem>
-			<FormLayoutGroup mode="horizontal">
-				<FormItem top="Время">
-					<Input
-						type="date"
-						value={form.date}
-						onChange={({ target: { value } }) => {
-							setFormData({
-								...form,
-								date: value,
-							});
-						}}
-					/>
-				</FormItem>
-				<FormItem top="Дата">
-					<Input
-						type="time"
-						value={form.time}
-						onChange={({ target: { value } }) => {
-							setFormData({
-								...form,
-								time: value,
-							});
-						}}
-					/>
-				</FormItem>
-			</FormLayoutGroup>
-			<FormItem top="Место">
-				<Input type="text" value={form.location.description} disabled />
-			</FormItem>
 			<FormItem top="Аватарка">
 				<File
 					stretched
@@ -131,7 +101,7 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 						stretched
 						size="l"
 						type="submit"
-						disabled={!isCreateEventFormFilled(form)}
+						disabled={!isCreateClubFormFilled(form)}
 					>
 						Создать
 					</Button>

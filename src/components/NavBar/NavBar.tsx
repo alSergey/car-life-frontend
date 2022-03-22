@@ -5,41 +5,46 @@ import {
 	Icon28NewsfeedOutline,
 	Icon28UserCircleOutline,
 } from "@vkontakte/icons";
-import { ID_MAIN, ID_MAP, ID_PROFILE } from "../../constants/config";
 
 interface Props {
+	mainTab: string;
+	mapTab: string;
+	profileTab: string;
 	activeStory: string;
-	onClubsClick: () => void;
+	onMainClick: () => void;
 	onMapClick: () => void;
 	onProfileClick: () => void;
 }
 
 export const NavBar: React.FC<Props> = ({
+	mainTab,
+	mapTab,
+	profileTab,
 	activeStory,
-	onClubsClick,
+	onMainClick,
 	onMapClick,
 	onProfileClick,
 }) => (
 	<Tabbar>
 		<TabbarItem
-			selected={activeStory === ID_MAIN}
-			data-story={ID_MAIN}
-			onClick={onClubsClick}
-			text="Клубы"
+			selected={activeStory === mainTab}
+			data-story={mainTab}
+			onClick={onMainClick}
+			text="Главная"
 		>
 			<Icon28NewsfeedOutline />
 		</TabbarItem>
 		<TabbarItem
-			selected={activeStory === ID_MAP}
-			data-story={ID_MAP}
+			selected={activeStory === mapTab}
+			data-story={mapTab}
 			onClick={onMapClick}
 			text="Карта"
 		>
 			<Icon28LocationMapOutline />
 		</TabbarItem>
 		<TabbarItem
-			selected={activeStory === ID_PROFILE}
-			data-story={ID_PROFILE}
+			selected={activeStory === profileTab}
+			data-story={profileTab}
 			onClick={onProfileClick}
 			text="Профиль"
 		>

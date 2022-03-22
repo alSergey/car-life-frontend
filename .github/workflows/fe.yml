@@ -6,17 +6,22 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Install Node
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+        uses: actions/setup-node@v1
         with:
           node-version: 16
 
+      - name: Install deps
+        run: npm ci
+
       - name: Eslint
-      - uses: npm run eslint
+        run: npm run eslint
 
       - name: Stylelint
-      - uses: npm run stylelint
+        run: npm run stylelint
 
       - name: Typescript
-      - uses: tsc
+        run: npm run tscompile
