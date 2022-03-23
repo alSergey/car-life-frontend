@@ -1,5 +1,6 @@
 import React from "react";
 import { ContentCard } from "@vkontakte/vkui";
+import { getStaticUrl } from "../../../constants/url";
 
 interface Props {
 	title: string;
@@ -17,7 +18,7 @@ export const ClubCard: React.FC<Props> = ({
 	<ContentCard
 		header={title}
 		caption={`${subscribers} участников`}
-		image="https://a.d-cd.net/PQAAAgANmOA-1920.jpg"
+		image={getStaticUrl(img)}
 		maxHeight={150}
 		onClick={onClick}
 	/>

@@ -15,6 +15,7 @@ import { EventGarage } from "./EventGarage";
 import { EventPosts } from "./EventPosts";
 import { EventBar } from "./EventBar";
 import styles from "./EventPage.module.css";
+import { getStaticUrl } from "../../../constants/url";
 
 interface Props {
 	id: string;
@@ -55,10 +56,7 @@ export const EventPage: React.FC<Props> = ({ id, eventId, onBackClick }) => {
 			>
 				Событие
 			</PanelHeader>
-			<img
-				src="https://klike.net/uploads/posts/2019-05/medium/1559021804_2.jpg"
-				alt=""
-			/>
+			<img src={getStaticUrl(eventData.avatar)} />
 			<Group separator="hide" style={{ marginLeft: 15, marginRight: 15 }}>
 				<Title level="1" style={{ marginBottom: 5 }} weight="bold">
 					{eventData.name}
