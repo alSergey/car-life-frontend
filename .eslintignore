@@ -3,5 +3,4 @@ dist
 .eslintrc.js
 src/api
 scripts
-express.js
 src/setupProxy.js

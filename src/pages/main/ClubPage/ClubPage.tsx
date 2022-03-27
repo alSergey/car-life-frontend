@@ -17,7 +17,6 @@ import { ClubEvents } from "./ClubEvents";
 import { ClubGarage } from "./ClubGarage";
 import { ClubMembers } from "./ClubMembers";
 import { ClubSubscribers } from "./ClubSubscribers";
-import { getStaticUrl } from "../../../constants/url";
 
 interface Props {
 	id: string;
@@ -67,7 +66,7 @@ export const ClubPage: React.FC<Props> = ({ id, clubId, onBackClick }) => {
 						{clubData.tags.join(", ")}
 					</Text>
 				</Group>
-				<Avatar size={96} src={getStaticUrl(clubData.avatar)} />
+				<Avatar size={96} src={clubData.avatar} />
 			</Div>
 			<ClubBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === Tab.Events && <ClubEvents />}

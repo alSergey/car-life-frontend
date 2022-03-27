@@ -1,6 +1,5 @@
 import React from "react";
 import { ContentCard } from "@vkontakte/vkui";
-import { getStaticUrl } from "../../../constants/url";
 
 interface Props {
 	title: string;
@@ -12,7 +11,7 @@ interface Props {
 export const EventCard: React.FC<Props> = ({ title, date, img, onClick }) => (
 	<ContentCard
 		header={title}
-		image={getStaticUrl(img)}
+		image={img}
 		caption={new Date(date).toLocaleString()}
 		maxHeight={150}
 		onClick={onClick}
