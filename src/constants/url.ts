@@ -1,5 +1,4 @@
-export const backBaseUrl = "http://localhost:8080/api/v1";
-// export const backBaseUrl = "/api/v1";
+// export const backBaseUrl = "http://localhost:8080/api/v1";
+export const backBaseUrl = "/api/v1";
 
-export const getStaticUrl = (url: string): string =>
-	`http://localhost:3000${url}`;
+export const getStaticUrl = (url: string): string => url;

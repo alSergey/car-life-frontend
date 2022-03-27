@@ -4,3 +4,4 @@ dist
 src/api
 scripts
 express.js
+src/setupProxy.js
