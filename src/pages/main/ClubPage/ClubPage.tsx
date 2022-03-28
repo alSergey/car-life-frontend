@@ -65,6 +65,9 @@ export const ClubPage: React.FC<Props> = ({ id, clubId, onBackClick }) => {
 					<Text weight="regular" style={{ color: "var(--text_secondary)" }}>
 						{clubData.tags.join(", ")}
 					</Text>
+					<Text weight="regular" style={{ color: "var(--text_secondary)" }}>
+						{clubData.description}
+					</Text>
 				</Group>
 				<Avatar size={96} src={clubData.avatar} />
 			</Div>
