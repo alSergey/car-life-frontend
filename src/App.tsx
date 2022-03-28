@@ -33,7 +33,7 @@ const App: React.FC = () => {
 				}
 			>
 				<MainTab id={Tab.Main} />
-				<MapTab id={Tab.Main} />
+				<MapTab id={Tab.Map} />
 				<ProfileTab id={Tab.Profile} />
 			</Epic>
 		</AppRoot>

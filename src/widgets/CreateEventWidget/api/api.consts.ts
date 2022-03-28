@@ -7,8 +7,7 @@ export const emptyCreateEventForm: CreateEventForm = {
 	time: "",
 	file: null,
 	location: {
-		description: "Москва",
-		longitude: 0,
-		latitude: 0,
+		longitude: 37.573856,
+		latitude: 55.751574,
 	},
 };

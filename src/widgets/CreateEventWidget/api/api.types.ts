@@ -1,5 +1,4 @@
 interface EventLocation {
-	description: string;
 	latitude: number;
 	longitude: number;
 }

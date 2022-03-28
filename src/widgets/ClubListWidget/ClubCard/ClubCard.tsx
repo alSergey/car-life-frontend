@@ -16,6 +16,7 @@ export const ClubCard: React.FC<Props> = ({
 	onClick,
 }) => (
 	<ContentCard
+		style={{ height: "230px" }}
 		header={title}
 		caption={`${subscribers} участников`}
 		image={getStaticUrl(img)}

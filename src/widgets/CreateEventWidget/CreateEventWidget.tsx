@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
 	FormItem,
 	Input,
@@ -16,6 +16,8 @@ import {
 	createNewEvent,
 	isCreateEventFormFilled,
 } from "./api";
+import { YMaps, Map, SearchControl, Placemark } from "react-yandex-maps";
+import { YandexKey } from "../../constants/yandexKey";
 
 interface Props {
 	onSubmit: (eventId: number) => void;
@@ -24,6 +26,7 @@ interface Props {
 export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 	const [form, setFormData] = useState(emptyCreateEventForm);
 	const [error, setError] = useState("");
+	const myMap = useRef(null);
 
 	const handleSubmit = async (): Promise<void> => {
 		try {
@@ -37,12 +40,14 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 		}
 	};
 
+	// @ts-ignore
 	return (
 		<FormLayout
 			onSubmit={(e) => {
 				e.preventDefault();
 				handleSubmit();
 			}}
+			style={{ marginBottom: "70px" }}
 		>
 			{error && (
 				<FormItem>
@@ -104,7 +109,52 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 				</FormItem>
 			</FormLayoutGroup>
 			<FormItem top="Место">
-				<Input type="text" value={form.location.description} disabled />
+				{/* <Input type="text" value={form.location.description} disabled /> */}
+				<YMaps query={YandexKey}>
+					<Map
+						defaultState={{
+							center: [form.location.latitude, form.location.longitude],
+							zoom: 11,
+						}}
+						width={"100%"}
+						height={"400px"}
+						options={{
+							yandexMapDisablePoiInteractivity: true,
+							suppressMapOpenBlock: true,
+						}}
+						instanceRef={(ref) => {
+							// @ts-ignore
+							if (ref) myMap.current = ref;
+						}}
+					>
+						<SearchControl
+							onResultShow={(res: any) => {
+								const resIndex = res.originalEvent.index;
+								const coordinates =
+									res.originalEvent.target.state._data.results[resIndex]
+										.geometry._coordinates;
+								if (coordinates) {
+									setFormData({
+										...form,
+										location: {
+											latitude: coordinates[0],
+											longitude: coordinates[1],
+										},
+									});
+								}
+							}}
+							modules={["geocode"]}
+							options={{
+								float: "right",
+								provider: "yandex#map",
+								noPlacemark: true,
+							}}
+						/>
+						<Placemark
+							geometry={[form.location.latitude, form.location.longitude]}
+						/>
+					</Map>
+				</YMaps>
 			</FormItem>
 			<FormItem top="Аватарка">
 				<File
