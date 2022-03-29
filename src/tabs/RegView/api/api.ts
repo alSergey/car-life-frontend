@@ -9,7 +9,7 @@ export const regUser = (form: RegForm): Promise<number | undefined> => {
 	return api.signup
 		.signupCreate({
 			avatarUrl: form.userForm.photo_max_orig,
-			vkid: 0,
+			vkid: form.userForm.id,
 			name: form.userForm.first_name,
 			surname: form.userForm.last_name,
 			garage: [
