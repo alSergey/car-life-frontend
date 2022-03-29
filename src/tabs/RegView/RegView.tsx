@@ -5,8 +5,8 @@ import { RegPage } from "../../pages/reg/RegPage";
 import { CarPage } from "../../pages/reg/CarPage";
 import { emptyRegForm } from "./api";
 import { FavPage } from "../../pages/reg/FavPage";
-// eslint-disable-next-line import/named
 import bridge from "@vkontakte/vk-bridge";
+import { regUser } from "./api/api";
 
 interface Prop {
 	id: string;
@@ -20,7 +20,7 @@ enum Pages {
 	Reg = "reg",
 }
 
-export const RegView: React.FC<Prop> = ({ id }) => {
+export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
 	const [activePanel, setActivePanel] = useState(Pages.Welcome);
 	const [form, setForm] = useState(emptyRegForm);
 
@@ -31,6 +31,15 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 				...form,
 				userForm,
 			});
+		} catch (e) {
+			console.error(e);
+		}
+	};
+
+	const handleReg = async (): Promise<void> => {
+		try {
+			await regUser(form);
+			onSubmit();
 		} catch (e) {
 			console.error(e);
 		}
@@ -71,7 +80,7 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 			<RegPage
 				id={Pages.Reg}
 				onBackClick={() => setActivePanel(Pages.Car)}
-				onNextClick={() => console.log(form)}
+				onNextClick={handleReg}
 			/>
 		</View>
 	);

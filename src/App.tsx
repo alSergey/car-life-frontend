@@ -1,43 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "@vkontakte/vkui/dist/vkui.css";
 import "@vkontakte/vkui/dist/unstable.css";
-import bridge from "@vkontakte/vk-bridge";
 import { AppRoot, Epic } from "@vkontakte/vkui";
 import { NavBar } from "./components/NavBar";
 import { MainTab } from "./tabs/MainTab";
 import { MapTab } from "./tabs/MapTab";
 import { ProfileTab } from "./tabs/ProfileTab";
 import { RegView } from "./tabs/RegView";
-import { api } from "./api";
+import { LoaderView } from "./tabs/LoaderView";
 
 enum Tab {
 	Main = "main",
 	Map = "map",
 	Profile = "profile",
+	Loader = "loader",
 	Reg = "reg",
 }
 
 const App: React.FC = () => {
-	const [activeView, setActiveView] = useState(Tab.Reg);
-
-	const fetchData = async () => {
-		const userData = await bridge.send("VKWebAppGetUserInfo");
-
-		const session = await api.login.loginCreate({
-			vkid: userData.id,
-		});
-
-		if (session.status === 401) {
-			setActiveView(Tab.Reg);
-			return;
-		}
-
-		setActiveView(Tab.Main);
-	};
-
-	useEffect(() => {
-		fetchData();
-	}, []);
+	const [activeView, setActiveView] = useState(Tab.Loader);
 
 	return (
 		<AppRoot>
@@ -61,7 +42,16 @@ const App: React.FC = () => {
 					<ProfileTab id={Tab.Profile} />
 				</Epic>
 			)}
-			<RegView id={Tab.Reg} onSubmit={() => setActiveView(Tab.Main)} />
+			{activeView === Tab.Loader && (
+				<LoaderView
+					id={Tab.Loader}
+					onLogin={() => setActiveView(Tab.Main)}
+					onReg={() => setActiveView(Tab.Reg)}
+				/>
+			)}
+			{activeView === Tab.Reg && (
+				<RegView id={Tab.Reg} onSubmit={() => setActiveView(Tab.Main)} />
+			)}
 		</AppRoot>
 	);
 };

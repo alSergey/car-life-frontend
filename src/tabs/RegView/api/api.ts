@@ -16,19 +16,19 @@ export const regUser = (form: RegForm): Promise<number | undefined> => {
 				{
 					brand: form.carForm.brand,
 					model: form.carForm.model,
-					date: new Date(`${form.carForm.date}T$00:00:00Z`).toISOString(),
+					date: new Date(form.carForm.date).toISOString(),
 					description: form.carForm.description,
 				},
 			],
-			tags: form.favForm.tags.map(({ value }) => value),
+			tags: form.favForm.tags.map(({ label }) => label),
 		})
 		.then(({ data }) => {
-			if (!form.carForm?.file) return;
+			if (!form.carForm?.file || !data.garage[0]) return;
 
 			const formData = new FormData();
 			formData.append("file-upload", form.carForm.file);
 
-			return fetch(`${backBaseUrl}/garage/${data.vkid}/upload`, {
+			return fetch(`${backBaseUrl}/garage/${data.garage[0].id}/upload`, {
 				method: "POST",
 				body: formData,
 			}).then(() => data.vkid);

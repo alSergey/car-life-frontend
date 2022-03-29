@@ -10,13 +10,13 @@
  */
 
 export interface ModelsCarCard {
-  avatarUrl?: string;
-  brand?: string;
-  date?: string;
-  description?: string;
-  id?: number;
-  model?: string;
-  ownerID?: number;
+  avatar_url: string;
+  brand: string;
+  date: string;
+  description: string;
+  id: number;
+  model: string;
+  owner_id: number;
 }
 
 export interface ModelsCarRequest {
@@ -102,15 +102,15 @@ export interface ModelsTag {
 }
 
 export interface ModelsUser {
-  avatarUrl?: string;
-  garage?: ModelsCarCard[];
-  name?: string;
-  ownClubs?: ModelsClubCard[];
-  participantClubs?: ModelsClubCard[];
-  participantEvents?: ModelsEventCard[];
-  surname?: string;
-  tags?: string[];
-  vkid?: number;
+  avatar_url: string;
+  garage: ModelsCarCard[];
+  name: string;
+  own_clubs: ModelsClubCard[];
+  participant_clubs: ModelsClubCard[];
+  participant_events: ModelsEventCard[];
+  surname: string;
+  tags: string[];
+  vkid: number;
 }
 
 export interface UtilsError {
@@ -451,6 +451,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
+  me = {
+    /**
+     * @description Handler for getting a user by id
+     *
+     * @tags Users
+     * @name GetMe
+     * @summary get user by id
+     * @request GET:/me
+     */
+    getMe: (params: RequestParams = {}) =>
+      this.request<ModelsUser, UtilsError>({
+        path: `/me`,
+        method: "GET",
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
   signup = {
     /**
      * @description Handler for signing up new user
@@ -465,6 +483,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/signup`,
         method: "POST",
         body: body,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
+  user = {
+    /**
+     * @description Handler for getting a user by id
+     *
+     * @tags Users
+     * @name UserDetail
+     * @summary get user by id
+     * @request GET:/user/{id}
+     */
+    userDetail: (id: number, params: RequestParams = {}) =>
+      this.request<ModelsUser, UtilsError>({
+        path: `/user/${id}`,
+        method: "GET",
         type: ContentType.Json,
         format: "json",
         ...params,
