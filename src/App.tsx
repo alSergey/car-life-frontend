@@ -51,7 +51,7 @@ const App: React.FC = () => {
 					<ProfileTab id={Tab.Profile} />
 				</Epic>
 			)}
-			<RegView id={Tab.Reg} />
+			<RegView id={Tab.Reg} onSubmit={() => true} />
 		</AppRoot>
 	);
 };

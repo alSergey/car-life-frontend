@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
 	Button,
 	File,
+	FixedLayout,
 	FormItem,
 	FormLayout,
 	Input,
@@ -10,23 +11,22 @@ import {
 	PanelHeaderBack,
 	Textarea,
 } from "@vkontakte/vkui";
-import styles from "./CarPage.module.css";
-import { RegForm } from "../../../tabs/RegView/api";
-import { emptyCarForm, isCarFormFilled } from "./api";
 import { Icon24Camera } from "@vkontakte/icons";
+import styles from "./CarPage.module.css";
+import { CarForm, emptyCarForm, isCarFormFilled } from "./api";
 
 interface Props {
 	id: string;
-	form: RegForm;
-	onFormChange: (form: RegForm) => void;
+	onFormSubmit: (form: CarForm) => void;
 	onBackClick: () => void;
+	onNextClick: () => void;
 }
 
 export const CarPage: React.FC<Props> = ({
 	id,
-	form,
-	onFormChange,
 	onBackClick,
+	onNextClick,
+	onFormSubmit,
 }) => {
 	const [carForm, setCarForm] = useState(emptyCarForm);
 
@@ -37,16 +37,13 @@ export const CarPage: React.FC<Props> = ({
 					<PanelHeaderBack className={styles.backIcon} onClick={onBackClick} />
 				}
 			>
-				Добавление автомобиля
+				Автомобиль
 			</PanelHeader>
 			<FormLayout
 				onSubmit={(e) => {
 					e.preventDefault();
-					onFormChange({
-						...form,
-						car: carForm,
-					});
-					onBackClick();
+					onFormSubmit(carForm);
+					onNextClick();
 				}}
 			>
 				<FormItem top="Бренд">
@@ -120,16 +117,18 @@ export const CarPage: React.FC<Props> = ({
 						Открыть галерею
 					</File>
 				</FormItem>
-				<FormItem>
-					<Button
-						stretched
-						size="l"
-						type="submit"
-						disabled={!isCarFormFilled(carForm)}
-					>
-						Добавить
-					</Button>
-				</FormItem>
+				<FixedLayout vertical="bottom">
+					<FormItem>
+						<Button
+							stretched
+							size="l"
+							type="submit"
+							disabled={!isCarFormFilled(carForm)}
+						>
+							Дальше
+						</Button>
+					</FormItem>
+				</FixedLayout>
 			</FormLayout>
 		</Panel>
 	);

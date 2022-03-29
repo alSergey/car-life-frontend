@@ -4,15 +4,18 @@ import { WelcomePage } from "../../pages/reg/WelcomePage";
 import { RegPage } from "../../pages/reg/RegPage";
 import { CarPage } from "../../pages/reg/CarPage";
 import { emptyRegForm } from "./api";
+import { FavPage } from "../../pages/reg/FavPage";
 
 interface Prop {
 	id: string;
+	onSubmit: () => void;
 }
 
 enum Pages {
 	Welcome = "welcome",
-	Reg = "reg",
+	Fav = "fav",
 	Car = "car",
+	Reg = "reg",
 }
 
 export const RegView: React.FC<Prop> = ({ id }) => {
@@ -23,19 +26,34 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 		<View activePanel={activePanel} id={id}>
 			<WelcomePage
 				id={Pages.Welcome}
-				onNextClick={() => setActivePanel(Pages.Reg)}
+				onNextClick={() => setActivePanel(Pages.Fav)}
 			/>
-			<RegPage
-				id={Pages.Reg}
-				form={form}
-				onFormChange={setForm}
-				onCarClick={() => setActivePanel(Pages.Car)}
+			<FavPage
+				id={Pages.Fav}
+				onBackClick={() => setActivePanel(Pages.Welcome)}
+				onNextClick={() => setActivePanel(Pages.Car)}
+				onFormSubmit={(favForm) => {
+					setForm({
+						...form,
+						favForm,
+					});
+				}}
 			/>
 			<CarPage
 				id={Pages.Car}
-				form={form}
-				onFormChange={setForm}
-				onBackClick={() => setActivePanel(Pages.Reg)}
+				onBackClick={() => setActivePanel(Pages.Fav)}
+				onNextClick={() => setActivePanel(Pages.Reg)}
+				onFormSubmit={(carForm) => {
+					setForm({
+						...form,
+						carForm,
+					});
+				}}
+			/>
+			<RegPage
+				id={Pages.Reg}
+				onBackClick={() => setActivePanel(Pages.Car)}
+				onNextClick={() => console.log(form)}
 			/>
 		</View>
 	);

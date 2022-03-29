@@ -1,61 +1,27 @@
 import React from "react";
-import {
-	Button,
-	FixedLayout,
-	FormItem,
-	FormLayout,
-	Panel,
-	PanelHeader,
-} from "@vkontakte/vkui";
-import { TagWidget } from "../../../widgets/TagWidget";
-import { RegForm } from "../../../tabs/RegView/api";
+import { Button, Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
+import styles from "./RegPage.module.css";
 
 interface Props {
 	id: string;
-	form: RegForm;
-	onFormChange: (form: RegForm) => void;
-	onCarClick: () => void;
+	onBackClick: () => void;
+	onNextClick: () => void;
 }
 
-export const RegPage: React.FC<Props> = ({
-	id,
-	form,
-	onCarClick,
-	onFormChange,
-}) => {
+export const RegPage: React.FC<Props> = ({ id, onBackClick, onNextClick }) => {
 	return (
-		<Panel id={id}>
-			<PanelHeader>Регистрация</PanelHeader>
-			<FormLayout>
-				<FormItem top="Выберите интересы">
-					<TagWidget
-						values={form.tags}
-						onChange={(tags) => {
-							onFormChange({
-								...form,
-								tags,
-							});
-						}}
-					/>
-				</FormItem>
-				<FormItem>
-					<Button
-						stretched
-						size="l"
-						disabled={Boolean(form.car)}
-						onClick={onCarClick}
-					>
-						Добавить автомобиль
-					</Button>
-				</FormItem>
-				<FixedLayout vertical="bottom">
-					<FormItem>
-						<Button stretched size="l" onClick={onCarClick}>
-							Регистрация
-						</Button>
-					</FormItem>
-				</FixedLayout>
-			</FormLayout>
+		<Panel id={id} centered>
+			<PanelHeader
+				left={
+					<PanelHeaderBack className={styles.backIcon} onClick={onBackClick} />
+				}
+			>
+				Регистрация
+			</PanelHeader>
+			<div className={styles.container}>
+				<span>В путь</span>
+				<Button onClick={onNextClick}>Продолжить</Button>
+			</div>
 		</Panel>
 	);
 };
