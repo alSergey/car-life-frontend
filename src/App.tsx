@@ -8,6 +8,7 @@ import { MainTab } from "./tabs/MainTab";
 import { MapTab } from "./tabs/MapTab";
 import { ProfileTab } from "./tabs/ProfileTab";
 import { RegView } from "./tabs/RegView";
+import { api } from "./api";
 
 enum Tab {
 	Main = "main",
@@ -20,9 +21,18 @@ const App: React.FC = () => {
 	const [activeView, setActiveView] = useState(Tab.Reg);
 
 	const fetchData = async () => {
-		const user = await bridge.send("VKWebAppGetUserInfo");
+		const userData = await bridge.send("VKWebAppGetUserInfo");
 
-		console.log(user);
+		const session = await api.login.loginCreate({
+			vkid: userData.id,
+		});
+
+		if (session.status === 401) {
+			setActiveView(Tab.Reg);
+			return;
+		}
+
+		setActiveView(Tab.Main);
 	};
 
 	useEffect(() => {
@@ -51,7 +61,7 @@ const App: React.FC = () => {
 					<ProfileTab id={Tab.Profile} />
 				</Epic>
 			)}
-			<RegView id={Tab.Reg} onSubmit={() => true} />
+			<RegView id={Tab.Reg} onSubmit={() => setActiveView(Tab.Main)} />
 		</AppRoot>
 	);
 };

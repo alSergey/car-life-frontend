@@ -9,10 +9,38 @@
  * ---------------------------------------------------------------
  */
 
+export interface ModelsCarCard {
+  avatarUrl?: string;
+  brand?: string;
+  date?: string;
+  description?: string;
+  id?: number;
+  model?: string;
+  ownerID?: number;
+}
+
+export interface ModelsCarRequest {
+  brand?: string;
+  date?: string;
+  description?: string;
+  model?: string;
+}
+
 export interface ModelsClub {
   avatar: string;
+  club_events: ModelsEventCard[];
+  club_garage: ModelsCarCard[];
   description: string;
   events_count: number;
+  id: number;
+  name: string;
+  owner_id: number;
+  participants_count: number;
+  tags: string[];
+}
+
+export interface ModelsClubCard {
+  avatar: string;
   id: number;
   name: string;
   participants_count: number;
@@ -45,11 +73,44 @@ export interface ModelsEvent {
   latitude: number;
   longitude: number;
   name: string;
+  participants_count: number;
+}
+
+export interface ModelsEventCard {
+  avatar: string;
+  event_date: string;
+  id: number;
+  name: string;
+}
+
+export interface ModelsLoginRequest {
+  vkid?: number;
+}
+
+export interface ModelsSignUpRequest {
+  avatarUrl?: string;
+  garage?: ModelsCarRequest[];
+  name?: string;
+  surname?: string;
+  tags?: string[];
+  vkid?: number;
 }
 
 export interface ModelsTag {
   id: number;
   name: string;
+}
+
+export interface ModelsUser {
+  avatarUrl?: string;
+  garage?: ModelsCarCard[];
+  name?: string;
+  ownClubs?: ModelsClubCard[];
+  participantClubs?: ModelsClubCard[];
+  participantEvents?: ModelsEventCard[];
+  surname?: string;
+  tags?: string[];
+  vkid?: number;
 }
 
 export interface UtilsError {
@@ -216,7 +277,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       query?: { IdGt?: number; IdLte?: number; Limit?: number; Query?: string },
       params: RequestParams = {},
     ) =>
-      this.request<ModelsClub[], UtilsError>({
+      this.request<ModelsClubCard[], UtilsError>({
         path: `/clubs`,
         method: "GET",
         query: query,
@@ -309,7 +370,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       query?: { IdGt?: number; IdLte?: number; Limit?: number; Query?: string },
       params: RequestParams = {},
     ) =>
-      this.request<ModelsEvent[], UtilsError>({
+      this.request<ModelsEventCard[], UtilsError>({
         path: `/events`,
         method: "GET",
         query: query,
@@ -349,6 +410,62 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "POST",
         body: data,
         type: ContentType.FormData,
+        format: "json",
+        ...params,
+      }),
+  };
+  garage = {
+    /**
+     * @description Handler for creating an event
+     *
+     * @tags Users
+     * @name UploadCreate
+     * @summary upload avatar for car
+     * @request POST:/garage/{id}/upload
+     */
+    uploadCreate: (id: number, data?: any, params: RequestParams = {}) =>
+      this.request<ModelsUser, UtilsError>({
+        path: `/garage/${id}/upload`,
+        method: "POST",
+        body: data,
+        type: ContentType.FormData,
+        format: "json",
+        ...params,
+      }),
+  };
+  login = {
+    /**
+     * @description Handler for signing up new user
+     *
+     * @tags Users
+     * @name LoginCreate
+     * @summary login user
+     * @request POST:/login
+     */
+    loginCreate: (body: ModelsLoginRequest, params: RequestParams = {}) =>
+      this.request<void, UtilsError | void>({
+        path: `/login`,
+        method: "POST",
+        body: body,
+        type: ContentType.Json,
+        ...params,
+      }),
+  };
+  signup = {
+    /**
+     * @description Handler for signing up new user
+     *
+     * @tags Users
+     * @name SignupCreate
+     * @summary sign uo new user
+     * @request POST:/signup
+     */
+    signupCreate: (body: ModelsSignUpRequest, params: RequestParams = {}) =>
+      this.request<ModelsUser, UtilsError>({
+        path: `/signup`,
+        method: "POST",
+        body: body,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
