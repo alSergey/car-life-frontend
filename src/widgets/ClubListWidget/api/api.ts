@@ -1,7 +1,7 @@
 import { api } from "../../../api";
-import { ModelsClub } from "../../../api/Api";
+import { ModelsClubCard } from "../../../api/Api";
 
-export const getClubList = (query: string): Promise<ModelsClub[]> =>
+export const getClubList = (query: string): Promise<ModelsClubCard[]> =>
 	api.clubs
 		.clubsList({
 			Query: query || undefined,

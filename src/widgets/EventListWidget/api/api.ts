@@ -1,7 +1,7 @@
 import { api } from "../../../api";
-import { ModelsEvent } from "../../../api/Api";
+import { ModelsEventCard } from "../../../api/Api";
 
-export const getEventList = (query: string): Promise<ModelsEvent[]> => {
+export const getEventList = (query: string): Promise<ModelsEventCard[]> => {
 	return api.events
 		.eventsList({
 			Query: query || undefined,

@@ -1,3 +1,3 @@
-import { ModelsClub } from "../../../api/Api";
+import { ModelsClubCard } from "../../../api/Api";
 
-export const defaultClubList: ModelsClub[] = [];
+export const defaultClubList: ModelsClubCard[] = [];
