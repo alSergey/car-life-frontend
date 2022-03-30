@@ -22,7 +22,7 @@ const App: React.FC = () => {
 
 	return (
 		<AppRoot>
-			{activeView !== Tab.Reg && (
+			{activeView !== Tab.Reg && activeView !== Tab.Loader && (
 				<Epic
 					activeStory={activeView}
 					tabbar={
@@ -45,12 +45,12 @@ const App: React.FC = () => {
 			{activeView === Tab.Loader && (
 				<LoaderView
 					id={Tab.Loader}
-					onLogin={() => setActiveView(Tab.Main)}
+					onLogin={() => setActiveView(Tab.Map)}
 					onReg={() => setActiveView(Tab.Reg)}
 				/>
 			)}
 			{activeView === Tab.Reg && (
-				<RegView id={Tab.Reg} onSubmit={() => setActiveView(Tab.Main)} />
+				<RegView id={Tab.Reg} onSubmit={() => setActiveView(Tab.Map)} />
 			)}
 		</AppRoot>
 	);

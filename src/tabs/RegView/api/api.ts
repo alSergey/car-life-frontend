@@ -3,23 +3,24 @@ import { api } from "../../../api";
 import { backBaseUrl } from "../../../constants/url";
 
 export const regUser = (form: RegForm): Promise<number | undefined> => {
-	if (!form.userForm || !form.favForm || !form.carForm)
-		throw new Error("Не заполнены все поля");
+	if (!form.favForm) throw new Error("Не заполнены все поля");
 
 	return api.signup
 		.signupCreate({
-			avatarUrl: form.userForm.photo_max_orig,
-			vkid: form.userForm.id,
-			name: form.userForm.first_name,
-			surname: form.userForm.last_name,
-			garage: [
-				{
-					brand: form.carForm.brand,
-					model: form.carForm.model,
-					date: new Date(form.carForm.date).toISOString(),
-					description: form.carForm.description,
-				},
-			],
+			avatarUrl: "",
+			vkid: 14,
+			name: "Але",
+			surname: "Сер",
+			garage: form.carForm
+				? [
+						{
+							brand: form.carForm.brand,
+							model: form.carForm.model,
+							date: new Date(form.carForm.date).toISOString(),
+							description: form.carForm.description,
+						},
+				  ]
+				: [],
 			tags: form.favForm.tags.map(({ label }) => label),
 		})
 		.then(({ data }) => {

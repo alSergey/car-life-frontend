@@ -5,7 +5,7 @@ module.exports = (app) => {
 	if (!target) return;
 
 	app.use(
-		["/api/v1", "/img/clubs", "/img/events"],
+		["/api/v1", "/img/clubs", "/img/events", "/img/cars"],
 		createProxyMiddleware({
 			target,
 			changeOrigin: true,

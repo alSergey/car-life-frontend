@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Panel } from "@vkontakte/vkui";
+import { Button, Div, Panel } from "@vkontakte/vkui";
 import styles from "./WelcomePage.module.css";
 
 interface Props {
@@ -10,10 +10,15 @@ interface Props {
 export const WelcomePage: React.FC<Props> = ({ id, onNextClick }) => {
 	return (
 		<Panel id={id} centered>
-			<div className={styles.container}>
-				<span>Добро пожаловать в приложение для водителей</span>
-				<Button onClick={onNextClick}>Продолжить</Button>
-			</div>
+			<Div className={styles.container}>
+				<span>
+					Мы рады видеть тебя на просторах нашего сообщества, где ты можешь
+					найти клубы по интересам, активные движухи, похвастаться своим авто.
+				</span>
+				<Button size="l" onClick={onNextClick}>
+					Продолжить
+				</Button>
+			</Div>
 		</Panel>
 	);
 };

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import {
 	Button,
 	File,
-	FixedLayout,
 	FormItem,
 	FormLayout,
+	FormLayoutGroup,
 	Input,
 	Panel,
 	PanelHeader,
@@ -39,14 +39,8 @@ export const CarPage: React.FC<Props> = ({
 			>
 				Автомобиль
 			</PanelHeader>
-			<FormLayout
-				onSubmit={(e) => {
-					e.preventDefault();
-					onFormSubmit(carForm);
-					onNextClick();
-				}}
-			>
-				<FormItem top="Бренд">
+			<FormLayout>
+				<FormItem top="Марка">
 					<Input
 						type="text"
 						value={carForm.brand}
@@ -72,20 +66,74 @@ export const CarPage: React.FC<Props> = ({
 						}}
 					/>
 				</FormItem>
-				<FormItem top="Дата изготовления">
+				<FormItem top="Кузов">
 					<Input
-						type="date"
-						value={carForm.date}
+						type="text"
+						value={carForm.body}
 						placeholder="Не указано"
 						onChange={({ target: { value } }) => {
 							setCarForm({
 								...carForm,
-								date: value,
+								body: value,
 							});
 						}}
 					/>
 				</FormItem>
-				<FormItem top="Введите описание">
+				<FormItem top="Мотор">
+					<Input
+						type="text"
+						value={carForm.engine}
+						placeholder="Не указано"
+						onChange={({ target: { value } }) => {
+							setCarForm({
+								...carForm,
+								engine: value,
+							});
+						}}
+					/>
+				</FormItem>
+				<FormLayoutGroup mode="horizontal">
+					<FormItem top="Год выпуска">
+						<Input
+							type="text"
+							value={carForm.horsePower}
+							placeholder="Не указано"
+							onChange={({ target: { value } }) => {
+								setCarForm({
+									...carForm,
+									horsePower: value,
+								});
+							}}
+						/>
+					</FormItem>
+					<FormItem top="Лошадиные силы">
+						<Input
+							type="text"
+							value={carForm.date}
+							placeholder="Не указано"
+							onChange={({ target: { value } }) => {
+								setCarForm({
+									...carForm,
+									date: value,
+								});
+							}}
+						/>
+					</FormItem>
+				</FormLayoutGroup>
+				<FormItem top="Имя">
+					<Input
+						type="text"
+						value={carForm.name}
+						placeholder="Не указано"
+						onChange={({ target: { value } }) => {
+							setCarForm({
+								...carForm,
+								name: value,
+							});
+						}}
+					/>
+				</FormItem>
+				<FormItem top="Описание">
 					<Textarea
 						rows={1}
 						placeholder="Не указано"
@@ -117,18 +165,32 @@ export const CarPage: React.FC<Props> = ({
 						Открыть галерею
 					</File>
 				</FormItem>
-				<FixedLayout vertical="bottom">
+				<FormLayoutGroup mode="horizontal">
+					<FormItem>
+						<Button
+							stretched
+							size="l"
+							mode="secondary"
+							onClick={() => onNextClick()}
+						>
+							Пропустить
+						</Button>
+					</FormItem>
 					<FormItem>
 						<Button
 							stretched
 							size="l"
 							type="submit"
 							disabled={!isCarFormFilled(carForm)}
+							onClick={() => {
+								onFormSubmit(carForm);
+								onNextClick();
+							}}
 						>
 							Дальше
 						</Button>
 					</FormItem>
-				</FixedLayout>
+				</FormLayoutGroup>
 			</FormLayout>
 		</Panel>
 	);

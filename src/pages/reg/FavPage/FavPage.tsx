@@ -7,6 +7,7 @@ import {
 	Panel,
 	PanelHeader,
 	PanelHeaderBack,
+	Textarea,
 } from "@vkontakte/vkui";
 import styles from "./FavPage.module.css";
 import { TagWidget } from "../../../widgets/TagWidget";
@@ -34,7 +35,7 @@ export const FavPage: React.FC<Props> = ({
 					<PanelHeaderBack className={styles.backIcon} onClick={onBackClick} />
 				}
 			>
-				Интересы
+				О себе
 			</PanelHeader>
 			<FormLayout
 				onSubmit={(e) => {
@@ -48,7 +49,21 @@ export const FavPage: React.FC<Props> = ({
 						values={favForm.tags}
 						onChange={(tags) => {
 							setFavForm({
+								...favForm,
 								tags,
+							});
+						}}
+					/>
+				</FormItem>
+				<FormItem top="Напишите о себе">
+					<Textarea
+						rows={1}
+						placeholder="Не указано"
+						value={favForm.description}
+						onChange={({ target: { value } }) => {
+							setFavForm({
+								...favForm,
+								description: value,
 							});
 						}}
 					/>

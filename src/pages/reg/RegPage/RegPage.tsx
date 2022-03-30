@@ -1,5 +1,11 @@
 import React from "react";
-import { Button, Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
+import {
+	Button,
+	Div,
+	Panel,
+	PanelHeader,
+	PanelHeaderBack,
+} from "@vkontakte/vkui";
 import styles from "./RegPage.module.css";
 
 interface Props {
@@ -18,10 +24,12 @@ export const RegPage: React.FC<Props> = ({ id, onBackClick, onNextClick }) => {
 			>
 				Регистрация
 			</PanelHeader>
-			<div className={styles.container}>
-				<span>В путь</span>
-				<Button onClick={onNextClick}>Продолжить</Button>
-			</div>
+			<Div className={styles.container}>
+				<span>Жми вход и пристегни ремни, мы стартуем!</span>
+				<Button size="l" onClick={onNextClick}>
+					Продолжить
+				</Button>
+			</Div>
 		</Panel>
 	);
 };
