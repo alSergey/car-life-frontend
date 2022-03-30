@@ -11,6 +11,12 @@ export const ProfileBar: React.FC<Props> = ({ activeTab, setActive }) => {
 	return (
 		<Tabs>
 			<TabsItem
+				onClick={() => setActive(Tab.Info)}
+				selected={activeTab === Tab.Info}
+			>
+				О себе
+			</TabsItem>
+			<TabsItem
 				onClick={() => setActive(Tab.Garage)}
 				selected={activeTab === Tab.Garage}
 			>

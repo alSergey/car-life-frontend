@@ -17,7 +17,7 @@ export const LoaderView: React.FC<Prop> = ({ id, onLogin, onReg }) => {
 			const session = await fetch(`${backBaseUrl}/login`, {
 				method: "POST",
 				body: JSON.stringify({
-					vkid: 14,
+					vkid: 16,
 				}),
 			});
 

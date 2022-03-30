@@ -183,18 +183,16 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 					Открыть галерею
 				</File>
 			</FormItem>
-			<FixedLayout vertical="bottom">
-				<FormItem>
-					<Button
-						stretched
-						size="l"
-						type="submit"
-						disabled={!isCreateEventFormFilled(form)}
-					>
-						Создать
-					</Button>
-				</FormItem>
-			</FixedLayout>
+			<FormItem>
+				<Button
+					stretched
+					size="l"
+					type="submit"
+					disabled={!isCreateEventFormFilled(form)}
+				>
+					Создать
+				</Button>
+			</FormItem>
 		</FormLayout>
 	);
 };

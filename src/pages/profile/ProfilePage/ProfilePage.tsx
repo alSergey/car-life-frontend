@@ -6,19 +6,21 @@ import { ProfileBar } from "./ProfileBar";
 import { ProfileGarage } from "./ProfileGarage";
 import { ProfileEvent } from "./ProfileEvent";
 import { ProfileClub } from "./ProfileClub";
+import { ProfileInfo } from "./ProfileInfo";
 
 interface Props {
 	id: string;
 }
 
 export enum Tab {
+	Info = "info",
 	Garage = "garage",
 	Club = "club",
 	Event = "event",
 }
 
 export const ProfilePage: React.FC<Props> = ({ id }) => {
-	const [activeTab, setActiveTab] = useState(Tab.Garage);
+	const [activeTab, setActiveTab] = useState(Tab.Info);
 	const [userData, setUserData] = useState(emptyUserData);
 
 	const handleGetUserData = async (): Promise<void> => {
@@ -47,6 +49,7 @@ export const ProfilePage: React.FC<Props> = ({ id }) => {
 				</Title>
 			</Gradient>
 			<ProfileBar activeTab={activeTab} setActive={setActiveTab} />
+			{activeTab === Tab.Info && <ProfileInfo info={userData.info} />}
 			{activeTab === Tab.Garage && (
 				<ProfileGarage garageList={userData.garageList} />
 			)}

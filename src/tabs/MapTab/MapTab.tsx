@@ -18,6 +18,7 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 	const [activePanel, setActivePanel] = useState(Pages.Maps);
 	const [activeTab, setActiveTab] = useState(Pages.EventsMap);
 	const [eventOpenId, setEventOpenId] = useState(0);
+
 	return (
 		<View activePanel={activePanel} id={id}>
 			<Panel id={Pages.Maps}>

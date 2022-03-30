@@ -11,19 +11,27 @@
 
 export interface ModelsCarCard {
   avatar_url: string;
+  body: string;
   brand: string;
   date: string;
   description: string;
+  engine: string;
+  horse_power: string;
   id: number;
   model: string;
+  name: string;
   owner_id: number;
 }
 
 export interface ModelsCarRequest {
+  body?: string;
   brand?: string;
   date?: string;
   description?: string;
+  engine?: string;
+  horsePower?: string;
   model?: string;
+  name?: string;
 }
 
 export interface ModelsClub {
@@ -80,6 +88,8 @@ export interface ModelsEventCard {
   avatar: string;
   event_date: string;
   id: number;
+  latitude: number;
+  longitude: number;
   name: string;
 }
 
@@ -89,6 +99,7 @@ export interface ModelsLoginRequest {
 
 export interface ModelsSignUpRequest {
   avatarUrl?: string;
+  description?: string;
   garage?: ModelsCarRequest[];
   name?: string;
   surname?: string;
@@ -103,6 +114,7 @@ export interface ModelsTag {
 
 export interface ModelsUser {
   avatar_url: string;
+  description: string;
   garage: ModelsCarCard[];
   name: string;
   own_clubs: ModelsClubCard[];

@@ -95,13 +95,13 @@ export const CarPage: React.FC<Props> = ({
 				<FormLayoutGroup mode="horizontal">
 					<FormItem top="Год выпуска">
 						<Input
-							type="text"
-							value={carForm.horsePower}
+							type="date"
+							value={carForm.date}
 							placeholder="Не указано"
 							onChange={({ target: { value } }) => {
 								setCarForm({
 									...carForm,
-									horsePower: value,
+									date: value,
 								});
 							}}
 						/>
@@ -109,12 +109,12 @@ export const CarPage: React.FC<Props> = ({
 					<FormItem top="Лошадиные силы">
 						<Input
 							type="text"
-							value={carForm.date}
+							value={carForm.horsePower}
 							placeholder="Не указано"
 							onChange={({ target: { value } }) => {
 								setCarForm({
 									...carForm,
-									date: value,
+									horsePower: value,
 								});
 							}}
 						/>

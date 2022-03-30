@@ -7,6 +7,10 @@ export const getUserInfo = async (): Promise<UserData> =>
 		name: data.name,
 		surname: data.surname,
 		avatar: data.avatar_url,
+		info: {
+			tags: data.tags,
+			description: "Очень крутой человек",
+		},
 		garageList: data.garage.map((el) => ({
 			id: el.id,
 			brand: el.brand,

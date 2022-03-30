@@ -27,7 +27,7 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 	const [activeEvent, setActiveEvent] = useState(null);
 	const myMap = useRef(null);
 	const [mapCenter, setMapCenter] = useState([55.76, 37.64]);
-	const mapHeight = window.innerHeight - 100;
+	const mapHeight = window.innerHeight - 95;
 
 	const handleGetEventList = async (): Promise<void> => {
 		try {
@@ -66,7 +66,7 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 	}
 
 	return (
-		<div style={{ height: "90%", content: "contents" }}>
+		<div>
 			<YMaps query={YandexKey}>
 				<Map
 					onClick={() => {
