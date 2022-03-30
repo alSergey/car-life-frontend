@@ -7,5 +7,5 @@ export const isCreateEventFormFilled = (form: CreateEventForm): boolean =>
 		form.date,
 		form.time,
 		form.file,
-		form.location.description,
+		form.location,
 	].every(Boolean);

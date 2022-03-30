@@ -1,5 +1,6 @@
 import React from "react";
 import { ContentCard } from "@vkontakte/vkui";
+import { getPrettyDateTime } from "../../../constants/time";
 
 interface Props {
 	title: string;
@@ -11,8 +12,8 @@ interface Props {
 export const EventCard: React.FC<Props> = ({ title, date, img, onClick }) => (
 	<ContentCard
 		header={title}
+		caption={getPrettyDateTime(date)}
 		image={img}
-		caption={new Date(date).toLocaleString()}
 		maxHeight={150}
 		onClick={onClick}
 	/>
