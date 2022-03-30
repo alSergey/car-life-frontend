@@ -1,3 +1,3 @@
-import { ModelsEvent } from "../../../api/Api";
+import { ModelsEventCard } from "../../../api/Api";
 
-export const emptyEventList: ModelsEvent[] = [];
+export const emptyEventList: ModelsEventCard[] = [];
