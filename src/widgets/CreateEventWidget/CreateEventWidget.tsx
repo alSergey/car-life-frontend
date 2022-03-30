@@ -40,7 +40,6 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 		}
 	};
 
-	// @ts-ignore
 	return (
 		<FormLayout
 			onSubmit={(e) => {
@@ -109,7 +108,6 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 				</FormItem>
 			</FormLayoutGroup>
 			<FormItem top="Место">
-				{/* <Input type="text" value={form.location.description} disabled /> */}
 				<YMaps query={YandexKey}>
 					<Map
 						defaultState={{
@@ -121,6 +119,15 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 						options={{
 							yandexMapDisablePoiInteractivity: true,
 							suppressMapOpenBlock: true,
+						}}
+						onClick={(e: any) => {
+							setFormData({
+								...form,
+								location: {
+									latitude: e.get("coords")[0],
+									longitude: e.get("coords")[1],
+								},
+							});
 						}}
 						instanceRef={(ref) => {
 							// @ts-ignore
@@ -152,6 +159,7 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 						/>
 						<Placemark
 							geometry={[form.location.latitude, form.location.longitude]}
+							options={{ draggable: true }}
 						/>
 					</Map>
 				</YMaps>

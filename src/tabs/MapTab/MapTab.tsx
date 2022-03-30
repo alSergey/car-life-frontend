@@ -1,4 +1,4 @@
-import { Group, Panel, Tabs, TabsItem, View } from "@vkontakte/vkui";
+import { Panel, Tabs, TabsItem, View } from "@vkontakte/vkui";
 import React, { useState } from "react";
 import { MapWidget } from "../../widgets/MapWidget";
 import { EventPage } from "../../pages/main/EventPage";
@@ -21,7 +21,14 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 	return (
 		<View activePanel={activePanel} id={id}>
 			<Panel id={Pages.Maps}>
-				<Tabs mode="buttons" style={{ backgroundColor: "transparent" }}>
+				<Tabs
+					mode="buttons"
+					style={{
+						backgroundColor: "transparent",
+						display: "flex",
+						justifyContent: "center",
+					}}
+				>
 					<TabsItem
 						onClick={() => setActiveTab(Pages.EventsMap)}
 						selected={activeTab === Pages.EventsMap}

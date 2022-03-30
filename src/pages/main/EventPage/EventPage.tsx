@@ -16,6 +16,7 @@ import { EventPosts } from "./EventPosts";
 import { EventBar } from "./EventBar";
 import styles from "./EventPage.module.css";
 import { getStaticUrl } from "../../../constants/url";
+import { getPrettyDateTime } from "../../../constants/time";
 
 interface Props {
 	id: string;
@@ -62,10 +63,7 @@ export const EventPage: React.FC<Props> = ({ id, eventId, onBackClick }) => {
 					{eventData.name}
 				</Title>
 				<Text weight="regular" style={{ marginBottom: 10 }}>
-					{new Date(eventData.event_date).toLocaleString("ru", {
-						dateStyle: "medium",
-						timeStyle: "short",
-					})}
+					{getPrettyDateTime(eventData.event_date)}
 				</Text>
 				<Button stretched size="m">
 					Участвовать

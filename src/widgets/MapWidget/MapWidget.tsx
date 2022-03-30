@@ -13,9 +13,9 @@ import {
 	Group,
 	HorizontalCell,
 	HorizontalScroll,
-	Panel,
 } from "@vkontakte/vkui";
 import { YandexKey } from "../../constants/yandexKey";
+import { getPrettyDate } from "../../constants/time";
 
 interface Props {
 	onEventClick: (eventId: number) => void;
@@ -27,6 +27,7 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 	const [activeEvent, setActiveEvent] = useState(null);
 	const myMap = useRef(null);
 	const [mapCenter, setMapCenter] = useState([55.76, 37.64]);
+	const mapHeight = window.innerHeight - 100;
 
 	const handleGetEventList = async (): Promise<void> => {
 		try {
@@ -47,7 +48,6 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 	}, []);
 
 	function handleClickEvent(this: any) {
-		// @ts-ignore
 		const eventId = this.id;
 		if (eventId === activeEvent) {
 			setActiveEvent(null);
@@ -66,7 +66,7 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 	}
 
 	return (
-		<div>
+		<div style={{ height: "90%", content: "contents" }}>
 			<YMaps query={YandexKey}>
 				<Map
 					onClick={() => {
@@ -77,7 +77,7 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 						zoom: 11,
 					}}
 					width={"100%"}
-					height={"750px"}
+					height={mapHeight}
 					options={{
 						suppressMapOpenBlock: true,
 					}}
@@ -115,9 +115,7 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 															: "transparent",
 												}}
 												header={e.name}
-												subtitle={new Date(e.event_date).toLocaleString("ru", {
-													dateStyle: "short",
-												})}
+												subtitle={getPrettyDate(e.event_date)}
 												size="l"
 												onSelect={() => {
 													onEventClick(e.id);
