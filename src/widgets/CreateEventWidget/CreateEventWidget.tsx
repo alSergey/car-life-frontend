@@ -27,6 +27,7 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 	const [form, setFormData] = useState(emptyCreateEventForm);
 	const [error, setError] = useState("");
 	const myMap = useRef(null);
+	const inputMapRef = useRef(null);
 
 	const handleSubmit = async (): Promise<void> => {
 		try {
@@ -108,6 +109,7 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 				</FormItem>
 			</FormLayoutGroup>
 			<FormItem top="Место">
+				<Input getRef={inputMapRef} />
 				<YMaps query={YandexKey}>
 					<Map
 						defaultState={{
@@ -119,6 +121,11 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 						options={{
 							yandexMapDisablePoiInteractivity: true,
 							suppressMapOpenBlock: true,
+						}}
+						onLoad={(ymaps) => {
+							ymaps.ready(() => {
+								new ymaps.SuggestView(inputMapRef);
+							});
 						}}
 						onClick={(e: any) => {
 							setFormData({
