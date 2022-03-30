@@ -29,13 +29,17 @@ export const EventInfo: React.FC<Props> = ({ event }) => {
 			<div style={{ display: "flex", justifyContent: "center" }}>
 				<SimpleCell
 					before={
-						<Avatar src="https://lowdaily.ru/wp-content/uploads/2018/06/royal-auto-show-DSC04553.jpg" />
+						<Avatar
+							style={{ objectFit: "cover" }}
+							src="https://lowdaily.ru/wp-content/uploads/2018/06/royal-auto-show-DSC04553.jpg"
+						/>
 					}
 				>
 					{event.club.name}
 				</SimpleCell>
 			</div>
-			<Group style={{ padding: 15 }}>
+			<div style={{ padding: 15 }}>
+				<Separator style={{ marginTop: "10px", marginBottom: "10px" }} />
 				<Text weight="regular">{event.description}</Text>
 				<Separator style={{ marginTop: "10px", marginBottom: "10px" }} />
 				<Group>
@@ -77,7 +81,7 @@ export const EventInfo: React.FC<Props> = ({ event }) => {
 						</Map>
 					</YMaps>
 				</Group>
-			</Group>
+			</div>
 		</Group>
 	);
 };

@@ -77,7 +77,7 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 						zoom: 11,
 					}}
 					width={"100%"}
-					height={"800px"}
+					height={"750px"}
 					options={{
 						suppressMapOpenBlock: true,
 					}}
@@ -91,7 +91,7 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 					<Group
 						style={{
 							position: "absolute",
-							bottom: "90px",
+							bottom: "40px",
 							zIndex: 1,
 							backgroundColor: "rgba(201,201,201,0.4)",
 							width: "100%",
@@ -124,7 +124,14 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 												}}
 												onClick={handleClickEvent.bind(e)}
 											>
-												<Avatar size={128} mode="image" src={e.avatar} />
+												<Avatar
+													size={128}
+													mode="image"
+													style={{
+														objectFit: "cover",
+													}}
+													src={e.avatar}
+												/>
 												<Placemark
 													key={e.id}
 													geometry={[e.latitude, e.longitude]}
