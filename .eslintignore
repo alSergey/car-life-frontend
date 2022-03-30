@@ -3,5 +3,5 @@ dist
 .eslintrc.js
 src/api
 scripts
-express.js
 src/setupProxy.js
+src/eruda.js
