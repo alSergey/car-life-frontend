@@ -26,7 +26,9 @@ interface Props {
 export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 	const [form, setFormData] = useState(emptyCreateEventForm);
 	const [error, setError] = useState("");
+	const [yMaps, setYMaps] = useState(null);
 	const myMap = useRef(null);
+	const inputMapRef = useRef(null);
 
 	const handleSubmit = async (): Promise<void> => {
 		try {
@@ -108,6 +110,7 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 				</FormItem>
 			</FormLayoutGroup>
 			<FormItem top="Место">
+				<Input getRef={inputMapRef} disabled style={{ marginBottom: "15px" }} />
 				<YMaps query={YandexKey}>
 					<Map
 						defaultState={{
@@ -120,6 +123,8 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 							yandexMapDisablePoiInteractivity: true,
 							suppressMapOpenBlock: true,
 						}}
+						// @ts-ignore
+						onLoad={(ymaps) => setYMaps(ymaps)}
 						onClick={(e: any) => {
 							setFormData({
 								...form,
@@ -127,6 +132,17 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 									latitude: e.get("coords")[0],
 									longitude: e.get("coords")[1],
 								},
+							});
+							// @ts-ignore
+							const myGeocoder = yMaps?.geocode(
+								[e.get("coords")[0], e.get("coords")[1]],
+								{ provider: "yandex#map", kind: "house" }
+							);
+							myGeocoder.then((res: any) => {
+								// @ts-ignore
+								inputMapRef.current.value = res.geoObjects
+									.get(0)
+									.properties.get("text");
 							});
 						}}
 						instanceRef={(ref) => {
@@ -147,6 +163,17 @@ export const CreateEventWidget: React.FC<Props> = ({ onSubmit }) => {
 											latitude: coordinates[0],
 											longitude: coordinates[1],
 										},
+									});
+									// @ts-ignore
+									const myGeocoder = yMaps?.geocode(
+										[coordinates[0], coordinates[1]],
+										{ provider: "yandex#map", kind: "house" }
+									);
+									myGeocoder.then((result: any) => {
+										// @ts-ignore
+										inputMapRef.current.value = result.geoObjects
+											.get(0)
+											.properties.get("text");
 									});
 								}
 							}}
