@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Map, Placemark, YMaps } from "react-yandex-maps";
+import {
+	GeolocationControl,
+	Map,
+	Placemark,
+	YMaps,
+	ZoomControl,
+} from "react-yandex-maps";
 import { getEventList } from "./api";
 import { emptyEventList } from "./api/api.consts";
 import {
@@ -12,27 +18,44 @@ import {
 import { YandexKey } from "../../constants/yandexKey";
 
 interface Props {
-	id: string;
+	onEventClick: (eventId: number) => void;
+	type: "events" | "people";
 }
 
-export const MapWidget: React.FC<Props> = ({ id }) => {
+export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 	const [events, setEvents] = useState(emptyEventList);
+	const [activeEvent, setActiveEvent] = useState(null);
 	const myMap = useRef(null);
+	const [mapCenter, setMapCenter] = useState([55.76, 37.64]);
 
 	const handleGetEventList = async (): Promise<void> => {
 		try {
 			const data = await getEventList();
 			setEvents(data);
+			if (events.length !== 0) {
+				setMapCenter([events[0].latitude, events[0].longitude]);
+			}
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
 	useEffect(() => {
-		handleGetEventList();
+		if (type === "events") {
+			handleGetEventList();
+		}
 	}, []);
 
-	function handleClickEvent() {
+	function handleClickEvent(this: any) {
+		// @ts-ignore
+		const eventId = this.id;
+		if (eventId === activeEvent) {
+			setActiveEvent(null);
+			onEventClick(eventId);
+			setMapCenter([this.latitude, this.longitude]);
+		} else {
+			setActiveEvent(eventId);
+		}
 		const map = myMap.current;
 		if (map) {
 			// @ts-ignore
@@ -43,11 +66,14 @@ export const MapWidget: React.FC<Props> = ({ id }) => {
 	}
 
 	return (
-		<Panel id={id}>
+		<div>
 			<YMaps query={YandexKey}>
 				<Map
+					onClick={() => {
+						console.log(event);
+					}}
 					defaultState={{
-						center: [55.684758, 37.738521],
+						center: mapCenter,
 						zoom: 11,
 					}}
 					width={"100%"}
@@ -60,10 +86,12 @@ export const MapWidget: React.FC<Props> = ({ id }) => {
 						if (ref) myMap.current = ref;
 					}}
 				>
+					<ZoomControl options={{ float: "right" }} />
+					<GeolocationControl options={{ float: "left" }} />
 					<Group
 						style={{
 							position: "absolute",
-							bottom: "44px",
+							bottom: "90px",
 							zIndex: 1,
 							backgroundColor: "rgba(201,201,201,0.4)",
 							width: "100%",
@@ -75,31 +103,41 @@ export const MapWidget: React.FC<Props> = ({ id }) => {
 							getScrollToRight={(i) => i + 120}
 						>
 							<div style={{ display: "flex" }}>
-								{events.map((e) => {
-									return (
-										<HorizontalCell
-											key={e.id}
-											header={e.name}
-											subtitle={e.event_date}
-											size="l"
-											onClick={handleClickEvent.bind(e)}
-										>
-											<Avatar size={128} mode="image" src={e.avatar} />
-											<Placemark
+								{type === "events" &&
+									events.map((e) => {
+										return (
+											<HorizontalCell
 												key={e.id}
-												geometry={[e.latitude, e.longitude]}
-											/>
-										</HorizontalCell>
-									);
-								})}
+												style={{
+													backgroundColor:
+														activeEvent === e.id
+															? "rgba(204, 233, 254, 0.5)"
+															: "transparent",
+												}}
+												header={e.name}
+												subtitle={new Date(e.event_date).toLocaleString("ru", {
+													dateStyle: "short",
+												})}
+												size="l"
+												onSelect={() => {
+													onEventClick(e.id);
+												}}
+												onClick={handleClickEvent.bind(e)}
+											>
+												<Avatar size={128} mode="image" src={e.avatar} />
+												<Placemark
+													key={e.id}
+													geometry={[e.latitude, e.longitude]}
+													onClick={handleClickEvent.bind(e)}
+												/>
+											</HorizontalCell>
+										);
+									})}
 							</div>
 						</HorizontalScroll>
 					</Group>
-					{/* {events.map((e) => ( */}
-					{/* 		<Placemark key={e.id} geometry={[e.latitude, e.longitude]} /> */}
-					{/* ))} */}
 				</Map>
 			</YMaps>
-		</Panel>
+		</div>
 	);
 };

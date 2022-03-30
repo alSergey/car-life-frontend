@@ -62,7 +62,10 @@ export const EventPage: React.FC<Props> = ({ id, eventId, onBackClick }) => {
 					{eventData.name}
 				</Title>
 				<Text weight="regular" style={{ marginBottom: 10 }}>
-					{new Date(eventData.event_date).toLocaleString()}
+					{new Date(eventData.event_date).toLocaleString("ru", {
+						dateStyle: "medium",
+						timeStyle: "short",
+					})}
 				</Text>
 				<Button stretched size="m">
 					Участвовать
