@@ -1,6 +1,6 @@
 import { View } from "@vkontakte/vkui";
 import React, { useState } from "react";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { ProfilePage } from "../../pages/ProfilePage";
 
 interface Props {
 	id: string;

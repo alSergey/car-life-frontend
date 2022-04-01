@@ -1,7 +1,7 @@
 import { Panel, Tabs, TabsItem, View } from "@vkontakte/vkui";
 import React, { useState } from "react";
 import { MapWidget } from "../../widgets/MapWidget";
-import { EventPage } from "../../pages/main/EventPage";
+import { EventPage } from "../../pages/EventPage";
 
 interface Props {
 	id: string;

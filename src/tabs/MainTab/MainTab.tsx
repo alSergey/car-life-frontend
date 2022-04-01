@@ -1,10 +1,10 @@
 import { View } from "@vkontakte/vkui";
 import React, { useState } from "react";
-import { MainListPage } from "../../pages/main/MainListPage";
-import { EventPage } from "../../pages/main/EventPage";
-import { CreateEventPage } from "../../pages/main/CreateEventPage";
-import { CreateClubPage } from "../../pages/main/CreateClubPage";
-import { ClubPage } from "../../pages/main/ClubPage";
+import { MainListPage } from "../../pages/MainListPage";
+import { EventPage } from "../../pages/EventPage";
+import { CreateEventPage } from "../../pages/CreateEventPage";
+import { CreateClubPage } from "../../pages/CreateClubPage";
+import { ClubPage } from "../../pages/ClubPage";
 
 interface Props {
 	id: string;

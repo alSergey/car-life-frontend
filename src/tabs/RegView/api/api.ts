@@ -4,7 +4,8 @@ import { backBaseUrl } from "../../../constants/url";
 
 export const regUser = (form: RegForm): Promise<number | undefined> => {
 	console.log(form);
-	if (!form.userForm || !form.favForm) throw new Error("Не заполнены все поля");
+	if (!form.userForm || !form.userAboutForm)
+		throw new Error("Не заполнены все поля");
 
 	return api.signup
 		.signupCreate({
@@ -12,7 +13,7 @@ export const regUser = (form: RegForm): Promise<number | undefined> => {
 			vkid: form.userForm.id,
 			name: form.userForm.first_name,
 			surname: form.userForm.last_name,
-			description: form.favForm.description,
+			description: form.userAboutForm.description,
 			garage: form.carForm
 				? [
 						{
@@ -27,7 +28,7 @@ export const regUser = (form: RegForm): Promise<number | undefined> => {
 						},
 				  ]
 				: [],
-			tags: form.favForm.tags.map(({ label }) => label),
+			tags: form.userAboutForm.tags.map(({ label }) => label),
 		})
 		.then(({ data }) => {
 			if (!form.carForm?.file || !data.garage[0]) return;

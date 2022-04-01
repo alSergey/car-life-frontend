@@ -1,1 +1,0 @@
-export { TagWidget } from "./TagWidget";

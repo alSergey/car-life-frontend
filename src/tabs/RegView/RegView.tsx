@@ -3,10 +3,9 @@ import { View } from "@vkontakte/vkui";
 import { WelcomePage } from "../../pages/reg/WelcomePage";
 import { RegPage } from "../../pages/reg/RegPage";
 import { CarPage } from "../../pages/reg/CarPage";
-import { emptyRegForm } from "./api";
-import { FavPage } from "../../pages/reg/FavPage";
+import { AboutPage } from "../../pages/reg/AboutPage";
+import { emptyRegForm, regUser } from "./api";
 import bridge from "@vkontakte/vk-bridge";
-import { regUser } from "./api/api";
 
 interface Prop {
 	id: string;
@@ -55,14 +54,14 @@ export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
 				id={Pages.Welcome}
 				onNextClick={() => setActivePanel(Pages.Fav)}
 			/>
-			<FavPage
+			<AboutPage
 				id={Pages.Fav}
 				onBackClick={() => setActivePanel(Pages.Welcome)}
 				onNextClick={() => setActivePanel(Pages.Car)}
 				onFormSubmit={(favForm) => {
 					setForm({
 						...form,
-						favForm,
+						userAboutForm: favForm,
 					});
 				}}
 			/>

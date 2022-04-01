@@ -6,18 +6,20 @@ import {
 	PanelHeader,
 	PanelHeaderBack,
 } from "@vkontakte/vkui";
-
-import styles from "./CarPage.module.css";
-import { CarForm, CreateCarFom } from "../../../components/CreateCarForm";
+import styles from "./AboutPage.module.css";
+import {
+	CreateUserAboutForm,
+	UserAboutForm,
+} from "../../../components/CreateUserAboutForm";
 
 interface Props {
 	id: string;
+	onFormSubmit: (form: UserAboutForm) => void;
 	onBackClick: () => void;
 	onNextClick: () => void;
-	onFormSubmit: (form: CarForm) => void;
 }
 
-export const CarPage: React.FC<Props> = ({
+export const AboutPage: React.FC<Props> = ({
 	id,
 	onBackClick,
 	onNextClick,
@@ -30,19 +32,19 @@ export const CarPage: React.FC<Props> = ({
 					<PanelHeaderBack className={styles.backIcon} onClick={onBackClick} />
 				}
 			>
-				Автомобиль
+				О себе
 			</PanelHeader>
-			<CreateCarFom
+			<CreateUserAboutForm
 				buttonText="Дальше"
-				onSubmit={(carForm) => {
-					onFormSubmit(carForm);
+				onSubmit={(userAboutForm) => {
+					onFormSubmit(userAboutForm);
 					onNextClick();
 				}}
 			/>
 			<Div>
 				<Button
-					stretched
 					size="l"
+					stretched
 					mode="secondary"
 					onClick={() => onNextClick()}
 				>
