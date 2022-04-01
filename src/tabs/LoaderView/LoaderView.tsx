@@ -11,13 +11,13 @@ interface Prop {
 
 export const LoaderView: React.FC<Prop> = ({ id, onLogin, onReg }) => {
 	const handleGetUserData = async () => {
-		// const userData = await bridge.send("VKWebAppGetUserInfo");
+		const userData = await bridge.send("VKWebAppGetUserInfo");
 
 		try {
 			const session = await fetch(`${backBaseUrl}/login`, {
 				method: "POST",
 				body: JSON.stringify({
-					vkid: 16,
+					vkid: userData.id,
 				}),
 			});
 

@@ -4,15 +4,14 @@ import { backBaseUrl } from "../../../constants/url";
 
 export const regUser = (form: RegForm): Promise<number | undefined> => {
 	console.log(form);
-	if (!form.favForm) throw new Error("Не заполнены все поля");
+	if (!form.userForm || !form.favForm) throw new Error("Не заполнены все поля");
 
 	return api.signup
 		.signupCreate({
-			avatarUrl:
-				"https://sun1-95.userapi.com/s/v1/ig2/SGEBJmQRwAer-WvooeKJw2kkLvWD1UqTe9Z7k-hafsyCPbP-hIwXdsti1dsbk-LRHuakv4Il0sDK69Bv5kFztTEo.jpg?size=400x400&quality=96&crop=0,571,1439,1439&ava=1",
-			vkid: 16,
-			name: "Алехин",
-			surname: "Сергей",
+			avatarUrl: form.userForm.photo_max_orig,
+			vkid: form.userForm.id,
+			name: form.userForm.first_name,
+			surname: form.userForm.last_name,
 			description: form.favForm.description,
 			garage: form.carForm
 				? [
