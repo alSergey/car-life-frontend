@@ -27,12 +27,24 @@ export const UserCard: React.FC<Props> = ({
 		after={
 			<div className={styles.container}>
 				{onApprove && (
-					<IconButton className={styles.approve} onClick={onApprove}>
+					<IconButton
+						className={styles.approve}
+						onClick={(e) => {
+							e.preventDefault();
+							onApprove();
+						}}
+					>
 						<Icon28DoneOutline />
 					</IconButton>
 				)}
 				{onReject && (
-					<IconButton className={styles.reject} onClick={onReject}>
+					<IconButton
+						className={styles.reject}
+						onClick={(e) => {
+							e.preventDefault();
+							onReject();
+						}}
+					>
 						<Icon28CancelAltOutline />
 					</IconButton>
 				)}

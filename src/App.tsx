@@ -54,7 +54,7 @@ const App: React.FC = () => {
 					/>
 				)}
 				{activeView === Tab.Reg && (
-					<RegView id={Tab.Reg} onSubmit={() => setActiveView(Tab.Map)} />
+					<RegView id={Tab.Reg} onSubmit={() => setActiveView(Tab.Loader)} />
 				)}
 			</AppRoot>
 		</UserProvider>
