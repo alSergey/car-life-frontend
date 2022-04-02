@@ -16,7 +16,7 @@ export const getUserInfo = async (): Promise<UserData> =>
 			brand: el.brand,
 			model: el.model,
 			date: el.date,
-			description: el.description,
-			photo: el.avatar_url,
+			name: el.description,
+			url: el.avatar_url,
 		})),
 	}));

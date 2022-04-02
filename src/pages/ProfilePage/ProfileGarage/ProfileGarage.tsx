@@ -1,7 +1,12 @@
-import { CardGrid, Footer } from "@vkontakte/vkui";
 import React from "react";
-import { GarageCard } from "./GarageCard";
 import { GarageData } from "../api/api.types";
+import { GarageList } from "../../../components/GarageList";
+import { Avatar, Card, Text } from "@vkontakte/vkui";
+import image from "./add-car.png";
+import {
+	Icon20AddCircleFillGray,
+	Icon56AddCircleOutline,
+} from "@vkontakte/icons";
 
 interface Props {
 	garageList: GarageData[];
@@ -10,19 +15,33 @@ interface Props {
 export const ProfileGarage: React.FC<Props> = ({ garageList }) => {
 	return (
 		<div>
-			<CardGrid size="l">
-				{garageList.map(({ id, brand, model, date, description, photo }) => (
-					<GarageCard
-						key={id}
-						brand={brand}
-						model={model}
-						date={date}
-						description={description}
-						img={photo}
+			<GarageList garageList={garageList} onClick={() => {}} />
+			<Card
+				style={{
+					padding: "10px",
+					marginRight: 24,
+					marginLeft: 24,
+				}}
+			>
+				<div
+					style={{
+						height: 150,
+						opacity: 0.5,
+						display: "flex",
+						flexDirection: "column",
+						justifyContent: "center",
+						alignItems: "center",
+					}}
+				>
+					<Icon56AddCircleOutline
+						fill={"#808080"}
+						style={{ marginBottom: 8 }}
 					/>
-				))}
-			</CardGrid>
-			{garageList.length === 0 && <Footer>У вас пока нет машин</Footer>}
+					<Text weight={"regular"} size={3}>
+						Добавить машину
+					</Text>
+				</div>
+			</Card>
 		</div>
 	);
 };

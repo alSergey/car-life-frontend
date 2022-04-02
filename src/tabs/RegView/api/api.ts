@@ -4,15 +4,14 @@ import { backBaseUrl } from "../../../constants/url";
 
 export const regUser = (form: RegForm): Promise<number | undefined> => {
 	console.log(form);
-	if (!form.userForm || !form.userAboutForm)
-		throw new Error("Не заполнены все поля");
+	if (!form.userAboutForm) throw new Error("Не заполнены все поля");
 
 	return api.signup
 		.signupCreate({
-			avatarUrl: form.userForm.photo_max_orig,
-			vkid: form.userForm.id,
-			name: form.userForm.first_name,
-			surname: form.userForm.last_name,
+			avatarUrl: "",
+			vkid: 1,
+			name: "Name",
+			surname: "Surname",
 			description: form.userAboutForm.description,
 			garage: form.carForm
 				? [

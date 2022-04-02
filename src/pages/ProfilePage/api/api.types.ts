@@ -3,8 +3,8 @@ export interface GarageData {
 	brand: string;
 	model: string;
 	date: string;
-	description: string;
-	photo: string;
+	name?: string;
+	url: string;
 }
 
 export interface InfoData {

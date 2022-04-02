@@ -1,32 +1,24 @@
 import React from "react";
-import { CardGrid, Footer } from "@vkontakte/vkui";
+import { Avatar, Banner, Card, CardGrid, Footer } from "@vkontakte/vkui";
 import { GarageCard } from "./GarageCard";
-
-interface GarageInfo {
-	id: number;
-	brand: string;
-	model: string;
-	date: string;
-	description: string;
-	avatar_url: string;
-}
+import { GarageData } from "../../pages/ProfilePage/api/api.types";
 
 interface Props {
-	garageList: GarageInfo[];
+	garageList: GarageData[];
 	onClick: (id: number) => void;
 }
 
 export const GarageList: React.FC<Props> = ({ garageList }) => (
 	<div>
 		<CardGrid size="l">
-			{garageList.map(({ id, brand, model, date, description, avatar_url }) => (
+			{garageList.map(({ id, brand, model, date, name, url }) => (
 				<GarageCard
 					key={id}
 					brand={brand}
 					model={model}
 					date={date}
-					description={description}
-					img={avatar_url}
+					name={name}
+					img={url}
 				/>
 			))}
 		</CardGrid>

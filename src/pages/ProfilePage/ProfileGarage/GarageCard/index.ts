@@ -1,1 +1,0 @@
-export { GarageCard } from "./GarageCard";
