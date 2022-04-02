@@ -1,4 +1,4 @@
-import { Tabs, TabsItem } from "@vkontakte/vkui";
+import { Tabs, TabsItem, Text } from "@vkontakte/vkui";
 import React from "react";
 import { Tab } from "../EventPage";
 
@@ -14,25 +14,25 @@ export const EventBar: React.FC<Props> = ({ activeTab, setActive }) => {
 				selected={activeTab === Tab.Info}
 				onClick={() => setActive(Tab.Info)}
 			>
-				Подробности
+				<Text weight="regular" size={3}>
+					Подробности
+				</Text>
 			</TabsItem>
 			<TabsItem
 				selected={activeTab === Tab.Members}
 				onClick={() => setActive(Tab.Members)}
 			>
-				Участники
-			</TabsItem>
-			<TabsItem
-				selected={activeTab === Tab.Garage}
-				onClick={() => setActive(Tab.Garage)}
-			>
-				Гараж
+				<Text weight="regular" size={3}>
+					Участники
+				</Text>
 			</TabsItem>
 			<TabsItem
 				selected={activeTab === Tab.Posts}
 				onClick={() => setActive(Tab.Posts)}
 			>
-				Посты
+				<Text weight="regular" size={3}>
+					Посты
+				</Text>
 			</TabsItem>
 		</Tabs>
 	);

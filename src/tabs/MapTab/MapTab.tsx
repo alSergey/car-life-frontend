@@ -65,6 +65,8 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 			<EventPage
 				id={Pages.Event}
 				eventId={eventOpenId}
+				// TODO: реализовать
+				onUserClick={() => true}
 				onBackClick={() => {
 					setActivePanel(Pages.Maps);
 					setActiveTab(Pages.EventsMap);

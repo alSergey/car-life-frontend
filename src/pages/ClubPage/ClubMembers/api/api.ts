@@ -9,7 +9,7 @@ export const getClubMembersRequestList = (
 ): Promise<ModelsUserCard[]> =>
 	api.clubs.participantsRequestsDetail(clubId).then(({ data }) => data);
 
-export const memberApproveReject = (
+export const memberClubApproveReject = (
 	cid: number,
 	uid: number,
 	type: "approve" | "reject"

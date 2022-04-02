@@ -10,7 +10,7 @@ import {
 } from "@vkontakte/vkui";
 
 import styles from "./EventPage.module.css";
-import { emptyEventData, getEvent } from "./api";
+import { emptyEventData, getEvent, newEventMember } from "./api";
 import { EventInfo } from "./EventInfo";
 import { EventMembers } from "./EventMembers";
 import { EventGarage } from "./EventGarage";
@@ -21,6 +21,7 @@ import { getPrettyDateTime } from "../../constants/time";
 interface Props {
 	id: string;
 	eventId: number;
+	onUserClick: (userId: number) => void;
 	onBackClick?: () => void;
 }
 
@@ -31,7 +32,12 @@ export enum Tab {
 	Posts = "posts",
 }
 
-export const EventPage: React.FC<Props> = ({ id, eventId, onBackClick }) => {
+export const EventPage: React.FC<Props> = ({
+	id,
+	eventId,
+	onUserClick,
+	onBackClick,
+}) => {
 	const [activeTab, setActiveTab] = useState(Tab.Info);
 	const [eventData, setEventData] = useState(emptyEventData);
 
@@ -39,6 +45,14 @@ export const EventPage: React.FC<Props> = ({ id, eventId, onBackClick }) => {
 		try {
 			const data = await getEvent(eventId);
 			setEventData(data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleMember = async (): Promise<void> => {
+		try {
+			await newEventMember(eventId);
 		} catch (err) {
 			console.error(err);
 		}
@@ -70,13 +84,15 @@ export const EventPage: React.FC<Props> = ({ id, eventId, onBackClick }) => {
 				<Text weight="regular" style={{ marginBottom: 10 }}>
 					{getPrettyDateTime(eventData.event_date)}
 				</Text>
-				<Button stretched size="m">
+				<Button stretched size="m" onClick={handleMember}>
 					Участвовать
 				</Button>
 			</Group>
 			<EventBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === Tab.Info && <EventInfo event={eventData} />}
-			{activeTab === Tab.Members && <EventMembers id={eventData.id} />}
+			{activeTab === Tab.Members && (
+				<EventMembers eventId={eventData.id} onClick={onUserClick} />
+			)}
 			{activeTab === Tab.Garage && <EventGarage id={eventData.id} />}
 			{activeTab === Tab.Posts && <EventPosts />}
 		</Panel>

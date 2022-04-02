@@ -1,42 +1,76 @@
+import { Group, Header } from "@vkontakte/vkui";
+import React, { useEffect, useState } from "react";
 import {
-	Avatar,
-	Group,
-	HorizontalCell,
-	HorizontalScroll,
-} from "@vkontakte/vkui";
-import React from "react";
+	emptyEventMembersList,
+	emptyEventMembersRequestList,
+	getEventMembersRequestList,
+	getEventMembersList,
+	memberEventApproveReject,
+} from "./api";
+import { UserList } from "../../../components/UserList";
 
 interface Props {
-	id: number;
+	eventId: number;
+	onClick: (id: number) => void;
 }
 
-export const EventMembers: React.FC<Props> = ({}) => {
-	const users = [
-		{ first_name: "Илья Разимов" },
-		{ first_name: "Алина Маликова" },
-		{ first_name: "Коля Торис" },
-		{ first_name: "Владимир Лосин" },
-		{ first_name: "Дарья Базанова" },
-		{ first_name: "Виктор Умяров" },
-	];
+export const EventMembers: React.FC<Props> = ({ eventId, onClick }) => {
+	const [membersList, setMembersList] = useState(emptyEventMembersList);
+	const [membersRequestList, setMembersRequestList] = useState(
+		emptyEventMembersRequestList
+	);
+
+	const handleGetMembersList = async (): Promise<void> => {
+		try {
+			const data = await getEventMembersList(eventId);
+			setMembersList(data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleGetMembersRequestList = async (): Promise<void> => {
+		try {
+			const data = await getEventMembersRequestList(eventId);
+			setMembersRequestList(data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleApproveReject = async (
+		userId: number,
+		type: "approve" | "reject"
+	): Promise<void> => {
+		try {
+			await memberEventApproveReject(eventId, userId, type);
+			handleGetMembersList();
+			handleGetMembersRequestList();
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	useEffect(() => {
+		handleGetMembersList();
+		handleGetMembersRequestList();
+	}, []);
+
 	return (
-		<Group>
-			<HorizontalScroll>
-				<div style={{ display: "flex" }}>
-					{users.map((u) => {
-						return (
-							<HorizontalCell size="s" header={u.first_name}>
-								<Avatar
-									size={64}
-									src={
-										"https://yt3.ggpht.com/ytc/AKedOLR0w5kb1tfO1-Y5diasdVxAKVediJ_HrSouiwCnVg=s900-c-k-c0x00ffffff-no-rj"
-									}
-								/>
-							</HorizontalCell>
-						);
-					})}
-				</div>
-			</HorizontalScroll>
-		</Group>
+		<div>
+			<Group>
+				<Header>Список заявок</Header>
+				<UserList
+					userList={membersRequestList}
+					onClick={onClick}
+					onApprove={(id) => handleApproveReject(id, "approve")}
+					onReject={(id) => handleApproveReject(id, "reject")}
+				/>
+			</Group>
+			<Group>
+				<Header>Список участников</Header>
+				<UserList userList={membersList} onClick={onClick} />
+			</Group>
+		</div>
 	);
 };

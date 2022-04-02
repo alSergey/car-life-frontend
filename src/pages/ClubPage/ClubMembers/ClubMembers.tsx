@@ -6,7 +6,7 @@ import {
 	emptyClubMembersRequestList,
 	getClubMembersList,
 	getClubMembersRequestList,
-	memberApproveReject,
+	memberClubApproveReject,
 } from "./api";
 
 interface Props {
@@ -43,7 +43,9 @@ export const ClubMembers: React.FC<Props> = ({ clubId, onClick }) => {
 		type: "approve" | "reject"
 	): Promise<void> => {
 		try {
-			await memberApproveReject(clubId, userId, type);
+			await memberClubApproveReject(clubId, userId, type);
+			handleGetMembersList();
+			handleGetMembersRequestList();
 		} catch (err) {
 			console.error(err);
 		}

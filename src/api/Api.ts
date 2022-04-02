@@ -513,18 +513,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * @description Handler for getting tags list
      *
-     * @tags Clubs
+     * @tags Events
      * @name ParticipateCreate
      * @summary approve/reject participate in event
      * @request POST:/events/{eid}/participate/{uid}/{type}
      */
-    participateCreate: (
-      cid: number,
-      uid: number,
-      type: "approve" | "reject",
-      eid: string,
-      params: RequestParams = {},
-    ) =>
+    participateCreate: (eid: number, uid: number, type: "approve" | "reject", params: RequestParams = {}) =>
       this.request<void, UtilsError | void>({
         path: `/events/${eid}/participate/${uid}/${type}`,
         method: "POST",
@@ -554,7 +548,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Events
      * @name ParticipantsDetail
-     * @summary get events participants requestlist
+     * @summary get events participants list
      * @request GET:/events/{id}/participants
      */
     participantsDetail: (
@@ -564,6 +558,28 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     ) =>
       this.request<ModelsUserCard[], UtilsError>({
         path: `/events/${id}/participants`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting tags list
+     *
+     * @tags Events
+     * @name ParticipantsRequestsDetail
+     * @summary get events participants requestlist
+     * @request GET:/events/{id}/participants/requests
+     */
+    participantsRequestsDetail: (
+      id: number,
+      query?: { IdGt?: number; IdLte?: number; Limit?: number },
+      params: RequestParams = {},
+    ) =>
+      this.request<ModelsUserCard[], UtilsError>({
+        path: `/events/${id}/participants/requests`,
         method: "GET",
         query: query,
         type: ContentType.Json,
@@ -712,6 +728,70 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<ModelsUser, UtilsError>({
         path: `/user/${id}`,
         method: "GET",
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting a user by id
+     *
+     * @tags Users
+     * @name ClubsDetail
+     * @summary get clubs where user is in status
+     * @request GET:/user/{id}/clubs/{type}
+     */
+    clubsDetail: (
+      id: number,
+      type: "admin" | "participant" | "subscriber",
+      query?: { IdGt?: number; IdLte?: number; Limit?: number },
+      params: RequestParams = {},
+    ) =>
+      this.request<ModelsClubCard[], UtilsError | void>({
+        path: `/user/${id}/clubs/${type}`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting a user by id
+     *
+     * @tags Users
+     * @name EventsDetail
+     * @summary get events where user is in status
+     * @request GET:/user/{id}/events/{type}
+     */
+    eventsDetail: (
+      id: number,
+      type: "admin" | "participant" | "spectator",
+      query?: { IdGt?: number; IdLte?: number; Limit?: number },
+      params: RequestParams = {},
+    ) =>
+      this.request<ModelsClubCard[], UtilsError | void>({
+        path: `/user/${id}/events/${type}`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting a user by id
+     *
+     * @tags Users
+     * @name GarageDetail
+     * @summary get user garage
+     * @request GET:/user/{id}/garage
+     */
+    garageDetail: (id: number, query?: { IdGt?: number; IdLte?: number; Limit?: number }, params: RequestParams = {}) =>
+      this.request<ModelsCarCard[], UtilsError | void>({
+        path: `/user/${id}/garage`,
+        method: "GET",
+        query: query,
         type: ContentType.Json,
         format: "json",
         ...params,

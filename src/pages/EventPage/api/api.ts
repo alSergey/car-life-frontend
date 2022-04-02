@@ -19,3 +19,6 @@ export const getEvent = (id: number): Promise<EventData> => {
 		avatar: data.avatar,
 	}));
 };
+
+export const newEventMember = (id: number): Promise<number> =>
+	api.events.participateCreate2(id).then(({ status }) => status);

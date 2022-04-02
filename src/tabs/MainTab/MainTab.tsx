@@ -49,6 +49,8 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 			<EventPage
 				id={Pages.Event}
 				eventId={eventId}
+				// TODO: реализовать
+				onUserClick={() => true}
 				onBackClick={() => setActivePanel(Pages.Main)}
 			/>
 			<CreateClubPage
@@ -67,6 +69,7 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 					setEventId(clickEventId);
 					setActivePanel(Pages.Event);
 				}}
+				// TODO: реализовать
 				onCarClick={() => true}
 				onUserClick={() => true}
 			/>

@@ -5,5 +5,5 @@ export {
 export {
 	getClubMembersList,
 	getClubMembersRequestList,
-	memberApproveReject,
+	memberClubApproveReject,
 } from "./api";
