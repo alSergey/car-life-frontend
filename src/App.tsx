@@ -8,6 +8,7 @@ import { MapTab } from "./tabs/MapTab";
 import { ProfileTab } from "./tabs/ProfileTab";
 import { RegView } from "./tabs/RegView";
 import { LoaderView } from "./tabs/LoaderView";
+import { defaultUserData, UserProvider } from "./context/userContext";
 
 enum Tab {
 	Main = "main",
@@ -19,40 +20,44 @@ enum Tab {
 
 const App: React.FC = () => {
 	const [activeView, setActiveView] = useState(Tab.Loader);
+	const [userData, setUserData] = useState(defaultUserData);
 
 	return (
-		<AppRoot>
-			{activeView !== Tab.Reg && activeView !== Tab.Loader && (
-				<Epic
-					activeStory={activeView}
-					tabbar={
-						<NavBar
-							activeStory={activeView}
-							mainTab={Tab.Main}
-							mapTab={Tab.Map}
-							profileTab={Tab.Profile}
-							onMainClick={() => setActiveView(Tab.Main)}
-							onMapClick={() => setActiveView(Tab.Map)}
-							onProfileClick={() => setActiveView(Tab.Profile)}
-						/>
-					}
-				>
-					<MainTab id={Tab.Main} />
-					<MapTab id={Tab.Map} />
-					<ProfileTab id={Tab.Profile} />
-				</Epic>
-			)}
-			{activeView === Tab.Loader && (
-				<LoaderView
-					id={Tab.Loader}
-					onLogin={() => setActiveView(Tab.Map)}
-					onReg={() => setActiveView(Tab.Reg)}
-				/>
-			)}
-			{activeView === Tab.Reg && (
-				<RegView id={Tab.Reg} onSubmit={() => setActiveView(Tab.Map)} />
-			)}
-		</AppRoot>
+		<UserProvider value={{ userState: userData }}>
+			<AppRoot>
+				{activeView !== Tab.Reg && activeView !== Tab.Loader && (
+					<Epic
+						activeStory={activeView}
+						tabbar={
+							<NavBar
+								activeStory={activeView}
+								mainTab={Tab.Main}
+								mapTab={Tab.Map}
+								profileTab={Tab.Profile}
+								onMainClick={() => setActiveView(Tab.Main)}
+								onMapClick={() => setActiveView(Tab.Map)}
+								onProfileClick={() => setActiveView(Tab.Profile)}
+							/>
+						}
+					>
+						<MainTab id={Tab.Main} />
+						<MapTab id={Tab.Map} />
+						<ProfileTab id={Tab.Profile} />
+					</Epic>
+				)}
+				{activeView === Tab.Loader && (
+					<LoaderView
+						id={Tab.Loader}
+						onLogin={() => setActiveView(Tab.Map)}
+						onReg={() => setActiveView(Tab.Reg)}
+						setUserInfo={(data) => setUserData(data)}
+					/>
+				)}
+				{activeView === Tab.Reg && (
+					<RegView id={Tab.Reg} onSubmit={() => setActiveView(Tab.Map)} />
+				)}
+			</AppRoot>
+		</UserProvider>
 	);
 };
 

@@ -1,13 +1,13 @@
 import { Div, Group, Title, Text } from "@vkontakte/vkui";
 import React from "react";
-import { InfoData } from "../api/api.types";
+import { UserData } from "../../../context/userContext";
 import styles from "./ProfileInfo.module.css";
 
 interface Prop {
-	info: InfoData | null;
+	userData: UserData;
 }
 
-export const ProfileInfo: React.FC<Prop> = ({ info }) => {
+export const ProfileInfo: React.FC<Prop> = ({ userData }) => {
 	return (
 		<Div>
 			<Group>
@@ -15,7 +15,7 @@ export const ProfileInfo: React.FC<Prop> = ({ info }) => {
 					Мои интересы
 				</Title>
 				<Text weight="semibold" className={styles.tags}>
-					{info?.tags.join(", ")}
+					{userData.tags.join(", ")}
 				</Text>
 			</Group>
 			<Group>
@@ -23,7 +23,7 @@ export const ProfileInfo: React.FC<Prop> = ({ info }) => {
 					О себе
 				</Title>
 				<Text weight="semibold" className={styles.tags}>
-					{info?.description}
+					{userData.description}
 				</Text>
 			</Group>
 		</Div>
