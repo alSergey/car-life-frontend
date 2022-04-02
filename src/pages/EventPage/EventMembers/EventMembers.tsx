@@ -11,10 +11,15 @@ import { UserList } from "../../../components/UserList";
 
 interface Props {
 	eventId: number;
+	userStatus: string;
 	onClick: (id: number) => void;
 }
 
-export const EventMembers: React.FC<Props> = ({ eventId, onClick }) => {
+export const EventMembers: React.FC<Props> = ({
+	eventId,
+	userStatus,
+	onClick,
+}) => {
 	const [membersList, setMembersList] = useState(emptyEventMembersList);
 	const [membersRequestList, setMembersRequestList] = useState(
 		emptyEventMembersRequestList
@@ -30,6 +35,8 @@ export const EventMembers: React.FC<Props> = ({ eventId, onClick }) => {
 	};
 
 	const handleGetMembersRequestList = async (): Promise<void> => {
+		if (userStatus !== "admin") return;
+
 		try {
 			const data = await getEventMembersRequestList(eventId);
 			setMembersRequestList(data);
@@ -58,15 +65,17 @@ export const EventMembers: React.FC<Props> = ({ eventId, onClick }) => {
 
 	return (
 		<div>
-			<Group>
-				<Header>Список заявок</Header>
-				<UserList
-					userList={membersRequestList}
-					onClick={onClick}
-					onApprove={(id) => handleApproveReject(id, "approve")}
-					onReject={(id) => handleApproveReject(id, "reject")}
-				/>
-			</Group>
+			{userStatus === "admin" && (
+				<Group>
+					<Header>Список заявок</Header>
+					<UserList
+						userList={membersRequestList}
+						onClick={onClick}
+						onApprove={(id) => handleApproveReject(id, "approve")}
+						onReject={(id) => handleApproveReject(id, "reject")}
+					/>
+				</Group>
+			)}
 			<Group>
 				<Header>Список участников</Header>
 				<UserList userList={membersList} onClick={onClick} />

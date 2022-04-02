@@ -57,6 +57,7 @@ export const EventPage: React.FC<Props> = ({
 	const handleMember = async (): Promise<void> => {
 		try {
 			await newEventMember(eventId);
+			handleGetEventData();
 		} catch (err) {
 			console.error(err);
 		}
