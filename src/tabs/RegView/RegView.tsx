@@ -4,11 +4,11 @@ import { WelcomePage } from "../../pages/reg/WelcomePage";
 import { RegPage } from "../../pages/reg/RegPage";
 import { CarPage } from "../../pages/reg/CarPage";
 import { AboutPage } from "../../pages/reg/AboutPage";
-import { emptyRegForm, regUser } from "./api";
-import bridge from "@vkontakte/vk-bridge";
 import { FirstStory } from "../../pages/reg/FirstStory";
 import { SecondStory } from "../../pages/reg/SecondStory";
 import { ThirdStory } from "../../pages/reg/ThirdStory";
+import { emptyRegForm, regUser } from "./api";
+import bridge from "@vkontakte/vk-bridge";
 
 interface Prop {
 	id: string;
