@@ -6,6 +6,9 @@ import { CarPage } from "../../pages/reg/CarPage";
 import { AboutPage } from "../../pages/reg/AboutPage";
 import { emptyRegForm, regUser } from "./api";
 import bridge from "@vkontakte/vk-bridge";
+import { FirstStory } from "../../pages/reg/FirstStory";
+import { SecondStory } from "../../pages/reg/SecondStory";
+import { ThirdStory } from "../../pages/reg/ThirdStory";
 
 interface Prop {
 	id: string;
@@ -14,6 +17,9 @@ interface Prop {
 
 enum Pages {
 	Welcome = "welcome",
+	First = "first",
+	Second = "second",
+	Third = "third",
 	Fav = "fav",
 	Car = "car",
 	Reg = "reg",
@@ -22,6 +28,7 @@ enum Pages {
 export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
 	const [activePanel, setActivePanel] = useState(Pages.Welcome);
 	const [form, setForm] = useState(emptyRegForm);
+	const [beforePanel, setBeforePanel] = useState(Pages.Third);
 
 	const handleGetUserInfo = async (): Promise<void> => {
 		try {
@@ -52,11 +59,33 @@ export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
 		<View activePanel={activePanel} id={id}>
 			<WelcomePage
 				id={Pages.Welcome}
-				onNextClick={() => setActivePanel(Pages.Fav)}
+				onNextClick={() => setActivePanel(Pages.First)}
+			/>
+			<FirstStory
+				id={Pages.First}
+				onNextClick={() => setActivePanel(Pages.Second)}
+				onBackClick={() => setActivePanel(Pages.Welcome)}
+			/>
+			<SecondStory
+				id={Pages.Second}
+				onNextClick={() => setActivePanel(Pages.Third)}
+				onBackClick={() => setActivePanel(Pages.First)}
+			/>
+			<ThirdStory
+				id={Pages.Third}
+				onNextClick={() => {
+					setActivePanel(Pages.Fav);
+					setBeforePanel(Pages.Car);
+				}}
+				onBackClick={() => setActivePanel(Pages.Second)}
+				onSkipClick={() => {
+					setActivePanel(Pages.Reg);
+					setBeforePanel(Pages.Third);
+				}}
 			/>
 			<AboutPage
 				id={Pages.Fav}
-				onBackClick={() => setActivePanel(Pages.Welcome)}
+				onBackClick={() => setActivePanel(Pages.Third)}
 				onNextClick={() => setActivePanel(Pages.Car)}
 				onFormSubmit={(favForm) => {
 					setForm({
@@ -78,7 +107,7 @@ export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
 			/>
 			<RegPage
 				id={Pages.Reg}
-				onBackClick={() => setActivePanel(Pages.Car)}
+				onBackClick={() => setActivePanel(beforePanel)}
 				onNextClick={handleReg}
 			/>
 		</View>

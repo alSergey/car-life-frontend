@@ -26,8 +26,12 @@ export const RegPage: React.FC<Props> = ({ id, onBackClick, onNextClick }) => {
 			</PanelHeader>
 			<Div className={styles.container}>
 				<span>Жми вход и пристегни ремни, мы стартуем!</span>
-				<Button size="l" onClick={onNextClick}>
-					Продолжить
+				<Button
+					style={{ backgroundColor: "rgba(61,161,58,0.79)" }}
+					size="l"
+					onClick={onNextClick}
+				>
+					Поехали!
 				</Button>
 			</Div>
 		</Panel>
