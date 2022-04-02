@@ -41,17 +41,6 @@ export const AboutPage: React.FC<Props> = ({
 					onNextClick();
 				}}
 			/>
-			<Div>
-				<Button
-					size="l"
-					stretched
-					mode="secondary"
-					disabled
-					onClick={() => onNextClick()}
-				>
-					Пропустить
-				</Button>
-			</Div>
 		</Panel>
 	);
 };

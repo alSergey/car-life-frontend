@@ -20,11 +20,11 @@ export const CarCard: React.FC<Props> = ({ brand, model, name, img, date }) => {
 				before={
 					<div
 						style={{
-							width: "400px",
-							height: "60px",
+							width: "1000px",
+							height: "65px",
 							position: "absolute",
 							zIndex: 100,
-							bottom: -10,
+							bottom: -15,
 							left: -15,
 							backgroundColor: "rgb(60, 60, 60, 0.7)",
 						}}

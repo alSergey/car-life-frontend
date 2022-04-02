@@ -39,17 +39,6 @@ export const CarPage: React.FC<Props> = ({
 					onNextClick();
 				}}
 			/>
-			<Div>
-				<Button
-					stretched
-					size="l"
-					mode="secondary"
-					disabled
-					onClick={() => onNextClick()}
-				>
-					Пропустить
-				</Button>
-			</Div>
 		</Panel>
 	);
 };
