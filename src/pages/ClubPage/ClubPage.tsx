@@ -7,10 +7,11 @@ import {
 	Div,
 	Group,
 	Text,
+	Button,
 } from "@vkontakte/vkui";
 
 import styles from "./ClubPage.module.css";
-import { emptyClubData, getClub } from "./api";
+import { emptyClubData, getClub, newClubMember } from "./api";
 import { ClubBar } from "./ClubBar";
 import { ClubEvents } from "./ClubEvents";
 import { ClubGarage } from "./ClubGarage";
@@ -43,6 +44,14 @@ export const ClubPage: React.FC<Props> = ({ id, clubId, onBackClick }) => {
 		}
 	};
 
+	const handleMember = async (): Promise<void> => {
+		try {
+			await newClubMember(clubId);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	useEffect(() => {
 		handleGetClubData();
 	}, []);
@@ -61,19 +70,35 @@ export const ClubPage: React.FC<Props> = ({ id, clubId, onBackClick }) => {
 			>
 				{clubData.name}
 			</PanelHeader>
-			<Div className={styles.top}>
-				<Group className={styles.topTitle}>
-					<Text weight="regular">{clubData.tags.join(", ")}</Text>
-					<Text weight="regular" className={styles.desc}>
-						{clubData.description}
-					</Text>
-				</Group>
-				<Avatar size={96} src={clubData.avatar} />
+			<Div>
+				<div className={styles.top}>
+					<Group className={styles.topTitle}>
+						<Text weight="regular">{clubData.tags.join(", ")}</Text>
+						<Text weight="regular" className={styles.desc}>
+							{clubData.description}
+						</Text>
+					</Group>
+					<Avatar size={96} src={clubData.avatar} />
+				</div>
+				<Button
+					size="m"
+					className={styles.buttonContainer}
+					stretched
+					onClick={handleMember}
+				>
+					Участвовать
+				</Button>
 			</Div>
 			<ClubBar activeTab={activeTab} setActive={setActiveTab} />
-			{activeTab === Tab.Events && <ClubEvents />}
-			{activeTab === Tab.Garage && <ClubGarage />}
-			{activeTab === Tab.Members && <ClubMembers />}
+			{activeTab === Tab.Events && (
+				<ClubEvents clubId={clubId} onClick={() => true} />
+			)}
+			{activeTab === Tab.Garage && (
+				<ClubGarage clubId={clubId} onClick={() => true} />
+			)}
+			{activeTab === Tab.Members && (
+				<ClubMembers clubId={clubId} onClick={() => true} />
+			)}
 			{activeTab === Tab.Subscribers && <ClubSubscribers />}
 		</Panel>
 	);

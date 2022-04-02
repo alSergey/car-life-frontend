@@ -1,21 +1,16 @@
 import React from "react";
-import { GarageData } from "../api/api.types";
-import { GarageList } from "../../../components/GarageList";
-import { Avatar, Card, Text } from "@vkontakte/vkui";
-import image from "./add-car.png";
-import {
-	Icon20AddCircleFillGray,
-	Icon56AddCircleOutline,
-} from "@vkontakte/icons";
+import { CarList } from "../../../components/CarList";
+import { Card, Text } from "@vkontakte/vkui";
+import { Icon56AddCircleOutline } from "@vkontakte/icons";
 
 interface Props {
-	garageList: GarageData[];
+	userId: number;
 }
 
-export const ProfileGarage: React.FC<Props> = ({ garageList }) => {
+export const ProfileGarage: React.FC<Props> = ({ userId }) => {
 	return (
 		<div>
-			<GarageList garageList={garageList} onClick={() => {}} />
+			<CarList carList={[]} onClick={() => {}} />
 			<Card
 				style={{
 					padding: "10px",

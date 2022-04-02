@@ -1,5 +1,6 @@
 import React from "react";
 import { Banner, Text } from "@vkontakte/vkui";
+import { getPrettyYear } from "../../../constants/time";
 
 interface Props {
 	brand: string;
@@ -9,8 +10,8 @@ interface Props {
 	date: string;
 }
 
-export const GarageCard: React.FC<Props> = ({ brand, model, name, date }) => {
-	const dateYear = new Date(date).toLocaleString("ru", { year: "numeric" });
+export const CarCard: React.FC<Props> = ({ brand, model, name, img, date }) => {
+	const dateYear = getPrettyYear(date);
 	return (
 		<Banner
 			before={
@@ -42,7 +43,7 @@ export const GarageCard: React.FC<Props> = ({ brand, model, name, date }) => {
 				<div
 					style={{
 						backgroundColor: "rgba(131,131,131,0.46)",
-						backgroundImage: "url(https://a.d-cd.net/7a0f59u-960.jpg)",
+						backgroundImage: `url(${img})`,
 						backgroundSize: "cover",
 						backgroundRepeat: "no-repeat",
 					}}

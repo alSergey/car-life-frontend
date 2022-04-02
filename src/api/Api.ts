@@ -23,6 +23,10 @@ export interface ModelsCarCard {
   owner_id: number;
 }
 
+export interface ModelsCarIDResponse {
+  car_id: number;
+}
+
 export interface ModelsCarRequest {
   body?: string;
   brand?: string;
@@ -36,8 +40,6 @@ export interface ModelsCarRequest {
 
 export interface ModelsClub {
   avatar: string;
-  club_events: ModelsEventCard[];
-  club_garage: ModelsCarCard[];
   description: string;
   events_count: number;
   id: number;
@@ -115,13 +117,16 @@ export interface ModelsTag {
 export interface ModelsUser {
   avatar_url: string;
   description: string;
-  garage: ModelsCarCard[];
   name: string;
-  own_clubs: ModelsClubCard[];
-  participant_clubs: ModelsClubCard[];
-  participant_events: ModelsEventCard[];
   surname: string;
   tags: string[];
+  vkid: number;
+}
+
+export interface ModelsUserCard {
+  avatar_url: string;
+  name: string;
+  surname: string;
   vkid: number;
 }
 
@@ -316,6 +321,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
+     * @description Handler for getting tags list
+     *
+     * @tags Clubs
+     * @name ParticipateCreate
+     * @summary request participate
+     * @request POST:/clubs/{cid}/participate/{uid}/{type}
+     */
+    participateCreate: (cid: number, uid: number, type: "approve" | "reject", params: RequestParams = {}) =>
+      this.request<void, UtilsError | void>({
+        path: `/clubs/${cid}/participate/${uid}/${type}`,
+        method: "POST",
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
      * @description Handler for getting a club by id
      *
      * @tags Clubs
@@ -329,6 +350,104 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "GET",
         type: ContentType.Json,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting tags list
+     *
+     * @tags Clubs
+     * @name CarsDetail
+     * @summary get clubs cars list
+     * @request GET:/clubs/{id}/cars
+     */
+    carsDetail: (id: number, query?: { IdGt?: number; IdLte?: number; Limit?: number }, params: RequestParams = {}) =>
+      this.request<ModelsCarCard[], UtilsError>({
+        path: `/clubs/${id}/cars`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting tags list
+     *
+     * @tags Clubs
+     * @name EventsDetail
+     * @summary get clubs events list
+     * @request GET:/clubs/{id}/events
+     */
+    eventsDetail: (id: number, query?: { IdGt?: number; IdLte?: number; Limit?: number }, params: RequestParams = {}) =>
+      this.request<ModelsEventCard[], UtilsError>({
+        path: `/clubs/${id}/events`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting tags list
+     *
+     * @tags Clubs
+     * @name ParticipantsDetail
+     * @summary get clubs participants list
+     * @request GET:/clubs/{id}/participants
+     */
+    participantsDetail: (
+      id: number,
+      query?: { IdGt?: number; IdLte?: number; Limit?: number },
+      params: RequestParams = {},
+    ) =>
+      this.request<ModelsUserCard[], UtilsError>({
+        path: `/clubs/${id}/participants`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting tags list
+     *
+     * @tags Clubs
+     * @name ParticipantsRequestsDetail
+     * @summary get clubs participants request list
+     * @request GET:/clubs/{id}/participants/requests
+     */
+    participantsRequestsDetail: (
+      id: number,
+      query?: { IdGt?: number; IdLte?: number; Limit?: number },
+      params: RequestParams = {},
+    ) =>
+      this.request<ModelsUserCard[], UtilsError>({
+        path: `/clubs/${id}/participants/requests`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting tags list
+     *
+     * @tags Clubs
+     * @name ParticipateCreate2
+     * @summary request participate
+     * @request POST:/clubs/{id}/participate
+     * @originalName participateCreate
+     * @duplicate
+     */
+    participateCreate2: (id: number, params: RequestParams = {}) =>
+      this.request<void, UtilsError | void>({
+        path: `/clubs/${id}/participate`,
+        method: "POST",
+        type: ContentType.Json,
         ...params,
       }),
 
@@ -491,7 +610,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/signup
      */
     signupCreate: (body: ModelsSignUpRequest, params: RequestParams = {}) =>
-      this.request<ModelsUser, UtilsError>({
+      this.request<ModelsCarIDResponse, UtilsError>({
         path: `/signup`,
         method: "POST",
         body: body,

@@ -30,14 +30,14 @@ export const regUser = (form: RegForm): Promise<number | undefined> => {
 			tags: form.userAboutForm.tags.map(({ label }) => label),
 		})
 		.then(({ data }) => {
-			if (!form.carForm?.file || !data.garage[0]) return;
+			if (!form.carForm?.file) return;
 
 			const formData = new FormData();
 			formData.append("file-upload", form.carForm.file);
 
-			return fetch(`${backBaseUrl}/garage/${data.garage[0].id}/upload`, {
+			return fetch(`${backBaseUrl}/garage/${data.car_id}/upload`, {
 				method: "POST",
 				body: formData,
-			}).then(() => data.vkid);
+			}).then(() => data.car_id);
 		});
 };
