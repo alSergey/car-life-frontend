@@ -6,5 +6,4 @@ export const emptyUserData: UserData = {
 	surname: "",
 	avatar: "",
 	info: null,
-	garageList: [],
 };

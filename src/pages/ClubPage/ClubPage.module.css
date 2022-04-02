@@ -17,3 +17,7 @@
 .desc {
 	color: var(--text_secondary);
 }
+
+.buttonContainer {
+	margin-top: 20px;
+}

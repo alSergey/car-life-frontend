@@ -1,10 +1,9 @@
 import { CardGrid, Footer } from "@vkontakte/vkui";
 import React from "react";
 import { GarageCard } from "./GarageCard";
-import { GarageData } from "../api/api.types";
 
 interface Props {
-	garageList: GarageData[];
+	garageList: [];
 }
 
 export const ProfileGarage: React.FC<Props> = ({ garageList }) => {

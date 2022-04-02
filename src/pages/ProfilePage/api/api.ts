@@ -11,12 +11,4 @@ export const getUserInfo = async (): Promise<UserData> =>
 			tags: data.tags,
 			description: "Очень крутой человек",
 		},
-		garageList: data.garage.map((el) => ({
-			id: el.id,
-			brand: el.brand,
-			model: el.model,
-			date: el.date,
-			description: el.description,
-			photo: el.avatar_url,
-		})),
 	}));
