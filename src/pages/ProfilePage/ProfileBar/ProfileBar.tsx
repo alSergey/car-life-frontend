@@ -1,4 +1,4 @@
-import { Tabs, TabsItem } from "@vkontakte/vkui";
+import { Tabs, TabsItem, Text } from "@vkontakte/vkui";
 import React from "react";
 import { Tab } from "../ProfilePage";
 
@@ -14,25 +14,33 @@ export const ProfileBar: React.FC<Props> = ({ activeTab, setActive }) => {
 				onClick={() => setActive(Tab.Info)}
 				selected={activeTab === Tab.Info}
 			>
-				О себе
+				<Text weight="regular" size={3}>
+					О себе
+				</Text>
 			</TabsItem>
 			<TabsItem
 				onClick={() => setActive(Tab.Garage)}
 				selected={activeTab === Tab.Garage}
 			>
-				Гараж
+				<Text weight="regular" size={3}>
+					Гараж
+				</Text>
 			</TabsItem>
 			<TabsItem
 				onClick={() => setActive(Tab.Event)}
 				selected={activeTab === Tab.Event}
 			>
-				События
+				<Text weight="regular" size={3}>
+					События
+				</Text>
 			</TabsItem>
 			<TabsItem
 				onClick={() => setActive(Tab.Club)}
 				selected={activeTab === Tab.Club}
 			>
-				Клубы
+				<Text weight="regular" size={3}>
+					Клубы
+				</Text>
 			</TabsItem>
 		</Tabs>
 	);

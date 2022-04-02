@@ -47,7 +47,7 @@ export const ProfilePage: React.FC<Props> = ({ id }) => {
 			</Gradient>
 			<ProfileBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === Tab.Info && <ProfileInfo info={userData.info} />}
-			{activeTab === Tab.Garage && <ProfileGarage garageList={[]} />}
+			{activeTab === Tab.Garage && <ProfileGarage userId={0} />}
 			{activeTab === Tab.Event && <ProfileEvent />}
 			{activeTab === Tab.Club && <ProfileClub />}
 		</Panel>

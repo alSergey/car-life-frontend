@@ -4,15 +4,14 @@ import { backBaseUrl } from "../../../constants/url";
 
 export const regUser = (form: RegForm): Promise<number | undefined> => {
 	console.log(form);
-	if (!form.userForm || !form.userAboutForm)
-		throw new Error("Не заполнены все поля");
+	if (!form.userAboutForm) throw new Error("Не заполнены все поля");
 
 	return api.signup
 		.signupCreate({
-			avatarUrl: form.userForm.photo_max_orig,
-			vkid: form.userForm.id,
-			name: form.userForm.first_name,
-			surname: form.userForm.last_name,
+			avatarUrl: "",
+			vkid: 1,
+			name: "Name",
+			surname: "Surname",
 			description: form.userAboutForm.description,
 			garage: form.carForm
 				? [
@@ -31,14 +30,14 @@ export const regUser = (form: RegForm): Promise<number | undefined> => {
 			tags: form.userAboutForm.tags.map(({ label }) => label),
 		})
 		.then(({ data }) => {
-			if (!form.carForm?.file || !data.garage[0]) return;
+			if (!form.carForm?.file) return;
 
 			const formData = new FormData();
 			formData.append("file-upload", form.carForm.file);
 
-			return fetch(`${backBaseUrl}/garage/${data.garage[0].id}/upload`, {
+			return fetch(`${backBaseUrl}/garage/${data.car_id}/upload`, {
 				method: "POST",
 				body: formData,
-			}).then(() => data.vkid);
+			}).then(() => data.car_id);
 		});
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { emptyClubGarageList, getClubGarageList } from "./api";
-import { GarageList } from "../../../components/GarageList";
+import { CarList } from "../../../components/CarList";
 
 interface Props {
 	clubId: number;
@@ -25,5 +25,5 @@ export const ClubGarage: React.FC<Props> = ({ clubId, onClick }) => {
 		handleGetGarageList();
 	}, []);
 
-	return <GarageList garageList={[]} onClick={onClick} />;
+	return <CarList carList={[]} onClick={onClick} />;
 };
