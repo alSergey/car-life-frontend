@@ -103,7 +103,11 @@ export const EventPage: React.FC<Props> = ({
 			<EventBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === Tab.Info && <EventInfo event={eventData} />}
 			{activeTab === Tab.Members && (
-				<EventMembers eventId={eventData.id} onClick={onUserClick} />
+				<EventMembers
+					eventId={eventData.id}
+					userStatus={eventData.userStatus}
+					onClick={onUserClick}
+				/>
 			)}
 			{activeTab === Tab.Garage && <EventGarage id={eventData.id} />}
 			{activeTab === Tab.Posts && <EventPosts />}
