@@ -85,23 +85,23 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 				>
 					<ZoomControl options={{ float: "right" }} />
 					<GeolocationControl options={{ float: "left" }} />
-					<Group
-						style={{
-							position: "absolute",
-							bottom: "40px",
-							zIndex: 1,
-							backgroundColor: "rgba(201,201,201,0.4)",
-							width: "100%",
-						}}
-					>
-						<HorizontalScroll
-							showArrows
-							getScrollToLeft={(i) => i - 120}
-							getScrollToRight={(i) => i + 120}
+					{type === "events" && (
+						<Group
+							style={{
+								position: "absolute",
+								bottom: "40px",
+								zIndex: 1,
+								backgroundColor: "rgba(201,201,201,0.4)",
+								width: "100%",
+							}}
 						>
-							<div style={{ display: "flex" }}>
-								{type === "events" &&
-									events.map((e) => {
+							<HorizontalScroll
+								showArrows
+								getScrollToLeft={(i) => i - 120}
+								getScrollToRight={(i) => i + 120}
+							>
+								<div style={{ display: "flex" }}>
+									{events.map((e) => {
 										return (
 											<HorizontalCell
 												key={e.id}
@@ -135,9 +135,10 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 											</HorizontalCell>
 										);
 									})}
-							</div>
-						</HorizontalScroll>
-					</Group>
+								</div>
+							</HorizontalScroll>
+						</Group>
+					)}
 				</Map>
 			</YMaps>
 		</div>
