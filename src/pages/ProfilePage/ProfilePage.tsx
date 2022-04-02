@@ -7,7 +7,7 @@ import { ProfileGarage } from "./ProfileGarage";
 import { ProfileEvent } from "./ProfileEvent";
 import { ProfileClub } from "./ProfileClub";
 import { ProfileInfo } from "./ProfileInfo";
-import userContext from "../../context/userContext";
+import { UserContext } from "../../context/userContext";
 
 interface Props {
 	id: string;
@@ -22,24 +22,19 @@ export enum Tab {
 
 export const ProfilePage: React.FC<Props> = ({ id }) => {
 	const [activeTab, setActiveTab] = useState(Tab.Info);
-	const { userState } = useContext(userContext);
+	const { userState } = useContext(UserContext);
 
 	return (
 		<Panel id={id}>
 			<Gradient className={styles.userContainer}>
-				<Avatar size={96} src={userState.avatar_url} />
+				<Avatar size={96} src={userState.avatar} />
 				<Title className={styles.userName} level="2" weight="semibold">
 					{userState.surname} {userState.name}
 				</Title>
 			</Gradient>
 			<ProfileBar activeTab={activeTab} setActive={setActiveTab} />
-			{activeTab === Tab.Info && (
-				<ProfileInfo
-					tags={userState.tags}
-					description={userState.description}
-				/>
-			)}
-			{activeTab === Tab.Garage && <ProfileGarage userId={userState.vkid} />}
+			{activeTab === Tab.Info && <ProfileInfo userData={userState} />}
+			{activeTab === Tab.Garage && <ProfileGarage userId={userState.id} />}
 			{activeTab === Tab.Event && <ProfileEvent />}
 			{activeTab === Tab.Club && <ProfileClub />}
 		</Panel>

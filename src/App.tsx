@@ -8,8 +8,7 @@ import { MapTab } from "./tabs/MapTab";
 import { ProfileTab } from "./tabs/ProfileTab";
 import { RegView } from "./tabs/RegView";
 import { LoaderView } from "./tabs/LoaderView";
-import { defaultUser, UserProvider } from "./context/userContext";
-import { ModelsUser } from "./api/Api";
+import { defaultUserData, UserProvider } from "./context/userContext";
 
 enum Tab {
 	Main = "main",
@@ -21,7 +20,7 @@ enum Tab {
 
 const App: React.FC = () => {
 	const [activeView, setActiveView] = useState(Tab.Loader);
-	const [userData, setUserData] = useState<ModelsUser>(defaultUser);
+	const [userData, setUserData] = useState(defaultUserData);
 
 	return (
 		<UserProvider value={{ userState: userData }}>
@@ -51,9 +50,7 @@ const App: React.FC = () => {
 						id={Tab.Loader}
 						onLogin={() => setActiveView(Tab.Map)}
 						onReg={() => setActiveView(Tab.Reg)}
-						setUserInfo={(data) => {
-							setUserData(data);
-						}}
+						setUserInfo={(data) => setUserData(data)}
 					/>
 				)}
 				{activeView === Tab.Reg && (

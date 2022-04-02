@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
 import { Panel, Spinner, View } from "@vkontakte/vkui";
 import { backBaseUrl } from "../../constants/url";
-import { defaultUser } from "../../context/userContext";
-import { api } from "../../api";
-import { ModelsUser } from "../../api/Api";
+import { getUserData, UserData } from "../../context/userContext";
 
 interface Prop {
 	id: string;
 	onLogin: () => void;
 	onReg: () => void;
-	setUserInfo: (data: ModelsUser) => void;
+	setUserInfo: (data: UserData) => void;
 }
 
 export const LoaderView: React.FC<Prop> = ({
@@ -18,18 +16,16 @@ export const LoaderView: React.FC<Prop> = ({
 	onReg,
 	setUserInfo,
 }) => {
-	const getUserData = async (): Promise<void> => {
+	const handleGetUserData = async (): Promise<void> => {
 		try {
-			const { data } = await api.me.getMe();
-			console.log(data);
-
+			const data = await getUserData();
 			setUserInfo(data);
 		} catch (e) {
 			console.error(e);
 		}
 	};
 
-	const handleGetUserData = async () => {
+	const handleLogin = async () => {
 		// const userData = await bridge.send("VKWebAppGetUserInfo");
 
 		try {
@@ -46,17 +42,17 @@ export const LoaderView: React.FC<Prop> = ({
 			}
 
 			if (session.status === 200) {
-				getUserData();
+				handleGetUserData();
 				onLogin();
 				return;
 			}
-		} catch (e) {
-			console.error(e);
+		} catch (err) {
+			console.error(err);
 		}
 	};
 
 	useEffect(() => {
-		handleGetUserData();
+		handleLogin();
 	}, []);
 
 	return (
