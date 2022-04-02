@@ -1,5 +1,5 @@
 import React from "react";
-import { Div, Footer, Group } from "@vkontakte/vkui";
+import { Footer } from "@vkontakte/vkui";
 import { CarCard } from "./CarCard";
 
 interface CarInfo {
@@ -17,8 +17,8 @@ interface Props {
 }
 
 export const CarList: React.FC<Props> = ({ carList }) => (
-	<Div>
-		<Group>
+	<div>
+		<div>
 			{carList.map(({ id, brand, model, date, name, avatar_url }) => (
 				<CarCard
 					key={id}
@@ -29,7 +29,7 @@ export const CarList: React.FC<Props> = ({ carList }) => (
 					img={avatar_url}
 				/>
 			))}
-		</Group>
+		</div>
 		{carList.length === 0 && <Footer>Ничего не найдено</Footer>}
-	</Div>
+	</div>
 );

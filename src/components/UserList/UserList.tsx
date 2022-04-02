@@ -1,5 +1,5 @@
 import React from "react";
-import { Group, Footer } from "@vkontakte/vkui";
+import { Footer } from "@vkontakte/vkui";
 import { UserCard } from "./UserCard";
 
 interface UserInfo {
@@ -23,7 +23,7 @@ export const UserList: React.FC<Props> = ({
 	onClick,
 }) => (
 	<div>
-		<Group>
+		<div>
 			{userList.map(({ vkid, name, surname, avatar_url }) => (
 				<UserCard
 					key={vkid}
@@ -35,7 +35,7 @@ export const UserList: React.FC<Props> = ({
 					onClick={() => onClick(vkid)}
 				/>
 			))}
-		</Group>
+		</div>
 		{userList.length === 0 && <Footer>Ничего не найдено</Footer>}
 	</div>
 );

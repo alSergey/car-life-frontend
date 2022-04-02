@@ -13,8 +13,6 @@ export const ClubGarage: React.FC<Props> = ({ clubId, onClick }) => {
 	const handleGetGarageList = async (): Promise<void> => {
 		try {
 			const data = await getClubGarageList(clubId);
-			// TODO: реализовать
-			console.log(data);
 			setGarageList(data);
 		} catch (err) {
 			console.error(err);
@@ -25,5 +23,5 @@ export const ClubGarage: React.FC<Props> = ({ clubId, onClick }) => {
 		handleGetGarageList();
 	}, []);
 
-	return <CarList carList={[]} onClick={onClick} />;
+	return <CarList carList={garageList} onClick={onClick} />;
 };
