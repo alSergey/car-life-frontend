@@ -48,7 +48,7 @@ const App: React.FC = () => {
 				{activeView === Tab.Loader && (
 					<LoaderView
 						id={Tab.Loader}
-						onLogin={() => setActiveView(Tab.Map)}
+						onLogin={() => setActiveView(Tab.Reg)}
 						onReg={() => setActiveView(Tab.Reg)}
 						setUserInfo={(data) => setUserData(data)}
 					/>

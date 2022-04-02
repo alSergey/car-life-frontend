@@ -13,10 +13,11 @@ export const WelcomePage: React.FC<Props> = ({ id, onNextClick }) => {
 			<Div className={styles.container}>
 				<span>
 					Мы рады видеть тебя на просторах нашего сообщества, где ты можешь
-					найти клубы по интересам, активные движухи, похвастаться своим авто.
+					найти автоклубы по интересам, активные движухи, похвастаться своим
+					авто.
 				</span>
-				<Button size="l" onClick={onNextClick}>
-					Продолжить
+				<Button mode="tertiary" size="l" onClick={onNextClick}>
+					Что тебя ждет?
 				</Button>
 			</Div>
 		</Panel>

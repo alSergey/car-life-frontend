@@ -1,0 +1,1 @@
+export { ThirdStory } from "./ThirdStory";
