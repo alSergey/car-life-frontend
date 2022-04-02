@@ -6,4 +6,5 @@ export const emptyClubData: ClubData = {
 	description: "",
 	tags: [],
 	avatar: "",
+	userStatus: "",
 };

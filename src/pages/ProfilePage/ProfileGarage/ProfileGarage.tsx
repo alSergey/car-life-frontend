@@ -1,42 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CarList } from "../../../components/CarList";
-import { Card, Text } from "@vkontakte/vkui";
-import { Icon56AddCircleOutline } from "@vkontakte/icons";
+import { emptyCarList, getCarList } from "./api";
+import { CreateCarButton } from "./CreateCarButton";
 
 interface Props {
 	userId: number;
+	onClick: (id: number) => void;
+	onCreateClick?: () => void;
 }
 
-export const ProfileGarage: React.FC<Props> = ({ userId }) => {
+export const ProfileGarage: React.FC<Props> = ({
+	userId,
+	onClick,
+	onCreateClick,
+}) => {
+	const [carList, setCarList] = useState(emptyCarList);
+
+	const handleGetCarList = async (): Promise<void> => {
+		try {
+			const data = await getCarList(userId);
+			setCarList(data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	useEffect(() => {
+		handleGetCarList();
+	}, []);
+
 	return (
 		<div>
-			<CarList carList={[]} onClick={() => {}} />
-			<Card
-				style={{
-					padding: "10px",
-					marginRight: 24,
-					marginLeft: 24,
-				}}
-			>
-				<div
-					style={{
-						height: 150,
-						opacity: 0.5,
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-					}}
-				>
-					<Icon56AddCircleOutline
-						fill={"#808080"}
-						style={{ marginBottom: 8 }}
-					/>
-					<Text weight={"regular"} size={3}>
-						Добавить машину
-					</Text>
-				</div>
-			</Card>
+			<CarList carList={carList} onClick={onClick} />
+			{onCreateClick && <CreateCarButton onClick={onCreateClick} />}
 		</div>
 	);
 };

@@ -1,6 +1,7 @@
 export interface EventData {
 	id: number;
 	name: string;
+	userStatus: string;
 	club: {
 		id: number;
 		name: string;

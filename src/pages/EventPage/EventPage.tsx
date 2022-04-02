@@ -17,6 +17,10 @@ import { EventGarage } from "./EventGarage";
 import { EventPosts } from "./EventPosts";
 import { EventBar } from "./EventBar";
 import { getPrettyDateTime } from "../../constants/time";
+import {
+	isDisabledEventMemberButton,
+	isShownEventMemberButton,
+} from "./EventPage.utils";
 
 interface Props {
 	id: string;
@@ -84,9 +88,16 @@ export const EventPage: React.FC<Props> = ({
 				<Text weight="regular" style={{ marginBottom: 10 }}>
 					{getPrettyDateTime(eventData.event_date)}
 				</Text>
-				<Button stretched size="m" onClick={handleMember}>
-					Участвовать
-				</Button>
+				{isShownEventMemberButton(eventData.userStatus) && (
+					<Button
+						stretched
+						size="m"
+						disabled={isDisabledEventMemberButton(eventData.userStatus)}
+						onClick={handleMember}
+					>
+						Участвовать
+					</Button>
+				)}
 			</Group>
 			<EventBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === Tab.Info && <EventInfo event={eventData} />}

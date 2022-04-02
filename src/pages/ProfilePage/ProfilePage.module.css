@@ -1,3 +1,7 @@
+.backIcon {
+	color: black;
+}
+
 .userContainer {
 	display: flex;
 	flex-direction: column;

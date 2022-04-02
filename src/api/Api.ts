@@ -47,6 +47,7 @@ export interface ModelsClub {
   owner_id: number;
   participants_count: number;
   tags: string[];
+  user_status: string;
 }
 
 export interface ModelsClubCard {
@@ -77,6 +78,7 @@ export interface ModelsCreateEventRequest {
 export interface ModelsEvent {
   avatar: string;
   club: ModelsClub;
+  creator_id: number;
   description: string;
   event_date: string;
   id: number;
@@ -84,6 +86,7 @@ export interface ModelsEvent {
   longitude: number;
   name: string;
   participants_count: number;
+  user_status: string;
 }
 
 export interface ModelsEventCard {
@@ -770,7 +773,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       query?: { IdGt?: number; IdLte?: number; Limit?: number },
       params: RequestParams = {},
     ) =>
-      this.request<ModelsClubCard[], UtilsError | void>({
+      this.request<ModelsEventCard[], UtilsError | void>({
         path: `/user/${id}/events/${type}`,
         method: "GET",
         query: query,

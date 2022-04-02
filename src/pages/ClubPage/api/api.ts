@@ -8,6 +8,7 @@ export const getClub = (id: number): Promise<ClubData> =>
 		description: data.description,
 		tags: data.tags,
 		avatar: data.avatar,
+		userStatus: data.user_status,
 	}));
 
 export const newClubMember = (id: number): Promise<number> =>

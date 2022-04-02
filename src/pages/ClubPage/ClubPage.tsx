@@ -17,6 +17,10 @@ import { ClubEvents } from "./ClubEvents";
 import { ClubGarage } from "./ClubGarage";
 import { ClubMembers } from "./ClubMembers";
 import { ClubSubscribers } from "./ClubSubscribers";
+import {
+	isDisabledClubMemberButton,
+	isShownClubMemberButton,
+} from "./ClubPage.utils";
 
 interface Props {
 	id: string;
@@ -57,6 +61,7 @@ export const ClubPage: React.FC<Props> = ({
 	const handleMember = async (): Promise<void> => {
 		try {
 			await newClubMember(clubId);
+			await handleGetClubData();
 		} catch (err) {
 			console.error(err);
 		}
@@ -90,14 +95,17 @@ export const ClubPage: React.FC<Props> = ({
 					</Group>
 					<Avatar size={96} src={clubData.avatar} />
 				</div>
-				<Button
-					size="m"
-					className={styles.buttonContainer}
-					stretched
-					onClick={handleMember}
-				>
-					Участвовать
-				</Button>
+				{isShownClubMemberButton(clubData.userStatus) && (
+					<Button
+						size="m"
+						stretched
+						className={styles.buttonContainer}
+						disabled={isDisabledClubMemberButton(clubData.userStatus)}
+						onClick={handleMember}
+					>
+						Участвовать
+					</Button>
+				)}
 			</Div>
 			<ClubBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === Tab.Events && (
@@ -112,6 +120,7 @@ export const ClubPage: React.FC<Props> = ({
 			{activeTab === Tab.Members && (
 				<ClubMembers
 					clubId={clubId}
+					userStatus={clubData.userStatus}
 					onClick={(userId) => onUserClick(userId)}
 				/>
 			)}

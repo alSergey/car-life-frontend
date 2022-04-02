@@ -5,6 +5,7 @@ import { EventPage } from "../../pages/EventPage";
 import { CreateEventPage } from "../../pages/CreateEventPage";
 import { CreateClubPage } from "../../pages/CreateClubPage";
 import { ClubPage } from "../../pages/ClubPage";
+import { ProfilePage } from "../../pages/ProfilePage";
 
 interface Props {
 	id: string;
@@ -16,12 +17,14 @@ enum Pages {
 	Event = "event",
 	CreateClub = "createClub",
 	Club = "club",
+	User = "user",
 }
 
 export const MainTab: React.FC<Props> = ({ id }) => {
 	const [activePanel, setActivePanel] = useState(Pages.Main);
 	const [eventId, setEventId] = useState(0);
 	const [clubId, setClubId] = useState(0);
+	const [userId, setUserId] = useState(0);
 
 	return (
 		<View activePanel={activePanel} id={id}>
@@ -49,9 +52,11 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 			<EventPage
 				id={Pages.Event}
 				eventId={eventId}
-				// TODO: реализовать
-				onUserClick={() => true}
 				onBackClick={() => setActivePanel(Pages.Main)}
+				onUserClick={(clickUserId) => {
+					setUserId(clickUserId);
+					setActivePanel(Pages.User);
+				}}
 			/>
 			<CreateClubPage
 				id={Pages.CreateClub}
@@ -69,9 +74,27 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 					setEventId(clickEventId);
 					setActivePanel(Pages.Event);
 				}}
+				onUserClick={(clickUserId) => {
+					setUserId(clickUserId);
+					setActivePanel(Pages.User);
+				}}
 				// TODO: реализовать
 				onCarClick={() => true}
-				onUserClick={() => true}
+			/>
+			<ProfilePage
+				id={Pages.User}
+				userId={userId}
+				onBackClick={() => setActivePanel(Pages.Main)}
+				onEventClick={(clickEventId) => {
+					setEventId(clickEventId);
+					setActivePanel(Pages.Event);
+				}}
+				onClubClick={(clickClubId) => {
+					setClubId(clickClubId);
+					setActivePanel(Pages.Club);
+				}}
+				// TODO: реализовать
+				onCarClick={() => true}
 			/>
 		</View>
 	);

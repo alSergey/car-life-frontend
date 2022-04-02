@@ -11,10 +11,15 @@ import {
 
 interface Props {
 	clubId: number;
+	userStatus: string;
 	onClick: (id: number) => void;
 }
 
-export const ClubMembers: React.FC<Props> = ({ clubId, onClick }) => {
+export const ClubMembers: React.FC<Props> = ({
+	clubId,
+	userStatus,
+	onClick,
+}) => {
 	const [membersList, setMembersList] = useState(emptyClubMembersList);
 	const [membersRequestList, setMembersRequestList] = useState(
 		emptyClubMembersRequestList
@@ -30,6 +35,8 @@ export const ClubMembers: React.FC<Props> = ({ clubId, onClick }) => {
 	};
 
 	const handleGetMembersRequestList = async (): Promise<void> => {
+		if (userStatus !== "admin") return;
+
 		try {
 			const data = await getClubMembersRequestList(clubId);
 			setMembersRequestList(data);
@@ -58,15 +65,17 @@ export const ClubMembers: React.FC<Props> = ({ clubId, onClick }) => {
 
 	return (
 		<div>
-			<Group>
-				<Header>Список заявок</Header>
-				<UserList
-					userList={membersRequestList}
-					onClick={onClick}
-					onApprove={(id) => handleApproveReject(id, "approve")}
-					onReject={(id) => handleApproveReject(id, "reject")}
-				/>
-			</Group>
+			{userStatus === "admin" && (
+				<Group>
+					<Header>Список заявок</Header>
+					<UserList
+						userList={membersRequestList}
+						onClick={onClick}
+						onApprove={(id) => handleApproveReject(id, "approve")}
+						onReject={(id) => handleApproveReject(id, "reject")}
+					/>
+				</Group>
+			)}
 			<Group>
 				<Header>Список участников</Header>
 				<UserList userList={membersList} onClick={onClick} />

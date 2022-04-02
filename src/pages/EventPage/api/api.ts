@@ -5,6 +5,7 @@ export const getEvent = (id: number): Promise<EventData> => {
 	return api.events.eventsDetail(id).then(({ data }) => ({
 		id: data.id,
 		name: data.name,
+		userStatus: data.user_status,
 		club: {
 			id: data.club.id,
 			name: data.club.name,

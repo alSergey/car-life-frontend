@@ -4,4 +4,5 @@ export interface ClubData {
 	description: string;
 	tags: string[];
 	avatar: string;
+	userStatus: string;
 }
