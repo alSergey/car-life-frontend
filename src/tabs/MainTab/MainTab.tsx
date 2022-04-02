@@ -63,6 +63,12 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 				id={Pages.Club}
 				clubId={clubId}
 				onBackClick={() => setActivePanel(Pages.Main)}
+				onEventClick={(clickEventId) => {
+					setEventId(clickEventId);
+					setActivePanel(Pages.Event);
+				}}
+				onCarClick={() => true}
+				onUserClick={() => true}
 			/>
 		</View>
 	);

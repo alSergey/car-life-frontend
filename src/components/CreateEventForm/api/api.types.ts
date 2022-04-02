@@ -1,3 +1,5 @@
+import { OwnerClub } from "../../../widgets/OwnerClubWidget/api";
+
 interface EventLocation {
 	latitude: number;
 	longitude: number;
@@ -6,6 +8,7 @@ interface EventLocation {
 export interface EventForm {
 	name: string;
 	description: string;
+	club: OwnerClub | null;
 	date: string;
 	time: string;
 	file: File | null;

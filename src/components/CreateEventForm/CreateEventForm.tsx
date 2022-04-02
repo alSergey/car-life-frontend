@@ -12,6 +12,7 @@ import { Icon24Camera } from "@vkontakte/icons";
 import { EventForm, emptyEventForm, isEventFormFilled } from "./api";
 import { YMaps, Map, SearchControl, Placemark } from "react-yandex-maps";
 import { YandexKey } from "../../constants/yandexKey";
+import { OwnerClubWidget } from "../../widgets/OwnerClubWidget";
 
 interface Props {
 	buttonText?: string;
@@ -53,6 +54,17 @@ export const CreateEventForm: React.FC<Props> = ({ buttonText, onSubmit }) => {
 						setFormData({
 							...form,
 							description: value,
+						});
+					}}
+				/>
+			</FormItem>
+			<FormItem top="Клуб">
+				<OwnerClubWidget
+					selected={form.club}
+					onChange={(club) => {
+						setFormData({
+							...form,
+							club,
 						});
 					}}
 				/>

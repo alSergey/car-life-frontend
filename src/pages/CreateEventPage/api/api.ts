@@ -8,14 +8,14 @@ import {
 export const createNewEvent = (
 	form: EventForm
 ): Promise<number | undefined> => {
-	if (!isEventFormFilled(form)) throw new Error("Не заполнены все поля");
+	if (!isEventFormFilled(form) || !form.club)
+		throw new Error("Не заполнены все поля");
 
 	return api.event
 		.createCreate({
 			name: form.name,
-			club_id: 1,
+			club_id: form.club.value,
 			description: form.description,
-			// TODO: вынести
 			event_date: new Date(`${form.date}T${form.time}Z`).toISOString(),
 			latitude: form.location.latitude,
 			longitude: form.location.longitude,
