@@ -1,5 +1,6 @@
 import {
 	Avatar,
+	Gradient,
 	Group,
 	Separator,
 	SimpleCell,
@@ -26,23 +27,56 @@ export const EventInfo: React.FC<Props> = ({ event }) => {
 	const [locationText, setLocationText] = useState("");
 	return (
 		<Group>
-			<div style={{ display: "flex", justifyContent: "center" }}>
-				<SimpleCell
-					before={
-						<Avatar
-							style={{ objectFit: "cover" }}
-							src="https://lowdaily.ru/wp-content/uploads/2018/06/royal-auto-show-DSC04553.jpg"
-						/>
-					}
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "row",
+					alignItems: "center",
+					justifyContent: "center",
+					width: "100%",
+					padding: "0 15px 5px",
+				}}
+			>
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						marginRight: 10,
+					}}
 				>
-					{event.club.name}
-				</SimpleCell>
+					<Text weight="regular" style={{ fontSize: "12px", marginTop: 1 }}>
+						Hosted by
+					</Text>
+					<Title level="3" weight="semibold">
+						{"event.club.name"}
+					</Title>
+				</div>
+				<Avatar
+					size={45}
+					style={{ objectFit: "cover" }}
+					src={
+						"https://lowdaily.ru/wp-content/uploads/2018/06/royal-auto-show-DSC04553.jpg"
+					}
+				/>
 			</div>
-			<div style={{ padding: 15 }}>
-				<Separator style={{ marginTop: "10px", marginBottom: "10px" }} />
+			<div style={{ padding: "10px 15px 15px" }}>
+				<Separator style={{ marginBottom: "15px" }} />
+				<Text
+					weight="regular"
+					style={{ fontSize: "13px", marginLeft: -10, marginBottom: 9 }}
+				>
+					Описание
+				</Text>
 				<Text weight="regular">{event.description}</Text>
-				<Separator style={{ marginTop: "10px", marginBottom: "10px" }} />
+				<Separator style={{ marginTop: "20px", marginBottom: "20px" }} />
 				<Group>
+					<Text
+						weight="regular"
+						style={{ fontSize: "13px", marginLeft: -10, marginBottom: 9 }}
+					>
+						Место
+					</Text>
 					<Title level="3" weight="medium" style={{ marginBottom: 16 }}>
 						{locationText}
 					</Title>
