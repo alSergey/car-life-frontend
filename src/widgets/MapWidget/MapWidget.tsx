@@ -69,9 +69,6 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 		<div>
 			<YMaps query={YandexKey}>
 				<Map
-					onClick={() => {
-						console.log(event);
-					}}
 					defaultState={{
 						center: mapCenter,
 						zoom: 11,

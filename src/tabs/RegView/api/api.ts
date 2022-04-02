@@ -3,7 +3,6 @@ import { api } from "../../../api";
 import { backBaseUrl } from "../../../constants/url";
 
 export const regUser = (form: RegForm): Promise<number | undefined> => {
-	console.log(form);
 	if (!form.userForm) throw new Error("Не заполнены все поля");
 
 	return api.signup
