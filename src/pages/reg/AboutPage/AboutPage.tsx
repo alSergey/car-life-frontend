@@ -46,6 +46,7 @@ export const AboutPage: React.FC<Props> = ({
 					size="l"
 					stretched
 					mode="secondary"
+					disabled
 					onClick={() => onNextClick()}
 				>
 					Пропустить

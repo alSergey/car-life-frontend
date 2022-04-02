@@ -44,6 +44,7 @@ export const CarPage: React.FC<Props> = ({
 					stretched
 					size="l"
 					mode="secondary"
+					disabled
 					onClick={() => onNextClick()}
 				>
 					Пропустить

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Panel, Spinner, View } from "@vkontakte/vkui";
 import { backBaseUrl } from "../../constants/url";
 import { getUserData, UserData } from "../../context/userContext";
+import bridge from "@vkontakte/vk-bridge";
 
 interface Prop {
 	id: string;
@@ -26,13 +27,13 @@ export const LoaderView: React.FC<Prop> = ({
 	};
 
 	const handleLogin = async () => {
-		// const userData = await bridge.send("VKWebAppGetUserInfo");
+		const userData = await bridge.send("VKWebAppGetUserInfo");
 
 		try {
 			const session = await fetch(`${backBaseUrl}/login`, {
 				method: "POST",
 				body: JSON.stringify({
-					vkid: 1,
+					vkid: userData.id,
 				}),
 			});
 
