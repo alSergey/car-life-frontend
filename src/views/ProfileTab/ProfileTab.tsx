@@ -30,6 +30,8 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 	return (
 		<View
 			id={id}
+			history={location.getViewHistory(id)}
+			onSwipeBack={() => router.popPage()}
 			// @ts-ignore
 			activePanel={location.getViewActivePanel(id)}
 		>

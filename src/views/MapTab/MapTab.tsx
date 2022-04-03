@@ -21,8 +21,13 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 	const router = useRouter();
 
 	return (
-		// @ts-ignore
-		<View id={id} activePanel={location.getViewActivePanel(id)}>
+		<View
+			id={id}
+			history={location.getViewHistory(id)}
+			onSwipeBack={() => router.popPage()}
+			// @ts-ignore
+			activePanel={location.getViewActivePanel(id)}
+		>
 			<MapPage
 				id={MAP_PANEL}
 				onEventClick={(clickEventId) =>

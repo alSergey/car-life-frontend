@@ -7,7 +7,7 @@ import {
 } from "./pagesQuery";
 
 // url
-export const MAP_PAGE = "/map";
+export const MAP_PAGE = "/";
 export const MAP_EVENT_PAGE = `/map/event/${eventIdQuery}`;
 export const MAP_CLUB_PAGE = `/map/club/${clubIdQuery}`;
 export const MAP_USER_PAGE = `/map/user/${userIdQuery}`;

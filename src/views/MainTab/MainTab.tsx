@@ -35,8 +35,13 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 	const router = useRouter();
 
 	return (
-		// @ts-ignore
-		<View id={id} activePanel={location.getViewActivePanel(id)}>
+		<View
+			id={id}
+			history={location.getViewHistory(id)}
+			onSwipeBack={() => router.popPage()}
+			// @ts-ignore
+			activePanel={location.getViewActivePanel(id)}
+		>
 			<MainListPage
 				id={MAIN_PANEL}
 				onEventCreateClick={() => router.pushPage(MAIN_CREATE_EVENT_PAGE)}

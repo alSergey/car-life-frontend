@@ -63,8 +63,13 @@ export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
 	}, []);
 
 	return (
-		// @ts-ignore
-		<View id={id} activePanel={location.getViewActivePanel(id)}>
+		<View
+			id={id}
+			history={location.getViewHistory(id)}
+			onSwipeBack={() => router.popPage()}
+			// @ts-ignore
+			activePanel={location.getViewActivePanel(id)}
+		>
 			<WelcomePage
 				id={REG_WELCOME_PANEL}
 				onNextClick={() => router.pushPage(REG_FIRST_STORY_PAGE)}

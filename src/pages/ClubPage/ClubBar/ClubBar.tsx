@@ -32,12 +32,6 @@ export const ClubBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 				Участники
 			</TabsItem>
 			<TabsItem
-				selected={activeTab === ClubTab.Subscribers}
-				onClick={() => setActiveTab(ClubTab.Subscribers)}
-			>
-				Подписчики
-			</TabsItem>
-			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === ClubTab.Subscribers}
 				onClick={() => setActiveTab(ClubTab.Subscribers)}

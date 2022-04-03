@@ -22,6 +22,7 @@ import {
 	REG_VIEW,
 	REG_WELCOME_PAGE,
 } from "./router";
+import bridge from "@vkontakte/vk-bridge";
 
 const App: React.FC<RouterProps> = ({ location, router }) => {
 	const [userData, setUserData] = useState(defaultUserData);
@@ -37,13 +38,13 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 	};
 
 	const handleLogin = async () => {
-		// const userData = await bridge.send("VKWebAppGetUserInfo");
+		const data = await bridge.send("VKWebAppGetUserInfo");
 
 		try {
 			const session = await fetch(`${backBaseUrl}/login`, {
 				method: "POST",
 				body: JSON.stringify({
-					vkid: 1,
+					vkid: data.id,
 				}),
 			});
 

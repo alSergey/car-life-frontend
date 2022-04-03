@@ -9,22 +9,22 @@ interface Props {
 	onEventClick: (eventId: number) => void;
 }
 
-export enum Tab {
+export enum MapTab {
 	Event = "event",
 	People = "people",
 }
 
 export const MapPage: React.FC<Props> = ({ id, onEventClick }) => {
-	const [activeTab, setActiveTab] = useState(Tab.Event);
+	const [activeTab, setActiveTab] = useState(MapTab.Event);
 
 	return (
 		<Panel id={id}>
 			<MapBar activeTab={activeTab} setActive={setActiveTab} />
-			{activeTab === Tab.Event && (
+			{activeTab === MapTab.Event && (
 				<MapWidget type="events" onEventClick={onEventClick} />
 			)}
-			{activeTab === Tab.People && (
-				<MapWidget onEventClick={onEventClick} type="people" />
+			{activeTab === MapTab.People && (
+				<MapWidget type="people" onEventClick={onEventClick} />
 			)}
 		</Panel>
 	);
