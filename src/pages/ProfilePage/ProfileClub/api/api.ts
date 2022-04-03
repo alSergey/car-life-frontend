@@ -6,3 +6,8 @@ export const getAdminClubList = (userId: number): Promise<ModelsClubCard[]> =>
 
 export const getMemberClubList = (userId: number): Promise<ModelsClubCard[]> =>
 	api.user.clubsDetail(userId, "participant").then(({ data }) => data);
+
+export const getSubscriberClubList = (
+	userId: number
+): Promise<ModelsClubCard[]> =>
+	api.user.clubsDetail(userId, "subscriber").then(({ data }) => data);

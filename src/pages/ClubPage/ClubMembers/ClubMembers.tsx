@@ -77,7 +77,7 @@ export const ClubMembers: React.FC<Props> = ({
 				</Group>
 			)}
 			<Group>
-				<Header>Список участников</Header>
+				{userStatus === "admin" && <Header>Список участников</Header>}
 				<UserList userList={membersList} onClick={onClick} />
 			</Group>
 		</div>

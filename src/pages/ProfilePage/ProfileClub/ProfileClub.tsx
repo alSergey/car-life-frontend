@@ -4,8 +4,10 @@ import { ClubList } from "../../../components/ClubList";
 import {
 	emptyAdminClubList,
 	emptyMemberClubList,
+	emptySubscriberClubList,
 	getAdminClubList,
 	getMemberClubList,
+	getSubscriberClubList,
 } from "./api";
 
 interface Props {
@@ -16,6 +18,9 @@ interface Props {
 export const ProfileClub: React.FC<Props> = ({ userId, onClick }) => {
 	const [adminClubList, setAdminClubList] = useState(emptyAdminClubList);
 	const [memberClubList, setMemberClubList] = useState(emptyMemberClubList);
+	const [subscriberClubList, setSubscriberClubList] = useState(
+		emptySubscriberClubList
+	);
 
 	const handleGetAdminClubList = async (): Promise<void> => {
 		try {
@@ -35,9 +40,19 @@ export const ProfileClub: React.FC<Props> = ({ userId, onClick }) => {
 		}
 	};
 
+	const handleGetSubscriberClubList = async (): Promise<void> => {
+		try {
+			const data = await getSubscriberClubList(userId);
+			setSubscriberClubList(data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	useEffect(() => {
 		handleGetAdminClubList();
 		handleGetMemberClubList();
+		handleGetSubscriberClubList();
 	}, []);
 
 	return (
@@ -49,6 +64,10 @@ export const ProfileClub: React.FC<Props> = ({ userId, onClick }) => {
 			<Group>
 				<Header>Участник клуба</Header>
 				<ClubList clubList={memberClubList} onClick={onClick} />
+			</Group>
+			<Group>
+				<Header>Подписчик клуба</Header>
+				<ClubList clubList={subscriberClubList} onClick={onClick} />
 			</Group>
 		</div>
 	);

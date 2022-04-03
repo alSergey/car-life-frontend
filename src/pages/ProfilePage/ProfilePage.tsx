@@ -69,14 +69,7 @@ export const ProfilePage: React.FC<Props> = ({
 	return (
 		<Panel id={id}>
 			{onBackClick && (
-				<PanelHeader
-					left={
-						<PanelHeaderBack
-							className={styles.backIcon}
-							onClick={onBackClick}
-						/>
-					}
-				/>
+				<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />} />
 			)}
 			<Gradient className={styles.userContainer}>
 				<Avatar size={96} src={userData.avatar} />

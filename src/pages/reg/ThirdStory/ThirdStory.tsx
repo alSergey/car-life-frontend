@@ -24,11 +24,7 @@ export const ThirdStory: React.FC<Props> = ({
 }) => {
 	return (
 		<Panel id={id} centered>
-			<PanelHeader
-				left={
-					<PanelHeaderBack className={styles.backIcon} onClick={onBackClick} />
-				}
-			/>
+			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />} />
 			<Div className={styles.container}>
 				<img className={styles.storyImage} src={image} alt={""} />
 				<div className={styles.buttonsContainer}>

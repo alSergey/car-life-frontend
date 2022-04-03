@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Group } from "@vkontakte/vkui";
 import { emptyClubGarageList, getClubGarageList } from "./api";
 import { CarList } from "../../../components/CarList";
 
@@ -23,5 +24,9 @@ export const ClubGarage: React.FC<Props> = ({ clubId, onClick }) => {
 		handleGetGarageList();
 	}, []);
 
-	return <CarList carList={garageList} onClick={onClick} />;
+	return (
+		<Group>
+			<CarList carList={garageList} onClick={onClick} />
+		</Group>
+	);
 };

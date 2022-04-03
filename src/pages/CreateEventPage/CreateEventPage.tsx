@@ -1,7 +1,6 @@
 import React from "react";
 import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
 
-import styles from "./CreateEventPage.module.css";
 import { createNewEvent } from "./api";
 import { CreateEventForm, EventForm } from "../../components/CreateEventForm";
 
@@ -30,14 +29,7 @@ export const CreateEventPage: React.FC<Props> = ({
 	return (
 		<Panel id={id}>
 			<PanelHeader
-				left={
-					onBackClick && (
-						<PanelHeaderBack
-							className={styles.backIcon}
-							onClick={onBackClick}
-						/>
-					)
-				}
+				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
 			>
 				Новое событие
 			</PanelHeader>

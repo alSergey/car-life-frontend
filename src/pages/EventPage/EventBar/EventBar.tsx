@@ -1,5 +1,5 @@
-import { Tabs, TabsItem, Text } from "@vkontakte/vkui";
 import React from "react";
+import { Tabs, TabsItem } from "@vkontakte/vkui";
 import { EventTab } from "../EventPage";
 
 interface Props {
@@ -11,28 +11,32 @@ export const EventBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 	return (
 		<Tabs>
 			<TabsItem
+				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === EventTab.Info}
 				onClick={() => setActiveTab(EventTab.Info)}
 			>
-				<Text weight="regular" size={3}>
-					Подробности
-				</Text>
+				Подробности
 			</TabsItem>
 			<TabsItem
+				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === EventTab.Members}
 				onClick={() => setActiveTab(EventTab.Members)}
 			>
-				<Text weight="regular" size={3}>
-					Участники
-				</Text>
+				Посты
 			</TabsItem>
 			<TabsItem
+				style={{ padding: 0, flexBasis: "initial" }}
+				selected={activeTab === EventTab.Members}
+				onClick={() => setActiveTab(EventTab.Members)}
+			>
+				Участники
+			</TabsItem>
+			<TabsItem
+				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === EventTab.Posts}
 				onClick={() => setActiveTab(EventTab.Posts)}
 			>
-				<Text weight="regular" size={3}>
-					Посты
-				</Text>
+				Зрители
 			</TabsItem>
 		</Tabs>
 	);

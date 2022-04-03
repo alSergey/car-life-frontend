@@ -1,1 +1,0 @@
-export { EventGarage } from "./EventGarage";

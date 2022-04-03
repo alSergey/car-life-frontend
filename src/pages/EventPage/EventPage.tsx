@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from "react";
 import {
-	Button,
-	Group,
 	Panel,
 	PanelHeader,
 	PanelHeaderBack,
 	Title,
 	Text,
+	Div,
 } from "@vkontakte/vkui";
 
 import styles from "./EventPage.module.css";
-import { emptyEventData, getEvent, newEventMember } from "./api";
+import { emptyEventData, getEvent } from "./api";
+import { EventBar } from "./EventBar";
+import { EventButtons } from "./EventButtons";
 import { EventInfo } from "./EventInfo";
 import { EventMembers } from "./EventMembers";
-import { EventGarage } from "./EventGarage";
+import { EventViewers } from "./EventViewers";
 import { EventPosts } from "./EventPosts";
-import { EventBar } from "./EventBar";
 import { getPrettyDateTime } from "../../constants/time";
-import {
-	isDisabledEventMemberButton,
-	isShownEventMemberButton,
-} from "./EventPage.utils";
 import { getEventPageQuery } from "../../router";
 
 interface Props {
@@ -31,9 +27,9 @@ interface Props {
 
 export enum EventTab {
 	Info = "info",
-	Members = "members",
-	Garage = "garage",
 	Posts = "posts",
+	Members = "members",
+	Viewers = "viewers",
 }
 
 export const EventPage: React.FC<Props> = ({
@@ -55,15 +51,6 @@ export const EventPage: React.FC<Props> = ({
 		}
 	};
 
-	const handleMember = async (): Promise<void> => {
-		try {
-			await newEventMember(eventId);
-			handleGetEventData();
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
 	useEffect(() => {
 		handleGetEventData();
 	}, []);
@@ -71,47 +58,39 @@ export const EventPage: React.FC<Props> = ({
 	return (
 		<Panel id={id}>
 			<PanelHeader
-				left={
-					onBackClick && (
-						<PanelHeaderBack
-							className={styles.backIcon}
-							onClick={onBackClick}
-						/>
-					)
-				}
+				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
 			>
 				Событие
 			</PanelHeader>
-			<img src={eventData.avatar} />
-			<Group separator="hide" style={{ marginLeft: 15, marginRight: 15 }}>
-				<Title level="1" style={{ marginBottom: 5 }} weight="bold">
-					{eventData.name}
-				</Title>
-				<Text weight="regular" style={{ marginBottom: 10 }}>
-					{getPrettyDateTime(eventData.event_date)}
-				</Text>
-				{isShownEventMemberButton(eventData.userStatus) && (
-					<Button
-						stretched
-						size="m"
-						disabled={isDisabledEventMemberButton(eventData.userStatus)}
-						onClick={handleMember}
-					>
-						Участвовать
-					</Button>
-				)}
-			</Group>
+			<img src={eventData.avatar} className={styles.img} alt="" />
+			<Div>
+				<div className={styles.title}>
+					<Title level="1" weight="bold">
+						{eventData.name}
+					</Title>
+					<Text weight="regular">
+						{getPrettyDateTime(eventData.event_date)}
+					</Text>
+				</div>
+				<EventButtons
+					eventId={eventId}
+					userStatus={eventData.userStatus}
+					onClick={handleGetEventData}
+				/>
+			</Div>
 			<EventBar activeTab={activeTab} setActiveTab={setActiveTab} />
 			{activeTab === EventTab.Info && <EventInfo event={eventData} />}
+			{activeTab === EventTab.Posts && <EventPosts />}
 			{activeTab === EventTab.Members && (
 				<EventMembers
-					eventId={eventData.id}
+					eventId={eventId}
 					userStatus={eventData.userStatus}
 					onClick={onUserClick}
 				/>
 			)}
-			{activeTab === EventTab.Garage && <EventGarage id={eventData.id} />}
-			{activeTab === EventTab.Posts && <EventPosts />}
+			{activeTab === EventTab.Viewers && (
+				<EventViewers eventId={eventId} onClick={onUserClick} />
+			)}
 		</Panel>
 	);
 };

@@ -1,5 +1,5 @@
-import { Tabs, TabsItem, Text } from "@vkontakte/vkui";
 import React from "react";
+import { Tabs, TabsItem } from "@vkontakte/vkui";
 import { UserTab } from "../ProfilePage";
 
 interface Props {
@@ -11,36 +11,32 @@ export const ProfileBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 	return (
 		<Tabs>
 			<TabsItem
-				onClick={() => setActiveTab(UserTab.Info)}
+				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === UserTab.Info}
+				onClick={() => setActiveTab(UserTab.Info)}
 			>
-				<Text weight="regular" size={3}>
-					О себе
-				</Text>
+				О себе
 			</TabsItem>
 			<TabsItem
-				onClick={() => setActiveTab(UserTab.Garage)}
+				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === UserTab.Garage}
+				onClick={() => setActiveTab(UserTab.Garage)}
 			>
-				<Text weight="regular" size={3}>
-					Гараж
-				</Text>
+				Гараж
 			</TabsItem>
 			<TabsItem
-				onClick={() => setActiveTab(UserTab.Event)}
+				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === UserTab.Event}
+				onClick={() => setActiveTab(UserTab.Event)}
 			>
-				<Text weight="regular" size={3}>
-					События
-				</Text>
+				События
 			</TabsItem>
 			<TabsItem
-				onClick={() => setActiveTab(UserTab.Club)}
+				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === UserTab.Club}
+				onClick={() => setActiveTab(UserTab.Club)}
 			>
-				<Text weight="regular" size={3}>
-					Клубы
-				</Text>
+				Клубы
 			</TabsItem>
 		</Tabs>
 	);

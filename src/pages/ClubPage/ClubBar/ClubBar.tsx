@@ -1,5 +1,5 @@
 import React from "react";
-import { Tabs, TabsItem, Text } from "@vkontakte/vkui";
+import { Tabs, TabsItem } from "@vkontakte/vkui";
 import { ClubTab } from "../ClubPage";
 
 interface Props {
@@ -11,28 +11,38 @@ export const ClubBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 	return (
 		<Tabs>
 			<TabsItem
+				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === ClubTab.Events}
 				onClick={() => setActiveTab(ClubTab.Events)}
 			>
-				<Text weight="regular">События</Text>
+				События
 			</TabsItem>
 			<TabsItem
+				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === ClubTab.Garage}
 				onClick={() => setActiveTab(ClubTab.Garage)}
 			>
-				<Text weight="regular">Гараж</Text>
+				Гараж
 			</TabsItem>
 			<TabsItem
+				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === ClubTab.Members}
 				onClick={() => setActiveTab(ClubTab.Members)}
 			>
-				<Text weight="regular">Участники</Text>
+				Участники
 			</TabsItem>
 			<TabsItem
 				selected={activeTab === ClubTab.Subscribers}
 				onClick={() => setActiveTab(ClubTab.Subscribers)}
 			>
-				<Text weight="regular">Подписчики</Text>
+				Подписчики
+			</TabsItem>
+			<TabsItem
+				style={{ padding: 0, flexBasis: "initial" }}
+				selected={activeTab === ClubTab.Subscribers}
+				onClick={() => setActiveTab(ClubTab.Subscribers)}
+			>
+				Подписчик
 			</TabsItem>
 		</Tabs>
 	);

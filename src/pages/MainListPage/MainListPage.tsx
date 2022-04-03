@@ -45,7 +45,7 @@ export const MainListPage: React.FC<Props> = ({
 							onClubCreateClick();
 						}}
 					>
-						<Icon28AddOutline className={styles.addIcon} />
+						<Icon28AddOutline />
 					</PanelHeaderButton>
 				}
 			>

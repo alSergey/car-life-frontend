@@ -1,2 +1,2 @@
 export { emptyClubData } from "./api.consts";
-export { getClub, newClubMember } from "./api";
+export { getClub } from "./api";
