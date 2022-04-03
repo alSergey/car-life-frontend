@@ -27,13 +27,13 @@ export const LoaderView: React.FC<Prop> = ({
 	};
 
 	const handleLogin = async () => {
-		const userData = await bridge.send("VKWebAppGetUserInfo");
+		// const userData = await bridge.send("VKWebAppGetUserInfo");
 
 		try {
 			const session = await fetch(`${backBaseUrl}/login`, {
 				method: "POST",
 				body: JSON.stringify({
-					vkid: userData.id,
+					vkid: 2,
 				}),
 			});
 

@@ -1,12 +1,5 @@
 import React from "react";
-import {
-	Div,
-	Button,
-	Panel,
-	PanelHeader,
-	PanelHeaderBack,
-} from "@vkontakte/vkui";
-import styles from "./AboutPage.module.css";
+import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
 import {
 	CreateUserAboutForm,
 	UserAboutForm,
@@ -27,11 +20,7 @@ export const AboutPage: React.FC<Props> = ({
 }) => {
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				left={
-					<PanelHeaderBack className={styles.backIcon} onClick={onBackClick} />
-				}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
 				О себе
 			</PanelHeader>
 			<CreateUserAboutForm

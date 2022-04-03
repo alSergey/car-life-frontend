@@ -17,11 +17,7 @@ interface Props {
 export const RegPage: React.FC<Props> = ({ id, onBackClick, onNextClick }) => {
 	return (
 		<Panel id={id} centered>
-			<PanelHeader
-				left={
-					<PanelHeaderBack className={styles.backIcon} onClick={onBackClick} />
-				}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
 				Регистрация
 			</PanelHeader>
 			<Div className={styles.container}>

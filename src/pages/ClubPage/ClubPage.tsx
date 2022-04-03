@@ -5,22 +5,17 @@ import {
 	PanelHeaderBack,
 	Avatar,
 	Div,
-	Group,
 	Text,
-	Button,
 } from "@vkontakte/vkui";
 
 import styles from "./ClubPage.module.css";
-import { emptyClubData, getClub, newClubMember } from "./api";
+import { emptyClubData, getClub } from "./api";
+import { ClubButtons } from "./ClubButtons";
 import { ClubBar } from "./ClubBar";
 import { ClubEvents } from "./ClubEvents";
 import { ClubGarage } from "./ClubGarage";
 import { ClubMembers } from "./ClubMembers";
 import { ClubSubscribers } from "./ClubSubscribers";
-import {
-	isDisabledClubMemberButton,
-	isShownClubMemberButton,
-} from "./ClubPage.utils";
 
 interface Props {
 	id: string;
@@ -58,15 +53,6 @@ export const ClubPage: React.FC<Props> = ({
 		}
 	};
 
-	const handleMember = async (): Promise<void> => {
-		try {
-			await newClubMember(clubId);
-			await handleGetClubData();
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
 	useEffect(() => {
 		handleGetClubData();
 	}, []);
@@ -74,57 +60,43 @@ export const ClubPage: React.FC<Props> = ({
 	return (
 		<Panel id={id}>
 			<PanelHeader
-				left={
-					onBackClick && (
-						<PanelHeaderBack
-							className={styles.backIcon}
-							onClick={onBackClick}
-						/>
-					)
-				}
+				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
 			>
 				{clubData.name}
 			</PanelHeader>
 			<Div>
 				<div className={styles.top}>
-					<Group className={styles.topTitle}>
+					<div>
 						<Text weight="regular">{clubData.tags.join(", ")}</Text>
 						<Text weight="regular" className={styles.desc}>
 							{clubData.description}
 						</Text>
-					</Group>
+					</div>
 					<Avatar size={96} src={clubData.avatar} />
 				</div>
-				{isShownClubMemberButton(clubData.userStatus) && (
-					<Button
-						size="m"
-						stretched
-						className={styles.buttonContainer}
-						disabled={isDisabledClubMemberButton(clubData.userStatus)}
-						onClick={handleMember}
-					>
-						Участвовать
-					</Button>
-				)}
+				<ClubButtons
+					clubId={clubId}
+					userStatus={clubData.userStatus}
+					onClick={handleGetClubData}
+				/>
 			</Div>
 			<ClubBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === Tab.Events && (
-				<ClubEvents
-					clubId={clubId}
-					onClick={(eventId) => onEventClick(eventId)}
-				/>
+				<ClubEvents clubId={clubId} onClick={onEventClick} />
 			)}
 			{activeTab === Tab.Garage && (
-				<ClubGarage clubId={clubId} onClick={(carId) => onCarClick(carId)} />
+				<ClubGarage clubId={clubId} onClick={onCarClick} />
 			)}
 			{activeTab === Tab.Members && (
 				<ClubMembers
 					clubId={clubId}
 					userStatus={clubData.userStatus}
-					onClick={(userId) => onUserClick(userId)}
+					onClick={onUserClick}
 				/>
 			)}
-			{activeTab === Tab.Subscribers && <ClubSubscribers />}
+			{activeTab === Tab.Subscribers && (
+				<ClubSubscribers clubId={clubId} onClick={onUserClick} />
+			)}
 		</Panel>
 	);
 };

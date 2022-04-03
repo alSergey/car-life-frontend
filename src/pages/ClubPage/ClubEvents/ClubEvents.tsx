@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Group } from "@vkontakte/vkui";
 import { EventList } from "../../../components/EventList";
 import { emptyClubEventList, getClubEventList } from "./api";
 
@@ -23,5 +24,9 @@ export const ClubEvents: React.FC<Props> = ({ clubId, onClick }) => {
 		handleGetEventList();
 	}, []);
 
-	return <EventList eventList={eventList} onClick={onClick} />;
+	return (
+		<Group>
+			<EventList eventList={eventList} onClick={onClick} />
+		</Group>
+	);
 };

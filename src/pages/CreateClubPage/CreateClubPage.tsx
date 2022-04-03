@@ -1,7 +1,6 @@
 import React from "react";
 import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
 
-import styles from "./CreateClubPage.module.css";
 import { createNewClub } from "./api";
 import { ClubForm, CreateClubForm } from "../../components/CreateClubForm";
 
@@ -30,14 +29,7 @@ export const CreateClubPage: React.FC<Props> = ({
 	return (
 		<Panel id={id}>
 			<PanelHeader
-				left={
-					onBackClick && (
-						<PanelHeaderBack
-							className={styles.backIcon}
-							onClick={onBackClick}
-						/>
-					)
-				}
+				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
 			>
 				Новый клуб
 			</PanelHeader>

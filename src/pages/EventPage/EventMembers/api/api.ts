@@ -4,12 +4,14 @@ import { ModelsUserCard } from "../../../../api/Api";
 export const getEventMembersList = (
 	eventId: number
 ): Promise<ModelsUserCard[]> =>
-	api.events.participantsDetail(eventId).then(({ data }) => data);
+	api.events.eventsDetail2(eventId, "participant").then(({ data }) => data);
 
 export const getEventMembersRequestList = (
 	eventId: number
 ): Promise<ModelsUserCard[]> =>
-	api.events.participantsRequestsDetail(eventId).then(({ data }) => data);
+	api.events
+		.eventsDetail2(eventId, "participant_request")
+		.then(({ data }) => data);
 
 export const memberEventApproveReject = (
 	eid: number,

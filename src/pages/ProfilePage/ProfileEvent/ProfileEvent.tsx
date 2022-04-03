@@ -4,8 +4,10 @@ import { EventList } from "../../../components/EventList";
 import {
 	emptyAdminEventList,
 	emptyMemberEventList,
+	emptyViewerEventList,
 	getAdminEventList,
 	getMemberEventList,
+	getViewerEventList,
 } from "./api";
 
 interface Props {
@@ -16,6 +18,7 @@ interface Props {
 export const ProfileEvent: React.FC<Props> = ({ userId, onClick }) => {
 	const [adminEventList, setAdminEventList] = useState(emptyAdminEventList);
 	const [memberEventList, setMemberEventList] = useState(emptyMemberEventList);
+	const [viewerEventList, setViewerEventList] = useState(emptyViewerEventList);
 
 	const handleGetAdminEventList = async (): Promise<void> => {
 		try {
@@ -35,9 +38,19 @@ export const ProfileEvent: React.FC<Props> = ({ userId, onClick }) => {
 		}
 	};
 
+	const handleGetViewerEventList = async (): Promise<void> => {
+		try {
+			const data = await getViewerEventList(userId);
+			setViewerEventList(data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	useEffect(() => {
 		handleGetAdminEventList();
 		handleGetMemberEventList();
+		handleGetViewerEventList();
 	}, []);
 
 	return (
@@ -49,6 +62,10 @@ export const ProfileEvent: React.FC<Props> = ({ userId, onClick }) => {
 			<Group>
 				<Header>Участник события</Header>
 				<EventList eventList={memberEventList} onClick={onClick} />
+			</Group>
+			<Group>
+				<Header>Зритель события</Header>
+				<EventList eventList={viewerEventList} onClick={onClick} />
 			</Group>
 		</div>
 	);
