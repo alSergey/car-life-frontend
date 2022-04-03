@@ -16,6 +16,7 @@ import {
 } from "@vkontakte/vkui";
 import { YandexKey } from "../../constants/yandexKey";
 import { getPrettyDate } from "../../constants/time";
+import { ModelsEventCard } from "../../api/Api";
 
 interface Props {
 	onEventClick: (eventId: number) => void;
@@ -24,7 +25,7 @@ interface Props {
 
 export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 	const [events, setEvents] = useState(emptyEventList);
-	const [activeEvent, setActiveEvent] = useState(null);
+	const [activeEvent, setActiveEvent] = useState<number | null>(null);
 	const myMap = useRef(null);
 	const [mapCenter, setMapCenter] = useState([55.76, 37.64]);
 	const mapHeight = window.innerHeight - 95;
@@ -47,7 +48,7 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 		}
 	}, []);
 
-	function handleClickEvent(this: any) {
+	function handleClickEvent(this: ModelsEventCard) {
 		const eventId = this.id;
 		if (eventId === activeEvent) {
 			setActiveEvent(null);

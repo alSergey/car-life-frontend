@@ -70,6 +70,7 @@ export const EventInfo: React.FC<Props> = ({ event }) => {
 								{ provider: "yandex#map", kind: "house" }
 							);
 
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							myGeocoder.then((res: any) => {
 								setLocationText(res.geoObjects.get(0).properties.get("text"));
 							});
