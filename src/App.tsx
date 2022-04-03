@@ -17,6 +17,7 @@ import { withRouter, RouterProps } from "@happysanta/router";
 import {
 	MAIN_VIEW,
 	MAP_VIEW,
+	MAP_PAGE,
 	PROFILE_VIEW,
 	REG_VIEW,
 	REG_WELCOME_PAGE,
@@ -53,6 +54,7 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 
 			if (session.status === 200) {
 				handleGetUserData();
+				if (location.getViewId() === REG_VIEW) router.pushPage(MAP_PAGE);
 				return;
 			}
 		} catch (err) {
@@ -78,7 +80,7 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 					</Epic>
 				)}
 				{location.getViewId() === REG_VIEW && (
-					<RegView id={REG_VIEW} onSubmit={() => router.pushPage(MAP_VIEW)} />
+					<RegView id={REG_VIEW} onSubmit={() => router.pushPage(MAP_PAGE)} />
 				)}
 			</AppRoot>
 		</UserProvider>

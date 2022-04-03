@@ -3,14 +3,14 @@ import { api } from "../../../api";
 import { backBaseUrl } from "../../../constants/url";
 
 export const regUser = (form: RegForm): Promise<number | undefined> => {
-	if (!form.userForm) throw new Error("Не заполнены все поля");
+	// if (!form.userForm) throw new Error("Не заполнены все поля");
 
 	return api.signup
 		.signupCreate({
-			avatarUrl: form.userForm.photo_max_orig,
-			vkid: form.userForm.id,
-			name: form.userForm.first_name,
-			surname: form.userForm.last_name,
+			avatarUrl: "",
+			vkid: 1,
+			name: "Name",
+			surname: "Surname",
 			description: form.userAboutForm?.description,
 			tags: form.userAboutForm?.tags.map(({ label }) => label),
 			garage: form.carForm
