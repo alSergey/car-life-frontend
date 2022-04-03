@@ -10,7 +10,14 @@ import {
 } from "@vkontakte/vkui";
 import { Icon24Camera } from "@vkontakte/icons";
 import { EventForm, emptyEventForm, isEventFormFilled } from "./api";
-import { YMaps, Map, SearchControl, Placemark } from "react-yandex-maps";
+import {
+	YMaps,
+	Map,
+	SearchControl,
+	Placemark,
+	// eslint-disable-next-line import/named
+	YMapsApi,
+} from "react-yandex-maps";
 import { YandexKey } from "../../constants/yandexKey";
 import { OwnerClubWidget } from "../../widgets/OwnerClubWidget";
 
@@ -21,7 +28,7 @@ interface Props {
 
 export const CreateEventForm: React.FC<Props> = ({ buttonText, onSubmit }) => {
 	const [form, setFormData] = useState(emptyEventForm);
-	const [yMaps, setYMaps] = useState(null);
+	const [yMaps, setYMaps] = useState<YMapsApi | null>(null);
 	const myMap = useRef(null);
 	const inputMapRef = useRef(null);
 
@@ -109,8 +116,8 @@ export const CreateEventForm: React.FC<Props> = ({ buttonText, onSubmit }) => {
 							yandexMapDisablePoiInteractivity: true,
 							suppressMapOpenBlock: true,
 						}}
-						// @ts-ignore
 						onLoad={(ymaps) => setYMaps(ymaps)}
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						onClick={(e: any) => {
 							setFormData({
 								...form,
@@ -119,11 +126,11 @@ export const CreateEventForm: React.FC<Props> = ({ buttonText, onSubmit }) => {
 									longitude: e.get("coords")[1],
 								},
 							});
-							// @ts-ignore
 							const myGeocoder = yMaps?.geocode(
 								[e.get("coords")[0], e.get("coords")[1]],
 								{ provider: "yandex#map", kind: "house" }
 							);
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							myGeocoder.then((res: any) => {
 								// @ts-ignore
 								inputMapRef.current.value = res.geoObjects
@@ -137,6 +144,7 @@ export const CreateEventForm: React.FC<Props> = ({ buttonText, onSubmit }) => {
 						}}
 					>
 						<SearchControl
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							onResultShow={(res: any) => {
 								const resIndex = res.originalEvent.index;
 								const coordinates =
@@ -150,11 +158,11 @@ export const CreateEventForm: React.FC<Props> = ({ buttonText, onSubmit }) => {
 											longitude: coordinates[1],
 										},
 									});
-									// @ts-ignore
 									const myGeocoder = yMaps?.geocode(
 										[coordinates[0], coordinates[1]],
 										{ provider: "yandex#map", kind: "house" }
 									);
+									// eslint-disable-next-line @typescript-eslint/no-explicit-any
 									myGeocoder.then((result: any) => {
 										// @ts-ignore
 										inputMapRef.current.value = result.geoObjects
