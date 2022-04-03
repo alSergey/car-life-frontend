@@ -15,6 +15,7 @@ export const ClubCard: React.FC<Props> = ({
 	onClick,
 }) => (
 	<ContentCard
+		style={{ marginBottom: 7 }}
 		header={title}
 		caption={`${subscribers} участников`}
 		image={img}

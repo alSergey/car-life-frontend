@@ -11,6 +11,7 @@ interface Props {
 
 export const EventCard: React.FC<Props> = ({ title, date, img, onClick }) => (
 	<ContentCard
+		style={{ marginBottom: 7 }}
 		header={title}
 		caption={getPrettyDateTime(date)}
 		image={img}
