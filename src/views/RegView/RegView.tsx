@@ -9,26 +9,33 @@ import { SecondStory } from "../../pages/reg/SecondStory";
 import { ThirdStory } from "../../pages/reg/ThirdStory";
 import { emptyRegForm, regUser } from "./api";
 import bridge from "@vkontakte/vk-bridge";
+import { useLocation, useRouter } from "@happysanta/router";
+import {
+	REG_WELCOME_PANEL,
+	REG_FIRST_STORY_PAGE,
+	REG_FIRST_STORY_PANEL,
+	REG_SECOND_STORY_PAGE,
+	REG_SECOND_STORY_PANEL,
+	REG_THIRD_STORY_PAGE,
+	REG_THIRD_STORY_PANEL,
+	REG_ABOUT_PAGE,
+	REG_ABOUT_PANEL,
+	REG_CAR_PAGE,
+	REG_CAR_PANEL,
+	REG_PAGE,
+	REG_PANEL,
+} from "../../router";
 
 interface Prop {
 	id: string;
 	onSubmit: () => void;
 }
 
-enum Pages {
-	Welcome = "welcome",
-	First = "first",
-	Second = "second",
-	Third = "third",
-	Fav = "fav",
-	Car = "car",
-	Reg = "reg",
-}
-
 export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
-	const [activePanel, setActivePanel] = useState(Pages.Welcome);
+	const location = useLocation();
+	const router = useRouter();
+
 	const [form, setForm] = useState(emptyRegForm);
-	const [beforePanel, setBeforePanel] = useState(Pages.Third);
 
 	const handleGetUserInfo = async (): Promise<void> => {
 		try {
@@ -56,48 +63,43 @@ export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
 	}, []);
 
 	return (
-		<View activePanel={activePanel} id={id}>
+		// @ts-ignore
+		<View id={id} activePanel={location.getViewActivePanel(id)}>
 			<WelcomePage
-				id={Pages.Welcome}
-				onNextClick={() => setActivePanel(Pages.First)}
+				id={REG_WELCOME_PANEL}
+				onNextClick={() => router.pushPage(REG_FIRST_STORY_PAGE)}
 			/>
 			<FirstStory
-				id={Pages.First}
-				onNextClick={() => setActivePanel(Pages.Second)}
-				onBackClick={() => setActivePanel(Pages.Welcome)}
+				id={REG_FIRST_STORY_PANEL}
+				onBackClick={() => router.popPage()}
+				onNextClick={() => router.pushPage(REG_SECOND_STORY_PAGE)}
 			/>
 			<SecondStory
-				id={Pages.Second}
-				onNextClick={() => setActivePanel(Pages.Third)}
-				onBackClick={() => setActivePanel(Pages.First)}
+				id={REG_SECOND_STORY_PANEL}
+				onBackClick={() => router.popPage()}
+				onNextClick={() => router.pushPage(REG_THIRD_STORY_PAGE)}
 			/>
 			<ThirdStory
-				id={Pages.Third}
-				onNextClick={() => {
-					setActivePanel(Pages.Fav);
-					setBeforePanel(Pages.Car);
-				}}
-				onBackClick={() => setActivePanel(Pages.Second)}
-				onSkipClick={() => {
-					setActivePanel(Pages.Reg);
-					setBeforePanel(Pages.Third);
-				}}
+				id={REG_THIRD_STORY_PANEL}
+				onBackClick={() => router.popPage()}
+				onNextClick={() => router.pushPage(REG_ABOUT_PAGE)}
+				onSkipClick={() => router.pushPage(REG_PAGE)}
 			/>
 			<AboutPage
-				id={Pages.Fav}
-				onBackClick={() => setActivePanel(Pages.Third)}
-				onNextClick={() => setActivePanel(Pages.Car)}
-				onFormSubmit={(favForm) => {
+				id={REG_ABOUT_PANEL}
+				onBackClick={() => router.popPage()}
+				onNextClick={() => router.pushPage(REG_CAR_PAGE)}
+				onFormSubmit={(userAboutForm) => {
 					setForm({
 						...form,
-						userAboutForm: favForm,
+						userAboutForm,
 					});
 				}}
 			/>
 			<CarPage
-				id={Pages.Car}
-				onBackClick={() => setActivePanel(Pages.Fav)}
-				onNextClick={() => setActivePanel(Pages.Reg)}
+				id={REG_CAR_PANEL}
+				onBackClick={() => router.popPage()}
+				onNextClick={() => router.pushPage(REG_PAGE)}
 				onFormSubmit={(carForm) => {
 					setForm({
 						...form,
@@ -106,8 +108,8 @@ export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
 				}}
 			/>
 			<RegPage
-				id={Pages.Reg}
-				onBackClick={() => setActivePanel(beforePanel)}
+				id={REG_PANEL}
+				onBackClick={() => router.popPage()}
 				onNextClick={handleReg}
 			/>
 		</View>

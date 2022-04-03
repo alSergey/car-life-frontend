@@ -21,17 +21,17 @@ import {
 	isDisabledClubMemberButton,
 	isShownClubMemberButton,
 } from "./ClubPage.utils";
+import { getClubPageQuery } from "../../router";
 
 interface Props {
 	id: string;
-	clubId: number;
 	onEventClick: (eventId: number) => void;
 	onCarClick: (carId: number) => void;
 	onUserClick: (userId: number) => void;
 	onBackClick?: () => void;
 }
 
-export enum Tab {
+export enum ClubTab {
 	Events = "events",
 	Garage = "garage",
 	Members = "members",
@@ -40,13 +40,14 @@ export enum Tab {
 
 export const ClubPage: React.FC<Props> = ({
 	id,
-	clubId,
 	onBackClick,
 	onUserClick,
 	onCarClick,
 	onEventClick,
 }) => {
-	const [activeTab, setActiveTab] = useState(Tab.Events);
+	const { clubId } = getClubPageQuery();
+
+	const [activeTab, setActiveTab] = useState(ClubTab.Events);
 	const [clubData, setClubData] = useState(emptyClubData);
 
 	const handleGetClubData = async (): Promise<void> => {
@@ -107,24 +108,24 @@ export const ClubPage: React.FC<Props> = ({
 					</Button>
 				)}
 			</Div>
-			<ClubBar activeTab={activeTab} setActive={setActiveTab} />
-			{activeTab === Tab.Events && (
+			<ClubBar activeTab={activeTab} setActiveTab={setActiveTab} />
+			{activeTab === ClubTab.Events && (
 				<ClubEvents
 					clubId={clubId}
 					onClick={(eventId) => onEventClick(eventId)}
 				/>
 			)}
-			{activeTab === Tab.Garage && (
+			{activeTab === ClubTab.Garage && (
 				<ClubGarage clubId={clubId} onClick={(carId) => onCarClick(carId)} />
 			)}
-			{activeTab === Tab.Members && (
+			{activeTab === ClubTab.Members && (
 				<ClubMembers
 					clubId={clubId}
 					userStatus={clubData.userStatus}
 					onClick={(userId) => onUserClick(userId)}
 				/>
 			)}
-			{activeTab === Tab.Subscribers && <ClubSubscribers />}
+			{activeTab === ClubTab.Subscribers && <ClubSubscribers />}
 		</Panel>
 	);
 };

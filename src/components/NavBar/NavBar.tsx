@@ -5,50 +5,46 @@ import {
 	Icon28NewsfeedOutline,
 	Icon28UserCircleOutline,
 } from "@vkontakte/icons";
+import {
+	MAIN_PAGE,
+	MAIN_VIEW,
+	MAP_PAGE,
+	MAP_VIEW,
+	PROFILE_PAGE,
+	PROFILE_VIEW,
+} from "../../router";
+import { useLocation, useRouter } from "@happysanta/router";
 
-interface Props {
-	mainTab: string;
-	mapTab: string;
-	profileTab: string;
-	activeStory: string;
-	onMainClick: () => void;
-	onMapClick: () => void;
-	onProfileClick: () => void;
-}
+export const NavBar: React.FC = () => {
+	const location = useLocation();
+	const router = useRouter();
 
-export const NavBar: React.FC<Props> = ({
-	mainTab,
-	mapTab,
-	profileTab,
-	activeStory,
-	onMainClick,
-	onMapClick,
-	onProfileClick,
-}) => (
-	<Tabbar>
-		<TabbarItem
-			selected={activeStory === mainTab}
-			data-story={mainTab}
-			onClick={onMainClick}
-			text="Главная"
-		>
-			<Icon28NewsfeedOutline />
-		</TabbarItem>
-		<TabbarItem
-			selected={activeStory === mapTab}
-			data-story={mapTab}
-			onClick={onMapClick}
-			text="Карта"
-		>
-			<Icon28LocationMapOutline />
-		</TabbarItem>
-		<TabbarItem
-			selected={activeStory === profileTab}
-			data-story={profileTab}
-			onClick={onProfileClick}
-			text="Профиль"
-		>
-			<Icon28UserCircleOutline />
-		</TabbarItem>
-	</Tabbar>
-);
+	return (
+		<Tabbar>
+			<TabbarItem
+				selected={MAIN_VIEW === location.getViewId()}
+				data-story={MAIN_VIEW}
+				onClick={() => router.pushPage(MAIN_PAGE)}
+				text="Главная"
+			>
+				<Icon28NewsfeedOutline />
+			</TabbarItem>
+			<TabbarItem
+				selected={MAP_VIEW === location.getViewId()}
+				data-story={MAP_VIEW}
+				onClick={() => router.pushPage(MAP_PAGE)}
+				text="Карта"
+			>
+				<Icon28LocationMapOutline />
+			</TabbarItem>
+			<TabbarItem
+				selected={PROFILE_VIEW === location.getViewId()}
+				data-story={PROFILE_VIEW}
+				onClick={() => router.pushPage(PROFILE_PAGE)}
+				text="Профиль"
+			>
+				<Icon28UserCircleOutline />
+			</TabbarItem>
+		</Tabbar>
+	);
+};

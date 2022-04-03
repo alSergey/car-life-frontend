@@ -1,11 +1,5 @@
 import React from "react";
-import {
-	Div,
-	Button,
-	Panel,
-	PanelHeader,
-	PanelHeaderBack,
-} from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
 
 import styles from "./CarPage.module.css";
 import { CarForm, CreateCarFom } from "../../../components/CreateCarForm";

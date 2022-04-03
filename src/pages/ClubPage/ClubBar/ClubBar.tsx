@@ -1,32 +1,38 @@
-import { Tabs, TabsItem } from "@vkontakte/vkui";
 import React from "react";
-import { Tab } from "../ClubPage";
+import { Tabs, TabsItem, Text } from "@vkontakte/vkui";
+import { ClubTab } from "../ClubPage";
 
 interface Props {
-	activeTab: Tab;
-	setActive: (tab: Tab) => void;
+	activeTab: ClubTab;
+	setActiveTab: (tab: ClubTab) => void;
 }
 
-export const ClubBar: React.FC<Props> = ({ activeTab, setActive }) => {
+export const ClubBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 	return (
 		<Tabs>
 			<TabsItem
-				selected={activeTab === Tab.Events}
-				onClick={() => setActive(Tab.Events)}
+				selected={activeTab === ClubTab.Events}
+				onClick={() => setActiveTab(ClubTab.Events)}
 			>
-				События
+				<Text weight="regular">События</Text>
 			</TabsItem>
 			<TabsItem
-				selected={activeTab === Tab.Garage}
-				onClick={() => setActive(Tab.Garage)}
+				selected={activeTab === ClubTab.Garage}
+				onClick={() => setActiveTab(ClubTab.Garage)}
 			>
-				Гараж
+				<Text weight="regular">Гараж</Text>
 			</TabsItem>
 			<TabsItem
-				selected={activeTab === Tab.Members}
-				onClick={() => setActive(Tab.Members)}
+				selected={activeTab === ClubTab.Members}
+				onClick={() => setActiveTab(ClubTab.Members)}
 			>
-				Участники
+				<Text weight="regular">Участники</Text>
+			</TabsItem>
+			<TabsItem
+				selected={activeTab === ClubTab.Subscribers}
+				onClick={() => setActiveTab(ClubTab.Subscribers)}
+			>
+				<Text weight="regular">Подписчики</Text>
 			</TabsItem>
 		</Tabs>
 	);

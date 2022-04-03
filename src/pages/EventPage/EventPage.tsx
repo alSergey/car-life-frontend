@@ -21,15 +21,15 @@ import {
 	isDisabledEventMemberButton,
 	isShownEventMemberButton,
 } from "./EventPage.utils";
+import { getEventPageQuery } from "../../router";
 
 interface Props {
 	id: string;
-	eventId: number;
 	onUserClick: (userId: number) => void;
 	onBackClick?: () => void;
 }
 
-export enum Tab {
+export enum EventTab {
 	Info = "info",
 	Members = "members",
 	Garage = "garage",
@@ -38,11 +38,12 @@ export enum Tab {
 
 export const EventPage: React.FC<Props> = ({
 	id,
-	eventId,
 	onUserClick,
 	onBackClick,
 }) => {
-	const [activeTab, setActiveTab] = useState(Tab.Info);
+	const { eventId } = getEventPageQuery();
+
+	const [activeTab, setActiveTab] = useState(EventTab.Info);
 	const [eventData, setEventData] = useState(emptyEventData);
 
 	const handleGetEventData = async (): Promise<void> => {
@@ -100,17 +101,17 @@ export const EventPage: React.FC<Props> = ({
 					</Button>
 				)}
 			</Group>
-			<EventBar activeTab={activeTab} setActive={setActiveTab} />
-			{activeTab === Tab.Info && <EventInfo event={eventData} />}
-			{activeTab === Tab.Members && (
+			<EventBar activeTab={activeTab} setActiveTab={setActiveTab} />
+			{activeTab === EventTab.Info && <EventInfo event={eventData} />}
+			{activeTab === EventTab.Members && (
 				<EventMembers
 					eventId={eventData.id}
 					userStatus={eventData.userStatus}
 					onClick={onUserClick}
 				/>
 			)}
-			{activeTab === Tab.Garage && <EventGarage id={eventData.id} />}
-			{activeTab === Tab.Posts && <EventPosts />}
+			{activeTab === EventTab.Garage && <EventGarage id={eventData.id} />}
+			{activeTab === EventTab.Posts && <EventPosts />}
 		</Panel>
 	);
 };

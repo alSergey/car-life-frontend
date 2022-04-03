@@ -1,11 +1,5 @@
 import React from "react";
-import {
-	Div,
-	Button,
-	Panel,
-	PanelHeader,
-	PanelHeaderBack,
-} from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
 import styles from "./AboutPage.module.css";
 import {
 	CreateUserAboutForm,
