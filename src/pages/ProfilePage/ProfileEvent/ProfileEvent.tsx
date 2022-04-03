@@ -57,15 +57,27 @@ export const ProfileEvent: React.FC<Props> = ({ userId, onClick }) => {
 		<div>
 			<Group>
 				<Header>Организатор события</Header>
-				<EventList eventList={adminEventList} onClick={onClick} />
+				<EventList
+					scrollType="horizontal"
+					eventList={adminEventList}
+					onClick={onClick}
+				/>
 			</Group>
 			<Group>
 				<Header>Участник события</Header>
-				<EventList eventList={memberEventList} onClick={onClick} />
+				<EventList
+					scrollType="horizontal"
+					eventList={memberEventList}
+					onClick={onClick}
+				/>
 			</Group>
 			<Group>
 				<Header>Зритель события</Header>
-				<EventList eventList={viewerEventList} onClick={onClick} />
+				<EventList
+					scrollType="horizontal"
+					eventList={viewerEventList}
+					onClick={onClick}
+				/>
 			</Group>
 		</div>
 	);

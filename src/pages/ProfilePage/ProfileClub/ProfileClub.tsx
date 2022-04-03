@@ -59,15 +59,27 @@ export const ProfileClub: React.FC<Props> = ({ userId, onClick }) => {
 		<div>
 			<Group>
 				<Header>Админ клуба</Header>
-				<ClubList clubList={adminClubList} onClick={onClick} />
+				<ClubList
+					scrollType="horizontal"
+					clubList={adminClubList}
+					onClick={onClick}
+				/>
 			</Group>
 			<Group>
 				<Header>Участник клуба</Header>
-				<ClubList clubList={memberClubList} onClick={onClick} />
+				<ClubList
+					scrollType="horizontal"
+					clubList={memberClubList}
+					onClick={onClick}
+				/>
 			</Group>
 			<Group>
 				<Header>Подписчик клуба</Header>
-				<ClubList clubList={subscriberClubList} onClick={onClick} />
+				<ClubList
+					scrollType="horizontal"
+					clubList={subscriberClubList}
+					onClick={onClick}
+				/>
 			</Group>
 		</div>
 	);
