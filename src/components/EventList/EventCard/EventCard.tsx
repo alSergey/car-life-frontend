@@ -14,7 +14,7 @@ export const EventCard: React.FC<Props> = ({ title, date, img, onClick }) => (
 		header={title}
 		caption={getPrettyDateTime(date)}
 		image={img}
-		maxHeight={150}
+		height="150px"
 		onClick={onClick}
 	/>
 );

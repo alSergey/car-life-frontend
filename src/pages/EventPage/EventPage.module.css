@@ -1,3 +1,11 @@
-.backIcon {
-	color: black;
+.img {
+	object-fit: cover;
+	height: 250px;
+}
+
+.title {
+	display: flex;
+	flex-direction: column;
+
+	gap: 5px;
 }

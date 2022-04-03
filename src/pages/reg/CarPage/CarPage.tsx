@@ -1,13 +1,6 @@
 import React from "react";
-import {
-	Div,
-	Button,
-	Panel,
-	PanelHeader,
-	PanelHeaderBack,
-} from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
 
-import styles from "./CarPage.module.css";
 import { CarForm, CreateCarFom } from "../../../components/CreateCarForm";
 
 interface Props {
@@ -25,11 +18,7 @@ export const CarPage: React.FC<Props> = ({
 }) => {
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				left={
-					<PanelHeaderBack className={styles.backIcon} onClick={onBackClick} />
-				}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
 				Автомобиль
 			</PanelHeader>
 			<CreateCarFom

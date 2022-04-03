@@ -10,6 +10,3 @@ export const getClub = (id: number): Promise<ClubData> =>
 		avatar: data.avatar,
 		userStatus: data.user_status,
 	}));
-
-export const newClubMember = (id: number): Promise<number> =>
-	api.clubs.participateCreate2(id).then(({ status }) => status);

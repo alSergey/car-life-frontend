@@ -393,68 +393,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
-     * @description Handler for getting tags list
-     *
-     * @tags Clubs
-     * @name ParticipantsDetail
-     * @summary get clubs participants list
-     * @request GET:/clubs/{id}/participants
-     */
-    participantsDetail: (
-      id: number,
-      query?: { IdGt?: number; IdLte?: number; Limit?: number },
-      params: RequestParams = {},
-    ) =>
-      this.request<ModelsUserCard[], UtilsError>({
-        path: `/clubs/${id}/participants`,
-        method: "GET",
-        query: query,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * @description Handler for getting tags list
-     *
-     * @tags Clubs
-     * @name ParticipantsRequestsDetail
-     * @summary get clubs participants request list
-     * @request GET:/clubs/{id}/participants/requests
-     */
-    participantsRequestsDetail: (
-      id: number,
-      query?: { IdGt?: number; IdLte?: number; Limit?: number },
-      params: RequestParams = {},
-    ) =>
-      this.request<ModelsUserCard[], UtilsError>({
-        path: `/clubs/${id}/participants/requests`,
-        method: "GET",
-        query: query,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * @description Handler for getting tags list
-     *
-     * @tags Clubs
-     * @name ParticipateCreate2
-     * @summary request participate
-     * @request POST:/clubs/{id}/participate
-     * @originalName participateCreate
-     * @duplicate
-     */
-    participateCreate2: (id: number, params: RequestParams = {}) =>
-      this.request<void, UtilsError | void>({
-        path: `/clubs/${id}/participate`,
-        method: "POST",
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
      * @description Handler for uploading a club's avatar
      *
      * @tags Clubs
@@ -469,6 +407,47 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         type: ContentType.FormData,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting tags list
+     *
+     * @tags Clubs
+     * @name ClubsDetail2
+     * @summary get clubs users list
+     * @request GET:/clubs/{id}/{type}
+     * @originalName clubsDetail
+     * @duplicate
+     */
+    clubsDetail2: (
+      id: number,
+      type: "participant" | "participant_request" | "subscriber",
+      query?: { IdGt?: number; IdLte?: number; Limit?: number },
+      params: RequestParams = {},
+    ) =>
+      this.request<ModelsUserCard[], UtilsError>({
+        path: `/clubs/${id}/${type}`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting tags list
+     *
+     * @tags Clubs
+     * @name ClubsCreate
+     * @summary set user role in club
+     * @request POST:/clubs/{id}/{type}
+     */
+    clubsCreate: (id: number, type: "participate" | "subscribe", params: RequestParams = {}) =>
+      this.request<void, UtilsError | void>({
+        path: `/clubs/${id}/${type}`,
+        method: "POST",
+        type: ContentType.Json,
         ...params,
       }),
   };
@@ -547,68 +526,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
-     * @description Handler for getting tags list
-     *
-     * @tags Events
-     * @name ParticipantsDetail
-     * @summary get events participants list
-     * @request GET:/events/{id}/participants
-     */
-    participantsDetail: (
-      id: number,
-      query?: { IdGt?: number; IdLte?: number; Limit?: number },
-      params: RequestParams = {},
-    ) =>
-      this.request<ModelsUserCard[], UtilsError>({
-        path: `/events/${id}/participants`,
-        method: "GET",
-        query: query,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * @description Handler for getting tags list
-     *
-     * @tags Events
-     * @name ParticipantsRequestsDetail
-     * @summary get events participants requestlist
-     * @request GET:/events/{id}/participants/requests
-     */
-    participantsRequestsDetail: (
-      id: number,
-      query?: { IdGt?: number; IdLte?: number; Limit?: number },
-      params: RequestParams = {},
-    ) =>
-      this.request<ModelsUserCard[], UtilsError>({
-        path: `/events/${id}/participants/requests`,
-        method: "GET",
-        query: query,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * @description Handler for getting tags list
-     *
-     * @tags Events
-     * @name ParticipateCreate2
-     * @summary request participate in event
-     * @request POST:/events/{id}/participate
-     * @originalName participateCreate
-     * @duplicate
-     */
-    participateCreate2: (id: number, params: RequestParams = {}) =>
-      this.request<void, UtilsError | void>({
-        path: `/events/${id}/participate`,
-        method: "POST",
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
      * @description Handler for creating an event
      *
      * @tags Events
@@ -623,6 +540,47 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         type: ContentType.FormData,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting tags list
+     *
+     * @tags Events
+     * @name EventsDetail2
+     * @summary get events users list
+     * @request GET:/events/{id}/{type}
+     * @originalName eventsDetail
+     * @duplicate
+     */
+    eventsDetail2: (
+      id: number,
+      type: "participant" | "participant_request" | "spectator",
+      query?: { IdGt?: number; IdLte?: number; Limit?: number },
+      params: RequestParams = {},
+    ) =>
+      this.request<ModelsUserCard[], UtilsError>({
+        path: `/events/${id}/${type}`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting tags list
+     *
+     * @tags Events
+     * @name EventsCreate
+     * @summary set user role in event
+     * @request POST:/events/{id}/{type}
+     */
+    eventsCreate: (id: number, type: "participate" | "spectate", params: RequestParams = {}) =>
+      this.request<void, UtilsError | void>({
+        path: `/events/${id}/${type}`,
+        method: "POST",
+        type: ContentType.Json,
         ...params,
       }),
   };
