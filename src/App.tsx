@@ -21,6 +21,7 @@ import {
 	PROFILE_VIEW,
 	REG_VIEW,
 	REG_WELCOME_PAGE,
+	PROFILE_PANEL,
 } from "./router";
 import bridge from "@vkontakte/vk-bridge";
 
@@ -55,7 +56,16 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 
 			if (session.status === 200) {
 				handleGetUserData();
-				if (location.getViewId() === REG_VIEW) router.pushPage(MAP_PAGE);
+
+				// Если на регистрации кидаем на главную
+				if (location.getViewId() === REG_VIEW) {
+					router.pushPage(MAP_PAGE);
+				}
+
+				// Если на профиле кидаем на главную (костыль)
+				if (location.getPanelId() === PROFILE_PANEL) {
+					router.pushPage(MAP_PAGE);
+				}
 				return;
 			}
 		} catch (err) {
