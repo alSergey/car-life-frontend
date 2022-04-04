@@ -30,7 +30,7 @@
     "@vkontakte/vk-miniapps-deploy": "^0.0.26",
     "@vkontakte/vk-tunnel": "^0.1.2",
     "@vkontakte/vkjs": "^0.22.2",
-    "@vkontakte/vkui": "^4.14.2",
+    "@vkontakte/vkui": "^4.24.0",
     "axios": "^0.26.1",
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.3",
