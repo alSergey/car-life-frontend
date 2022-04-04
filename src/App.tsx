@@ -1,64 +1,99 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "@vkontakte/vkui/dist/vkui.css";
 import "@vkontakte/vkui/dist/unstable.css";
-import { AppRoot, Epic } from "@vkontakte/vkui";
+import { AppRoot, Epic, Spinner } from "@vkontakte/vkui";
 import { NavBar } from "./components/NavBar";
-import { MainTab } from "./tabs/MainTab";
-import { MapTab } from "./tabs/MapTab";
-import { ProfileTab } from "./tabs/ProfileTab";
-import { RegView } from "./tabs/RegView";
-import { LoaderView } from "./tabs/LoaderView";
-import { defaultUserData, UserProvider } from "./context/userContext";
+import { MainTab } from "./views/MainTab";
+import { MapTab } from "./views/MapTab";
+import { ProfileTab } from "./views/ProfileTab";
+import { RegView } from "./views/RegView";
+import { backBaseUrl } from "./constants/url";
+import {
+	defaultUserData,
+	getUserData,
+	UserProvider,
+} from "./context/userContext";
+import { withRouter, RouterProps } from "@happysanta/router";
+import {
+	MAIN_VIEW,
+	MAP_VIEW,
+	MAP_PAGE,
+	PROFILE_VIEW,
+	REG_VIEW,
+	REG_WELCOME_PAGE,
+	PROFILE_PANEL,
+} from "./router";
+import bridge from "@vkontakte/vk-bridge";
 
-enum Tab {
-	Main = "main",
-	Map = "map",
-	Profile = "profile",
-	Loader = "loader",
-	Reg = "reg",
-}
-
-const App: React.FC = () => {
-	const [activeView, setActiveView] = useState(Tab.Loader);
+const App: React.FC<RouterProps> = ({ location, router }) => {
 	const [userData, setUserData] = useState(defaultUserData);
+	const [loading, setLoading] = useState(true);
+
+	const handleGetUserData = async (): Promise<void> => {
+		try {
+			const data = await getUserData();
+			setUserData(data);
+		} catch (e) {
+			console.error(e);
+		}
+	};
+
+	const handleLogin = async () => {
+		const data = await bridge.send("VKWebAppGetUserInfo");
+
+		try {
+			const session = await fetch(`${backBaseUrl}/login`, {
+				method: "POST",
+				body: JSON.stringify({
+					vkid: data.id,
+				}),
+			});
+
+			if (session.status === 401) {
+				router.pushPage(REG_WELCOME_PAGE);
+				return;
+			}
+
+			if (session.status === 200) {
+				handleGetUserData();
+
+				// Если на регистрации кидаем на главную
+				if (location.getViewId() === REG_VIEW) {
+					router.pushPage(MAP_PAGE);
+				}
+
+				// Если на профиле кидаем на главную (костыль)
+				if (location.getPanelId() === PROFILE_PANEL) {
+					router.pushPage(MAP_PAGE);
+				}
+				return;
+			}
+		} catch (err) {
+			console.error(err);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		handleLogin();
+	}, []);
 
 	return (
 		<UserProvider value={{ userState: userData }}>
 			<AppRoot>
-				{activeView !== Tab.Reg && activeView !== Tab.Loader && (
-					<Epic
-						activeStory={activeView}
-						tabbar={
-							<NavBar
-								activeStory={activeView}
-								mainTab={Tab.Main}
-								mapTab={Tab.Map}
-								profileTab={Tab.Profile}
-								onMainClick={() => setActiveView(Tab.Main)}
-								onMapClick={() => setActiveView(Tab.Map)}
-								onProfileClick={() => setActiveView(Tab.Profile)}
-							/>
-						}
-					>
-						<MainTab id={Tab.Main} />
-						<MapTab id={Tab.Map} />
-						<ProfileTab id={Tab.Profile} />
+				{loading && <Spinner size="large" />}
+				{location.getViewId() !== REG_VIEW && (
+					<Epic activeStory={location.getViewId()} tabbar={<NavBar />}>
+						<MainTab id={MAIN_VIEW} />
+						<MapTab id={MAP_VIEW} />
+						<ProfileTab id={PROFILE_VIEW} />
 					</Epic>
 				)}
-				{activeView === Tab.Loader && (
-					<LoaderView
-						id={Tab.Loader}
-						onLogin={() => setActiveView(Tab.Map)}
-						onReg={() => setActiveView(Tab.Reg)}
-						setUserInfo={(data) => setUserData(data)}
-					/>
-				)}
-				{activeView === Tab.Reg && (
-					<RegView id={Tab.Reg} onSubmit={() => setActiveView(Tab.Loader)} />
-				)}
+				{location.getViewId() === REG_VIEW && <RegView id={REG_VIEW} />}
 			</AppRoot>
 		</UserProvider>
 	);
 };
 
-export default App;
+export default withRouter(App);

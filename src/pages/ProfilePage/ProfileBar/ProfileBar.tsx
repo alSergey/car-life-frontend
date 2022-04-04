@@ -1,40 +1,40 @@
-import { Tabs, TabsItem } from "@vkontakte/vkui";
 import React from "react";
-import { Tab } from "../ProfilePage";
+import { Tabs, TabsItem } from "@vkontakte/vkui";
+import { UserTab } from "../ProfilePage";
 
 interface Props {
-	activeTab: string;
-	setActive: (tab: Tab) => void;
+	activeTab: UserTab;
+	setActiveTab: (tab: UserTab) => void;
 }
 
-export const ProfileBar: React.FC<Props> = ({ activeTab, setActive }) => {
+export const ProfileBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 	return (
 		<Tabs>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
-				onClick={() => setActive(Tab.Info)}
-				selected={activeTab === Tab.Info}
+				selected={activeTab === UserTab.Info}
+				onClick={() => setActiveTab(UserTab.Info)}
 			>
 				О себе
 			</TabsItem>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
-				onClick={() => setActive(Tab.Garage)}
-				selected={activeTab === Tab.Garage}
+				selected={activeTab === UserTab.Garage}
+				onClick={() => setActiveTab(UserTab.Garage)}
 			>
 				Гараж
 			</TabsItem>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
-				onClick={() => setActive(Tab.Event)}
-				selected={activeTab === Tab.Event}
+				selected={activeTab === UserTab.Event}
+				onClick={() => setActiveTab(UserTab.Event)}
 			>
 				События
 			</TabsItem>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
-				onClick={() => setActive(Tab.Club)}
-				selected={activeTab === Tab.Club}
+				selected={activeTab === UserTab.Club}
+				onClick={() => setActiveTab(UserTab.Club)}
 			>
 				Клубы
 			</TabsItem>

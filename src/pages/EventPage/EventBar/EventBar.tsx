@@ -1,40 +1,40 @@
-import { Tabs, TabsItem } from "@vkontakte/vkui";
 import React from "react";
-import { Tab } from "../EventPage";
+import { Tabs, TabsItem } from "@vkontakte/vkui";
+import { EventTab } from "../EventPage";
 
 interface Props {
-	activeTab: string;
-	setActive: (tab: Tab) => void;
+	activeTab: EventTab;
+	setActiveTab: (tab: EventTab) => void;
 }
 
-export const EventBar: React.FC<Props> = ({ activeTab, setActive }) => {
+export const EventBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 	return (
 		<Tabs>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
-				selected={activeTab === Tab.Info}
-				onClick={() => setActive(Tab.Info)}
+				selected={activeTab === EventTab.Info}
+				onClick={() => setActiveTab(EventTab.Info)}
 			>
 				Подробности
 			</TabsItem>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
-				selected={activeTab === Tab.Posts}
-				onClick={() => setActive(Tab.Posts)}
+				selected={activeTab === EventTab.Posts}
+				onClick={() => setActiveTab(EventTab.Posts)}
 			>
 				Посты
 			</TabsItem>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
-				selected={activeTab === Tab.Members}
-				onClick={() => setActive(Tab.Members)}
+				selected={activeTab === EventTab.Members}
+				onClick={() => setActiveTab(EventTab.Members)}
 			>
 				Участники
 			</TabsItem>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
-				selected={activeTab === Tab.Viewers}
-				onClick={() => setActive(Tab.Viewers)}
+				selected={activeTab === EventTab.Viewers}
+				onClick={() => setActiveTab(EventTab.Viewers)}
 			>
 				Зрители
 			</TabsItem>

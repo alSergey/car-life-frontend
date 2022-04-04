@@ -16,10 +16,10 @@ import { ProfileClub } from "./ProfileClub";
 import { ProfileInfo } from "./ProfileInfo";
 import { defaultUserData, UserContext } from "../../context/userContext";
 import { getUserData } from "./api";
+import { getUserPageQuery } from "../../router";
 
 interface Props {
 	id: string;
-	userId?: number;
 	onClubClick: (clubId: number) => void;
 	onEventClick: (eventId: number) => void;
 	onCarClick: (carId: number) => void;
@@ -27,7 +27,7 @@ interface Props {
 	onBackClick?: () => void;
 }
 
-export enum Tab {
+export enum UserTab {
 	Info = "info",
 	Garage = "garage",
 	Club = "club",
@@ -36,14 +36,15 @@ export enum Tab {
 
 export const ProfilePage: React.FC<Props> = ({
 	id,
-	userId,
 	onBackClick,
 	onCarClick,
 	onCreateCarClick,
 	onClubClick,
 	onEventClick,
 }) => {
-	const [activeTab, setActiveTab] = useState(Tab.Info);
+	const { userId } = getUserPageQuery();
+
+	const [activeTab, setActiveTab] = useState(UserTab.Info);
 	const [userData, setUserData] = useState(defaultUserData);
 	const { userState } = useContext(UserContext);
 
@@ -76,19 +77,19 @@ export const ProfilePage: React.FC<Props> = ({
 					{userData.surname} {userData.name}
 				</Title>
 			</Gradient>
-			<ProfileBar activeTab={activeTab} setActive={setActiveTab} />
-			{activeTab === Tab.Info && <ProfileInfo userData={userData} />}
-			{activeTab === Tab.Garage && (
+			<ProfileBar activeTab={activeTab} setActiveTab={setActiveTab} />
+			{activeTab === UserTab.Info && <ProfileInfo userData={userData} />}
+			{activeTab === UserTab.Garage && (
 				<ProfileGarage
 					userId={userData.id}
 					onClick={onCarClick}
 					onCreateClick={onCreateCarClick}
 				/>
 			)}
-			{activeTab === Tab.Event && (
+			{activeTab === UserTab.Event && (
 				<ProfileEvent userId={userData.id} onClick={onEventClick} />
 			)}
-			{activeTab === Tab.Club && (
+			{activeTab === UserTab.Club && (
 				<ProfileClub userId={userData.id} onClick={onClubClick} />
 			)}
 		</Panel>

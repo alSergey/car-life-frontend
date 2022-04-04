@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@vkontakte/vkui";
 
 import styles from "./EventButtons.module.css";
@@ -23,21 +23,29 @@ export const EventButtons: React.FC<Props> = ({
 	userStatus,
 	onClick,
 }) => {
+	const [loading, setLoading] = useState(false);
+
 	const handleMember = async (): Promise<void> => {
+		setLoading(true);
 		try {
 			await newEventMember(eventId);
 			onClick();
 		} catch (err) {
 			console.error(err);
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	const handleViewer = async (): Promise<void> => {
+		setLoading(true);
 		try {
 			await newEventViewer(eventId);
 			onClick();
 		} catch (err) {
 			console.error(err);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -47,6 +55,7 @@ export const EventButtons: React.FC<Props> = ({
 				<Button
 					size="m"
 					stretched
+					loading={loading}
 					disabled={isDisabledEventMemberButton(userStatus)}
 					onClick={handleMember}
 				>
@@ -58,6 +67,7 @@ export const EventButtons: React.FC<Props> = ({
 					size="m"
 					stretched
 					mode="secondary"
+					loading={loading}
 					disabled={isDisabledEventViewerButton(userStatus)}
 					onClick={handleViewer}
 				>

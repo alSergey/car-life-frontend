@@ -17,15 +17,15 @@ import { EventMembers } from "./EventMembers";
 import { EventViewers } from "./EventViewers";
 import { EventPosts } from "./EventPosts";
 import { getPrettyDateTime } from "../../constants/time";
+import { getEventPageQuery } from "../../router";
 
 interface Props {
 	id: string;
-	eventId: number;
 	onUserClick: (userId: number) => void;
 	onBackClick?: () => void;
 }
 
-export enum Tab {
+export enum EventTab {
 	Info = "info",
 	Posts = "posts",
 	Members = "members",
@@ -34,11 +34,12 @@ export enum Tab {
 
 export const EventPage: React.FC<Props> = ({
 	id,
-	eventId,
 	onUserClick,
 	onBackClick,
 }) => {
-	const [activeTab, setActiveTab] = useState(Tab.Info);
+	const { eventId } = getEventPageQuery();
+
+	const [activeTab, setActiveTab] = useState(EventTab.Info);
 	const [eventData, setEventData] = useState(emptyEventData);
 
 	const handleGetEventData = async (): Promise<void> => {
@@ -77,17 +78,17 @@ export const EventPage: React.FC<Props> = ({
 					onClick={handleGetEventData}
 				/>
 			</Div>
-			<EventBar activeTab={activeTab} setActive={setActiveTab} />
-			{activeTab === Tab.Info && <EventInfo event={eventData} />}
-			{activeTab === Tab.Posts && <EventPosts />}
-			{activeTab === Tab.Members && (
+			<EventBar activeTab={activeTab} setActiveTab={setActiveTab} />
+			{activeTab === EventTab.Info && <EventInfo event={eventData} />}
+			{activeTab === EventTab.Posts && <EventPosts />}
+			{activeTab === EventTab.Members && (
 				<EventMembers
 					eventId={eventId}
 					userStatus={eventData.userStatus}
 					onClick={onUserClick}
 				/>
 			)}
-			{activeTab === Tab.Viewers && (
+			{activeTab === EventTab.Viewers && (
 				<EventViewers eventId={eventId} onClick={onUserClick} />
 			)}
 		</Panel>
