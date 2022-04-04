@@ -38,13 +38,13 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 	};
 
 	const handleLogin = async () => {
-		// const data = await bridge.send("VKWebAppGetUserInfo");
+		const data = await bridge.send("VKWebAppGetUserInfo");
 
 		try {
 			const session = await fetch(`${backBaseUrl}/login`, {
 				method: "POST",
 				body: JSON.stringify({
-					vkid: 1,
+					vkid: data.id,
 				}),
 			});
 
@@ -80,9 +80,7 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 						<ProfileTab id={PROFILE_VIEW} />
 					</Epic>
 				)}
-				{location.getViewId() === REG_VIEW && (
-					<RegView id={REG_VIEW} onSubmit={() => router.pushPage(MAP_PAGE)} />
-				)}
+				{location.getViewId() === REG_VIEW && <RegView id={REG_VIEW} />}
 			</AppRoot>
 		</UserProvider>
 	);
