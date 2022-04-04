@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
 
 import { createNewEvent } from "./api";
@@ -15,7 +15,10 @@ export const CreateEventPage: React.FC<Props> = ({
 	onSubmit,
 	onBackClick,
 }) => {
+	const [loading, setLoading] = useState(false);
+
 	const handleSubmit = async (form: EventForm): Promise<void> => {
+		setLoading(true);
 		try {
 			const eventId = await createNewEvent(form);
 			if (!eventId) return;
@@ -23,6 +26,8 @@ export const CreateEventPage: React.FC<Props> = ({
 			onSubmit(eventId);
 		} catch (err) {
 			console.error(err);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -33,7 +38,7 @@ export const CreateEventPage: React.FC<Props> = ({
 			>
 				Новое событие
 			</PanelHeader>
-			<CreateEventForm onSubmit={handleSubmit} />
+			<CreateEventForm loading={loading} onSubmit={handleSubmit} />
 		</Panel>
 	);
 };

@@ -13,10 +13,15 @@ import { ClubTagWidget } from "../../widgets/ClubTagWidget";
 
 interface Props {
 	buttonText?: string;
+	loading?: boolean;
 	onSubmit: (form: ClubForm) => void;
 }
 
-export const CreateClubForm: React.FC<Props> = ({ buttonText, onSubmit }) => {
+export const CreateClubForm: React.FC<Props> = ({
+	buttonText,
+	loading,
+	onSubmit,
+}) => {
 	const [form, setFormData] = useState(emptyClubForm);
 
 	return (
@@ -87,6 +92,7 @@ export const CreateClubForm: React.FC<Props> = ({ buttonText, onSubmit }) => {
 					stretched
 					size="l"
 					type="submit"
+					loading={loading}
 					disabled={!isClubFormFilled(form)}
 				>
 					{buttonText || "Создать"}

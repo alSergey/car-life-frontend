@@ -24,18 +24,19 @@ import {
 	REG_CAR_PANEL,
 	REG_PAGE,
 	REG_PANEL,
+	MAP_PAGE,
 } from "../../router";
 
 interface Prop {
 	id: string;
-	onSubmit: () => void;
 }
 
-export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
+export const RegView: React.FC<Prop> = ({ id }) => {
 	const location = useLocation();
 	const router = useRouter();
 
 	const [form, setForm] = useState(emptyRegForm);
+	const [loading, setLoading] = useState(false);
 
 	const handleGetUserInfo = async (): Promise<void> => {
 		try {
@@ -50,11 +51,14 @@ export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
 	};
 
 	const handleReg = async (): Promise<void> => {
+		setLoading(true);
 		try {
 			await regUser(form);
-			onSubmit();
+			router.pushPage(MAP_PAGE);
 		} catch (e) {
 			console.error(e);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -114,6 +118,7 @@ export const RegView: React.FC<Prop> = ({ id, onSubmit }) => {
 			/>
 			<RegPage
 				id={REG_PANEL}
+				loading={loading}
 				onBackClick={() => router.popPage()}
 				onNextClick={handleReg}
 			/>

@@ -19,8 +19,8 @@ export const EventBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 			</TabsItem>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
-				selected={activeTab === EventTab.Members}
-				onClick={() => setActiveTab(EventTab.Members)}
+				selected={activeTab === EventTab.Posts}
+				onClick={() => setActiveTab(EventTab.Posts)}
 			>
 				Посты
 			</TabsItem>
@@ -33,8 +33,8 @@ export const EventBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 			</TabsItem>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
-				selected={activeTab === EventTab.Posts}
-				onClick={() => setActiveTab(EventTab.Posts)}
+				selected={activeTab === EventTab.Viewers}
+				onClick={() => setActiveTab(EventTab.Viewers)}
 			>
 				Зрители
 			</TabsItem>

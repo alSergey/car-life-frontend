@@ -23,10 +23,15 @@ import { OwnerClubWidget } from "../../widgets/OwnerClubWidget";
 
 interface Props {
 	buttonText?: string;
+	loading?: boolean;
 	onSubmit: (form: EventForm) => void;
 }
 
-export const CreateEventForm: React.FC<Props> = ({ buttonText, onSubmit }) => {
+export const CreateEventForm: React.FC<Props> = ({
+	buttonText,
+	loading,
+	onSubmit,
+}) => {
 	const [form, setFormData] = useState(emptyEventForm);
 	const [yMaps, setYMaps] = useState<YMapsApi | null>(null);
 	const myMap = useRef(null);
@@ -209,6 +214,7 @@ export const CreateEventForm: React.FC<Props> = ({ buttonText, onSubmit }) => {
 					stretched
 					size="l"
 					type="submit"
+					loading={loading}
 					disabled={!isEventFormFilled(form)}
 				>
 					{buttonText || "Создать"}

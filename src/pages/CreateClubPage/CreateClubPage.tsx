@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
 
 import { createNewClub } from "./api";
@@ -15,7 +15,10 @@ export const CreateClubPage: React.FC<Props> = ({
 	onBackClick,
 	onSubmit,
 }) => {
+	const [loading, setLoading] = useState(false);
+
 	const handleSubmit = async (form: ClubForm): Promise<void> => {
+		setLoading(true);
 		try {
 			const clubId = await createNewClub(form);
 			if (!clubId) return;
@@ -23,6 +26,8 @@ export const CreateClubPage: React.FC<Props> = ({
 			onSubmit(clubId);
 		} catch (err) {
 			console.error(err);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -33,7 +38,7 @@ export const CreateClubPage: React.FC<Props> = ({
 			>
 				Новый клуб
 			</PanelHeader>
-			<CreateClubForm onSubmit={handleSubmit} />
+			<CreateClubForm loading={loading} onSubmit={handleSubmit} />
 		</Panel>
 	);
 };

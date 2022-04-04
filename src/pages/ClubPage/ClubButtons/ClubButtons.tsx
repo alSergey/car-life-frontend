@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@vkontakte/vkui";
 
 import styles from "./ClubButtons.module.css";
@@ -23,21 +23,29 @@ export const ClubButtons: React.FC<Props> = ({
 	userStatus,
 	onClick,
 }) => {
+	const [loading, setLoading] = useState(false);
+
 	const handleMember = async (): Promise<void> => {
+		setLoading(true);
 		try {
 			await newClubMember(clubId);
 			onClick();
 		} catch (err) {
 			console.error(err);
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	const handleSubscriber = async (): Promise<void> => {
+		setLoading(true);
 		try {
 			await newClubSubscriber(clubId);
 			onClick();
 		} catch (err) {
 			console.error(err);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -47,6 +55,7 @@ export const ClubButtons: React.FC<Props> = ({
 				<Button
 					size="m"
 					stretched
+					loading={loading}
 					disabled={isDisabledClubMemberButton(userStatus)}
 					onClick={handleMember}
 				>
@@ -58,6 +67,7 @@ export const ClubButtons: React.FC<Props> = ({
 					size="m"
 					stretched
 					mode="secondary"
+					loading={loading}
 					disabled={isDisabledClubSubscriberButton(userStatus)}
 					onClick={handleSubscriber}
 				>
