@@ -17,7 +17,8 @@
     "stylelint:fix": "npm run stylelint -- --fix",
     "tscompile": "tsc",
     "lint": "npm run eslint && npm run stylelint && npm run tscompile",
-    "lint:fix": "npm run eslint:fix && npm run stylelint:fix && npm run tscompile"
+    "lint:fix": "npm run eslint:fix && npm run stylelint:fix && npm run tscompile",
+    "update:deps": "npm-check -u"
   },
   "keywords": [],
   "author": "",
