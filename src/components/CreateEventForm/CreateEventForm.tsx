@@ -196,6 +196,7 @@ export const CreateEventForm: React.FC<Props> = ({
 					name="file-upload"
 					controlSize="l"
 					before={<Icon24Camera />}
+					mode="secondary"
 					accept=".jpeg,.jpg,.png.webp"
 					onChange={({ target: { files } }) => {
 						if (!files) return;
