@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CarList } from "../../../components/CarList";
+import { CarList } from "../../CarList";
 import { emptyCarList, getCarList } from "./api";
 import { CreateCarButton } from "./CreateCarButton";
 
@@ -9,7 +9,7 @@ interface Props {
 	onCreateClick?: () => void;
 }
 
-export const ProfileGarage: React.FC<Props> = ({
+export const UserGarage: React.FC<Props> = ({
 	userId,
 	onClick,
 	onCreateClick,

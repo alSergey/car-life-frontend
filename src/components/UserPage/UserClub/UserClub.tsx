@@ -1,6 +1,6 @@
 import { Group, Header } from "@vkontakte/vkui";
 import React, { useEffect, useState } from "react";
-import { ClubList } from "../../../components/ClubList";
+import { ClubList } from "../../ClubList";
 import {
 	emptyAdminClubList,
 	emptyMemberClubList,
@@ -15,7 +15,7 @@ interface Props {
 	onClick: (id: number) => void;
 }
 
-export const ProfileClub: React.FC<Props> = ({ userId, onClick }) => {
+export const UserClub: React.FC<Props> = ({ userId, onClick }) => {
 	const [adminClubList, setAdminClubList] = useState(emptyAdminClubList);
 	const [memberClubList, setMemberClubList] = useState(emptyMemberClubList);
 	const [subscriberClubList, setSubscriberClubList] = useState(

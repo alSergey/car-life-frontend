@@ -23,29 +23,30 @@ export const ClubButtons: React.FC<Props> = ({
 	userStatus,
 	onClick,
 }) => {
-	const [loading, setLoading] = useState(false);
+	const [loadingMember, setLoadingMember] = useState(false);
+	const [loadingSubscriber, setLoadingSubscriber] = useState(false);
 
 	const handleMember = async (): Promise<void> => {
-		setLoading(true);
+		setLoadingMember(true);
 		try {
 			await newClubMember(clubId);
 			onClick();
 		} catch (err) {
 			console.error(err);
 		} finally {
-			setLoading(false);
+			setLoadingMember(false);
 		}
 	};
 
 	const handleSubscriber = async (): Promise<void> => {
-		setLoading(true);
+		setLoadingSubscriber(true);
 		try {
 			await newClubSubscriber(clubId);
 			onClick();
 		} catch (err) {
 			console.error(err);
 		} finally {
-			setLoading(false);
+			setLoadingSubscriber(false);
 		}
 	};
 
@@ -55,7 +56,7 @@ export const ClubButtons: React.FC<Props> = ({
 				<Button
 					size="m"
 					stretched
-					loading={loading}
+					loading={loadingMember}
 					disabled={isDisabledClubMemberButton(userStatus)}
 					onClick={handleMember}
 				>
@@ -67,7 +68,7 @@ export const ClubButtons: React.FC<Props> = ({
 					size="m"
 					stretched
 					mode="secondary"
-					loading={loading}
+					loading={loadingSubscriber}
 					disabled={isDisabledClubSubscriberButton(userStatus)}
 					onClick={handleSubscriber}
 				>

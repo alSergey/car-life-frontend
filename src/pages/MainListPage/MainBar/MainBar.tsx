@@ -1,24 +1,28 @@
 import React from "react";
 import { Tabs, TabsItem } from "@vkontakte/vkui";
-import { Tab } from "../MainListPage";
 
-interface Props {
-	activeTab: Tab;
-	setActive: (tab: Tab) => void;
+export enum MainTab {
+	Event = "event",
+	Club = "club",
 }
 
-export const MainBar: React.FC<Props> = ({ activeTab, setActive }) => {
+interface Props {
+	activeTab: MainTab;
+	setActiveTab: (tab: MainTab) => void;
+}
+
+export const MainBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 	return (
 		<Tabs>
 			<TabsItem
-				onClick={() => setActive(Tab.Club)}
-				selected={activeTab === Tab.Club}
+				onClick={() => setActiveTab(MainTab.Club)}
+				selected={activeTab === MainTab.Club}
 			>
 				Клубы
 			</TabsItem>
 			<TabsItem
-				onClick={() => setActive(Tab.Event)}
-				selected={activeTab === Tab.Event}
+				onClick={() => setActiveTab(MainTab.Event)}
+				selected={activeTab === MainTab.Event}
 			>
 				События
 			</TabsItem>

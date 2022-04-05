@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-	Panel,
-	PanelHeader,
-	PanelHeaderBack,
-	Avatar,
-	Div,
-	Text,
-} from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
 
-import styles from "./ClubPage.module.css";
 import { emptyClubData, getClub } from "./api";
-import { ClubButtons } from "./ClubButtons";
-import { ClubBar } from "./ClubBar";
+import { ClubHeader } from "./ClubHeader";
+import { ClubBar, ClubTab } from "./ClubBar";
 import { ClubEvents } from "./ClubEvents";
 import { ClubGarage } from "./ClubGarage";
 import { ClubMembers } from "./ClubMembers";
@@ -24,13 +16,6 @@ interface Props {
 	onCarClick: (carId: number) => void;
 	onUserClick: (userId: number) => void;
 	onBackClick?: () => void;
-}
-
-export enum ClubTab {
-	Events = "events",
-	Garage = "garage",
-	Members = "members",
-	Subscribers = "subscribers",
 }
 
 export const ClubPage: React.FC<Props> = ({
@@ -65,22 +50,7 @@ export const ClubPage: React.FC<Props> = ({
 			>
 				{clubData.name}
 			</PanelHeader>
-			<Div>
-				<div className={styles.top}>
-					<div>
-						<Text weight="regular">{clubData.tags.join(", ")}</Text>
-						<Text weight="regular" className={styles.desc}>
-							{clubData.description}
-						</Text>
-					</div>
-					<Avatar size={96} src={clubData.avatar} />
-				</div>
-				<ClubButtons
-					clubId={clubId}
-					userStatus={clubData.userStatus}
-					onClick={handleGetClubData}
-				/>
-			</Div>
+			<ClubHeader clubData={clubData} onButtonClick={handleGetClubData} />
 			<ClubBar activeTab={activeTab} setActiveTab={setActiveTab} />
 			{activeTab === ClubTab.Events && (
 				<ClubEvents clubId={clubId} onClick={onEventClick} />

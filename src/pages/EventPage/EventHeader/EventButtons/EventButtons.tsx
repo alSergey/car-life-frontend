@@ -23,29 +23,30 @@ export const EventButtons: React.FC<Props> = ({
 	userStatus,
 	onClick,
 }) => {
-	const [loading, setLoading] = useState(false);
+	const [loadingMember, setLoadingMember] = useState(false);
+	const [loadingViewer, setLoadingViewer] = useState(false);
 
 	const handleMember = async (): Promise<void> => {
-		setLoading(true);
+		setLoadingMember(true);
 		try {
 			await newEventMember(eventId);
 			onClick();
 		} catch (err) {
 			console.error(err);
 		} finally {
-			setLoading(false);
+			setLoadingMember(false);
 		}
 	};
 
 	const handleViewer = async (): Promise<void> => {
-		setLoading(true);
+		setLoadingViewer(true);
 		try {
 			await newEventViewer(eventId);
 			onClick();
 		} catch (err) {
 			console.error(err);
 		} finally {
-			setLoading(false);
+			setLoadingViewer(false);
 		}
 	};
 
@@ -55,7 +56,7 @@ export const EventButtons: React.FC<Props> = ({
 				<Button
 					size="m"
 					stretched
-					loading={loading}
+					loading={loadingMember}
 					disabled={isDisabledEventMemberButton(userStatus)}
 					onClick={handleMember}
 				>
@@ -67,7 +68,7 @@ export const EventButtons: React.FC<Props> = ({
 					size="m"
 					stretched
 					mode="secondary"
-					loading={loading}
+					loading={loadingViewer}
 					disabled={isDisabledEventViewerButton(userStatus)}
 					onClick={handleViewer}
 				>
