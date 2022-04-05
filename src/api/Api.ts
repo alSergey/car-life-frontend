@@ -75,6 +75,14 @@ export interface ModelsCreateEventRequest {
   name: string;
 }
 
+export interface ModelsCreateMiniEventRequest {
+  description: string;
+  ended_at: string;
+  latitude: number;
+  longitude: number;
+  type_id: number;
+}
+
 export interface ModelsEvent {
   avatar: string;
   club: ModelsClub;
@@ -100,6 +108,23 @@ export interface ModelsEventCard {
 
 export interface ModelsLoginRequest {
   vkid?: number;
+}
+
+export interface ModelsMiniEvent {
+  created_at: string;
+  description: string;
+  ended_at: string;
+  id: number;
+  latitude: number;
+  longitude: number;
+  type: ModelsMiniEventType;
+  user: ModelsUserCard;
+}
+
+export interface ModelsMiniEventType {
+  id: number;
+  public_description: string;
+  public_name: string;
 }
 
 export interface ModelsSignUpRequest {
@@ -634,6 +659,80 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<ModelsUser, UtilsError>({
         path: `/me`,
         method: "GET",
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
+  miniEvent = {
+    /**
+     * @description Handler for creating an event
+     *
+     * @tags MiniEvents
+     * @name CreateCreate
+     * @summary create a mini event
+     * @request POST:/mini_event/create
+     */
+    createCreate: (body: ModelsCreateMiniEventRequest, params: RequestParams = {}) =>
+      this.request<ModelsMiniEvent, UtilsError>({
+        path: `/mini_event/create`,
+        method: "POST",
+        body: body,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
+  miniEvents = {
+    /**
+     * @description Handler for getting events list
+     *
+     * @tags MiniEvents
+     * @name MiniEventsList
+     * @summary get mini events list
+     * @request GET:/mini_events
+     */
+    miniEventsList: (query?: { IdGt?: number; IdLte?: number; Limit?: number }, params: RequestParams = {}) =>
+      this.request<ModelsMiniEvent[], UtilsError>({
+        path: `/mini_events`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for creating an event
+     *
+     * @tags MiniEvents
+     * @name MiniEventsDetail
+     * @summary get mini event by id
+     * @request GET:/mini_events/{id}
+     */
+    miniEventsDetail: (id: number, params: RequestParams = {}) =>
+      this.request<ModelsMiniEvent, UtilsError>({
+        path: `/mini_events/${id}`,
+        method: "GET",
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
+  newCar = {
+    /**
+     * @description Handler for signing up new user
+     *
+     * @tags Users
+     * @name NewCarCreate
+     * @summary add new car to user
+     * @request POST:/new_car
+     */
+    newCarCreate: (body: ModelsCarRequest, params: RequestParams = {}) =>
+      this.request<ModelsCarCard, UtilsError | void>({
+        path: `/new_car`,
+        method: "POST",
+        body: body,
         type: ContentType.Json,
         format: "json",
         ...params,

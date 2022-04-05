@@ -9,7 +9,7 @@ interface Props {
 export const CreateCarButton: React.FC<Props> = ({ onClick }) => (
 	<Card
 		onClick={onClick}
-		style={{ marginLeft: 12, marginTop: 10, marginRight: 12 }}
+		style={{ marginLeft: 12, marginTop: 15, marginRight: 12 }}
 	>
 		<div
 			style={{

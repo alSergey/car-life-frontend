@@ -4,6 +4,7 @@ import { ProfilePage } from "../../pages/ProfilePage";
 import { ClubPage } from "../../pages/ClubPage";
 import { EventPage } from "../../pages/EventPage";
 import {
+	PROFILE_PAGE,
 	PROFILE_PANEL,
 	PROFILE_EVENT_PAGE,
 	PROFILE_EVENT_PANEL,
@@ -11,6 +12,7 @@ import {
 	PROFILE_CLUB_PANEL,
 	PROFILE_CAR_PAGE,
 	PROFILE_CREATE_CAR_PAGE,
+	PROFILE_CREATE_CAR_PANEL,
 	PROFILE_USER_PAGE,
 	PROFILE_USER_PANEL,
 	REG_WELCOME_PAGE,
@@ -22,6 +24,7 @@ import {
 import { useLocation, useRouter } from "@happysanta/router";
 import { UserPage } from "../../pages/UserPage";
 import { UserContext } from "../../context/userContext";
+import { CreateCarPage } from "../../pages/CreateCarPage";
 
 interface Props {
 	id: string;
@@ -90,6 +93,11 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 				onCarClick={(clickCarId) =>
 					router.pushPage(PROFILE_CAR_PAGE, setCarPageQuery(clickCarId))
 				}
+			/>
+			<CreateCarPage
+				id={PROFILE_CREATE_CAR_PANEL}
+				onBackClick={() => router.popPage()}
+				onSubmit={() => router.pushPage(PROFILE_PAGE)}
 			/>
 		</View>
 	);

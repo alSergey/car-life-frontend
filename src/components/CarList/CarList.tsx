@@ -1,6 +1,7 @@
 import React from "react";
 import { Footer } from "@vkontakte/vkui";
 import { CarCard } from "./CarCard";
+import styles from "./CarList.module.css";
 
 interface CarInfo {
 	id: number;
@@ -18,7 +19,7 @@ interface Props {
 
 export const CarList: React.FC<Props> = ({ carList }) => (
 	<div>
-		<div>
+		<div className={styles.list}>
 			{carList.map(({ id, brand, model, date, name, avatar_url }) => (
 				<CarCard
 					key={id}
