@@ -1,1 +1,1 @@
-export { EventBar } from "./EventBar";
+export { EventBar, EventTab } from "./EventBar";

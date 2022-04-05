@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env PORT=10888 HTTPS=false PROXY=http://localhost:8080 react-scripts start",
-    "start:proxy": "cross-env PORT=10888 HTTPS=false PROXY=http://car-life.site react-scripts start",
+    "start:proxy": "cross-env PORT=10888 HTTPS=false PROXY=https://car-life.site react-scripts start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
     "deploy": "vk-miniapps-deploy",

@@ -1,1 +1,1 @@
-export { MapBar } from "./MapBar";
+export { MapBar, MapTab } from "./MapBar";

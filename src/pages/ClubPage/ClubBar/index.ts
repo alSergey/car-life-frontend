@@ -1,1 +1,1 @@
-export { ClubBar } from "./ClubBar";
+export { ClubBar, ClubTab } from "./ClubBar";

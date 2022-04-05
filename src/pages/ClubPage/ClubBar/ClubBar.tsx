@@ -1,6 +1,12 @@
 import React from "react";
 import { Tabs, TabsItem } from "@vkontakte/vkui";
-import { ClubTab } from "../ClubPage";
+
+export enum ClubTab {
+	Events = "events",
+	Garage = "garage",
+	Members = "members",
+	Subscribers = "subscribers",
+}
 
 interface Props {
 	activeTab: ClubTab;

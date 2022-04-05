@@ -1,6 +1,6 @@
 import { Group, Header } from "@vkontakte/vkui";
 import React, { useEffect, useState } from "react";
-import { EventList } from "../../../components/EventList";
+import { EventList } from "../../EventList";
 import {
 	emptyAdminEventList,
 	emptyMemberEventList,
@@ -15,7 +15,7 @@ interface Props {
 	onClick: (id: number) => void;
 }
 
-export const ProfileEvent: React.FC<Props> = ({ userId, onClick }) => {
+export const UserEvent: React.FC<Props> = ({ userId, onClick }) => {
 	const [adminEventList, setAdminEventList] = useState(emptyAdminEventList);
 	const [memberEventList, setMemberEventList] = useState(emptyMemberEventList);
 	const [viewerEventList, setViewerEventList] = useState(emptyViewerEventList);

@@ -1,35 +1,19 @@
 import React, { useEffect, useState } from "react";
-import {
-	Panel,
-	PanelHeader,
-	PanelHeaderBack,
-	Title,
-	Text,
-	Div,
-} from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
 
-import styles from "./EventPage.module.css";
-import { emptyEventData, getEvent } from "./api";
-import { EventBar } from "./EventBar";
-import { EventButtons } from "./EventButtons";
+import { EventBar, EventTab } from "./EventBar";
+import { EventHeader } from "./EventHeader";
 import { EventInfo } from "./EventInfo";
 import { EventMembers } from "./EventMembers";
 import { EventViewers } from "./EventViewers";
 import { EventPosts } from "./EventPosts";
-import { getPrettyDateTime } from "../../constants/time";
 import { getEventPageQuery } from "../../router";
+import { emptyEventData, getEvent } from "./api";
 
 interface Props {
 	id: string;
 	onUserClick: (userId: number) => void;
 	onBackClick?: () => void;
-}
-
-export enum EventTab {
-	Info = "info",
-	Posts = "posts",
-	Members = "members",
-	Viewers = "viewers",
 }
 
 export const EventPage: React.FC<Props> = ({
@@ -62,22 +46,7 @@ export const EventPage: React.FC<Props> = ({
 			>
 				Событие
 			</PanelHeader>
-			<img src={eventData.avatar} className={styles.img} alt="" />
-			<Div>
-				<div className={styles.title}>
-					<Title level="1" weight="bold">
-						{eventData.name}
-					</Title>
-					<Text weight="regular">
-						{getPrettyDateTime(eventData.event_date)}
-					</Text>
-				</div>
-				<EventButtons
-					eventId={eventId}
-					userStatus={eventData.userStatus}
-					onClick={handleGetEventData}
-				/>
-			</Div>
+			<EventHeader eventData={eventData} onButtonClick={handleGetEventData} />
 			<EventBar activeTab={activeTab} setActiveTab={setActiveTab} />
 			{activeTab === EventTab.Info && <EventInfo event={eventData} />}
 			{activeTab === EventTab.Posts && <EventPosts />}

@@ -1,6 +1,12 @@
 import React from "react";
 import { Tabs, TabsItem } from "@vkontakte/vkui";
-import { EventTab } from "../EventPage";
+
+export enum EventTab {
+	Info = "info",
+	Posts = "posts",
+	Members = "members",
+	Viewers = "viewers",
+}
 
 interface Props {
 	activeTab: EventTab;

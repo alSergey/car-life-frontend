@@ -1,13 +1,19 @@
 import React from "react";
 import { Tabs, TabsItem } from "@vkontakte/vkui";
-import { UserTab } from "../ProfilePage";
+
+export enum UserTab {
+	Info = "info",
+	Garage = "garage",
+	Club = "club",
+	Event = "event",
+}
 
 interface Props {
 	activeTab: UserTab;
 	setActiveTab: (tab: UserTab) => void;
 }
 
-export const ProfileBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
+export const UserBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 	return (
 		<Tabs>
 			<TabsItem

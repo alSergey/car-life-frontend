@@ -2,16 +2,11 @@ import React, { useState } from "react";
 import { Panel } from "@vkontakte/vkui";
 
 import { MapWidget } from "../../widgets/MapWidget";
-import { MapBar } from "./MapBar";
+import { MapBar, MapTab } from "./MapBar";
 
 interface Props {
 	id: string;
 	onEventClick: (eventId: number) => void;
-}
-
-export enum MapTab {
-	Event = "event",
-	People = "people",
 }
 
 export const MapPage: React.FC<Props> = ({ id, onEventClick }) => {

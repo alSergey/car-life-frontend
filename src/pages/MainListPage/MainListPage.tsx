@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Panel, PanelHeader, Search, PanelHeaderButton } from "@vkontakte/vkui";
 import { Icon28AddOutline } from "@vkontakte/icons";
-
 import styles from "./MainListPage.module.css";
-import { MainBar } from "./MainBar";
+import { MainBar, MainTab } from "./MainBar";
 import { MainEventList } from "./MainEventList";
 import { MainClubList } from "./MainClubList";
 
@@ -15,11 +14,6 @@ interface Props {
 	onClubClick: (clubId: number) => void;
 }
 
-export enum Tab {
-	Event = "event",
-	Club = "club",
-}
-
 export const MainListPage: React.FC<Props> = ({
 	id,
 	onEventCreateClick,
@@ -28,7 +22,7 @@ export const MainListPage: React.FC<Props> = ({
 	onClubClick,
 }) => {
 	const [searchText, setSearchText] = useState("");
-	const [activeTab, setActiveTab] = useState(Tab.Club);
+	const [activeTab, setActiveTab] = useState(MainTab.Club);
 
 	return (
 		<Panel id={id}>
@@ -37,7 +31,7 @@ export const MainListPage: React.FC<Props> = ({
 				left={
 					<PanelHeaderButton
 						onClick={() => {
-							if (activeTab === Tab.Event) {
+							if (activeTab === MainTab.Event) {
 								onEventCreateClick();
 								return;
 							}
@@ -51,26 +45,20 @@ export const MainListPage: React.FC<Props> = ({
 			>
 				Главная
 			</PanelHeader>
-			<MainBar activeTab={activeTab} setActive={setActiveTab} />
+			<MainBar activeTab={activeTab} setActiveTab={setActiveTab} />
 			<Search
 				value={searchText}
 				after={null}
 				onChange={({ target: { value } }) => setSearchText(value)}
 			/>
-			{activeTab === Tab.Event && (
+			{activeTab === MainTab.Event && (
 				<div className={styles.list}>
-					<MainEventList
-						searchText={searchText}
-						onClick={(eventId) => onEventClick(eventId)}
-					/>
+					<MainEventList searchText={searchText} onClick={onEventClick} />
 				</div>
 			)}
-			{activeTab === Tab.Club && (
+			{activeTab === MainTab.Club && (
 				<div className={styles.list}>
-					<MainClubList
-						searchText={searchText}
-						onClick={(clubId) => onClubClick(clubId)}
-					/>
+					<MainClubList searchText={searchText} onClick={onClubClick} />
 				</div>
 			)}
 		</Panel>

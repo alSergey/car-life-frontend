@@ -1,4 +1,4 @@
-import { api } from "../../../../api";
+import { api } from "../../../../../api";
 
 export const newEventMember = (id: number): Promise<number> =>
 	api.events.eventsCreate(id, "participate").then(({ status }) => status);
