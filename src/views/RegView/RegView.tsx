@@ -67,7 +67,7 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 	};
 
 	useEffect(() => {
-		if (isLoggedIn) return router.pushPage(MAP_PAGE);
+		if (isLoggedIn === true) return router.pushPage(MAP_PAGE);
 
 		handleGetUserInfo();
 	}, []);

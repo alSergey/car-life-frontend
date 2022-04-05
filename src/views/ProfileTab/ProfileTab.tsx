@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { View } from "@vkontakte/vkui";
 import { ProfilePage } from "../../pages/ProfilePage";
 import { ClubPage } from "../../pages/ClubPage";
@@ -13,6 +13,7 @@ import {
 	PROFILE_CREATE_CAR_PAGE,
 	PROFILE_USER_PAGE,
 	PROFILE_USER_PANEL,
+	REG_WELCOME_PAGE,
 	setEventPageQuery,
 	setClubPageQuery,
 	setCarPageQuery,
@@ -20,6 +21,7 @@ import {
 } from "../../router";
 import { useLocation, useRouter } from "@happysanta/router";
 import { UserPage } from "../../pages/UserPage";
+import { UserContext } from "../../context/userContext";
 
 interface Props {
 	id: string;
@@ -28,6 +30,12 @@ interface Props {
 export const ProfileTab: React.FC<Props> = ({ id }) => {
 	const location = useLocation();
 	const router = useRouter();
+
+	const { isLoggedIn } = useContext(UserContext);
+
+	useEffect(() => {
+		if (isLoggedIn === false) return router.pushPage(REG_WELCOME_PAGE);
+	}, []);
 
 	return (
 		<View
