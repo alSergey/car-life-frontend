@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Panel } from "@vkontakte/vkui";
 
-import { MapWidget } from "../../widgets/MapWidget";
+import { MapEventsWidget } from "../../widgets/MapEventsWidget";
 import { MapBar } from "./MapBar";
+import { MapPeopleWidget } from "../../widgets/MapPeopleWidget";
 
 interface Props {
 	id: string;
@@ -21,11 +22,9 @@ export const MapPage: React.FC<Props> = ({ id, onEventClick }) => {
 		<Panel id={id}>
 			<MapBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === MapTab.Event && (
-				<MapWidget type="events" onEventClick={onEventClick} />
+				<MapEventsWidget onEventClick={onEventClick} />
 			)}
-			{activeTab === MapTab.People && (
-				<MapWidget type="people" onEventClick={onEventClick} />
-			)}
+			{activeTab === MapTab.People && <MapPeopleWidget />}
 		</Panel>
 	);
 };

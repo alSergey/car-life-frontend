@@ -1,0 +1,1 @@
+export { getMiniEventList } from "./api";
