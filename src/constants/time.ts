@@ -14,3 +14,9 @@ export const getPrettyDateTime = (time: string): string => {
 		timeStyle: "short",
 	});
 };
+
+export const getPrettyTime = (time: string): string => {
+	return new Date(time).toLocaleString("ru", {
+		timeStyle: "short",
+	});
+};

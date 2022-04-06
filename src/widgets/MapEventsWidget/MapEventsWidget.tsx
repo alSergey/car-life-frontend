@@ -20,10 +20,9 @@ import { ModelsEventCard } from "../../api/Api";
 
 interface Props {
 	onEventClick: (eventId: number) => void;
-	type: "events" | "people";
 }
 
-export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
+export const MapEventsWidget: React.FC<Props> = ({ onEventClick }) => {
 	const [events, setEvents] = useState(emptyEventList);
 	const [activeEvent, setActiveEvent] = useState<number | null>(null);
 	const myMap = useRef(null);
@@ -43,9 +42,7 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 	};
 
 	useEffect(() => {
-		if (type === "events") {
-			handleGetEventList();
-		}
+		handleGetEventList();
 	}, []);
 
 	function handleClickEvent(this: ModelsEventCard) {
@@ -86,60 +83,58 @@ export const MapWidget: React.FC<Props> = ({ onEventClick, type }) => {
 				>
 					<ZoomControl options={{ float: "right" }} />
 					<GeolocationControl options={{ float: "left" }} />
-					{type === "events" && (
-						<Group
-							style={{
-								position: "absolute",
-								bottom: "40px",
-								zIndex: 1,
-								backgroundColor: "rgba(201,201,201,0.4)",
-								width: "100%",
-							}}
+					<Group
+						style={{
+							position: "absolute",
+							bottom: "40px",
+							zIndex: 1,
+							backgroundColor: "rgba(201,201,201,0.4)",
+							width: "100%",
+						}}
+					>
+						<HorizontalScroll
+							showArrows
+							getScrollToLeft={(i) => i - 120}
+							getScrollToRight={(i) => i + 120}
 						>
-							<HorizontalScroll
-								showArrows
-								getScrollToLeft={(i) => i - 120}
-								getScrollToRight={(i) => i + 120}
-							>
-								<div style={{ display: "flex" }}>
-									{events.map((e) => {
-										return (
-											<HorizontalCell
-												key={e.id}
+							<div style={{ display: "flex" }}>
+								{events.map((e) => {
+									return (
+										<HorizontalCell
+											key={e.id}
+											style={{
+												backgroundColor:
+													activeEvent === e.id
+														? "rgba(204, 233, 254, 0.5)"
+														: "transparent",
+											}}
+											header={e.name}
+											subtitle={getPrettyDate(e.event_date)}
+											size="l"
+											onSelect={() => {
+												onEventClick(e.id);
+											}}
+											onClick={handleClickEvent.bind(e)}
+										>
+											<Avatar
+												size={128}
+												mode="image"
 												style={{
-													backgroundColor:
-														activeEvent === e.id
-															? "rgba(204, 233, 254, 0.5)"
-															: "transparent",
+													objectFit: "cover",
 												}}
-												header={e.name}
-												subtitle={getPrettyDate(e.event_date)}
-												size="l"
-												onSelect={() => {
-													onEventClick(e.id);
-												}}
+												src={e.avatar}
+											/>
+											<Placemark
+												key={e.id}
+												geometry={[e.latitude, e.longitude]}
 												onClick={handleClickEvent.bind(e)}
-											>
-												<Avatar
-													size={128}
-													mode="image"
-													style={{
-														objectFit: "cover",
-													}}
-													src={e.avatar}
-												/>
-												<Placemark
-													key={e.id}
-													geometry={[e.latitude, e.longitude]}
-													onClick={handleClickEvent.bind(e)}
-												/>
-											</HorizontalCell>
-										);
-									})}
-								</div>
-							</HorizontalScroll>
-						</Group>
-					)}
+											/>
+										</HorizontalCell>
+									);
+								})}
+							</div>
+						</HorizontalScroll>
+					</Group>
 				</Map>
 			</YMaps>
 		</div>
