@@ -33,7 +33,6 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 		try {
 			const data = await getUserData();
 			setUserData(data);
-			setIsLoggedIn(true);
 		} catch (err) {
 			console.error(err);
 		}
@@ -61,6 +60,7 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 			}
 
 			if (session.status === 200) {
+				setIsLoggedIn(true);
 				handleGetUserData();
 
 				if (location.getViewId() === REG_VIEW) {
@@ -84,6 +84,7 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 		<UserProvider
 			value={{
 				isLoggedIn,
+				setIsLoggedIn,
 				userState: userData,
 				refreshUserState: handleGetUserData,
 			}}

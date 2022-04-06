@@ -32,12 +32,14 @@ export const defaultUserData: UserData = {
 
 interface ContextType {
 	isLoggedIn: null | boolean;
+	setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>;
 	userState: UserData;
 	refreshUserState: () => void;
 }
 
 export const UserContext = React.createContext<ContextType>({
 	isLoggedIn: null,
+	setIsLoggedIn: noop,
 	userState: defaultUserData,
 	refreshUserState: noop,
 });

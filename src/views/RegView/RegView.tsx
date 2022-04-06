@@ -36,7 +36,8 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 	const location = useLocation();
 	const router = useRouter();
 
-	const { refreshUserState, isLoggedIn } = useContext(UserContext);
+	const { refreshUserState, isLoggedIn, setIsLoggedIn } =
+		useContext(UserContext);
 
 	const [form, setForm] = useState(emptyRegForm);
 	const [loading, setLoading] = useState(false);
@@ -57,6 +58,7 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 		setLoading(true);
 		try {
 			await regUser(form);
+			setIsLoggedIn(true);
 			refreshUserState();
 			router.pushPage(MAP_PAGE);
 		} catch (e) {
