@@ -109,6 +109,7 @@ export const MapPeopleWidget: React.FC = () => {
 								provider: "yandex",
 								mapStateAutoApply: true,
 							})
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							.then(function (result: any) {
 								// @ts-ignore
 								myMap.current?.geoObjects.add(result.geoObjects);
@@ -116,6 +117,7 @@ export const MapPeopleWidget: React.FC = () => {
 						// @ts-ignore
 						myMap.current.action._map.setZoom(13);
 					}}
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					onClick={(e: any) => {
 						setNewEvent({
 							...newEvent,
