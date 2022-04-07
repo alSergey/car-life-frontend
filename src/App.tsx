@@ -39,13 +39,13 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 	};
 
 	const handleLogin = async () => {
-		// const data = await bridge.send("VKWebAppGetUserInfo");
+		const data = await bridge.send("VKWebAppGetUserInfo");
 
 		try {
 			const session = await fetch(`${backBaseUrl}/login`, {
 				method: "POST",
 				body: JSON.stringify({
-					vkid: 1,
+					vkid: data.id,
 				}),
 			});
 

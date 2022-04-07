@@ -6,7 +6,7 @@ import {
 	YMaps,
 	ZoomControl,
 } from "react-yandex-maps";
-import { emptyEventList } from "./api/api.consts";
+import { emptyEventList, emptyNewMiniEvent } from "./api/api.consts";
 import { YandexKey } from "../../constants/yandexKey";
 import { getPrettyTime } from "../../constants/time";
 import { ModelsCreateMiniEventRequest, ModelsMiniEvent } from "../../api/Api";
@@ -19,6 +19,8 @@ import {
 	FormLayout,
 	Input,
 	Textarea,
+	Tooltip,
+	TooltipContainer,
 } from "@vkontakte/vkui";
 import styles from "./MapPeopleWidget.module.css";
 import { Dropdown } from "@vkontakte/vkui/unstable";
@@ -27,13 +29,8 @@ import { createNewMiniEvent } from "./api/api";
 export const MapPeopleWidget: React.FC = () => {
 	const [events, setEvents] = useState(emptyEventList);
 	const [showCreation, setShowCreation] = useState(false);
-	const [newEvent, setNewEvent] = useState<ModelsCreateMiniEventRequest>({
-		description: "",
-		ended_at: "",
-		latitude: 0,
-		longitude: 0,
-		type_id: 0,
-	});
+	const [newEvent, setNewEvent] =
+		useState<ModelsCreateMiniEventRequest>(emptyNewMiniEvent);
 	const myMap = useRef(null);
 	const [mapCenter, setMapCenter] = useState([55.76, 37.64]);
 	const mapHeight = window.innerHeight - 95;
@@ -51,21 +48,23 @@ export const MapPeopleWidget: React.FC = () => {
 		}
 	};
 
+	const handleGetEventList = async (): Promise<void> => {
+		try {
+			const data = await getMiniEventList();
+			setEvents(data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	const handleClickNewEvent = async () => {
 		setShowCreation(false);
 		try {
 			const eventId = await createNewMiniEvent(newEvent);
 			if (!eventId) return;
 			setShowCreation(false);
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
-	const handleGetEventList = async (): Promise<void> => {
-		try {
-			const data = await getMiniEventList();
-			setEvents(data);
+			setNewEvent(emptyNewMiniEvent);
+			handleGetEventList();
 		} catch (err) {
 			console.error(err);
 		}
@@ -114,8 +113,10 @@ export const MapPeopleWidget: React.FC = () => {
 								// @ts-ignore
 								myMap.current?.geoObjects.add(result.geoObjects);
 							});
-						// @ts-ignore
-						myMap.current.action._map.setZoom(13);
+						setTimeout(() => {
+							// @ts-ignore
+							myMap.current.action._map.setZoom(11);
+						}, 1000);
 					}}
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					onClick={(e: any) => {
@@ -163,64 +164,75 @@ export const MapPeopleWidget: React.FC = () => {
 						);
 					})}
 					{/* <Button className={styles.buttonRide} onClick={}>Поехали</Button> */}
-					<Dropdown
-						shown={showCreation}
-						onShownChange={setShowCreation}
-						content={
-							<FormLayout>
-								<FormItem top="Тип события">
-									<CustomSelect
-										placeholder="Не выбран"
-										options={EventsTypes}
-										value={newEvent.type_id}
-										onChange={({ target: { value } }) =>
-											setNewEvent({
-												...newEvent,
-												type_id: Number(value),
-											})
-										}
-									/>
-								</FormItem>
-								<FormItem top="Краткое описание">
-									<Textarea
-										rows={1}
-										placeholder="Не указано"
-										value={newEvent.description}
-										onChange={({ target: { value } }) => {
-											setNewEvent({
-												...newEvent,
-												description: value,
-											});
-										}}
-									/>
-								</FormItem>
-								<FormItem top="До скольки актуальна точка">
-									<Input
-										type="time"
-										value={newEvent.ended_at}
-										onChange={({ target: { value } }) => {
-											setNewEvent({
-												...newEvent,
-												ended_at: value,
-											});
-										}}
-									/>
-								</FormItem>
-								<FormItem>
-									<Button onClick={handleClickNewEvent}>Создать</Button>
-								</FormItem>
-							</FormLayout>
-						}
+					<Button
+						style={{
+							visibility: newEvent.latitude !== 0 ? "visible" : "hidden",
+						}}
+						className={styles.buttonAdd}
+						onClick={() => {
+							if (showCreation) {
+								setShowCreation(false);
+							} else {
+								setShowCreation(true);
+							}
+						}}
 					>
-						<Button
-							style={{
-								visibility: newEvent.latitude !== 0 ? "visible" : "hidden",
-							}}
-							className={styles.buttonAdd}
-						>
-							+
-						</Button>
-					</Dropdown>
+						+
+					</Button>
+					<div
+						style={{
+							position: "fixed",
+							bottom: 128,
+							right: 10,
+							backgroundColor: "white",
+							borderRadius: 10,
+							zIndex: showCreation ? 10 : -1,
+						}}
+					>
+						<FormLayout style={{ display: "inline-block" }}>
+							<FormItem top="Тип события">
+								<CustomSelect
+									placeholder="Не выбран"
+									options={EventsTypes}
+									value={newEvent.type_id}
+									onChange={({ target: { value } }) => {
+										setNewEvent({
+											...newEvent,
+											type_id: Number(value),
+										});
+									}}
+								/>
+							</FormItem>
+							<FormItem top="Краткое описание">
+								<Textarea
+									rows={1}
+									placeholder="Не указано"
+									value={newEvent.description}
+									onChange={({ target: { value } }) => {
+										setNewEvent({
+											...newEvent,
+											description: value,
+										});
+									}}
+								/>
+							</FormItem>
+							<FormItem top="До скольки актуальна точка">
+								<Input
+									type="time"
+									value={newEvent.ended_at}
+									onChange={({ target: { value } }) => {
+										setNewEvent({
+											...newEvent,
+											ended_at: value,
+										});
+									}}
+								/>
+							</FormItem>
+							<FormItem>
+								<Button onClick={handleClickNewEvent}>Создать</Button>
+							</FormItem>
+						</FormLayout>
+					</div>
 					<Placemark
 						geometry={[newEvent.latitude, newEvent.longitude]}
 						options={{ draggable: true }}

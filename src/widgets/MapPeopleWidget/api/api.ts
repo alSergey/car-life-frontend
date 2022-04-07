@@ -15,11 +15,17 @@ export const createNewMiniEvent = (
 	if (!isMiniEventFormFilled(form) || !form.type_id)
 		throw new Error("Не заполнены все поля");
 
+	const time = form.ended_at.split(":");
+	const endedAt = new Date();
+	endedAt.setHours(+time[0], +time[1]);
+	if (endedAt.getTime() < new Date().getTime()) {
+		endedAt.setDate(endedAt.getDate() + 1);
+	}
 	return api.miniEvent
 		.createCreate({
 			description: form.description,
 			type_id: form.type_id,
-			ended_at: new Date(`2022-04-06T${form.ended_at}Z`).toISOString(),
+			ended_at: endedAt.toISOString(),
 			latitude: form.latitude,
 			longitude: form.longitude,
 		})

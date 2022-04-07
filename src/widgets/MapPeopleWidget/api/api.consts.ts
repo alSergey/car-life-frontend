@@ -21,3 +21,11 @@ export const emptyEventList: ModelsMiniEvent[] = [
 		longitude: 36.444444,
 	},
 ];
+
+export const emptyNewMiniEvent = {
+	description: "",
+	ended_at: "",
+	latitude: 0,
+	longitude: 0,
+	type_id: 0,
+};
