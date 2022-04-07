@@ -167,6 +167,7 @@ export const MapPeopleWidget: React.FC = () => {
 					<Button
 						style={{
 							visibility: newEvent.latitude !== 0 ? "visible" : "hidden",
+							backgroundColor: showCreation ? "#cb2626" : "#2688eb",
 						}}
 						className={styles.buttonAdd}
 						onClick={() => {
@@ -177,7 +178,7 @@ export const MapPeopleWidget: React.FC = () => {
 							}
 						}}
 					>
-						+
+						{showCreation ? "x" : "+"}
 					</Button>
 					<div
 						style={{
