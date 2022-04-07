@@ -1,8 +1,11 @@
 import React from "react";
 import { Tabs, TabsItem } from "@vkontakte/vkui";
-import { MapTab } from "../MapPage";
-
 import styles from "./MainBar.module.css";
+
+export enum MapTab {
+	Event = "event",
+	People = "people",
+}
 
 interface Props {
 	activeTab: MapTab;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View } from "@vkontakte/vkui";
 import { WelcomePage } from "../../pages/reg/WelcomePage";
 import { RegPage } from "../../pages/reg/RegPage";
@@ -10,6 +10,7 @@ import { ThirdStory } from "../../pages/reg/ThirdStory";
 import { emptyRegForm, regUser } from "./api";
 import bridge from "@vkontakte/vk-bridge";
 import { useLocation, useRouter } from "@happysanta/router";
+import { UserContext } from "../../context/userContext";
 import {
 	REG_WELCOME_PANEL,
 	REG_FIRST_STORY_PAGE,
@@ -35,6 +36,9 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 	const location = useLocation();
 	const router = useRouter();
 
+	const { refreshUserState, isLoggedIn, setIsLoggedIn } =
+		useContext(UserContext);
+
 	const [form, setForm] = useState(emptyRegForm);
 	const [loading, setLoading] = useState(false);
 
@@ -54,6 +58,8 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 		setLoading(true);
 		try {
 			await regUser(form);
+			setIsLoggedIn(true);
+			refreshUserState();
 			router.pushPage(MAP_PAGE);
 		} catch (e) {
 			console.error(e);
@@ -63,6 +69,8 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 	};
 
 	useEffect(() => {
+		if (isLoggedIn === true) return router.pushPage(MAP_PAGE);
+
 		handleGetUserInfo();
 	}, []);
 

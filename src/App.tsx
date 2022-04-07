@@ -16,25 +16,25 @@ import {
 import { withRouter, RouterProps } from "@happysanta/router";
 import {
 	MAIN_VIEW,
-	MAP_VIEW,
 	MAP_PAGE,
+	MAP_VIEW,
 	PROFILE_VIEW,
 	REG_VIEW,
 	REG_WELCOME_PAGE,
-	PROFILE_PANEL,
 } from "./router";
 import bridge from "@vkontakte/vk-bridge";
 
 const App: React.FC<RouterProps> = ({ location, router }) => {
 	const [userData, setUserData] = useState(defaultUserData);
+	const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);
 	const [loading, setLoading] = useState(true);
 
 	const handleGetUserData = async (): Promise<void> => {
 		try {
 			const data = await getUserData();
 			setUserData(data);
-		} catch (e) {
-			console.error(e);
+		} catch (err) {
+			console.error(err);
 		}
 	};
 
@@ -50,22 +50,23 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 			});
 
 			if (session.status === 401) {
-				router.pushPage(REG_WELCOME_PAGE);
+				setIsLoggedIn(false);
+
+				if (location.getViewId() !== REG_VIEW) {
+					router.pushPage(REG_WELCOME_PAGE);
+				}
+
 				return;
 			}
 
 			if (session.status === 200) {
+				setIsLoggedIn(true);
 				handleGetUserData();
 
-				// Если на регистрации кидаем на главную
 				if (location.getViewId() === REG_VIEW) {
 					router.pushPage(MAP_PAGE);
 				}
 
-				// Если на профиле кидаем на главную (костыль)
-				if (location.getPanelId() === PROFILE_PANEL) {
-					router.pushPage(MAP_PAGE);
-				}
 				return;
 			}
 		} catch (err) {
@@ -80,7 +81,14 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 	}, []);
 
 	return (
-		<UserProvider value={{ userState: userData }}>
+		<UserProvider
+			value={{
+				isLoggedIn,
+				setIsLoggedIn,
+				userState: userData,
+				refreshUserState: handleGetUserData,
+			}}
+		>
 			<AppRoot>
 				{loading && <Spinner size="large" />}
 				{location.getViewId() !== REG_VIEW && (

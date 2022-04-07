@@ -1,5 +1,6 @@
 import React from "react";
 import { api } from "../api";
+import { noop } from "@vkontakte/vkjs";
 
 export const getUserData = async (): Promise<UserData> =>
 	api.me.getMe().then(({ data }) => ({
@@ -30,11 +31,17 @@ export const defaultUserData: UserData = {
 };
 
 interface ContextType {
+	isLoggedIn: null | boolean;
+	setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>;
 	userState: UserData;
+	refreshUserState: () => void;
 }
 
 export const UserContext = React.createContext<ContextType>({
+	isLoggedIn: null,
+	setIsLoggedIn: noop,
 	userState: defaultUserData,
+	refreshUserState: noop,
 });
 
 export const UserProvider = UserContext.Provider;

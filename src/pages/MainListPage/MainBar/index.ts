@@ -1,1 +1,1 @@
-export { MainBar } from "./MainBar";
+export { MainBar, MainTab } from "./MainBar";

@@ -13,10 +13,15 @@ import { CarForm, emptyCarForm, isCarFormFilled } from "./api";
 
 interface Props {
 	buttonText?: string;
+	loading?: boolean;
 	onSubmit: (form: CarForm) => void;
 }
 
-export const CreateCarFom: React.FC<Props> = ({ buttonText, onSubmit }) => {
+export const CreateCarFom: React.FC<Props> = ({
+	buttonText,
+	loading,
+	onSubmit,
+}) => {
 	const [form, setForm] = useState(emptyCarForm);
 
 	return (
@@ -157,6 +162,7 @@ export const CreateCarFom: React.FC<Props> = ({ buttonText, onSubmit }) => {
 					stretched
 					size="l"
 					type="submit"
+					loading={loading}
 					disabled={!isCarFormFilled(form)}
 				>
 					{buttonText || "Создать"}

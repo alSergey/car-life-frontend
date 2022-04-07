@@ -83,6 +83,14 @@ export interface ModelsCreateMiniEventRequest {
 	type_id: number;
 }
 
+export interface ModelsCreateMiniEventRequest {
+	description: string;
+	ended_at: string;
+	latitude: number;
+	longitude: number;
+	type_id: number;
+}
+
 export interface ModelsEvent {
 	avatar: string;
 	club: ModelsClub;
@@ -108,6 +116,23 @@ export interface ModelsEventCard {
 
 export interface ModelsLoginRequest {
 	vkid?: number;
+}
+
+export interface ModelsMiniEvent {
+	created_at: string;
+	description: string;
+	ended_at: string;
+	id: number;
+	latitude: number;
+	longitude: number;
+	type: ModelsMiniEventType;
+	user: ModelsUserCard;
+}
+
+export interface ModelsMiniEventType {
+	id: number;
+	public_description: string;
+	public_name: string;
 }
 
 export interface ModelsMiniEvent {

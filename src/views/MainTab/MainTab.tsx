@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { View } from "@vkontakte/vkui";
 import { MainListPage } from "../../pages/MainListPage";
 import { EventPage } from "../../pages/EventPage";
 import { CreateEventPage } from "../../pages/CreateEventPage";
 import { CreateClubPage } from "../../pages/CreateClubPage";
 import { ClubPage } from "../../pages/ClubPage";
-import { ProfilePage } from "../../pages/ProfilePage";
+import { UserPage } from "../../pages/UserPage";
 import {
 	MAIN_PANEL,
 	MAIN_CLUB_PAGE,
@@ -19,12 +19,14 @@ import {
 	MAIN_CREATE_EVENT_PANEL,
 	MAIN_USER_PAGE,
 	MAIN_USER_PANEL,
+	REG_WELCOME_PAGE,
 	setEventPageQuery,
 	setClubPageQuery,
 	setUserPageQuery,
 	setCarPageQuery,
 } from "../../router";
 import { useLocation, useRouter } from "@happysanta/router";
+import { UserContext } from "../../context/userContext";
 
 interface Props {
 	id: string;
@@ -33,6 +35,12 @@ interface Props {
 export const MainTab: React.FC<Props> = ({ id }) => {
 	const location = useLocation();
 	const router = useRouter();
+
+	const { isLoggedIn } = useContext(UserContext);
+
+	useEffect(() => {
+		if (isLoggedIn === false) return router.pushPage(REG_WELCOME_PAGE);
+	}, []);
 
 	return (
 		<View
@@ -87,7 +95,7 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 					router.pushPage(MAIN_CAR_PAGE, setCarPageQuery(clickCarId))
 				}
 			/>
-			<ProfilePage
+			<UserPage
 				id={MAIN_USER_PANEL}
 				onBackClick={() => router.popPage()}
 				onEventClick={(clickEventId) =>
