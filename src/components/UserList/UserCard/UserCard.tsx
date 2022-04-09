@@ -30,7 +30,7 @@ export const UserCard: React.FC<Props> = ({
 					<IconButton
 						className={styles.approve}
 						onClick={(e) => {
-							e.preventDefault();
+							e.stopPropagation();
 							onApprove();
 						}}
 					>
@@ -41,7 +41,7 @@ export const UserCard: React.FC<Props> = ({
 					<IconButton
 						className={styles.reject}
 						onClick={(e) => {
-							e.preventDefault();
+							e.stopPropagation();
 							onReject();
 						}}
 					>
