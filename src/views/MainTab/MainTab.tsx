@@ -42,6 +42,22 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 		if (isLoggedIn === false) return router.pushPage(REG_WELCOME_PAGE);
 	}, []);
 
+	const handleUserCLick = (userId: number): void => {
+		router.pushPage(MAIN_USER_PAGE, setUserPageQuery(userId));
+	};
+
+	const handleClubCLick = (clubId: number): void => {
+		router.pushPage(MAIN_CLUB_PAGE, setClubPageQuery(clubId));
+	};
+
+	const handleEventCLick = (eventId: number): void => {
+		router.pushPage(MAIN_EVENT_PAGE, setEventPageQuery(eventId));
+	};
+
+	const handleCarCLick = (carId: number): void => {
+		router.pushPage(MAIN_CAR_PAGE, setCarPageQuery(carId));
+	};
+
 	return (
 		<View
 			id={id}
@@ -53,63 +69,39 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 			<MainListPage
 				id={MAIN_PANEL}
 				onEventCreateClick={() => router.pushPage(MAIN_CREATE_EVENT_PAGE)}
-				onEventClick={(clickEventId) =>
-					router.pushPage(MAIN_EVENT_PAGE, setEventPageQuery(clickEventId))
-				}
+				onEventClick={handleEventCLick}
 				onClubCreateClick={() => router.pushPage(MAIN_CREATE_CLUB_PAGE)}
-				onClubClick={(clickClubId) =>
-					router.pushPage(MAIN_CLUB_PAGE, setClubPageQuery(clickClubId))
-				}
+				onClubClick={handleClubCLick}
 			/>
 			<CreateEventPage
 				id={MAIN_CREATE_EVENT_PANEL}
 				onBackClick={() => router.popPage()}
-				onSubmit={(clickEventId) =>
-					router.pushPage(MAIN_EVENT_PAGE, setEventPageQuery(clickEventId))
-				}
+				onSubmit={handleEventCLick}
 			/>
 			<EventPage
 				id={MAIN_EVENT_PANEL}
 				onBackClick={() => router.popPage()}
-				onClubClick={(clickClubId) =>
-					router.pushPage(MAIN_CLUB_PAGE, setClubPageQuery(clickClubId))
-				}
-				onUserClick={(clickUserId) =>
-					router.pushPage(MAIN_USER_PAGE, setUserPageQuery(clickUserId))
-				}
+				onClubClick={handleClubCLick}
+				onUserClick={handleUserCLick}
 			/>
 			<CreateClubPage
 				id={MAIN_CREATE_CLUB_PANEL}
 				onBackClick={() => router.popPage()}
-				onSubmit={(clickClubId) =>
-					router.pushPage(MAIN_CLUB_PAGE, setClubPageQuery(clickClubId))
-				}
+				onSubmit={handleClubCLick}
 			/>
 			<ClubPage
 				id={MAIN_CLUB_PANEL}
 				onBackClick={() => router.popPage()}
-				onEventClick={(clickEventId) =>
-					router.pushPage(MAIN_EVENT_PAGE, setEventPageQuery(clickEventId))
-				}
-				onUserClick={(clickUserId) =>
-					router.pushPage(MAIN_USER_PAGE, setUserPageQuery(clickUserId))
-				}
-				onCarClick={(clickCarId) =>
-					router.pushPage(MAIN_CAR_PAGE, setCarPageQuery(clickCarId))
-				}
+				onEventClick={handleEventCLick}
+				onUserClick={handleUserCLick}
+				onCarClick={handleCarCLick}
 			/>
 			<UserPage
 				id={MAIN_USER_PANEL}
 				onBackClick={() => router.popPage()}
-				onEventClick={(clickEventId) =>
-					router.pushPage(MAIN_EVENT_PAGE, setEventPageQuery(clickEventId))
-				}
-				onClubClick={(clickClubId) =>
-					router.pushPage(MAIN_CLUB_PAGE, setClubPageQuery(clickClubId))
-				}
-				onCarClick={(clickCarId) =>
-					router.pushPage(MAIN_CAR_PAGE, setCarPageQuery(clickCarId))
-				}
+				onEventClick={handleEventCLick}
+				onClubClick={handleClubCLick}
+				onCarClick={handleCarCLick}
 			/>
 		</View>
 	);

@@ -36,6 +36,22 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 		if (isLoggedIn === false) return router.pushPage(REG_WELCOME_PAGE);
 	}, []);
 
+	const handleUserCLick = (userId: number): void => {
+		router.pushPage(MAP_USER_PAGE, setUserPageQuery(userId));
+	};
+
+	const handleClubCLick = (clubId: number): void => {
+		router.pushPage(MAP_CLUB_PAGE, setClubPageQuery(clubId));
+	};
+
+	const handleEventCLick = (eventId: number): void => {
+		router.pushPage(MAP_EVENT_PAGE, setEventPageQuery(eventId));
+	};
+
+	const handleCarCLick = (carId: number): void => {
+		router.pushPage(MAP_CAR_PAGE, setCarPageQuery(carId));
+	};
+
 	return (
 		<View
 			id={id}
@@ -44,47 +60,26 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 			// @ts-ignore
 			activePanel={location.getViewActivePanel(id)}
 		>
-			<MapPage
-				id={MAP_PANEL}
-				onEventClick={(clickEventId) =>
-					router.pushPage(MAP_EVENT_PAGE, setEventPageQuery(clickEventId))
-				}
-			/>
+			<MapPage id={MAP_PANEL} onEventClick={handleEventCLick} />
 			<EventPage
 				id={MAP_EVENT_PANEL}
 				onBackClick={() => router.popPage()}
-				onClubClick={(clickClubId) =>
-					router.pushPage(MAP_CLUB_PAGE, setClubPageQuery(clickClubId))
-				}
-				onUserClick={(clickUserId) =>
-					router.pushPage(MAP_USER_PAGE, setUserPageQuery(clickUserId))
-				}
+				onClubClick={handleClubCLick}
+				onUserClick={handleUserCLick}
 			/>
 			<ClubPage
 				id={MAP_CLUB_PANEL}
 				onBackClick={() => router.popPage()}
-				onEventClick={(clickEventId) =>
-					router.pushPage(MAP_EVENT_PAGE, setEventPageQuery(clickEventId))
-				}
-				onCarClick={(clickCarId) =>
-					router.pushPage(MAP_CAR_PAGE, setCarPageQuery(clickCarId))
-				}
-				onUserClick={(clickUserId) =>
-					router.pushPage(MAP_USER_PAGE, setUserPageQuery(clickUserId))
-				}
+				onEventClick={handleEventCLick}
+				onCarClick={handleCarCLick}
+				onUserClick={handleUserCLick}
 			/>
 			<UserPage
 				id={MAP_USER_PANEL}
 				onBackClick={() => router.popPage()}
-				onEventClick={(clickEventId) =>
-					router.pushPage(MAP_EVENT_PAGE, setEventPageQuery(clickEventId))
-				}
-				onClubClick={(clickClubId) =>
-					router.pushPage(MAP_CLUB_PAGE, setClubPageQuery(clickClubId))
-				}
-				onCarClick={(clickCarId) =>
-					router.pushPage(MAP_CAR_PAGE, setCarPageQuery(clickCarId))
-				}
+				onEventClick={handleEventCLick}
+				onClubClick={handleClubCLick}
+				onCarClick={handleCarCLick}
 			/>
 		</View>
 	);

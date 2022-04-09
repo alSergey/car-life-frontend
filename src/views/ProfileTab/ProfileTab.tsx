@@ -40,6 +40,22 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 		if (isLoggedIn === false) return router.pushPage(REG_WELCOME_PAGE);
 	}, []);
 
+	const handleUserCLick = (userId: number): void => {
+		router.pushPage(PROFILE_USER_PAGE, setUserPageQuery(userId));
+	};
+
+	const handleClubCLick = (clubId: number): void => {
+		router.pushPage(PROFILE_CLUB_PAGE, setClubPageQuery(clubId));
+	};
+
+	const handleEventCLick = (eventId: number): void => {
+		router.pushPage(PROFILE_EVENT_PAGE, setEventPageQuery(eventId));
+	};
+
+	const handleCarCLick = (carId: number): void => {
+		router.pushPage(PROFILE_CAR_PAGE, setCarPageQuery(carId));
+	};
+
 	return (
 		<View
 			id={id}
@@ -51,51 +67,29 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 			<ProfilePage
 				id={PROFILE_PANEL}
 				onCreateCarClick={() => router.pushPage(PROFILE_CREATE_CAR_PAGE)}
-				onEventClick={(clickEventId) =>
-					router.pushPage(PROFILE_EVENT_PAGE, setEventPageQuery(clickEventId))
-				}
-				onClubClick={(clickClubId) =>
-					router.pushPage(PROFILE_CLUB_PAGE, setClubPageQuery(clickClubId))
-				}
-				onCarClick={(clickCarId) =>
-					router.pushPage(PROFILE_CAR_PAGE, setCarPageQuery(clickCarId))
-				}
+				onEventClick={handleEventCLick}
+				onClubClick={handleClubCLick}
+				onCarClick={handleCarCLick}
 			/>
 			<ClubPage
 				id={PROFILE_CLUB_PANEL}
 				onBackClick={() => router.popPage()}
-				onEventClick={(clickEventId) =>
-					router.pushPage(PROFILE_EVENT_PAGE, setEventPageQuery(clickEventId))
-				}
-				onCarClick={(clickCarId) =>
-					router.pushPage(PROFILE_CAR_PAGE, setCarPageQuery(clickCarId))
-				}
-				onUserClick={(clickUserId) =>
-					router.pushPage(PROFILE_USER_PAGE, setUserPageQuery(clickUserId))
-				}
+				onEventClick={handleEventCLick}
+				onCarClick={handleCarCLick}
+				onUserClick={handleUserCLick}
 			/>
 			<EventPage
 				id={PROFILE_EVENT_PANEL}
 				onBackClick={() => router.popPage()}
-				onClubClick={(clickClubId) =>
-					router.pushPage(PROFILE_CLUB_PAGE, setClubPageQuery(clickClubId))
-				}
-				onUserClick={(clickUserId) =>
-					router.pushPage(PROFILE_USER_PAGE, setUserPageQuery(clickUserId))
-				}
+				onClubClick={handleClubCLick}
+				onUserClick={handleUserCLick}
 			/>
 			<UserPage
 				id={PROFILE_USER_PANEL}
 				onBackClick={() => router.popPage()}
-				onEventClick={(clickEventId) =>
-					router.pushPage(PROFILE_EVENT_PAGE, setEventPageQuery(clickEventId))
-				}
-				onClubClick={(clickClubId) =>
-					router.pushPage(PROFILE_CLUB_PAGE, setClubPageQuery(clickClubId))
-				}
-				onCarClick={(clickCarId) =>
-					router.pushPage(PROFILE_CAR_PAGE, setCarPageQuery(clickCarId))
-				}
+				onEventClick={handleEventCLick}
+				onClubClick={handleClubCLick}
+				onCarClick={handleCarCLick}
 			/>
 			<CreateCarPage
 				id={PROFILE_CREATE_CAR_PANEL}
