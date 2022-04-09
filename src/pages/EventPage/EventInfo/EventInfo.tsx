@@ -14,14 +14,15 @@ import { YandexKey } from "../../../constants/yandexKey";
 
 interface Props {
 	event: EventData;
+	onClubClick: (clubId: number) => void;
 }
 
-export const EventInfo: React.FC<Props> = ({ event }) => {
+export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 	const myMap = useRef(null);
 	const [locationText, setLocationText] = useState("");
 	return (
 		<div>
-			<Group>
+			<Group onClick={() => onClubClick(event.club.id)}>
 				<div className={styles.clubContainer}>
 					<div className={styles.clubTextContainer}>
 						<Caption level="3" weight="regular">

@@ -71,6 +71,9 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 			<EventPage
 				id={MAIN_EVENT_PANEL}
 				onBackClick={() => router.popPage()}
+				onClubClick={(clickClubId) =>
+					router.pushPage(MAIN_CLUB_PAGE, setClubPageQuery(clickClubId))
+				}
 				onUserClick={(clickUserId) =>
 					router.pushPage(MAIN_USER_PAGE, setUserPageQuery(clickUserId))
 				}
