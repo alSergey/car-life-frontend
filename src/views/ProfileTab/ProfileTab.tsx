@@ -40,6 +40,10 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 		if (isLoggedIn === false) return router.pushPage(REG_WELCOME_PAGE);
 	}, []);
 
+	const handleBackClick = (): void => {
+		router.popPage();
+	};
+
 	const handleUserCLick = (userId: number): void => {
 		router.pushPage(PROFILE_USER_PAGE, setUserPageQuery(userId));
 	};
@@ -60,7 +64,7 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 		<View
 			id={id}
 			history={location.getViewHistory(id)}
-			onSwipeBack={() => router.popPage()}
+			onSwipeBack={handleBackClick}
 			// @ts-ignore
 			activePanel={location.getViewActivePanel(id)}
 		>
@@ -71,30 +75,30 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 				onClubClick={handleClubCLick}
 				onCarClick={handleCarCLick}
 			/>
+			<CreateCarPage
+				id={PROFILE_CREATE_CAR_PANEL}
+				onBackClick={handleBackClick}
+				onSubmit={() => router.pushPage(PROFILE_PAGE)}
+			/>
 			<ClubPage
 				id={PROFILE_CLUB_PANEL}
-				onBackClick={() => router.popPage()}
+				onBackClick={handleBackClick}
 				onEventClick={handleEventCLick}
 				onCarClick={handleCarCLick}
 				onUserClick={handleUserCLick}
 			/>
 			<EventPage
 				id={PROFILE_EVENT_PANEL}
-				onBackClick={() => router.popPage()}
+				onBackClick={handleBackClick}
 				onClubClick={handleClubCLick}
 				onUserClick={handleUserCLick}
 			/>
 			<UserPage
 				id={PROFILE_USER_PANEL}
-				onBackClick={() => router.popPage()}
+				onBackClick={handleBackClick}
 				onEventClick={handleEventCLick}
 				onClubClick={handleClubCLick}
 				onCarClick={handleCarCLick}
-			/>
-			<CreateCarPage
-				id={PROFILE_CREATE_CAR_PANEL}
-				onBackClick={() => router.popPage()}
-				onSubmit={() => router.pushPage(PROFILE_PAGE)}
 			/>
 		</View>
 	);

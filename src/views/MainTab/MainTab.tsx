@@ -42,6 +42,10 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 		if (isLoggedIn === false) return router.pushPage(REG_WELCOME_PAGE);
 	}, []);
 
+	const handleBackClick = (): void => {
+		router.popPage();
+	};
+
 	const handleUserCLick = (userId: number): void => {
 		router.pushPage(MAIN_USER_PAGE, setUserPageQuery(userId));
 	};
@@ -62,43 +66,43 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 		<View
 			id={id}
 			history={location.getViewHistory(id)}
-			onSwipeBack={() => router.popPage()}
+			onSwipeBack={handleBackClick}
 			// @ts-ignore
 			activePanel={location.getViewActivePanel(id)}
 		>
 			<MainListPage
 				id={MAIN_PANEL}
-				onEventCreateClick={() => router.pushPage(MAIN_CREATE_EVENT_PAGE)}
 				onEventClick={handleEventCLick}
-				onClubCreateClick={() => router.pushPage(MAIN_CREATE_CLUB_PAGE)}
 				onClubClick={handleClubCLick}
+				onEventCreateClick={() => router.pushPage(MAIN_CREATE_EVENT_PAGE)}
+				onClubCreateClick={() => router.pushPage(MAIN_CREATE_CLUB_PAGE)}
 			/>
 			<CreateEventPage
 				id={MAIN_CREATE_EVENT_PANEL}
-				onBackClick={() => router.popPage()}
+				onBackClick={handleBackClick}
 				onSubmit={handleEventCLick}
-			/>
-			<EventPage
-				id={MAIN_EVENT_PANEL}
-				onBackClick={() => router.popPage()}
-				onClubClick={handleClubCLick}
-				onUserClick={handleUserCLick}
 			/>
 			<CreateClubPage
 				id={MAIN_CREATE_CLUB_PANEL}
-				onBackClick={() => router.popPage()}
+				onBackClick={handleBackClick}
 				onSubmit={handleClubCLick}
+			/>
+			<EventPage
+				id={MAIN_EVENT_PANEL}
+				onBackClick={handleBackClick}
+				onClubClick={handleClubCLick}
+				onUserClick={handleUserCLick}
 			/>
 			<ClubPage
 				id={MAIN_CLUB_PANEL}
-				onBackClick={() => router.popPage()}
+				onBackClick={handleBackClick}
 				onEventClick={handleEventCLick}
 				onUserClick={handleUserCLick}
 				onCarClick={handleCarCLick}
 			/>
 			<UserPage
 				id={MAIN_USER_PANEL}
-				onBackClick={() => router.popPage()}
+				onBackClick={handleBackClick}
 				onEventClick={handleEventCLick}
 				onClubClick={handleClubCLick}
 				onCarClick={handleCarCLick}

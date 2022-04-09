@@ -36,6 +36,10 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 		if (isLoggedIn === false) return router.pushPage(REG_WELCOME_PAGE);
 	}, []);
 
+	const handleBackClick = (): void => {
+		router.popPage();
+	};
+
 	const handleUserCLick = (userId: number): void => {
 		router.pushPage(MAP_USER_PAGE, setUserPageQuery(userId));
 	};
@@ -56,27 +60,27 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 		<View
 			id={id}
 			history={location.getViewHistory(id)}
-			onSwipeBack={() => router.popPage()}
+			onSwipeBack={handleBackClick}
 			// @ts-ignore
 			activePanel={location.getViewActivePanel(id)}
 		>
 			<MapPage id={MAP_PANEL} onEventClick={handleEventCLick} />
 			<EventPage
 				id={MAP_EVENT_PANEL}
-				onBackClick={() => router.popPage()}
+				onBackClick={handleBackClick}
 				onClubClick={handleClubCLick}
 				onUserClick={handleUserCLick}
 			/>
 			<ClubPage
 				id={MAP_CLUB_PANEL}
-				onBackClick={() => router.popPage()}
+				onBackClick={handleBackClick}
 				onEventClick={handleEventCLick}
 				onCarClick={handleCarCLick}
 				onUserClick={handleUserCLick}
 			/>
 			<UserPage
 				id={MAP_USER_PANEL}
-				onBackClick={() => router.popPage()}
+				onBackClick={handleBackClick}
 				onEventClick={handleEventCLick}
 				onClubClick={handleClubCLick}
 				onCarClick={handleCarCLick}
