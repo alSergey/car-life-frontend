@@ -8,7 +8,7 @@ import {
 export const createNewEvent = (
 	form: EventForm
 ): Promise<number | undefined> => {
-	if (!isEventFormFilled(form) || !form.club)
+	if (!isEventFormFilled(form) || !form.club || !form.location)
 		throw new Error("Не заполнены все поля");
 
 	return api.event

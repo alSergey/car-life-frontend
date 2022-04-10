@@ -1,7 +1,8 @@
 node_modules
 dist
 .eslintrc.js
-src/api
+public
 scripts
+src/api
 src/setupProxy.js
 src/eruda.js

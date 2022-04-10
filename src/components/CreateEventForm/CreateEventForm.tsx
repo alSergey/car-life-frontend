@@ -1,25 +1,17 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
+	Button,
+	File,
 	FormItem,
+	FormLayout,
+	FormLayoutGroup,
 	Input,
 	Textarea,
-	FormLayout,
-	Button,
-	FormLayoutGroup,
-	File,
 } from "@vkontakte/vkui";
 import { Icon24Camera } from "@vkontakte/icons";
-import { EventForm, emptyEventForm, isEventFormFilled } from "./api";
-import {
-	YMaps,
-	Map,
-	SearchControl,
-	Placemark,
-	// eslint-disable-next-line import/named
-	YMapsApi,
-} from "react-yandex-maps";
-import { YandexKey } from "../../constants/yandexKey";
+import { emptyEventForm, EventForm, isEventFormFilled } from "./api";
 import { OwnerClubWidget } from "../../widgets/OwnerClubWidget";
+import { CreateEventMap } from "./CreateEventMap";
 
 interface Props {
 	buttonText?: string;
@@ -33,9 +25,6 @@ export const CreateEventForm: React.FC<Props> = ({
 	onSubmit,
 }) => {
 	const [form, setFormData] = useState(emptyEventForm);
-	const [yMaps, setYMaps] = useState<YMapsApi | null>(null);
-	const myMap = useRef(null);
-	const inputMapRef = useRef(null);
 
 	return (
 		<FormLayout
@@ -108,87 +97,15 @@ export const CreateEventForm: React.FC<Props> = ({
 				</FormItem>
 			</FormLayoutGroup>
 			<FormItem top="Место">
-				<Input getRef={inputMapRef} disabled style={{ marginBottom: "15px" }} />
-				<YMaps query={YandexKey}>
-					<Map
-						defaultState={{
-							center: [form.location.latitude, form.location.longitude],
-							zoom: 11,
-						}}
-						width={"100%"}
-						height={"400px"}
-						options={{
-							yandexMapDisablePoiInteractivity: true,
-							suppressMapOpenBlock: true,
-						}}
-						onLoad={(ymaps) => setYMaps(ymaps)}
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						onClick={(e: any) => {
-							setFormData({
-								...form,
-								location: {
-									latitude: e.get("coords")[0],
-									longitude: e.get("coords")[1],
-								},
-							});
-							const myGeocoder = yMaps?.geocode(
-								[e.get("coords")[0], e.get("coords")[1]],
-								{ provider: "yandex#map", kind: "house" }
-							);
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
-							myGeocoder.then((res: any) => {
-								// @ts-ignore
-								inputMapRef.current.value = res.geoObjects
-									.get(0)
-									.properties.get("text");
-							});
-						}}
-						instanceRef={(ref) => {
-							// @ts-ignore
-							if (ref) myMap.current = ref;
-						}}
-					>
-						<SearchControl
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
-							onResultShow={(res: any) => {
-								const resIndex = res.originalEvent.index;
-								const coordinates =
-									res.originalEvent.target.state._data.results[resIndex]
-										.geometry._coordinates;
-								if (coordinates) {
-									setFormData({
-										...form,
-										location: {
-											latitude: coordinates[0],
-											longitude: coordinates[1],
-										},
-									});
-									const myGeocoder = yMaps?.geocode(
-										[coordinates[0], coordinates[1]],
-										{ provider: "yandex#map", kind: "house" }
-									);
-									// eslint-disable-next-line @typescript-eslint/no-explicit-any
-									myGeocoder.then((result: any) => {
-										// @ts-ignore
-										inputMapRef.current.value = result.geoObjects
-											.get(0)
-											.properties.get("text");
-									});
-								}
-							}}
-							modules={["geocode"]}
-							options={{
-								float: "right",
-								provider: "yandex#map",
-								noPlacemark: true,
-							}}
-						/>
-						<Placemark
-							geometry={[form.location.latitude, form.location.longitude]}
-							options={{ draggable: true }}
-						/>
-					</Map>
-				</YMaps>
+				<CreateEventMap
+					location={form.location}
+					onChange={(location) => {
+						setFormData({
+							...form,
+							location,
+						});
+					}}
+				/>
 			</FormItem>
 			<FormItem top="Аватарка">
 				<File
