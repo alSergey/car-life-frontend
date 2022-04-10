@@ -6,9 +6,7 @@ export const getEventMemberButtonText = (userStatus: string): string => {
 };
 
 export const isShownEventMemberButton = (userStatus: string): boolean =>
-	userStatus === "participant" ||
-	userStatus === "participant_request" ||
-	userStatus === "unknown";
+	userStatus === "participant_request" || userStatus === "unknown";
 
 export const isDisabledEventMemberButton = (userStatus: string): boolean =>
 	userStatus !== "unknown";
@@ -26,4 +24,4 @@ export const isDisabledEventViewerButton = (userStatus: string): boolean =>
 	userStatus !== "unknown";
 
 export const isShownEventMessagesButton = (userStatus: string): boolean =>
-	userStatus === "subscriber" || userStatus === "admin";
+	userStatus === "participant" || userStatus === "admin";

@@ -6,9 +6,7 @@ export const getClubMemberButtonText = (userStatus: string): string => {
 };
 
 export const isShownClubMemberButton = (userStatus: string): boolean =>
-	userStatus === "participant" ||
-	userStatus === "participant_request" ||
-	userStatus === "unknown";
+	userStatus === "participant_request" || userStatus === "unknown";
 
 export const isDisabledClubMemberButton = (userStatus: string): boolean =>
 	userStatus !== "unknown";
@@ -26,4 +24,4 @@ export const isDisabledClubSubscriberButton = (userStatus: string): boolean =>
 	userStatus !== "unknown";
 
 export const isShownClubMessagesButton = (userStatus: string): boolean =>
-	userStatus === "subscriber" || userStatus === "admin";
+	userStatus === "participant" || userStatus === "admin";
