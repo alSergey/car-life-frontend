@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Input } from "@vkontakte/vkui";
 import {
 	YMaps,
@@ -19,16 +19,16 @@ interface Props {
 
 export const CreateEventMap: React.FC<Props> = ({ location, onChange }) => {
 	const [yMaps, setYMaps] = useState<YMapsApi | null>(null);
-	const [locationText, setLocationText] = useState("");
+	const inputRef = useRef<HTMLInputElement>(null);
 	const [centerLocation, setCenterLocation] = useState(defaultMapData.location);
 
 	return (
 		<div>
 			<Input
 				style={{ marginBottom: "15px" }}
+				getRef={inputRef}
 				type="text"
 				id="map-suggest"
-				defaultValue={locationText}
 				placeholder="Поиск"
 			/>
 			<YMaps query={YandexKey}>
@@ -75,7 +75,10 @@ export const CreateEventMap: React.FC<Props> = ({ location, onChange }) => {
 							})
 							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							.then((res: any) => {
-								setLocationText(res.geoObjects.get(0).properties.get("text"));
+								// @ts-ignore
+								inputRef.current.value = res.geoObjects
+									.get(0)
+									.properties.get("text");
 							});
 
 						onChange({
