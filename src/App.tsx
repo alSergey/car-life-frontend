@@ -63,6 +63,10 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 				setIsLoggedIn(true);
 				handleGetUserData();
 
+				await bridge.send("VKWebAppAllowMessagesFromGroup", {
+					group_id: 212586637,
+				});
+
 				if (location.getViewId() === REG_VIEW) {
 					router.pushPage(MAP_PAGE);
 				}
