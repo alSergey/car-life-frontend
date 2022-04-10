@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Panel } from "@vkontakte/vkui";
+import { Panel, PanelHeader } from "@vkontakte/vkui";
 import {
 	UserBar,
 	UserClub,
@@ -37,6 +37,7 @@ export const ProfilePage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
+			<PanelHeader separator={false} />
 			<UserHeader userData={userState} />
 			<UserBar activeTab={activeTab} setActiveTab={setActiveTab} />
 			{activeTab === UserTab.Info && <UserInfo userData={userState} />}

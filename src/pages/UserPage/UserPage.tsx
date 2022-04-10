@@ -49,6 +49,7 @@ export const UserPage: React.FC<Props> = ({
 	return (
 		<Panel id={id}>
 			<PanelHeader
+				separator={false}
 				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
 			/>
 			<UserHeader userData={userData} />
