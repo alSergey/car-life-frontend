@@ -19,11 +19,8 @@ import {
 	FormLayout,
 	Input,
 	Textarea,
-	Tooltip,
-	TooltipContainer,
 } from "@vkontakte/vkui";
 import styles from "./MapPeopleWidget.module.css";
-import { Dropdown } from "@vkontakte/vkui/unstable";
 import { createNewMiniEvent } from "./api/api";
 
 export const MapPeopleWidget: React.FC = () => {
