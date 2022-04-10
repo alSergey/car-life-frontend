@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import { Avatar, Caption, Group, Text, Title } from "@vkontakte/vkui";
-import React, { useRef, useState } from "react";
 import { EventData } from "../api";
 import {
 	GeolocationControl,
@@ -10,7 +10,7 @@ import {
 } from "react-yandex-maps";
 
 import styles from "./EventInfo.module.css";
-import { YandexKey } from "../../../constants/yandexKey";
+import { defaultMapData, YandexKey } from "../../../constants/yandexKey";
 
 interface Props {
 	event: EventData;
@@ -18,8 +18,8 @@ interface Props {
 }
 
 export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
-	const myMap = useRef(null);
 	const [locationText, setLocationText] = useState("");
+
 	return (
 		<div>
 			<Group onClick={() => onClubClick(event.club.id)}>
@@ -64,34 +64,30 @@ export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 				</div>
 				<YMaps query={YandexKey}>
 					<Map
+						height="300px"
+						width="100%"
 						modules={["geocode"]}
-						onLoad={(ymaps) => {
-							const myGeocoder = ymaps.geocode(
-								[event.location.latitude, event.location.longitude],
-								{ provider: "yandex#map", kind: "house" }
-							);
-
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
-							myGeocoder.then((res: any) => {
-								setLocationText(res.geoObjects.get(0).properties.get("text"));
-							});
-						}}
 						defaultState={{
 							center: [event.location.latitude, event.location.longitude],
-							zoom: 12,
+							zoom: defaultMapData.zoom,
 						}}
-						width={"100%"}
-						height={"300px"}
 						options={{
 							suppressMapOpenBlock: true,
 						}}
-						instanceRef={(ref) => {
-							// @ts-ignore
-							if (ref) myMap.current = ref;
+						onLoad={(ymaps) => {
+							ymaps
+								.geocode([event.location.latitude, event.location.longitude], {
+									provider: "yandex#map",
+									kind: "house",
+								})
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								.then((res: any) => {
+									setLocationText(res.geoObjects.get(0).properties.get("text"));
+								});
 						}}
 					>
-						<ZoomControl options={{ float: "right" }} />
-						<GeolocationControl options={{ float: "left" }} />
+						<ZoomControl />
+						<GeolocationControl />
 						<Placemark
 							geometry={[event.location.latitude, event.location.longitude]}
 						/>

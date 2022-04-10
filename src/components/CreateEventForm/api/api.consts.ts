@@ -7,8 +7,5 @@ export const emptyEventForm: EventForm = {
 	date: "",
 	time: "",
 	file: null,
-	location: {
-		longitude: 37.573856,
-		latitude: 55.751574,
-	},
+	location: null,
 };
