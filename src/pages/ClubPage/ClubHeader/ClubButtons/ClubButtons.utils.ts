@@ -24,3 +24,6 @@ export const isShownClubSubscriberButton = (userStatus: string): boolean =>
 
 export const isDisabledClubSubscriberButton = (userStatus: string): boolean =>
 	userStatus !== "unknown";
+
+export const isShownClubMessagesButton = (userStatus: string): boolean =>
+	userStatus === "subscriber" || userStatus === "admin";

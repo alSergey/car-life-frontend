@@ -24,3 +24,6 @@ export const isShownEventViewerButton = (userStatus: string): boolean =>
 
 export const isDisabledEventViewerButton = (userStatus: string): boolean =>
 	userStatus !== "unknown";
+
+export const isShownEventMessagesButton = (userStatus: string): boolean =>
+	userStatus === "subscriber" || userStatus === "admin";

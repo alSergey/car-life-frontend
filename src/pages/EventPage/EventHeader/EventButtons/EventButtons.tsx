@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Button } from "@vkontakte/vkui";
 
 import styles from "./EventButtons.module.css";
-import { newEventMember, newEventViewer } from "./api";
+import { getEventChatLink, newEventMember, newEventViewer } from "./api";
 import {
 	getEventMemberButtonText,
 	getEventViewerButtonText,
 	isDisabledEventMemberButton,
 	isDisabledEventViewerButton,
 	isShownEventMemberButton,
+	isShownEventMessagesButton,
 	isShownEventViewerButton,
 } from "./EventButtons.utils";
 
@@ -50,8 +51,22 @@ export const EventButtons: React.FC<Props> = ({
 		}
 	};
 
+	const handleGetChatLink = async (): Promise<void> => {
+		try {
+			const chatLink = await getEventChatLink(eventId);
+			window.open(chatLink);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	return (
 		<div className={styles.container}>
+			{isShownEventMessagesButton(userStatus) && (
+				<Button size="m" stretched onClick={handleGetChatLink}>
+					Беседа события
+				</Button>
+			)}
 			{isShownEventMemberButton(userStatus) && (
 				<Button
 					size="m"

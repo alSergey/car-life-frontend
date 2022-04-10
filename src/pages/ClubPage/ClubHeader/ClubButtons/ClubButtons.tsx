@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Button } from "@vkontakte/vkui";
 
 import styles from "./ClubButtons.module.css";
-import { newClubMember, newClubSubscriber } from "./api";
+import { getClubChatLink, newClubMember, newClubSubscriber } from "./api";
 import {
 	getClubMemberButtonText,
 	getClubSubscriberButtonText,
 	isDisabledClubMemberButton,
 	isDisabledClubSubscriberButton,
 	isShownClubMemberButton,
+	isShownClubMessagesButton,
 	isShownClubSubscriberButton,
 } from "./ClubButtons.utils";
 
@@ -50,8 +51,22 @@ export const ClubButtons: React.FC<Props> = ({
 		}
 	};
 
+	const handleGetChatLink = async (): Promise<void> => {
+		try {
+			const chatLink = await getClubChatLink(clubId);
+			window.open(chatLink);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	return (
 		<div className={styles.container}>
+			{isShownClubMessagesButton(userStatus) && (
+				<Button size="m" stretched onClick={handleGetChatLink}>
+					Беседа клуба
+				</Button>
+			)}
 			{isShownClubMemberButton(userStatus) && (
 				<Button
 					size="m"

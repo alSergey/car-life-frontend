@@ -1,1 +1,1 @@
-export { newEventMember, newEventViewer } from "./api";
+export { newEventMember, newEventViewer, getEventChatLink } from "./api";
