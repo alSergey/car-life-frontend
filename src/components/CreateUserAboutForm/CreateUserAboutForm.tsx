@@ -12,6 +12,12 @@ interface Props {
 	onSubmit: (form: UserAboutForm) => void;
 }
 
+const describeTest =
+	"Поделитеь своими мыслями или расскажите кто вы, а может вы хотите, " +
+	"чтобы первое о чем узнают другие пользователи была какая-то невероятная история " +
+	"или фраза жизни. Оставьте любую информацию, которую другие пользователи увидят, " +
+	"перейдя на вашу страничку";
+
 export const CreateUserAboutForm: React.FC<Props> = ({
 	buttonText,
 	onSubmit,
@@ -36,7 +42,7 @@ export const CreateUserAboutForm: React.FC<Props> = ({
 					}}
 				/>
 			</FormItem>
-			<FormItem top="Напишите о себе">
+			<FormItem top="Напишите о себе" bottom={describeTest}>
 				<Textarea
 					rows={1}
 					placeholder="Не указано"

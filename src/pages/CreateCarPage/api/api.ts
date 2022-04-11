@@ -5,11 +5,14 @@ import { CarForm, isCarFormFilled } from "../../../components/CreateCarForm";
 export const createNewCar = (form: CarForm): Promise<number | undefined> => {
 	if (!isCarFormFilled(form)) throw new Error("Не заполнены все поля");
 
+	const date = new Date();
+	date.setFullYear(+form.date);
+
 	return api.newCar
 		.newCarCreate({
 			body: form.body,
 			brand: form.brand,
-			date: new Date(form.date).toISOString(),
+			date: date.toISOString(),
 			description: form.description,
 			engine: form.engine,
 			horsePower: form.horsePower,

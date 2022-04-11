@@ -31,7 +31,11 @@ export const CreateCarFom: React.FC<Props> = ({
 				onSubmit(form);
 			}}
 		>
-			<FormItem top="Марка">
+			<FormItem
+				top="Марка *"
+				bottom={form.brand ? "" : "Укажите марку автомобиля"}
+				status={form.brand ? "valid" : "error"}
+			>
 				<Input
 					type="text"
 					value={form.brand}
@@ -44,7 +48,11 @@ export const CreateCarFom: React.FC<Props> = ({
 					}}
 				/>
 			</FormItem>
-			<FormItem top="Модель">
+			<FormItem
+				top="Модель *"
+				bottom={form.model ? "" : "Укажите модель автомобиля"}
+				status={form.model ? "valid" : "error"}
+			>
 				<Input
 					type="text"
 					value={form.model}
@@ -84,9 +92,14 @@ export const CreateCarFom: React.FC<Props> = ({
 				/>
 			</FormItem>
 			<FormLayoutGroup mode="horizontal">
-				<FormItem top="Год выпуска">
+				<FormItem
+					top="Год выпуска *"
+					bottom={form.date ? "" : "Укажите корректный год выпуска автомобиля"}
+					status={+form.date > 1000 && +form.date < 2200 ? "valid" : "error"}
+				>
 					<Input
-						type="date"
+						pattern="\d{4}"
+						type="number"
 						value={form.date}
 						placeholder="Не указано"
 						onChange={({ target: { value } }) => {
@@ -99,7 +112,7 @@ export const CreateCarFom: React.FC<Props> = ({
 				</FormItem>
 				<FormItem top="Лошадиные силы">
 					<Input
-						type="text"
+						type="number"
 						value={form.horsePower}
 						placeholder="Не указано"
 						onChange={({ target: { value } }) => {
@@ -111,7 +124,7 @@ export const CreateCarFom: React.FC<Props> = ({
 					/>
 				</FormItem>
 			</FormLayoutGroup>
-			<FormItem top="Имя">
+			<FormItem top="Кличка автомобиля - если ты зовешь ее(его) по-особенному">
 				<Input
 					type="text"
 					value={form.name}
@@ -124,7 +137,10 @@ export const CreateCarFom: React.FC<Props> = ({
 					}}
 				/>
 			</FormItem>
-			<FormItem top="Описание">
+			<FormItem
+				top="Подробности"
+				bottom="Здесь ты можешь рассказать историю своего автомобиля, описать все доработки, добавить что-то интересное"
+			>
 				<Textarea
 					rows={1}
 					placeholder="Не указано"
@@ -137,7 +153,7 @@ export const CreateCarFom: React.FC<Props> = ({
 					}}
 				/>
 			</FormItem>
-			<FormItem top="Аватарка">
+			<FormItem top="Фотокарточка *">
 				<File
 					stretched
 					name="file-upload"
