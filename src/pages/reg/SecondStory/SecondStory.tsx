@@ -25,8 +25,8 @@ export const SecondStory: React.FC<Props> = ({
 			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />} />
 			<Div className={styles.container}>
 				<img className={styles.storyImage} src={image} alt={""} />
-				<Button size="l" mode="outline" onClick={onNextClick}>
-					Супер
+				<Button size="l" mode="tertiary" onClick={onNextClick}>
+					Супер!
 				</Button>
 			</Div>
 		</Panel>

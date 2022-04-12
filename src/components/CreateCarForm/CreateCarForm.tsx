@@ -94,7 +94,11 @@ export const CreateCarFom: React.FC<Props> = ({
 			<FormLayoutGroup mode="horizontal">
 				<FormItem
 					top="Год выпуска *"
-					bottom={form.date ? "" : "Укажите корректный год выпуска автомобиля"}
+					bottom={
+						+form.date > 1000 && +form.date < 2200
+							? ""
+							: "Укажите корректный год выпуска автомобиля"
+					}
 					status={+form.date > 1000 && +form.date < 2200 ? "valid" : "error"}
 				>
 					<Input
@@ -124,7 +128,10 @@ export const CreateCarFom: React.FC<Props> = ({
 					/>
 				</FormItem>
 			</FormLayoutGroup>
-			<FormItem top="Кличка автомобиля - если ты зовешь ее(его) по-особенному">
+			<FormItem
+				top="Кличка автомобиля"
+				bottom="А ты зовешь ее(его) по-особенному?"
+			>
 				<Input
 					type="text"
 					value={form.name}

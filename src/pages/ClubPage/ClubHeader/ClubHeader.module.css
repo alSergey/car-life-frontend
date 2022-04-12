@@ -5,6 +5,29 @@
 	gap: 20px;
 }
 
+.tags {
+	display: flex;
+	flex-direction: row;
+	align-content: end;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-top: 20px;
+}
+
+.tag {
+	border-radius: 20px;
+	width: auto;
+	padding: 2px 6px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	font-size: 11px;
+}
+
 .desc {
-	color: var(--text_secondary);
+	color: gray;
+	font-size: 13px;
+}
+
+.descText {
+	font-size: 17px;
 }

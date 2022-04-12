@@ -1,6 +1,12 @@
 import React, { useState } from "react";
-import { Panel, PanelHeader, Search, PanelHeaderButton } from "@vkontakte/vkui";
-import { Icon28AddOutline } from "@vkontakte/icons";
+import {
+	Panel,
+	PanelHeader,
+	Search,
+	PanelHeaderButton,
+	Button,
+} from "@vkontakte/vkui";
+import { Icon24Add, Icon28AddOutline } from "@vkontakte/icons";
 import styles from "./MainListPage.module.css";
 import { MainBar, MainTab } from "./MainBar";
 import { MainEventList } from "./MainEventList";
@@ -26,25 +32,7 @@ export const MainListPage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				separator={false}
-				left={
-					<PanelHeaderButton
-						onClick={() => {
-							if (activeTab === MainTab.Event) {
-								onEventCreateClick();
-								return;
-							}
-
-							onClubCreateClick();
-						}}
-					>
-						<Icon28AddOutline />
-					</PanelHeaderButton>
-				}
-			>
-				Главная
-			</PanelHeader>
+			<PanelHeader separator={false}>Главная</PanelHeader>
 			<MainBar activeTab={activeTab} setActiveTab={setActiveTab} />
 			<Search
 				value={searchText}
@@ -61,6 +49,20 @@ export const MainListPage: React.FC<Props> = ({
 					<MainClubList searchText={searchText} onClick={onClubClick} />
 				</div>
 			)}
+			<Button
+				className={styles.addButton}
+				size="l"
+				mode="secondary"
+				before={<Icon24Add />}
+				onClick={() => {
+					if (activeTab === MainTab.Event) {
+						onEventCreateClick();
+						return;
+					}
+
+					onClubCreateClick();
+				}}
+			/>
 		</Panel>
 	);
 };

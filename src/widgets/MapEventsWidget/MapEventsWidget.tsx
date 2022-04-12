@@ -13,6 +13,7 @@ import {
 	Group,
 	HorizontalCell,
 	HorizontalScroll,
+	Text,
 } from "@vkontakte/vkui";
 import { YandexKey } from "../../constants/yandexKey";
 import { getPrettyDate } from "../../constants/time";
@@ -88,7 +89,7 @@ export const MapEventsWidget: React.FC<Props> = ({ onEventClick }) => {
 							position: "absolute",
 							bottom: "40px",
 							zIndex: 1,
-							backgroundColor: "rgba(201,201,201,0.4)",
+							backgroundColor: "rgba(217,216,216,0.63)",
 							width: "100%",
 						}}
 					>
@@ -108,7 +109,14 @@ export const MapEventsWidget: React.FC<Props> = ({ onEventClick }) => {
 														? "rgba(204, 233, 254, 0.5)"
 														: "transparent",
 											}}
-											header={e.name}
+											header={
+												<Text
+													weight="medium"
+													style={{ wordBreak: "break-word" }}
+												>
+													{e.name}
+												</Text>
+											}
 											subtitle={getPrettyDate(e.event_date)}
 											size="l"
 											onSelect={() => {
@@ -117,11 +125,9 @@ export const MapEventsWidget: React.FC<Props> = ({ onEventClick }) => {
 											onClick={handleClickEvent.bind(e)}
 										>
 											<Avatar
+												style={{ objectFit: "contain" }}
 												size={128}
 												mode="image"
-												style={{
-													objectFit: "cover",
-												}}
 												src={e.avatar}
 											/>
 											<Placemark
