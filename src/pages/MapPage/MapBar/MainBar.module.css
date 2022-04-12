@@ -1,5 +1,4 @@
 .tabs {
 	display: flex;
-	padding-top: var(--safe-area-inset-top);
 	justify-content: center;
 }
