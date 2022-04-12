@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-	Panel,
-	PanelHeader,
-	Search,
-	PanelHeaderButton,
-	Button,
-} from "@vkontakte/vkui";
-import { Icon24Add, Icon28AddOutline } from "@vkontakte/icons";
+import { Panel, PanelHeader, Search, Button } from "@vkontakte/vkui";
+import { Icon24Add } from "@vkontakte/icons";
 import styles from "./MainListPage.module.css";
 import { MainBar, MainTab } from "./MainBar";
 import { MainEventList } from "./MainEventList";
