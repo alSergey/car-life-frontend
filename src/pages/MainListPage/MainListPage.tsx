@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Panel, PanelHeader, Search, Button } from "@vkontakte/vkui";
-import { Icon24Add } from "@vkontakte/icons";
+import { Icon28AddOutline } from "@vkontakte/icons";
 import styles from "./MainListPage.module.css";
 import { MainBar, MainTab } from "./MainBar";
 import { MainEventList } from "./MainEventList";
@@ -46,8 +46,9 @@ export const MainListPage: React.FC<Props> = ({
 			<Button
 				className={styles.addButton}
 				size="l"
+				style={{ width: 55, height: 55 }}
 				mode="secondary"
-				before={<Icon24Add />}
+				before={<Icon28AddOutline width={35} height={35} />}
 				onClick={() => {
 					if (activeTab === MainTab.Event) {
 						onEventCreateClick();

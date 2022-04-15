@@ -21,14 +21,18 @@ import { ModelsEventCard } from "../../api/Api";
 
 interface Props {
 	onEventClick: (eventId: number) => void;
+	panelHeight?: number;
 }
 
-export const MapEventsWidget: React.FC<Props> = ({ onEventClick }) => {
+export const MapEventsWidget: React.FC<Props> = ({
+	onEventClick,
+	panelHeight,
+}) => {
 	const [events, setEvents] = useState(emptyEventList);
 	const [activeEvent, setActiveEvent] = useState<number | null>(null);
 	const myMap = useRef(null);
 	const [mapCenter, setMapCenter] = useState([55.76, 37.64]);
-	const mapHeight = window.innerHeight - 95;
+	const mapHeight = window.innerHeight - 95 - (panelHeight || 0);
 
 	const handleGetEventList = async (): Promise<void> => {
 		try {

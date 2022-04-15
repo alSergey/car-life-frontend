@@ -23,14 +23,18 @@ import {
 import styles from "./MapPeopleWidget.module.css";
 import { createNewMiniEvent } from "./api/api";
 
-export const MapPeopleWidget: React.FC = () => {
+interface Props {
+	panelHeight?: number;
+}
+
+export const MapPeopleWidget: React.FC<Props> = ({ panelHeight }) => {
 	const [events, setEvents] = useState(emptyEventList);
 	const [showCreation, setShowCreation] = useState(false);
 	const [newEvent, setNewEvent] =
 		useState<ModelsCreateMiniEventRequest>(emptyNewMiniEvent);
 	const myMap = useRef(null);
 	const [mapCenter, setMapCenter] = useState([55.76, 37.64]);
-	const mapHeight = window.innerHeight - 95;
+	const mapHeight = window.innerHeight - 95 - (panelHeight || 0);
 
 	const getExtraOptions = (id: number) => {
 		switch (id) {
