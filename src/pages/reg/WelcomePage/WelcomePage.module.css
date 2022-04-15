@@ -4,6 +4,24 @@
 	align-items: center;
 	justify-content: center;
 	text-align: center;
+	font-weight: lighter;
 
 	gap: 20px;
+}
+
+.title {
+	font-size: 26px;
+	font-style: italic;
+	font-weight: lighter;
+	letter-spacing: 0.1em;
+}
+.subtitle {
+	font-size: 14px;
+	margin-bottom: 50px;
+	letter-spacing: 0.1em;
+}
+
+.description {
+	line-height: 20px;
+	letter-spacing: 0.4em;
 }

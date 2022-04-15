@@ -25,8 +25,8 @@ export const FirstStory: React.FC<Props> = ({
 			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />} />
 			<Div className={styles.container}>
 				<img className={styles.storyImage} src={image} alt={""} />
-				<Button mode="outline" size="l" onClick={onNextClick}>
-					Круто
+				<Button mode="tertiary" size="l" onClick={onNextClick}>
+					Круто!
 				</Button>
 			</Div>
 		</Panel>
