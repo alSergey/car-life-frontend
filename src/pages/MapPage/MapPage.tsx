@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Panel, PanelHeader } from "@vkontakte/vkui";
 import { MapBar, MapTab } from "./MapBar";
 import { MapEventsWidget } from "../../widgets/MapEventsWidget";
