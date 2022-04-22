@@ -2,7 +2,7 @@ import { api } from "../../../api";
 import { backBaseUrl } from "../../../constants/url";
 import { CarForm, isCarFormFilled } from "../../../components/CreateCarForm";
 
-export const createNewCar = (form: CarForm): Promise<number | undefined> => {
+export const createNewCar = (form: CarForm): Promise<number> => {
 	if (!isCarFormFilled(form)) throw new Error("Не заполнены все поля");
 
 	const date = new Date();
@@ -20,7 +20,7 @@ export const createNewCar = (form: CarForm): Promise<number | undefined> => {
 			name: form.name,
 		})
 		.then(({ data }) => {
-			if (!form.file) return;
+			if (!form.file) return data.id;
 
 			const formData = new FormData();
 			formData.append("file-upload", form.file);

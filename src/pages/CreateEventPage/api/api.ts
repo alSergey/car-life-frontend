@@ -5,9 +5,7 @@ import {
 	isEventFormFilled,
 } from "../../../components/CreateEventForm";
 
-export const createNewEvent = (
-	form: EventForm
-): Promise<number | undefined> => {
+export const createNewEvent = (form: EventForm): Promise<number> => {
 	if (!isEventFormFilled(form) || !form.club || !form.location)
 		throw new Error("Не заполнены все поля");
 
@@ -22,7 +20,7 @@ export const createNewEvent = (
 			avatar: "",
 		})
 		.then(({ data }) => {
-			if (!form.file) return;
+			if (!form.file) return data.id;
 
 			const formData = new FormData();
 			formData.append("file-upload", form.file);

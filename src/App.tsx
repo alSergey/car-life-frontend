@@ -7,7 +7,6 @@ import { MainTab } from "./views/MainTab";
 import { MapTab } from "./views/MapTab";
 import { ProfileTab } from "./views/ProfileTab";
 import { RegView } from "./views/RegView";
-import { backBaseUrl } from "./constants/url";
 import {
 	defaultUserData,
 	getUserData,
@@ -23,6 +22,7 @@ import {
 	REG_WELCOME_PAGE,
 } from "./router";
 import bridge from "@vkontakte/vk-bridge";
+import { api, setToken } from "./api";
 
 const App: React.FC<RouterProps> = ({ location, router }) => {
 	const [userData, setUserData] = useState(defaultUserData);
@@ -42,39 +42,24 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 		const data = await bridge.send("VKWebAppGetUserInfo");
 
 		try {
-			const session = await fetch(`${backBaseUrl}/login`, {
-				method: "POST",
-				body: JSON.stringify({
-					vkid: data.id,
-				}),
+			const session = await api.login.loginCreate({
+				vkid: data.id,
 			});
 
-			if (session.status === 401) {
-				setIsLoggedIn(false);
+			setToken(session.data.value);
+			setIsLoggedIn(true);
+			handleGetUserData();
+			if (location.getViewId() === REG_VIEW) router.pushPage(MAP_PAGE);
 
-				if (location.getViewId() !== REG_VIEW) {
-					router.pushPage(REG_WELCOME_PAGE);
-				}
-
-				return;
-			}
-
-			if (session.status === 200) {
-				setIsLoggedIn(true);
-				handleGetUserData();
-
-				await bridge.send("VKWebAppAllowMessagesFromGroup", {
-					group_id: 212586637,
-				});
-
-				if (location.getViewId() === REG_VIEW) {
-					router.pushPage(MAP_PAGE);
-				}
-
-				return;
-			}
+			await bridge.send("VKWebAppAllowMessagesFromGroup", {
+				group_id: 212586637,
+			});
 		} catch (err) {
 			console.error(err);
+			if (err.response.status !== 401) return;
+
+			setIsLoggedIn(false);
+			if (location.getViewId() !== REG_VIEW) router.pushPage(REG_WELCOME_PAGE);
 		} finally {
 			setLoading(false);
 		}

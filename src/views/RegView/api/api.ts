@@ -2,7 +2,7 @@ import { RegForm } from "./api.types";
 import { api } from "../../../api";
 import { backBaseUrl } from "../../../constants/url";
 
-export const regUser = (form: RegForm): Promise<number | undefined> => {
+export const regUser = (form: RegForm): Promise<string> => {
 	if (!form.userForm) throw new Error("Не заполнены все поля");
 
 	return api.signup
@@ -29,7 +29,7 @@ export const regUser = (form: RegForm): Promise<number | undefined> => {
 				: [],
 		})
 		.then(({ data }) => {
-			if (!form.carForm?.file) return;
+			if (!form.carForm?.file) return data.session.value;
 
 			const formData = new FormData();
 			formData.append("file-upload", form.carForm.file);
@@ -37,6 +37,6 @@ export const regUser = (form: RegForm): Promise<number | undefined> => {
 			return fetch(`${backBaseUrl}/garage/${data.car_id}/upload`, {
 				method: "POST",
 				body: formData,
-			}).then(() => data.car_id);
+			}).then(() => data.session.value);
 		});
 };
