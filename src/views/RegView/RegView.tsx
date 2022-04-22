@@ -11,6 +11,7 @@ import { emptyRegForm, regUser } from "./api";
 import bridge from "@vkontakte/vk-bridge";
 import { useLocation, useRouter } from "@happysanta/router";
 import { UserContext } from "../../context/userContext";
+import { setToken } from "../../api";
 import {
 	REG_WELCOME_PANEL,
 	REG_FIRST_STORY_PAGE,
@@ -57,7 +58,8 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 	const handleReg = async (): Promise<void> => {
 		setLoading(true);
 		try {
-			await regUser(form);
+			const session = await regUser(form);
+			setToken(session);
 			setIsLoggedIn(true);
 			refreshUserState();
 			router.pushPage(MAP_PAGE);

@@ -23,10 +23,6 @@ export interface ModelsCarCard {
   owner_id: number;
 }
 
-export interface ModelsCarIDResponse {
-  car_id: number;
-}
-
 export interface ModelsCarRequest {
   body?: string;
   brand?: string;
@@ -131,6 +127,12 @@ export interface ModelsMiniEventType {
   public_name: string;
 }
 
+export interface ModelsSession {
+  expires_at: string;
+  user_id: number;
+  value: string;
+}
+
 export interface ModelsSignUpRequest {
   avatarUrl?: string;
   description?: string;
@@ -139,6 +141,11 @@ export interface ModelsSignUpRequest {
   surname?: string;
   tags?: string[];
   vkid?: number;
+}
+
+export interface ModelsSignUpResponse {
+  car_id: number;
+  session: ModelsSession;
 }
 
 export interface ModelsTag {
@@ -676,11 +683,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/login
      */
     loginCreate: (body: ModelsLoginRequest, params: RequestParams = {}) =>
-      this.request<void, UtilsError | void>({
+      this.request<ModelsSession, UtilsError | void>({
         path: `/login`,
         method: "POST",
         body: body,
         type: ContentType.Json,
+        format: "json",
         ...params,
       }),
   };
@@ -786,7 +794,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/signup
      */
     signupCreate: (body: ModelsSignUpRequest, params: RequestParams = {}) =>
-      this.request<ModelsCarIDResponse, UtilsError>({
+      this.request<ModelsSignUpResponse, UtilsError>({
         path: `/signup`,
         method: "POST",
         body: body,

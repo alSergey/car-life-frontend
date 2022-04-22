@@ -2,7 +2,7 @@ import { api } from "../../../api";
 import { backBaseUrl } from "../../../constants/url";
 import { ClubForm, isClubFormFilled } from "../../../components/CreateClubForm";
 
-export const createNewClub = (form: ClubForm): Promise<number | undefined> => {
+export const createNewClub = (form: ClubForm): Promise<number> => {
 	if (!isClubFormFilled(form)) throw new Error("Не заполнены все поля");
 
 	return api.club
@@ -13,7 +13,7 @@ export const createNewClub = (form: ClubForm): Promise<number | undefined> => {
 			tags: form.tags.map((el) => el.label),
 		})
 		.then(({ data }) => {
-			if (!form.file) return;
+			if (!form.file) return data.id;
 
 			const formData = new FormData();
 			formData.append("file-upload", form.file);

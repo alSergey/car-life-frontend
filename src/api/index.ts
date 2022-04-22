@@ -1,8 +1,21 @@
 import { Api } from "./Api";
 import {backBaseUrl} from "../constants/url";
 
+let token = '';
+
+const setToken = (value: string): void => {
+		token = value
+}
+
 const api = new Api({
 		baseURL: backBaseUrl
 });
 
-export { api };
+api.instance.interceptors.request.use(config => {
+		if (!config.headers) return config
+
+		config.headers.auth = token
+		return config
+})
+
+export { setToken, api };
