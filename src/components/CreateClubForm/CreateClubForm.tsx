@@ -64,7 +64,6 @@ export const CreateClubForm: React.FC<Props> = ({
 			</FormItem>
 			<FormItem top="Аватарка">
 				<UploadFile
-					multiple
 					fileList={testFile}
 					onChange={(fileList) => {
 						setTestFiles(fileList);

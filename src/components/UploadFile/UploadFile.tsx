@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { File as FileInput, HorizontalScroll } from "@vkontakte/vkui";
+import { File as FileInput, Gallery } from "@vkontakte/vkui";
 import { Icon24Camera } from "@vkontakte/icons";
 import styles from "./UploadFile.module.css";
 
@@ -58,11 +58,17 @@ export const UploadFile: React.FC<Props> = ({
 			>
 				Открыть галерею
 			</FileInput>
-			<HorizontalScroll className={styles.imageContainer} showArrows>
-				{filesSrc.map((src) => (
-					<img key={src} className={styles.img} src={src} alt="" />
-				))}
-			</HorizontalScroll>
+			{Boolean(filesSrc.length) && (
+				<Gallery
+					showArrows
+					className={styles.imageContainer}
+					bullets={multiple && "dark"}
+				>
+					{filesSrc.map((src) => (
+						<img key={src} className={styles.img} src={src} alt="" />
+					))}
+				</Gallery>
+			)}
 		</div>
 	);
 };
