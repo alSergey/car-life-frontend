@@ -15,7 +15,7 @@ export const EventHeader: React.FC<Prop> = ({ eventData, onButtonClick }) => (
 		<img src={eventData.avatar} className={styles.img} alt="" />
 		<Div>
 			<div className={styles.title}>
-				<Title level="1" weight="bold">
+				<Title level="1" weight="1">
 					{eventData.name}
 				</Title>
 				<Text weight="regular">{getPrettyDateTime(eventData.event_date)}</Text>

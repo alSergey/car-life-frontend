@@ -11,7 +11,7 @@ interface Prop {
 export const UserInfo: React.FC<Prop> = ({ userData }) => (
 	<Div>
 		<Group>
-			<Title level="3" weight="semibold">
+			<Title level="3" weight="1">
 				Мои интересы
 			</Title>
 			<Text weight="semibold" className={styles.tags}>
@@ -19,7 +19,7 @@ export const UserInfo: React.FC<Prop> = ({ userData }) => (
 			</Text>
 		</Group>
 		<Group>
-			<Title level="3" weight="semibold">
+			<Title level="3" weight="1">
 				О себе
 			</Title>
 			<Text weight="semibold" className={styles.tags}>

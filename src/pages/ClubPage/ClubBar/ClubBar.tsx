@@ -21,36 +21,28 @@ export const ClubBar: React.FC<Props> = ({ activeTab, setActiveTab }) => {
 				selected={activeTab === ClubTab.Events}
 				onClick={() => setActiveTab(ClubTab.Events)}
 			>
-				<Text weight="medium" size={3}>
-					События
-				</Text>
+				<Text weight="medium">События</Text>
 			</TabsItem>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === ClubTab.Garage}
 				onClick={() => setActiveTab(ClubTab.Garage)}
 			>
-				<Text weight="medium" size={3}>
-					Автопарк
-				</Text>
+				<Text weight="medium">Автопарк</Text>
 			</TabsItem>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === ClubTab.Members}
 				onClick={() => setActiveTab(ClubTab.Members)}
 			>
-				<Text weight="medium" size={3}>
-					Участники
-				</Text>
+				<Text weight="medium">Участники</Text>
 			</TabsItem>
 			<TabsItem
 				style={{ padding: 0, flexBasis: "initial" }}
 				selected={activeTab === ClubTab.Subscribers}
 				onClick={() => setActiveTab(ClubTab.Subscribers)}
 			>
-				<Text weight="medium" size={3}>
-					Подписчики
-				</Text>
+				<Text weight="medium">Подписчики</Text>
 			</TabsItem>
 		</Tabs>
 	);

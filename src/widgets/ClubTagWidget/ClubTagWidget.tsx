@@ -28,6 +28,7 @@ export const ClubTagWidget: React.FC<Props> = ({ values, onChange }) => {
 			value={values}
 			options={tags}
 			placeholder="Не указано"
+			// @ts-ignore
 			onChange={(value) => onChange(value)}
 		/>
 	);
