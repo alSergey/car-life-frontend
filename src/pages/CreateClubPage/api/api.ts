@@ -1,5 +1,4 @@
 import { api } from "../../../api";
-import { backBaseUrl } from "../../../constants/url";
 import { ClubForm, isClubFormFilled } from "../../../components/CreateClubForm";
 
 export const createNewClub = (form: ClubForm): Promise<number> => {
@@ -15,12 +14,10 @@ export const createNewClub = (form: ClubForm): Promise<number> => {
 		.then(({ data }) => {
 			if (!form.file) return data.id;
 
-			const formData = new FormData();
-			formData.append("file-upload", form.file);
-
-			return fetch(`${backBaseUrl}/clubs/${data.id}/upload`, {
-				method: "POST",
-				body: formData,
-			}).then(() => data.id);
+			return api.clubs
+				.uploadCreate(data.id, {
+					"file-upload": form.file,
+				})
+				.then(() => data.id);
 		});
 };
