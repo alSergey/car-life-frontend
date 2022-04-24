@@ -22,9 +22,7 @@ export const CreateCarButton: React.FC<Props> = ({ onClick }) => (
 			}}
 		>
 			<Icon56AddCircleOutline fill={"#808080"} style={{ marginBottom: 8 }} />
-			<Text weight={"regular"} size={3}>
-				Добавить машину
-			</Text>
+			<Text weight={"regular"}>Добавить машину</Text>
 		</div>
 	</Card>
 );

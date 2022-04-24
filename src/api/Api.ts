@@ -453,7 +453,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary upload avatar for club
      * @request POST:/clubs/{id}/upload
      */
-    uploadCreate: (id: number, data?: any, params: RequestParams = {}) =>
+    uploadCreate: (id: number, data: { "file-upload": File }, params: RequestParams = {}) =>
       this.request<ModelsClub, UtilsError>({
         path: `/clubs/${id}/upload`,
         method: "POST",
@@ -603,7 +603,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary upload avatar for event
      * @request POST:/events/{id}/upload
      */
-    uploadCreate: (id: number, data?: any, params: RequestParams = {}) =>
+    uploadCreate: (id: number, data: { "file-upload": File }, params: RequestParams = {}) =>
       this.request<ModelsEvent, UtilsError>({
         path: `/events/${id}/upload`,
         method: "POST",
@@ -663,7 +663,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary upload avatar for car
      * @request POST:/garage/{id}/upload
      */
-    uploadCreate: (id: number, data?: any, params: RequestParams = {}) =>
+    uploadCreate: (id: number, data: { "file-upload": File }, params: RequestParams = {}) =>
       this.request<ModelsUser, UtilsError>({
         path: `/garage/${id}/upload`,
         method: "POST",

@@ -1,15 +1,8 @@
 import React, { useState } from "react";
-import {
-	FormItem,
-	FormLayout,
-	Button,
-	Input,
-	Textarea,
-	File,
-} from "@vkontakte/vkui";
-import { Icon24Camera } from "@vkontakte/icons";
+import { FormItem, FormLayout, Button, Input, Textarea } from "@vkontakte/vkui";
 import { ClubForm, emptyClubForm, isClubFormFilled } from "./api";
 import { ClubTagWidget } from "../../widgets/ClubTagWidget";
+import { UploadFile } from "../UploadFile";
 
 interface Props {
 	buttonText?: string;
@@ -69,24 +62,15 @@ export const CreateClubForm: React.FC<Props> = ({
 				/>
 			</FormItem>
 			<FormItem top="Аватарка">
-				<File
-					stretched
-					name="file-upload"
-					controlSize="l"
-					before={<Icon24Camera />}
-					mode="secondary"
-					accept=".jpeg,.jpg,.png.webp"
-					onChange={({ target: { files } }) => {
-						if (!files) return;
-
+				<UploadFile
+					fileList={form.file && [form.file]}
+					onChange={(fileList) => {
 						setFormData({
 							...form,
-							file: files[0],
+							file: fileList[0],
 						});
 					}}
-				>
-					Открыть галерею
-				</File>
+				/>
 			</FormItem>
 			<FormItem>
 				<Button

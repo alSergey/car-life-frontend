@@ -14,7 +14,7 @@ import { EventLocation } from "../api";
 
 interface Props {
 	location: EventLocation | null;
-	onChange: (form: EventLocation | null) => void;
+	onChange: (form: EventLocation) => void;
 }
 
 export const CreateEventMap: React.FC<Props> = ({ location, onChange }) => {

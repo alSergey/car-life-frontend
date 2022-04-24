@@ -1,5 +1,4 @@
 import { api } from "../../../api";
-import { backBaseUrl } from "../../../constants/url";
 import { CarForm, isCarFormFilled } from "../../../components/CreateCarForm";
 
 export const createNewCar = (form: CarForm): Promise<number> => {
@@ -22,12 +21,10 @@ export const createNewCar = (form: CarForm): Promise<number> => {
 		.then(({ data }) => {
 			if (!form.file) return data.id;
 
-			const formData = new FormData();
-			formData.append("file-upload", form.file);
-
-			return fetch(`${backBaseUrl}/garage/${data.id}/upload`, {
-				method: "POST",
-				body: formData,
-			}).then(() => data.id);
+			return api.garage
+				.uploadCreate(data.id, {
+					"file-upload": form.file,
+				})
+				.then(() => data.id);
 		});
 };
