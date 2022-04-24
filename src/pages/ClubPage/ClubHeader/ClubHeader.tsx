@@ -29,6 +29,7 @@ export const ClubHeader: React.FC<Prop> = ({ clubData, onButtonClick }) => (
 		<div className={styles.tags}>
 			{clubData.tags.map((t) => (
 				<Text
+					key={t}
 					weight="regular"
 					className={styles.tag}
 					style={{

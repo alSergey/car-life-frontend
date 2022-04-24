@@ -14,7 +14,7 @@ export const EventCard: React.FC<Props> = ({ title, date, img, onClick }) => (
 		style={{ marginBottom: 7 }}
 		header={title}
 		caption={getPrettyDateTime(date)}
-		image={img}
+		src={img}
 		height="150px"
 		onClick={onClick}
 	/>

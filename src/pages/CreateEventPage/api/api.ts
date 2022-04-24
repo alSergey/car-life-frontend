@@ -1,5 +1,4 @@
 import { api } from "../../../api";
-import { backBaseUrl } from "../../../constants/url";
 import {
 	EventForm,
 	isEventFormFilled,
@@ -22,12 +21,10 @@ export const createNewEvent = (form: EventForm): Promise<number> => {
 		.then(({ data }) => {
 			if (!form.file) return data.id;
 
-			const formData = new FormData();
-			formData.append("file-upload", form.file);
-
-			return fetch(`${backBaseUrl}/events/${data.id}/upload`, {
-				method: "POST",
-				body: formData,
-			}).then(() => data.id);
+			return api.events
+				.uploadCreate(data.id, {
+					"file-upload": form.file,
+				})
+				.then(() => data.id);
 		});
 };

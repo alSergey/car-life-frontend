@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import {
 	Button,
-	File,
 	FormItem,
 	FormLayout,
 	FormLayoutGroup,
 	Input,
 	Textarea,
 } from "@vkontakte/vkui";
-import { Icon24Camera } from "@vkontakte/icons";
 import { CarForm, emptyCarForm, isCarFormFilled } from "./api";
+import { UploadFile } from "../UploadFile";
 
 interface Props {
 	buttonText?: string;
@@ -161,24 +160,15 @@ export const CreateCarFom: React.FC<Props> = ({
 				/>
 			</FormItem>
 			<FormItem top="Фотокарточка *">
-				<File
-					stretched
-					name="file-upload"
-					controlSize="l"
-					before={<Icon24Camera />}
-					mode="secondary"
-					accept=".jpeg,.jpg,.png.webp"
-					onChange={({ target: { files } }) => {
-						if (!files) return;
-
+				<UploadFile
+					fileList={form.file && [form.file]}
+					onChange={(fileList) => {
 						setForm({
 							...form,
-							file: files[0],
+							file: fileList[0],
 						});
 					}}
-				>
-					Открыть галерею
-				</File>
+				/>
 			</FormItem>
 			<FormItem>
 				<Button

@@ -25,10 +25,10 @@ export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 			<Group onClick={() => onClubClick(event.club.id)}>
 				<div className={styles.clubContainer}>
 					<div className={styles.clubTextContainer}>
-						<Caption level="3" weight="regular">
+						<Caption level="3" weight="3">
 							Hosted by
 						</Caption>
-						<Title level="3" weight="semibold">
+						<Title level="3" weight="2">
 							{event.club.name}
 						</Title>
 					</div>
@@ -41,7 +41,7 @@ export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 			</Group>
 			<Group>
 				<div className={styles.container}>
-					<Title level="3" weight="regular">
+					<Title level="3" weight="3">
 						Описание
 					</Title>
 					<Text weight="regular" className={styles.text}>
@@ -51,7 +51,7 @@ export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 			</Group>
 			<Group>
 				<div className={styles.container}>
-					<Title level="3" weight="regular">
+					<Title level="3" weight="3">
 						Место
 					</Title>
 					<Text
