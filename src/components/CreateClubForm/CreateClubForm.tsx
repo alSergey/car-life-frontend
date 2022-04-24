@@ -16,7 +16,6 @@ export const CreateClubForm: React.FC<Props> = ({
 	onSubmit,
 }) => {
 	const [form, setFormData] = useState(emptyClubForm);
-	const [testFile, setTestFiles] = useState<File[]>([]);
 
 	return (
 		<FormLayout
@@ -64,9 +63,8 @@ export const CreateClubForm: React.FC<Props> = ({
 			</FormItem>
 			<FormItem top="Аватарка">
 				<UploadFile
-					fileList={testFile}
+					fileList={form.file && [form.file]}
 					onChange={(fileList) => {
-						setTestFiles(fileList);
 						setFormData({
 							...form,
 							file: fileList[0],
