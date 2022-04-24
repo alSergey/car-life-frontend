@@ -116,7 +116,7 @@ export interface ModelsEventPost {
   event_id: number;
   id: number;
   text: string;
-  user_id: number;
+  user: ModelsUserCard;
 }
 
 export interface ModelsLoginRequest {
