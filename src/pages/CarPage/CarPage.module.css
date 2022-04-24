@@ -1,0 +1,10 @@
+.text {
+	color: var(--text_secondary);
+}
+
+.date {
+	display: flex;
+	flex-direction: row;
+
+	gap: 10px;
+}

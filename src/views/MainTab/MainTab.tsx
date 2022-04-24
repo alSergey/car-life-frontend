@@ -13,6 +13,7 @@ import {
 	MAIN_EVENT_PAGE,
 	MAIN_EVENT_PANEL,
 	MAIN_CAR_PAGE,
+	MAIN_CAR_PANEL,
 	MAIN_CREATE_CLUB_PAGE,
 	MAIN_CREATE_CLUB_PANEL,
 	MAIN_CREATE_EVENT_PAGE,
@@ -27,6 +28,7 @@ import {
 } from "../../router";
 import { useLocation, useRouter } from "@happysanta/router";
 import { UserContext } from "../../context/userContext";
+import { CarPage } from "../../pages/CarPage";
 
 interface Props {
 	id: string;
@@ -107,6 +109,7 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 				onClubClick={handleClubCLick}
 				onCarClick={handleCarCLick}
 			/>
+			<CarPage id={MAIN_CAR_PANEL} onBackClick={handleBackClick} />
 		</View>
 	);
 };

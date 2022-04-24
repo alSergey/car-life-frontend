@@ -1,3 +1,7 @@
 .tags {
 	color: var(--text_secondary);
 }
+
+.editButton {
+	margin-top: 10px;
+}

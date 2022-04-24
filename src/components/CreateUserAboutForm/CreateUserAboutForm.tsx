@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { FormItem, FormLayout, Button, Textarea } from "@vkontakte/vkui";
+import styles from "./CreateUserAboutForm.module.css";
 import {
 	emptyUserAboutForm,
 	isUserAboutFormFilled,
@@ -8,8 +9,10 @@ import {
 import { ClubTagWidget } from "../../widgets/ClubTagWidget";
 
 interface Props {
-	buttonText?: string;
+	userAbout?: UserAboutForm;
 	onSubmit: (form: UserAboutForm) => void;
+	buttonSlot?: ReactNode;
+	buttonText?: string;
 }
 
 const describeTest =
@@ -19,10 +22,16 @@ const describeTest =
 	"перейдя на вашу страничку";
 
 export const CreateUserAboutForm: React.FC<Props> = ({
-	buttonText,
+	userAbout,
 	onSubmit,
+	buttonSlot,
+	buttonText,
 }) => {
 	const [form, setFormData] = useState(emptyUserAboutForm);
+
+	useEffect(() => {
+		if (userAbout) setFormData(userAbout);
+	}, []);
 
 	return (
 		<FormLayout
@@ -55,7 +64,8 @@ export const CreateUserAboutForm: React.FC<Props> = ({
 					}}
 				/>
 			</FormItem>
-			<FormItem>
+			<FormItem className={styles.buttons}>
+				{buttonSlot}
 				<Button
 					stretched
 					size="l"

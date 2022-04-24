@@ -9,12 +9,20 @@ interface Props {
 	name?: string;
 	img: string;
 	date: string;
+	onClick: () => void;
 }
 
-export const CarCard: React.FC<Props> = ({ brand, model, name, img, date }) => {
+export const CarCard: React.FC<Props> = ({
+	brand,
+	model,
+	name,
+	img,
+	date,
+	onClick,
+}) => {
 	const dateYear = getPrettyYear(date);
 	return (
-		<div className={styles.bannerContainer}>
+		<div className={styles.bannerContainer} onClick={onClick}>
 			<Banner
 				className={styles.banner}
 				before={

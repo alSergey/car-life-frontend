@@ -11,6 +11,7 @@ import {
 	MAP_CLUB_PAGE,
 	MAP_CLUB_PANEL,
 	MAP_CAR_PAGE,
+	MAP_CAR_PANEL,
 	setCarPageQuery,
 	setClubPageQuery,
 	setUserPageQuery,
@@ -19,6 +20,7 @@ import {
 import { MapPage } from "../../pages/MapPage";
 import { ClubPage } from "../../pages/ClubPage";
 import { UserPage } from "../../pages/UserPage";
+import { CarPage } from "../../pages/CarPage";
 import { useLocation, useRouter } from "@happysanta/router";
 import { UserContext } from "../../context/userContext";
 
@@ -85,6 +87,7 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 				onClubClick={handleClubCLick}
 				onCarClick={handleCarCLick}
 			/>
+			<CarPage id={MAP_CAR_PANEL} onBackClick={handleBackClick} />
 		</View>
 	);
 };
