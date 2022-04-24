@@ -4,13 +4,13 @@ import { ProfilePage } from "../../pages/ProfilePage";
 import { ClubPage } from "../../pages/ClubPage";
 import { EventPage } from "../../pages/EventPage";
 import {
-	PROFILE_PAGE,
 	PROFILE_PANEL,
 	PROFILE_EVENT_PAGE,
 	PROFILE_EVENT_PANEL,
 	PROFILE_CLUB_PAGE,
 	PROFILE_CLUB_PANEL,
 	PROFILE_CAR_PAGE,
+	PROFILE_CAR_PANEL,
 	PROFILE_CREATE_CAR_PAGE,
 	PROFILE_CREATE_CAR_PANEL,
 	PROFILE_USER_PAGE,
@@ -21,10 +21,11 @@ import {
 	setCarPageQuery,
 	setUserPageQuery,
 } from "../../router";
-import { useLocation, useRouter } from "@happysanta/router";
 import { UserPage } from "../../pages/UserPage";
-import { UserContext } from "../../context/userContext";
 import { CreateCarPage } from "../../pages/CreateCarPage";
+import { CarPage } from "../../pages/CarPage";
+import { UserContext } from "../../context/userContext";
+import { useLocation, useRouter } from "@happysanta/router";
 
 interface Props {
 	id: string;
@@ -78,7 +79,7 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 			<CreateCarPage
 				id={PROFILE_CREATE_CAR_PANEL}
 				onBackClick={handleBackClick}
-				onSubmit={() => router.pushPage(PROFILE_PAGE)}
+				onSubmit={handleCarCLick}
 			/>
 			<ClubPage
 				id={PROFILE_CLUB_PANEL}
@@ -100,6 +101,7 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 				onClubClick={handleClubCLick}
 				onCarClick={handleCarCLick}
 			/>
+			<CarPage id={PROFILE_CAR_PANEL} onBackClick={handleBackClick} />
 		</View>
 	);
 };

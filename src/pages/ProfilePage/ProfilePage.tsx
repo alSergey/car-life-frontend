@@ -7,6 +7,7 @@ import {
 	UserGarage,
 	UserHeader,
 	UserInfo,
+	UserInfoEdit,
 } from "../../components/UserPage";
 import { UserContext } from "../../context/userContext";
 
@@ -25,6 +26,11 @@ export enum UserTab {
 	Event = "event",
 }
 
+export enum UserInfoTab {
+	Info = "info",
+	Edit = "edit",
+}
+
 export const ProfilePage: React.FC<Props> = ({
 	id,
 	onCarClick,
@@ -33,14 +39,30 @@ export const ProfilePage: React.FC<Props> = ({
 	onEventClick,
 }) => {
 	const [activeTab, setActiveTab] = useState(UserTab.Info);
-	const { userState } = useContext(UserContext);
+	const [infoTab, setInfoTab] = useState(UserInfoTab.Info);
+	const { userState, refreshUserState } = useContext(UserContext);
 
 	return (
 		<Panel id={id}>
 			<PanelHeader separator={false} />
 			<UserHeader userData={userState} />
 			<UserBar activeTab={activeTab} setActiveTab={setActiveTab} />
-			{activeTab === UserTab.Info && <UserInfo userData={userState} />}
+			{activeTab === UserTab.Info && infoTab === UserInfoTab.Info && (
+				<UserInfo
+					userData={userState}
+					onEditClick={() => setInfoTab(UserInfoTab.Edit)}
+				/>
+			)}
+			{activeTab === UserTab.Info && infoTab === UserInfoTab.Edit && (
+				<UserInfoEdit
+					userData={userState}
+					onClick={() => setInfoTab(UserInfoTab.Info)}
+					onUpdate={() => {
+						refreshUserState();
+						setInfoTab(UserInfoTab.Info);
+					}}
+				/>
+			)}
 			{activeTab === UserTab.Garage && (
 				<UserGarage
 					userId={userState.id}

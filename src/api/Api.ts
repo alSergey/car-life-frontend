@@ -83,6 +83,10 @@ export interface ModelsCreateMiniEventRequest {
   type_id: number;
 }
 
+export interface ModelsCreatePostRequest {
+  text: string;
+}
+
 export interface ModelsEvent {
   avatar: string;
   club: ModelsClub;
@@ -104,6 +108,15 @@ export interface ModelsEventCard {
   latitude: number;
   longitude: number;
   name: string;
+}
+
+export interface ModelsEventPost {
+  attachments: string[];
+  created_at: string;
+  event_id: number;
+  id: number;
+  text: string;
+  user_id: number;
 }
 
 export interface ModelsLoginRequest {
@@ -151,6 +164,11 @@ export interface ModelsSignUpResponse {
 export interface ModelsTag {
   id: number;
   name: string;
+}
+
+export interface ModelsUpdateRequest {
+  description?: string;
+  tags?: string[];
 }
 
 export interface ModelsUser {
@@ -523,6 +541,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
+  eventPosts = {
+    /**
+     * @description Handler for getting events posts list
+     *
+     * @tags EventsPosts
+     * @name EventPostsDetail
+     * @summary get events posts list
+     * @request GET:/event_posts/{event_id}
+     */
+    eventPostsDetail: (
+      id: number,
+      eventId: string,
+      query?: { IdGt?: number; IdLte?: number; Limit?: number },
+      params: RequestParams = {},
+    ) =>
+      this.request<ModelsEventPost[], UtilsError>({
+        path: `/event_posts/${eventId}`,
+        method: "GET",
+        query: query,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for creating an event post
+     *
+     * @tags EventsPosts
+     * @name CreateCreate
+     * @summary create an event post
+     * @request POST:/event_posts/{event_id}/create
+     */
+    createCreate: (eventId: string, body: ModelsCreatePostRequest, params: RequestParams = {}) =>
+      this.request<ModelsEventPost, UtilsError>({
+        path: `/event_posts/${eventId}/create`,
+        method: "POST",
+        body: body,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
   events = {
     /**
      * @description Handler for getting events list
@@ -654,7 +714,43 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
+  eventsPosts = {
+    /**
+     * @description Handler for uploading an event post attachment
+     *
+     * @tags EventsPosts
+     * @name UploadCreate
+     * @summary upload attachments for event post
+     * @request POST:/events_posts/{post_id}/upload
+     */
+    uploadCreate: (id: number, postId: string, data?: any, params: RequestParams = {}) =>
+      this.request<ModelsEventPost, UtilsError>({
+        path: `/events_posts/${postId}/upload`,
+        method: "POST",
+        body: data,
+        type: ContentType.FormData,
+        format: "json",
+        ...params,
+      }),
+  };
   garage = {
+    /**
+     * @description Handler for getting a user by id
+     *
+     * @tags Users
+     * @name GarageDetail
+     * @summary get car
+     * @request GET:/garage/{id}
+     */
+    garageDetail: (id: number, params: RequestParams = {}) =>
+      this.request<ModelsCarCard, UtilsError | void>({
+        path: `/garage/${id}`,
+        method: "GET",
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
     /**
      * @description Handler for creating an event
      *
@@ -705,6 +801,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<ModelsUser, UtilsError>({
         path: `/me`,
         method: "GET",
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for getting a user by id
+     *
+     * @tags Users
+     * @name UpdateUpdate
+     * @summary get user by id
+     * @request PUT:/me/update
+     */
+    updateUpdate: (body: ModelsUpdateRequest, params: RequestParams = {}) =>
+      this.request<ModelsUser, UtilsError>({
+        path: `/me/update`,
+        method: "PUT",
+        body: body,
         type: ContentType.Json,
         format: "json",
         ...params,

@@ -1,4 +1,4 @@
 export interface ClubTags {
-	value: number;
+	value: string;
 	label: string;
 }
