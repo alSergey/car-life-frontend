@@ -1,19 +1,19 @@
 import React, { useContext, useState } from "react";
 import {
+	ModalRootContext,
 	File,
 	FormItem,
 	Group,
 	ModalPage,
 	ModalPageHeader,
-	ModalRoot,
 	PanelHeaderClose,
 	PanelHeaderSubmit,
 	Textarea,
 	Text,
 } from "@vkontakte/vkui";
-import { Icon24Camera } from "@vkontakte/icons";
 import { createNewEventPost } from "./api";
 import { UserContext } from "../../../context/userContext";
+import { UploadFile } from "../../../components/UploadFile";
 
 interface Props {
 	onClose: () => void;
@@ -23,7 +23,7 @@ interface Props {
 export interface EventPostData {
 	userId: number;
 	text: string;
-	files: FileList | null;
+	files: File[] | null;
 }
 
 export const CreateEventPost: React.FC<Props> = ({ onClose, id }) => {
@@ -34,6 +34,7 @@ export const CreateEventPost: React.FC<Props> = ({ onClose, id }) => {
 		text: "",
 		files: null,
 	});
+	const { updateModalHeight } = useContext(ModalRootContext);
 
 	const creatNewPost = async (): Promise<void> => {
 		try {
@@ -47,8 +48,8 @@ export const CreateEventPost: React.FC<Props> = ({ onClose, id }) => {
 
 	return (
 		<ModalPage
-			style={{ zIndex: 300 }}
 			id={id}
+			dynamicContentHeight
 			onClose={onClose}
 			header={
 				<ModalPageHeader
@@ -71,6 +72,7 @@ export const CreateEventPost: React.FC<Props> = ({ onClose, id }) => {
 								...form,
 								text: value,
 							});
+							updateModalHeight();
 						}}
 					/>
 				</FormItem>
@@ -79,28 +81,21 @@ export const CreateEventPost: React.FC<Props> = ({ onClose, id }) => {
 					top="Фотокарточки с места события"
 					bottom="Можно загрузить не больше 10 фото"
 				>
-					<File
+					<UploadFile
+						fileList={form.files}
 						multiple
-						stretched
-						name="file-upload"
-						controlSize="l"
-						before={<Icon24Camera />}
-						mode="secondary"
-						accept=".jpeg,.jpg,.png.webp"
-						onChange={({ target: { files } }) => {
+						onChange={(fileList) => {
 							setShowError("");
-							if (!files) return;
-							if (files.length > 10)
+							if (!fileList) return;
+							if (fileList.length > 10)
 								setShowError("Нельзя загружать больше 10 файлов");
-
 							setForm({
 								...form,
-								files: files,
+								files: fileList,
 							});
+							updateModalHeight();
 						}}
-					>
-						Открыть галерею
-					</File>
+					/>
 				</FormItem>
 				{!!showError && (
 					<Text style={{ marginLeft: 12, color: "#e82c2c" }} weight="regular">

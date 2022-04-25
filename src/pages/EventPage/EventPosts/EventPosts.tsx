@@ -54,29 +54,30 @@ export const EventPosts: React.FC<Props> = ({ eventId }) => {
 					{posts.map((p) => (
 						<Card key={p.vkid} mode="outline">
 							<div style={{ height: "auto" }}>
-								<SimpleCell before={<Avatar size={20} src={url} />}>
-									Игорь Фёдоров
+								<SimpleCell
+									before={<Avatar size={20} src={p.user.avatar_url} />}
+								>
+									{p.user.name} {p.user.surname}
 								</SimpleCell>
-								<CardScroll size="m">
-									<Card
-										className={styles.postPhoto}
-										style={{
-											backgroundImage: `url(${url})`,
-										}}
-									>
-										<div
-											style={{
-												paddingBottom: "75%",
-											}}
-										/>
-									</Card>
-									<Card />
-									<Card />
-									<Card />
-									<Card />
+								<CardScroll size="s">
+									{p.attachments &&
+										p.attachments.map((a, index) => (
+											<Card
+												className={styles.postPhoto}
+												style={{
+													backgroundImage: `url(${a[index]})`,
+												}}
+											>
+												<div
+													style={{
+														paddingBottom: "70%",
+													}}
+												/>
+											</Card>
+										))}
 								</CardScroll>
 								<Text className={styles.postText} weight="regular">
-									LKjflskdjfldsfjLKjflskdjfldsfjLKjflskdjfldsfjLKjflskdjfldsfjLKjflskdjfldsfjLKjflskdjfldsfjLKjflskdjfldsfjLKjflskdjfldsfjLKjflskdjfldsfj
+									{p.text}
 								</Text>
 							</div>
 						</Card>
