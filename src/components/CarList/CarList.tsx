@@ -17,7 +17,7 @@ interface Props {
 	onClick: (id: number) => void;
 }
 
-export const CarList: React.FC<Props> = ({ carList }) => (
+export const CarList: React.FC<Props> = ({ carList, onClick }) => (
 	<div>
 		<div className={styles.list}>
 			{carList.map(({ id, brand, model, date, name, avatar_url }) => (
@@ -28,6 +28,7 @@ export const CarList: React.FC<Props> = ({ carList }) => (
 					date={date}
 					name={name}
 					img={avatar_url}
+					onClick={() => onClick(id)}
 				/>
 			))}
 		</div>
