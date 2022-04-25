@@ -7,6 +7,7 @@ import {
 	CardScroll,
 	Div,
 	ModalRoot,
+	Paragraph,
 	SimpleCell,
 	SplitLayout,
 	Text,
@@ -26,46 +27,49 @@ export const EventPosts: React.FC<Props> = ({ eventId }) => {
 	const [isOpenAdd, setIsOpenAdd] = useState<string | null>(null);
 	const [posts, setPosts] = useState(emptyEventPostsList);
 
-	useEffect(() => {
-		const handleGetAllPosts = async (): Promise<void> => {
-			try {
-				const data = await getEventPosts(eventId);
-				setPosts(data);
-			} catch (err) {
-				console.error(err);
-			}
-		};
+	const handleGetAllPosts = async (): Promise<void> => {
+		try {
+			const data = await getEventPosts(eventId);
+			setPosts(data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
-		// handleGetAllPosts();
+	useEffect(() => {
+		handleGetAllPosts();
 	}, []);
 
 	const modal = (
 		<ModalRoot activeModal={isOpenAdd}>
-			<CreateEventPost id={createModal} onClose={() => setIsOpenAdd(null)} />
+			<CreateEventPost
+				id={createModal}
+				onClose={() => setIsOpenAdd(null)}
+				updateData={handleGetAllPosts}
+				eventId={eventId}
+			/>
 		</ModalRoot>
 	);
 
-	const url =
-		"https://images.unsplash.com/photo-1603988492906-4fb0fb251cf8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80";
 	return (
 		<SplitLayout modal={modal}>
 			<Div className={styles.container}>
 				<CardGrid size="l" className={styles.cardContainer}>
 					{posts.map((p) => (
-						<Card key={p.vkid} mode="outline">
+						<Card key={p.id} mode="outline">
 							<div style={{ height: "auto" }}>
 								<SimpleCell
 									before={<Avatar size={20} src={p.user.avatar_url} />}
 								>
 									{p.user.name} {p.user.surname}
 								</SimpleCell>
-								<CardScroll size="s">
-									{p.attachments &&
-										p.attachments.map((a, index) => (
+								{!!p.attachments[0] && (
+									<CardScroll showArrows size="s">
+										{p.attachments.map((a) => (
 											<Card
 												className={styles.postPhoto}
 												style={{
-													backgroundImage: `url(${a[index]})`,
+													backgroundImage: `url(${a})`,
 												}}
 											>
 												<div
@@ -75,7 +79,8 @@ export const EventPosts: React.FC<Props> = ({ eventId }) => {
 												/>
 											</Card>
 										))}
-								</CardScroll>
+									</CardScroll>
+								)}
 								<Text className={styles.postText} weight="regular">
 									{p.text}
 								</Text>

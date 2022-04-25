@@ -9,12 +9,14 @@
 
 .postText {
 	padding: 12px;
+	white-space: pre-wrap;
 }
 
 .postPhoto {
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
+	width: 93% !important;
 }
 .postPhoto:not(:last-child) {
 	margin-right: 12px;

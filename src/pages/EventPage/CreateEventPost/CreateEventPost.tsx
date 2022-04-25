@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
 	ModalRootContext,
 	File,
@@ -12,35 +12,43 @@ import {
 	Text,
 } from "@vkontakte/vkui";
 import { createNewEventPost } from "./api";
-import { UserContext } from "../../../context/userContext";
 import { UploadFile } from "../../../components/UploadFile";
 
 interface Props {
 	onClose: () => void;
+	updateData: () => void;
 	id: string;
+	eventId: number;
 }
 
 export interface EventPostData {
-	userId: number;
 	text: string;
 	files: File[] | null;
 }
 
-export const CreateEventPost: React.FC<Props> = ({ onClose, id }) => {
-	const { userState } = useContext(UserContext);
+export const CreateEventPost: React.FC<Props> = ({
+	onClose,
+	id,
+	eventId,
+	updateData,
+}) => {
 	const [showError, setShowError] = useState("");
 	const [form, setForm] = useState<EventPostData>({
-		userId: userState.id,
 		text: "",
 		files: null,
 	});
 	const { updateModalHeight } = useContext(ModalRootContext);
 
+	useEffect(() => {
+		updateModalHeight();
+	}, [form]);
+
 	const creatNewPost = async (): Promise<void> => {
 		try {
-			const eventId = await createNewEventPost(form);
-			if (!eventId) return;
+			const postId = await createNewEventPost(form, eventId);
+			if (!postId) return;
 			onClose();
+			updateData();
 		} catch (err) {
 			console.error(err);
 		}
@@ -60,7 +68,7 @@ export const CreateEventPost: React.FC<Props> = ({ onClose, id }) => {
 				</ModalPageHeader>
 			}
 		>
-			<Group style={{ paddingBottom: 70 }}>
+			<Group style={{ height: 650 }}>
 				<FormItem top="Описание">
 					<Textarea
 						rows={1}
