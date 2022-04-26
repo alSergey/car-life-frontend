@@ -135,7 +135,25 @@ export const MapPeopleWidget: React.FC<Props> = ({ panelHeight }) => {
 					]}
 				>
 					<ZoomControl options={{ float: "right" }} />
-					<GeolocationControl options={{ float: "left" }} />
+					<GeolocationControl
+						onLoad={(ymaps) => {
+							ymaps.geolocation
+								.get({
+									provider: "yandex",
+									mapStateAutoApply: true,
+								})
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								.then(function (result: any) {
+									// @ts-ignore
+									myMap.current?.geoObjects.add(result.geoObjects);
+								});
+							setTimeout(() => {
+								// @ts-ignore
+								myMap.current.action._map.setZoom(11);
+							}, 1000);
+						}}
+						options={{ float: "left", mapStateAutoApply: true }}
+					/>
 					{events.map((e) => {
 						return (
 							<Placemark

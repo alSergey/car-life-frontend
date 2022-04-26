@@ -39,11 +39,11 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 	};
 
 	const handleLogin = async () => {
-		// const data = await bridge.send("VKWebAppGetUserInfo");
+		const data = await bridge.send("VKWebAppGetUserInfo");
 
 		try {
 			const session = await api.login.loginCreate({
-				vkid: 1,
+				vkid: data.id,
 			});
 
 			setToken(session.data.value);
@@ -51,9 +51,9 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 			handleGetUserData();
 			if (location.getViewId() === REG_VIEW) router.pushPage(MAP_PAGE);
 
-			// await bridge.send("VKWebAppAllowMessagesFromGroup", {
-			// 	group_id: 212586637,
-			// });
+			await bridge.send("VKWebAppAllowMessagesFromGroup", {
+				group_id: 212586637,
+			});
 		} catch (err) {
 			console.error(err);
 			if (err.response.status !== 401) return;
