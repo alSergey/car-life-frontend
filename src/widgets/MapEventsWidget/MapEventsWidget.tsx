@@ -80,14 +80,37 @@ export const MapEventsWidget: React.FC<Props> = ({
 					height={mapHeight}
 					options={{
 						suppressMapOpenBlock: true,
+						mapStateAutoApply: true,
 					}}
 					instanceRef={(ref) => {
 						// @ts-ignore
 						if (ref) myMap.current = ref;
 					}}
+					modules={["geolocation"]}
 				>
 					<ZoomControl options={{ float: "right" }} />
-					<GeolocationControl options={{ float: "left" }} />
+					<GeolocationControl
+						onLoad={(ymaps) => {
+							ymaps.geolocation
+								.get({
+									provider: "yandex",
+									mapStateAutoApply: true,
+								})
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								.then(function (result: any) {
+									// @ts-ignore
+									myMap.current?.geoObjects.add(result.geoObjects);
+								});
+							setTimeout(() => {
+								// @ts-ignore
+								myMap.current.action._map.setZoom(11);
+							}, 1000);
+						}}
+						options={{ float: "left", mapStateAutoApply: true }}
+						defaultOptions={{ mapStateAutoApply: true }}
+						defaultData={{ mapStateAutoApply: true }}
+						defaultState={{ zoom: 11 }}
+					/>
 					<Group
 						style={{
 							position: "absolute",

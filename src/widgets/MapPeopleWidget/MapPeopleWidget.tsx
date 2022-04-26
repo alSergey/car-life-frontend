@@ -22,6 +22,7 @@ import {
 } from "@vkontakte/vkui";
 import styles from "./MapPeopleWidget.module.css";
 import { createNewMiniEvent } from "./api/api";
+import { Icon24CancelOutline, Icon28AddOutline } from "@vkontakte/icons";
 
 interface Props {
 	panelHeight?: number;
@@ -134,7 +135,25 @@ export const MapPeopleWidget: React.FC<Props> = ({ panelHeight }) => {
 					]}
 				>
 					<ZoomControl options={{ float: "right" }} />
-					<GeolocationControl options={{ float: "left" }} />
+					<GeolocationControl
+						onLoad={(ymaps) => {
+							ymaps.geolocation
+								.get({
+									provider: "yandex",
+									mapStateAutoApply: true,
+								})
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								.then(function (result: any) {
+									// @ts-ignore
+									myMap.current?.geoObjects.add(result.geoObjects);
+								});
+							setTimeout(() => {
+								// @ts-ignore
+								myMap.current.action._map.setZoom(11);
+							}, 1000);
+						}}
+						options={{ float: "left", mapStateAutoApply: true }}
+					/>
 					{events.map((e) => {
 						return (
 							<Placemark
@@ -165,12 +184,24 @@ export const MapPeopleWidget: React.FC<Props> = ({ panelHeight }) => {
 						);
 					})}
 					{/* <Button className={styles.buttonRide} onClick={}>Поехали</Button> */}
+
 					<Button
-						style={{
-							visibility: newEvent.latitude !== 0 ? "visible" : "hidden",
-							backgroundColor: showCreation ? "#cb2626" : "#2688eb",
-						}}
 						className={styles.buttonAdd}
+						size="l"
+						style={{
+							width: 55,
+							height: 55,
+							visibility: newEvent.latitude !== 0 ? "visible" : "hidden",
+							backgroundColor: showCreation ? "#cb2626" : "rgb(239, 239, 239)",
+						}}
+						mode="secondary"
+						before={
+							showCreation ? (
+								<Icon24CancelOutline fill={"#ffffff"} width={35} height={35} />
+							) : (
+								<Icon28AddOutline width={35} height={35} />
+							)
+						}
 						onClick={() => {
 							if (showCreation) {
 								setShowCreation(false);
@@ -178,13 +209,11 @@ export const MapPeopleWidget: React.FC<Props> = ({ panelHeight }) => {
 								setShowCreation(true);
 							}
 						}}
-					>
-						{showCreation ? "x" : "+"}
-					</Button>
+					/>
 					<div
 						style={{
 							position: "fixed",
-							bottom: 128,
+							bottom: 140,
 							right: 10,
 							backgroundColor: "white",
 							borderRadius: 10,

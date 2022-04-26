@@ -1,0 +1,32 @@
+.addButton {
+	position: fixed;
+	bottom: 65px;
+	right: 20px;
+	z-index: 10;
+	border-radius: 50%;
+	background-color: rgb(239, 239, 239);
+}
+
+.postText {
+	padding: 12px;
+	white-space: pre-wrap;
+}
+
+.postPhoto {
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 93% !important;
+}
+.postPhoto:not(:last-child) {
+	margin-right: 12px;
+}
+
+.container {
+	width: 100%;
+	padding-left: 0;
+}
+
+.cardContainer {
+	margin-right: 0;
+}
