@@ -7,7 +7,6 @@ import {
 	CardScroll,
 	Div,
 	ModalRoot,
-	Paragraph,
 	SimpleCell,
 	SplitLayout,
 	Text,

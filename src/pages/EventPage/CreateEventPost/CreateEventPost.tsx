@@ -80,7 +80,6 @@ export const CreateEventPost: React.FC<Props> = ({
 								...form,
 								text: value,
 							});
-							updateModalHeight();
 						}}
 					/>
 				</FormItem>
@@ -101,7 +100,6 @@ export const CreateEventPost: React.FC<Props> = ({
 								...form,
 								files: fileList,
 							});
-							updateModalHeight();
 						}}
 					/>
 				</FormItem>
