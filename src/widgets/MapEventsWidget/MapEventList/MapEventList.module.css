@@ -1,0 +1,12 @@
+.iconHeader {
+	display: flex;
+	justify-content: center;
+}
+
+.icon svg {
+	transform: rotateX(180deg);
+}
+
+.eventsContainer {
+	display: flex;
+}
