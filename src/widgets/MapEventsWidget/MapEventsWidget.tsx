@@ -63,6 +63,7 @@ export const MapEventsWidget: React.FC<Props> = ({
 					}}
 					options={{
 						suppressMapOpenBlock: true,
+						mapStateAutoApply: true,
 					}}
 					instanceRef={(ref) => {
 						// @ts-ignore
