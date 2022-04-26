@@ -19,7 +19,9 @@ export const MapPage: React.FC<Props> = ({ id, onEventClick }) => {
 			<MapBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === MapTab.Event && (
 				<MapEventsWidget
-					panelHeight={panelHref.current?.offsetHeight}
+					mapHeight={
+						window.innerHeight - 95 - (panelHref.current?.offsetHeight || 0)
+					}
 					onEventClick={onEventClick}
 				/>
 			)}

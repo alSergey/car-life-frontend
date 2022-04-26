@@ -551,8 +551,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/event_posts/{event_id}
      */
     eventPostsDetail: (
-      id: number,
-      eventId: string,
+      eventId: number,
       query?: { IdGt?: number; IdLte?: number; Limit?: number },
       params: RequestParams = {},
     ) =>
@@ -573,7 +572,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary create an event post
      * @request POST:/event_posts/{event_id}/create
      */
-    createCreate: (eventId: string, body: ModelsCreatePostRequest, params: RequestParams = {}) =>
+    createCreate: (eventId: number, body: ModelsCreatePostRequest, params: RequestParams = {}) =>
       this.request<ModelsEventPost, UtilsError>({
         path: `/event_posts/${eventId}/create`,
         method: "POST",
@@ -593,7 +592,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/events
      */
     eventsList: (
-      query?: { IdGt?: number; IdLte?: number; Limit?: number; Query?: string },
+      query?: {
+        IdGt?: number;
+        IdLte?: number;
+        Limit?: number;
+        Query?: string;
+        OnlyActual?: boolean;
+        UpperRightLatitude?: number;
+        UpperRightLongitude?: number;
+        DownLeftLatitude?: number;
+        DownLeftLongitude?: number;
+      },
       params: RequestParams = {},
     ) =>
       this.request<ModelsEventCard[], UtilsError>({
@@ -723,7 +732,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary upload attachments for event post
      * @request POST:/events_posts/{post_id}/upload
      */
-    uploadCreate: (id: number, postId: string, data?: any, params: RequestParams = {}) =>
+    uploadCreate: (postId: number, data?: any, params: RequestParams = {}) =>
       this.request<ModelsEventPost, UtilsError>({
         path: `/events_posts/${postId}/upload`,
         method: "POST",
