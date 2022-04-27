@@ -22,7 +22,7 @@ interface Props {
 }
 
 export const EventPostList: React.FC<Props> = ({ postList, onUserClick }) => (
-	<CardGrid size="l">
+	<CardGrid style={{ width: "100%" }} size="l">
 		{postList.map((post) => (
 			<EventPostCard
 				key={post.id}
