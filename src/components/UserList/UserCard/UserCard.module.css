@@ -10,3 +10,7 @@
 .reject {
 	color: var(--field_error_border);
 }
+
+.avatar img {
+	object-fit: cover;
+}

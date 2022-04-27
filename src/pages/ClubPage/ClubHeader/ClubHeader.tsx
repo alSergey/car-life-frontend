@@ -24,7 +24,12 @@ export const ClubHeader: React.FC<Prop> = ({ clubData, onButtonClick }) => (
 					{clubData.description}
 				</Text>
 			</div>
-			<Avatar mode="image" size={160} src={clubData.avatar} />
+			<Avatar
+				className={styles.avatar}
+				mode="image"
+				size={160}
+				src={clubData.avatar}
+			/>
 		</div>
 		<div className={styles.tags}>
 			{clubData.tags.map((t) => (

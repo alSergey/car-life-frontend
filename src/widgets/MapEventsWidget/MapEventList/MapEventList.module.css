@@ -3,6 +3,10 @@
 	justify-content: center;
 }
 
+.avatar img {
+	object-fit: cover;
+}
+
 .icon svg {
 	transform: rotateX(180deg);
 }

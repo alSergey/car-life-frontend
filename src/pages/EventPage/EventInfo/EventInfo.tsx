@@ -32,11 +32,7 @@ export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 							{event.club.name}
 						</Title>
 					</div>
-					<Avatar
-						size={45}
-						style={{ objectFit: "cover" }}
-						src={event.club.avatar}
-					/>
+					<Avatar className={styles.avatar} size={45} src={event.club.avatar} />
 				</div>
 			</Group>
 			<Group>

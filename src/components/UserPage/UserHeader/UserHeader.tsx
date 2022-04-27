@@ -10,7 +10,7 @@ interface Prop {
 
 export const UserHeader: React.FC<Prop> = ({ userData }) => (
 	<Gradient className={styles.userContainer}>
-		<Avatar size={96} src={userData.avatar} />
+		<Avatar className={styles.avatar} size={96} src={userData.avatar} />
 		<Title className={styles.userName} level="2" weight="1">
 			{userData.surname} {userData.name}
 		</Title>

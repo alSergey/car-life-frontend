@@ -30,3 +30,7 @@
 .cardContainer {
 	margin-right: 0;
 }
+
+.avatar img {
+	object-fit: cover;
+}

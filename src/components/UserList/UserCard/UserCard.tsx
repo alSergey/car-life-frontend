@@ -22,7 +22,7 @@ export const UserCard: React.FC<Props> = ({
 	onReject,
 }) => (
 	<SimpleCell
-		before={<Avatar size={40} src={img} />}
+		before={<Avatar className={styles.avatar} size={40} src={img} />}
 		onClick={onClick}
 		after={
 			<div className={styles.container}>

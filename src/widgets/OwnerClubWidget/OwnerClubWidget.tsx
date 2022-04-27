@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { emptyOwnerClubs, getOwnerClubList, OwnerClub } from "./api";
 import { Avatar, CustomSelect, CustomSelectOption } from "@vkontakte/vkui";
+import styles from "./OwnerClubWidget.module.css";
 
 interface Props {
 	selected?: OwnerClub | null;
@@ -39,7 +40,9 @@ export const OwnerClubWidget: React.FC<Props> = ({ selected, onChange }) => {
 			renderOption={({ option, ...restProps }) => (
 				<CustomSelectOption
 					{...restProps}
-					before={<Avatar size={24} src={option.avatar} />}
+					before={
+						<Avatar className={styles.avatar} size={24} src={option.avatar} />
+					}
 				/>
 			)}
 		/>

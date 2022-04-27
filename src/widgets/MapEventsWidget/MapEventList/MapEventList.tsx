@@ -64,7 +64,12 @@ export const MapEventList: React.FC<Props> = ({
 									subtitle={getPrettyDate(event.event_date)}
 									onClick={() => onEventClick(event)}
 								>
-									<Avatar size={128} mode="image" src={event.avatar} />
+									<Avatar
+										className={styles.avatar}
+										size={128}
+										mode="image"
+										src={event.avatar}
+									/>
 								</HorizontalCell>
 							))}
 						</div>

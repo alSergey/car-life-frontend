@@ -20,3 +20,7 @@
 	color: var(--text_secondary);
 	margin-top: 10px;
 }
+
+.avatar img {
+	object-fit: cover;
+}

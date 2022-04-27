@@ -31,3 +31,7 @@
 .descText {
 	font-size: 17px;
 }
+
+.avatar img {
+	object-fit: cover;
+}

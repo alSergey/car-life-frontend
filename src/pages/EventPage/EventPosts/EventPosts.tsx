@@ -58,7 +58,13 @@ export const EventPosts: React.FC<Props> = ({ eventId }) => {
 						<Card key={p.id} mode="outline">
 							<div style={{ height: "auto" }}>
 								<SimpleCell
-									before={<Avatar size={20} src={p.user.avatar_url} />}
+									before={
+										<Avatar
+											className={styles.avatar}
+											size={20}
+											src={p.user.avatar_url}
+										/>
+									}
 								>
 									{p.user.name} {p.user.surname}
 								</SimpleCell>
