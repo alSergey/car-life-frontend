@@ -84,13 +84,11 @@ export const MapEventsWidget: React.FC<Props> = ({
 					))}
 				</Map>
 			</YMaps>
-			{Boolean(events.length) && (
-				<MapEventList
-					eventList={events}
-					activeEvent={activeEvent}
-					onEventClick={handleClickEvent}
-				/>
-			)}
+			<MapEventList
+				eventList={events}
+				activeEvent={activeEvent}
+				onEventClick={handleClickEvent}
+			/>
 		</div>
 	);
 };

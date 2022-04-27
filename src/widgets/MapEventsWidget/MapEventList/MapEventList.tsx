@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
 	Avatar,
+	Footer,
 	Group,
 	HorizontalCell,
 	HorizontalScroll,
@@ -47,25 +48,31 @@ export const MapEventList: React.FC<Props> = ({
 		>
 			{opened && (
 				<HorizontalScroll>
-					<div className={styles.eventsContainer}>
-						{eventList.map((event) => (
-							<HorizontalCell
-								key={event.id}
-								style={{
-									backgroundColor:
-										activeEvent === event.id
-											? "rgba(204, 233, 254, 0.5)"
-											: "transparent",
-								}}
-								size="l"
-								header={event.name}
-								subtitle={getPrettyDate(event.event_date)}
-								onClick={() => onEventClick(event)}
-							>
-								<Avatar size={128} mode="image" src={event.avatar} />
-							</HorizontalCell>
-						))}
-					</div>
+					{Boolean(eventList.length) ? (
+						<div className={styles.eventsContainer}>
+							{eventList.map((event) => (
+								<HorizontalCell
+									key={event.id}
+									style={{
+										backgroundColor:
+											activeEvent === event.id
+												? "rgba(204, 233, 254, 0.5)"
+												: "transparent",
+									}}
+									size="l"
+									header={event.name}
+									subtitle={getPrettyDate(event.event_date)}
+									onClick={() => onEventClick(event)}
+								>
+									<Avatar size={128} mode="image" src={event.avatar} />
+								</HorizontalCell>
+							))}
+						</div>
+					) : (
+						<Footer style={{ color: "black" }}>
+							По данным координатам ничего не найдено
+						</Footer>
+					)}
 				</HorizontalScroll>
 			)}
 		</Group>

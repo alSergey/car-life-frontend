@@ -183,8 +183,6 @@ export const MapPeopleWidget: React.FC<Props> = ({ panelHeight }) => {
 							/>
 						);
 					})}
-					{/* <Button className={styles.buttonRide} onClick={}>Поехали</Button> */}
-
 					<Button
 						className={styles.buttonAdd}
 						size="l"
