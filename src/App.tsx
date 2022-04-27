@@ -54,6 +54,8 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 			await bridge.send("VKWebAppAllowMessagesFromGroup", {
 				group_id: 212586637,
 			});
+
+			await bridge.send("VKWebAppGetGeodata");
 		} catch (err) {
 			console.error(err);
 			if (err.response.status !== 401) return;
