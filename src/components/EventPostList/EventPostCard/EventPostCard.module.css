@@ -1,0 +1,21 @@
+.header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+}
+
+.avatar img {
+	object-fit: cover;
+}
+
+.photos {
+	object-fit: cover;
+	width: 100%;
+	height: 200px;
+}
+
+.text {
+	padding: 12px;
+	white-space: pre-wrap;
+}
