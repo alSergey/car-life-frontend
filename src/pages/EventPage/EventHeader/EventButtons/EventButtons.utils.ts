@@ -12,7 +12,7 @@ export const isDisabledEventMemberButton = (userStatus: string): boolean =>
 	userStatus !== "unknown";
 
 export const getEventViewerButtonText = (userStatus: string): string => {
-	if (userStatus === "spectator") return "Вы поедите";
+	if (userStatus === "spectator") return "Вы поедете";
 
 	return "Поеду";
 };
