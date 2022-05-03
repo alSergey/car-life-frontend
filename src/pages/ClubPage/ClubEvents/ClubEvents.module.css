@@ -1,0 +1,8 @@
+.addButton {
+	position: fixed;
+	bottom: 65px;
+	right: 20px;
+	z-index: 10;
+	border-radius: 50%;
+	background-color: rgb(239, 239, 239);
+}

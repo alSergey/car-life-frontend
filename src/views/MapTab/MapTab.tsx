@@ -12,6 +12,8 @@ import {
 	MAP_CLUB_PANEL,
 	MAP_CAR_PAGE,
 	MAP_CAR_PANEL,
+	MAP_CREATE_EVENT_PAGE,
+	MAP_CREATE_EVENT_PANEL,
 	setCarPageQuery,
 	setClubPageQuery,
 	setUserPageQuery,
@@ -23,6 +25,7 @@ import { UserPage } from "../../pages/UserPage";
 import { CarPage } from "../../pages/CarPage";
 import { useLocation, useRouter } from "@happysanta/router";
 import { UserContext } from "../../context/userContext";
+import { CreateEventPage } from "../../pages/CreateEventPage";
 
 interface Props {
 	id: string;
@@ -58,6 +61,10 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 		router.pushPage(MAP_CAR_PAGE, setCarPageQuery(carId));
 	};
 
+	const handleCreateEventCLick = (): void => {
+		router.pushPage(MAP_CREATE_EVENT_PAGE);
+	};
+
 	return (
 		<View
 			id={id}
@@ -67,6 +74,11 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 			activePanel={location.getViewActivePanel(id)}
 		>
 			<MapPage id={MAP_PANEL} onEventClick={handleEventCLick} />
+			<CreateEventPage
+				id={MAP_CREATE_EVENT_PANEL}
+				onBackClick={handleBackClick}
+				onSubmit={handleEventCLick}
+			/>
 			<EventPage
 				id={MAP_EVENT_PANEL}
 				onBackClick={handleBackClick}
@@ -79,6 +91,7 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 				onEventClick={handleEventCLick}
 				onCarClick={handleCarCLick}
 				onUserClick={handleUserCLick}
+				onCreateEventClick={handleCreateEventCLick}
 			/>
 			<UserPage
 				id={MAP_USER_PANEL}

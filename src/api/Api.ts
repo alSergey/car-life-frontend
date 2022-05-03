@@ -464,6 +464,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
+     * @description Handler for leaving club
+     *
+     * @tags Clubs
+     * @name LeaveCreate
+     * @summary leave club
+     * @request POST:/clubs/{id}/leave
+     */
+    leaveCreate: (id: number, params: RequestParams = {}) =>
+      this.request<void, UtilsError | void>({
+        path: `/clubs/${id}/leave`,
+        method: "POST",
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
      * @description Handler for uploading a club's avatar
      *
      * @tags Clubs
@@ -661,6 +677,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "GET",
         type: ContentType.Json,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for leaving event
+     *
+     * @tags Events
+     * @name LeaveCreate
+     * @summary leave event
+     * @request POST:/events/{id}/leave
+     */
+    leaveCreate: (id: number, params: RequestParams = {}) =>
+      this.request<void, UtilsError | void>({
+        path: `/events/${id}/leave`,
+        method: "POST",
+        type: ContentType.Json,
         ...params,
       }),
 

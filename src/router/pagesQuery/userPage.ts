@@ -4,7 +4,7 @@ export interface UserPageQuery {
 	userId: number;
 }
 
-export const userIdQuery = ":userId([0-9]+)?";
+export const userIdQuery = ":userId([0-9]+)";
 
 export const setUserPageQuery = (
 	userId: UserPageQuery["userId"]

@@ -15,6 +15,7 @@ interface Props {
 	onEventClick: (eventId: number) => void;
 	onCarClick: (carId: number) => void;
 	onUserClick: (userId: number) => void;
+	onCreateEventClick: (clubId: number) => void;
 	onBackClick?: () => void;
 }
 
@@ -24,6 +25,7 @@ export const ClubPage: React.FC<Props> = ({
 	onUserClick,
 	onCarClick,
 	onEventClick,
+	onCreateEventClick,
 }) => {
 	const { clubId } = getClubPageQuery();
 
@@ -53,7 +55,12 @@ export const ClubPage: React.FC<Props> = ({
 			<ClubHeader clubData={clubData} onButtonClick={handleGetClubData} />
 			<ClubBar activeTab={activeTab} setActiveTab={setActiveTab} />
 			{activeTab === ClubTab.Events && (
-				<ClubEvents clubId={clubId} onClick={onEventClick} />
+				<ClubEvents
+					clubId={clubId}
+					userStatus={clubData.userStatus}
+					onClick={onEventClick}
+					onCreateClick={() => onCreateEventClick(clubId)}
+				/>
 			)}
 			{activeTab === ClubTab.Garage && (
 				<ClubGarage clubId={clubId} onClick={onCarClick} />

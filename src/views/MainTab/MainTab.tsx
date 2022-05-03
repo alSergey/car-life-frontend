@@ -64,6 +64,14 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 		router.pushPage(MAIN_CAR_PAGE, setCarPageQuery(carId));
 	};
 
+	const handleCreateEventCLick = (): void => {
+		router.pushPage(MAIN_CREATE_EVENT_PAGE);
+	};
+
+	const handleCreateClubCLick = (): void => {
+		router.pushPage(MAIN_CREATE_CLUB_PAGE);
+	};
+
 	return (
 		<View
 			id={id}
@@ -76,8 +84,8 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 				id={MAIN_PANEL}
 				onEventClick={handleEventCLick}
 				onClubClick={handleClubCLick}
-				onEventCreateClick={() => router.pushPage(MAIN_CREATE_EVENT_PAGE)}
-				onClubCreateClick={() => router.pushPage(MAIN_CREATE_CLUB_PAGE)}
+				onEventCreateClick={handleCreateEventCLick}
+				onClubCreateClick={handleCreateClubCLick}
 			/>
 			<CreateEventPage
 				id={MAIN_CREATE_EVENT_PANEL}
@@ -101,6 +109,7 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 				onEventClick={handleEventCLick}
 				onUserClick={handleUserCLick}
 				onCarClick={handleCarCLick}
+				onCreateEventClick={handleCreateEventCLick}
 			/>
 			<UserPage
 				id={MAIN_USER_PANEL}
