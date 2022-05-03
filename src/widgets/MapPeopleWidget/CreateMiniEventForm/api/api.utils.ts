@@ -1,4 +1,4 @@
-import { ModelsCreateMiniEventRequest } from "../../../api/Api";
+import { ModelsCreateMiniEventRequest } from "../../../../api/Api";
 
 export const isMiniEventFormFilled = (
 	form: ModelsCreateMiniEventRequest

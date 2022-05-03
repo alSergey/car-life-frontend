@@ -26,7 +26,11 @@ export const MapPage: React.FC<Props> = ({ id, onEventClick }) => {
 				/>
 			)}
 			{activeTab === MapTab.People && (
-				<MapPeopleWidget panelHeight={panelHref.current?.offsetHeight} />
+				<MapPeopleWidget
+					mapHeight={
+						window.innerHeight - 95 - (panelHref.current?.offsetHeight || 0)
+					}
+				/>
 			)}
 		</Panel>
 	);
