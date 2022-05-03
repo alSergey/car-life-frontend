@@ -38,6 +38,7 @@ export const CreateMiniEventForm: React.FC<Props> = ({
 		setLoading(true);
 		try {
 			await createNewMiniEvent(form);
+			setIsOpened(false);
 			onCreate();
 		} catch (err) {
 			console.error(err);
@@ -51,8 +52,7 @@ export const CreateMiniEventForm: React.FC<Props> = ({
 
 		setFormData({
 			...form,
-			latitude: location.latitude,
-			longitude: location.longitude,
+			...location,
 		});
 	}, [location]);
 

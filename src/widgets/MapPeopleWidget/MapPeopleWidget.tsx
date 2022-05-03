@@ -8,7 +8,6 @@ import {
 } from "react-yandex-maps";
 import { defaultMapData, YandexKey } from "../../constants/yandexKey";
 import { getPrettyTime } from "../../constants/time";
-import { ModelsMiniEvent } from "../../api/Api";
 import { emptyEventList, getMiniEventList } from "./api";
 import { PlacemarkImage } from "./MapPeopleWidget.config";
 import { CreateMiniEventForm } from "./CreateMiniEventForm";
@@ -51,13 +50,6 @@ export const MapPeopleWidget: React.FC<Props> = ({ mapHeight }) => {
 		}
 	};
 
-	const handleClickEvent = (e: ModelsMiniEvent) => {
-		setMapState({
-			location: [e.latitude, e.longitude],
-			zoom: 13,
-		});
-	};
-
 	useEffect(() => {
 		handleGetEventList();
 	}, []);
@@ -93,7 +85,12 @@ export const MapPeopleWidget: React.FC<Props> = ({ mapHeight }) => {
 					{events.map((e) => (
 						<Placemark
 							key={e.id}
-							onClick={() => handleClickEvent(e)}
+							onClick={() => {
+								setMapState({
+									location: [e.latitude, e.longitude],
+									zoom: 13,
+								});
+							}}
 							geometry={[e.latitude, e.longitude]}
 							options={getExtraOptions(e.type.id)}
 							modules={["geoObject.addon.hint", "geoObject.addon.balloon"]}
@@ -126,6 +123,7 @@ export const MapPeopleWidget: React.FC<Props> = ({ mapHeight }) => {
 				location={newEventLocation}
 				onCreate={() => {
 					handleGetEventList();
+					setNewEventLocation(null);
 				}}
 			/>
 		</div>
