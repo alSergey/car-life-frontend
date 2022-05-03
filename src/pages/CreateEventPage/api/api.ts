@@ -3,6 +3,7 @@ import {
 	EventForm,
 	isEventFormFilled,
 } from "../../../components/CreateEventForm";
+import { convertDateTimeToUTC } from "../../../constants/time";
 
 export const createNewEvent = (form: EventForm): Promise<number> => {
 	if (!isEventFormFilled(form) || !form.club || !form.location)
@@ -13,7 +14,7 @@ export const createNewEvent = (form: EventForm): Promise<number> => {
 			name: form.name,
 			club_id: form.club.value,
 			description: form.description,
-			event_date: new Date(`${form.date}T${form.time}Z`).toISOString(),
+			event_date: convertDateTimeToUTC(form.date, form.time),
 			latitude: form.location.latitude,
 			longitude: form.location.longitude,
 			avatar: "",

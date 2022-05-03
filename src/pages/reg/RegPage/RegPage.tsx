@@ -30,8 +30,9 @@ export const RegPage: React.FC<Props> = ({
 				<span>Жми вход и пристегни ремни, мы стартуем!</span>
 				<Button
 					style={{ backgroundColor: "rgba(61,161,58,0.79)" }}
-					loading={loading}
 					size="l"
+					loading={loading}
+					disabled={loading}
 					onClick={onNextClick}
 				>
 					Поехали!

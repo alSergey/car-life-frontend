@@ -123,7 +123,7 @@ export const CreateEventForm: React.FC<Props> = ({
 					size="l"
 					type="submit"
 					loading={loading}
-					disabled={!isEventFormFilled(form)}
+					disabled={!isEventFormFilled(form) || loading}
 				>
 					{buttonText || "Создать"}
 				</Button>

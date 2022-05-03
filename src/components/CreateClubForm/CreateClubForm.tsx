@@ -78,7 +78,7 @@ export const CreateClubForm: React.FC<Props> = ({
 					size="l"
 					type="submit"
 					loading={loading}
-					disabled={!isClubFormFilled(form)}
+					disabled={!isClubFormFilled(form) || loading}
 				>
 					{buttonText || "Создать"}
 				</Button>

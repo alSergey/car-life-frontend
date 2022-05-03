@@ -176,7 +176,7 @@ export const CreateCarFom: React.FC<Props> = ({
 					size="l"
 					type="submit"
 					loading={loading}
-					disabled={!isCarFormFilled(form)}
+					disabled={!isCarFormFilled(form) || loading}
 				>
 					{buttonText || "Создать"}
 				</Button>
