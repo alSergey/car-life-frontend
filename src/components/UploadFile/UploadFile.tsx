@@ -42,7 +42,7 @@ export const UploadFile: React.FC<Props> = ({
 				controlSize="l"
 				multiple={multiple}
 				before={<Icon24Camera />}
-				accept=".jpeg,.jpg,.png.webp"
+				accept=".jpeg,.jpg,.png,.webp"
 				onChange={({ target: { files } }) => {
 					if (!files) return;
 
