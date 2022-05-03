@@ -24,7 +24,7 @@ export const CreateClubForm: React.FC<Props> = ({
 				onSubmit(form);
 			}}
 		>
-			<FormItem top="Название">
+			<FormItem top="Название *">
 				<Input
 					type="text"
 					placeholder="Не указано"
@@ -37,7 +37,7 @@ export const CreateClubForm: React.FC<Props> = ({
 					}}
 				/>
 			</FormItem>
-			<FormItem top="Описание">
+			<FormItem top="Описание *">
 				<Textarea
 					rows={1}
 					placeholder="Не указано"
@@ -50,7 +50,7 @@ export const CreateClubForm: React.FC<Props> = ({
 					}}
 				/>
 			</FormItem>
-			<FormItem top="Теги">
+			<FormItem top="Теги *">
 				<ClubTagWidget
 					values={form.tags}
 					onChange={(tags) => {
@@ -61,7 +61,7 @@ export const CreateClubForm: React.FC<Props> = ({
 					}}
 				/>
 			</FormItem>
-			<FormItem top="Аватарка">
+			<FormItem top="Аватарка *">
 				<UploadFile
 					fileList={form.file && [form.file]}
 					onChange={(fileList) => {

@@ -32,7 +32,7 @@ export const CreateEventForm: React.FC<Props> = ({
 				onSubmit(form);
 			}}
 		>
-			<FormItem top="Название">
+			<FormItem top="Название *">
 				<Input
 					type="text"
 					placeholder="Не указано"
@@ -45,7 +45,7 @@ export const CreateEventForm: React.FC<Props> = ({
 					}}
 				/>
 			</FormItem>
-			<FormItem top="Описание">
+			<FormItem top="Описание *">
 				<Textarea
 					rows={1}
 					placeholder="Не указано"
@@ -58,7 +58,7 @@ export const CreateEventForm: React.FC<Props> = ({
 					}}
 				/>
 			</FormItem>
-			<FormItem top="Клуб">
+			<FormItem top="Клуб *">
 				<OwnerClubWidget
 					selected={form.club}
 					onChange={(club) => {
@@ -70,7 +70,7 @@ export const CreateEventForm: React.FC<Props> = ({
 				/>
 			</FormItem>
 			<FormLayoutGroup mode="horizontal">
-				<FormItem top="Дата">
+				<FormItem top="Дата *">
 					<Input
 						type="date"
 						value={form.date}
@@ -82,7 +82,7 @@ export const CreateEventForm: React.FC<Props> = ({
 						}}
 					/>
 				</FormItem>
-				<FormItem top="Время">
+				<FormItem top="Время *">
 					<Input
 						type="time"
 						value={form.time}
@@ -95,7 +95,7 @@ export const CreateEventForm: React.FC<Props> = ({
 					/>
 				</FormItem>
 			</FormLayoutGroup>
-			<FormItem top="Место">
+			<FormItem top="Место *">
 				<CreateEventMap
 					location={form.location}
 					onChange={(location) => {
@@ -106,7 +106,7 @@ export const CreateEventForm: React.FC<Props> = ({
 					}}
 				/>
 			</FormItem>
-			<FormItem top="Аватарка">
+			<FormItem top="Аватарка *">
 				<UploadFile
 					fileList={form.file && [form.file]}
 					onChange={(fileList) => {
