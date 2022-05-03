@@ -1,1 +1,6 @@
-export { newClubMember, newClubSubscriber, getClubChatLink } from "./api";
+export {
+	getClubChatLink,
+	newClubMember,
+	newClubSubscriber,
+	leaveClub,
+} from "./api";

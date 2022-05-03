@@ -1,27 +1,23 @@
-export const getClubMemberButtonText = (userStatus: string): string => {
-	if (userStatus === "participant") return "Вы участник";
-	if (userStatus === "participant_request") return "Обработка заявки";
+export const isShownClubMessagesButton = (userStatus: string): boolean =>
+	userStatus === "participant" || userStatus === "admin";
 
-	return "Участвовать";
-};
+export const isShownClubMemberRequestButton = (userStatus: string): boolean =>
+	userStatus === "participant_request";
 
 export const isShownClubMemberButton = (userStatus: string): boolean =>
-	userStatus === "participant_request" || userStatus === "unknown";
+	userStatus === "participant" || userStatus === "unknown";
 
-export const isDisabledClubMemberButton = (userStatus: string): boolean =>
-	userStatus !== "unknown";
+export const getClubMemberButtonText = (userStatus: string): string => {
+	if (userStatus === "participant") return "Покинуть клуб";
 
-export const getClubSubscriberButtonText = (userStatus: string): string => {
-	if (userStatus === "subscriber") return "Вы подписаны";
-
-	return "Подписаться";
+	return "Участвовать";
 };
 
 export const isShownClubSubscriberButton = (userStatus: string): boolean =>
 	userStatus === "subscriber" || userStatus === "unknown";
 
-export const isDisabledClubSubscriberButton = (userStatus: string): boolean =>
-	userStatus !== "unknown";
+export const getClubSubscriberButtonText = (userStatus: string): string => {
+	if (userStatus === "subscriber") return "Отписаться";
 
-export const isShownClubMessagesButton = (userStatus: string): boolean =>
-	userStatus === "participant" || userStatus === "admin";
+	return "Подписаться";
+};

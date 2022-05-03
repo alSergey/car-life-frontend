@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import { Button } from "@vkontakte/vkui";
 
 import styles from "./ClubButtons.module.css";
-import { getClubChatLink, newClubMember, newClubSubscriber } from "./api";
 import {
-	getClubMemberButtonText,
-	getClubSubscriberButtonText,
-	isDisabledClubMemberButton,
-	isDisabledClubSubscriberButton,
-	isShownClubMemberButton,
+	getClubChatLink,
+	leaveClub,
+	newClubMember,
+	newClubSubscriber,
+} from "./api";
+import {
 	isShownClubMessagesButton,
+	isShownClubMemberRequestButton,
+	isShownClubMemberButton,
+	getClubMemberButtonText,
 	isShownClubSubscriberButton,
+	getClubSubscriberButtonText,
 } from "./ClubButtons.utils";
 
 interface Props {
@@ -26,6 +30,16 @@ export const ClubButtons: React.FC<Props> = ({
 }) => {
 	const [loadingMember, setLoadingMember] = useState(false);
 	const [loadingSubscriber, setLoadingSubscriber] = useState(false);
+	const [loadingLeave, setLoadingLeave] = useState(false);
+
+	const handleGetChatLink = async (): Promise<void> => {
+		try {
+			const chatLink = await getClubChatLink(clubId);
+			window.open(chatLink);
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	const handleMember = async (): Promise<void> => {
 		setLoadingMember(true);
@@ -51,29 +65,44 @@ export const ClubButtons: React.FC<Props> = ({
 		}
 	};
 
-	const handleGetChatLink = async (): Promise<void> => {
+	const handleLeaveClub = async (): Promise<void> => {
+		setLoadingLeave(true);
 		try {
-			const chatLink = await getClubChatLink(clubId);
-			window.open(chatLink);
+			await leaveClub(clubId);
+			onClick();
 		} catch (err) {
 			console.error(err);
+		} finally {
+			setLoadingLeave(false);
 		}
 	};
 
 	return (
 		<div className={styles.container}>
 			{isShownClubMessagesButton(userStatus) && (
-				<Button size="m" stretched onClick={handleGetChatLink}>
+				<Button size="m" stretched mode="outline" onClick={handleGetChatLink}>
 					Беседа клуба
+				</Button>
+			)}
+			{isShownClubMemberRequestButton(userStatus) && (
+				<Button size="m" stretched disabled>
+					Обработка администратором
 				</Button>
 			)}
 			{isShownClubMemberButton(userStatus) && (
 				<Button
 					size="m"
 					stretched
-					loading={loadingMember}
-					disabled={isDisabledClubMemberButton(userStatus)}
-					onClick={handleMember}
+					loading={loadingMember || loadingLeave}
+					disabled={loadingMember || loadingLeave}
+					onClick={() => {
+						if (userStatus === "participant") {
+							handleLeaveClub();
+							return;
+						}
+
+						handleMember();
+					}}
 				>
 					{getClubMemberButtonText(userStatus)}
 				</Button>
@@ -83,9 +112,16 @@ export const ClubButtons: React.FC<Props> = ({
 					size="m"
 					stretched
 					mode="secondary"
-					loading={loadingSubscriber}
-					disabled={isDisabledClubSubscriberButton(userStatus)}
-					onClick={handleSubscriber}
+					loading={loadingSubscriber || loadingLeave}
+					disabled={loadingSubscriber || loadingLeave}
+					onClick={() => {
+						if (userStatus === "subscriber") {
+							handleLeaveClub();
+							return;
+						}
+
+						handleSubscriber();
+					}}
 				>
 					{getClubSubscriberButtonText(userStatus)}
 				</Button>
