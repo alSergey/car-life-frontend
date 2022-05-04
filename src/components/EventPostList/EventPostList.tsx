@@ -1,5 +1,5 @@
 import React from "react";
-import { CardGrid, Paragraph } from "@vkontakte/vkui";
+import { CardGrid } from "@vkontakte/vkui";
 import { EventPostCard } from "./EventPostCard";
 
 interface UserInfo {
@@ -23,10 +23,6 @@ interface Props {
 
 export const EventPostList: React.FC<Props> = ({ postList, onUserClick }) => (
 	<CardGrid style={{ width: "100%" }} size="l">
-		<Paragraph color={"#6c757d"} style={{ fontSize: "12px" }}>
-			Посты расскажут вам о том, как прошло событие. Их могут выкладывать только
-			участники события.
-		</Paragraph>
 		{postList.map((post) => (
 			<EventPostCard
 				key={post.id}
