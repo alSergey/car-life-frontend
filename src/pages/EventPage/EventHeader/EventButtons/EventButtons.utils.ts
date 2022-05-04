@@ -19,5 +19,5 @@ export const isShownEventViewerButton = (userStatus: string): boolean =>
 export const getEventViewerButtonText = (userStatus: string): string => {
 	if (userStatus === "spectator") return "Не поеду";
 
-	return "Поеду";
+	return "Буду зрителем";
 };
