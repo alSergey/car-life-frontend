@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { Avatar, Caption, Group, Text, Title } from "@vkontakte/vkui";
 import { EventData } from "../api";
-import {
-	GeolocationControl,
-	Map,
-	Placemark,
-	YMaps,
-	ZoomControl,
-} from "react-yandex-maps";
+import { Map, Placemark, YMaps, ZoomControl } from "react-yandex-maps";
 
 import styles from "./EventInfo.module.css";
 import { defaultMapData, YandexKey } from "../../../constants/yandexKey";
@@ -83,7 +77,7 @@ export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 						}}
 					>
 						<ZoomControl />
-						<GeolocationControl />
+						{/* <GeolocationControl /> */}
 						<Placemark
 							geometry={[event.location.latitude, event.location.longitude]}
 						/>
