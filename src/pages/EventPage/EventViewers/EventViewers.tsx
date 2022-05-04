@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Group } from "@vkontakte/vkui";
 import { UserList } from "../../../components/UserList";
+import { CounterHeader } from "../../../components/CounterHeader";
 import { emptyEventViewersList, getEventViewersList } from "./api";
 
 interface Props {
@@ -26,6 +27,11 @@ export const EventViewers: React.FC<Props> = ({ eventId, onClick }) => {
 
 	return (
 		<Group>
+			<CounterHeader
+				length={viewersList.length}
+				text="Список зрителей"
+				mode="primary"
+			/>
 			<UserList userList={viewersList} onClick={onClick} />
 		</Group>
 	);

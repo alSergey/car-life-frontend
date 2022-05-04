@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Group, Header } from "@vkontakte/vkui";
+import { Group } from "@vkontakte/vkui";
 import { UserList } from "../../../components/UserList";
+import { CounterHeader } from "../../../components/CounterHeader";
 import {
 	emptyClubMembersList,
 	emptyClubMembersRequestList,
@@ -67,7 +68,11 @@ export const ClubMembers: React.FC<Props> = ({
 		<div>
 			{userStatus === "admin" && (
 				<Group>
-					<Header>Список заявок</Header>
+					<CounterHeader
+						length={membersRequestList.length}
+						text="Список заявок"
+						mode="prominent"
+					/>
 					<UserList
 						userList={membersRequestList}
 						onClick={onClick}
@@ -77,7 +82,11 @@ export const ClubMembers: React.FC<Props> = ({
 				</Group>
 			)}
 			<Group>
-				{userStatus === "admin" && <Header>Список участников</Header>}
+				<CounterHeader
+					length={membersList.length}
+					text="Список участников"
+					mode="primary"
+				/>
 				<UserList userList={membersList} onClick={onClick} />
 			</Group>
 		</div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Group } from "@vkontakte/vkui";
-import { emptyClubSubscribersList, getClubSubscribersList } from "./api";
 import { UserList } from "../../../components/UserList";
+import { CounterHeader } from "../../../components/CounterHeader";
+import { emptyClubSubscribersList, getClubSubscribersList } from "./api";
 
 interface Props {
 	clubId: number;
@@ -28,6 +29,11 @@ export const ClubSubscribers: React.FC<Props> = ({ clubId, onClick }) => {
 
 	return (
 		<Group>
+			<CounterHeader
+				length={subscribersList.length}
+				text="Список подписчиков"
+				mode="primary"
+			/>
 			<UserList userList={subscribersList} onClick={onClick} />
 		</Group>
 	);

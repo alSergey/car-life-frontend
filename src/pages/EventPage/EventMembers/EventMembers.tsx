@@ -1,5 +1,7 @@
-import { Group, Header } from "@vkontakte/vkui";
 import React, { useEffect, useState } from "react";
+import { Group } from "@vkontakte/vkui";
+import { CounterHeader } from "../../../components/CounterHeader";
+import { UserList } from "../../../components/UserList";
 import {
 	emptyEventMembersList,
 	emptyEventMembersRequestList,
@@ -7,7 +9,6 @@ import {
 	getEventMembersList,
 	memberEventApproveReject,
 } from "./api";
-import { UserList } from "../../../components/UserList";
 
 interface Props {
 	eventId: number;
@@ -67,7 +68,11 @@ export const EventMembers: React.FC<Props> = ({
 		<div>
 			{userStatus === "admin" && (
 				<Group>
-					<Header>Список заявок</Header>
+					<CounterHeader
+						length={membersRequestList.length}
+						text="Список заявок"
+						mode="prominent"
+					/>
 					<UserList
 						userList={membersRequestList}
 						onClick={onClick}
@@ -77,7 +82,11 @@ export const EventMembers: React.FC<Props> = ({
 				</Group>
 			)}
 			<Group>
-				{userStatus === "admin" && <Header>Список участников</Header>}
+				<CounterHeader
+					length={membersList.length}
+					text="Список участников"
+					mode="primary"
+				/>
 				<UserList userList={membersList} onClick={onClick} />
 			</Group>
 		</div>
