@@ -4,7 +4,7 @@ export interface CarPageQuery {
 	carId: number;
 }
 
-export const carIdQuery = ":carId([0-9]+)";
+export const carQuery = ":carId([0-9]+)";
 
 export const setCarPageQuery = (carId: CarPageQuery["carId"]): PageParams => ({
 	carId: String(carId),
