@@ -5,6 +5,10 @@ import bridge from "@vkontakte/vk-bridge";
 import { RouterContext } from "@happysanta/router";
 import { ConfigProvider, AdaptivityProvider } from "@vkontakte/vkui";
 import { router } from "./router";
+import { initSentry } from "./sentry-init";
+
+// Init Sentry
+initSentry();
 
 // Init VK  Mini App
 bridge.send("VKWebAppInit");
