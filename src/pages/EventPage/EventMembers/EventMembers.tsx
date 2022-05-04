@@ -12,12 +12,14 @@ import {
 
 interface Props {
 	eventId: number;
+	membersCount: number;
 	userStatus: string;
 	onClick: (id: number) => void;
 }
 
 export const EventMembers: React.FC<Props> = ({
 	eventId,
+	membersCount,
 	userStatus,
 	onClick,
 }) => {
@@ -83,7 +85,7 @@ export const EventMembers: React.FC<Props> = ({
 			)}
 			<Group>
 				<CounterHeader
-					length={membersList.length}
+					length={membersCount}
 					text="Список участников"
 					mode="primary"
 				/>

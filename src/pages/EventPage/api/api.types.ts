@@ -14,4 +14,8 @@ export interface EventData {
 		longitude: number;
 	};
 	avatar: string;
+	counters: {
+		members: number;
+		viewers: number;
+	};
 }

@@ -63,12 +63,17 @@ export const EventPage: React.FC<Props> = ({
 			{activeTab === EventTab.Members && (
 				<EventMembers
 					eventId={eventId}
+					membersCount={eventData.counters.members}
 					userStatus={eventData.userStatus}
 					onClick={onUserClick}
 				/>
 			)}
 			{activeTab === EventTab.Viewers && (
-				<EventViewers eventId={eventId} onClick={onUserClick} />
+				<EventViewers
+					eventId={eventId}
+					viewersCount={eventData.counters.viewers}
+					onClick={onUserClick}
+				/>
 			)}
 		</Panel>
 	);

@@ -7,4 +7,8 @@ export const emptyClubData: ClubData = {
 	tags: [],
 	avatar: "",
 	userStatus: "",
+	counters: {
+		members: 0,
+		subscribers: 0,
+	},
 };

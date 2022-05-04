@@ -5,4 +5,8 @@ export interface ClubData {
 	tags: string[];
 	avatar: string;
 	userStatus: string;
+	counters: {
+		members: number;
+		subscribers: number;
+	};
 }
