@@ -1,11 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-	GeolocationControl,
-	Map,
-	Placemark,
-	YMaps,
-	ZoomControl,
-} from "react-yandex-maps";
+import { Map, Placemark, YMaps, ZoomControl } from "react-yandex-maps";
 import { defaultMapData, YandexKey } from "../../constants/yandexKey";
 import { getEventList, emptyEventList } from "./api";
 import { ModelsEventCard } from "../../api/Api";
@@ -74,7 +68,7 @@ export const MapEventsWidget: React.FC<Props> = ({
 					onActionEnd={handleGetEventList}
 				>
 					<ZoomControl />
-					<GeolocationControl />
+					{/* <GeolocationControl /> */}
 					{events.map((event) => (
 						<Placemark
 							key={event.id}

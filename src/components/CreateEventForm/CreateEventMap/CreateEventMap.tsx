@@ -5,7 +5,6 @@ import {
 	// eslint-disable-next-line import/named
 	YMapsApi,
 	Map,
-	GeolocationControl,
 	Placemark,
 	ZoomControl,
 } from "react-yandex-maps";
@@ -88,7 +87,7 @@ export const CreateEventMap: React.FC<Props> = ({ location, onChange }) => {
 					}}
 				>
 					<ZoomControl />
-					<GeolocationControl />
+					{/* <GeolocationControl /> */}
 					{location && (
 						<Placemark geometry={[location.latitude, location.longitude]} />
 					)}
