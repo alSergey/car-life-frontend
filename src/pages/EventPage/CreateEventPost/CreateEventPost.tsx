@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-	ModalRootContext,
 	File,
 	FormItem,
 	ModalPage,
@@ -32,36 +31,35 @@ export const CreateEventPost: React.FC<Props> = ({
 	id,
 	eventId,
 }) => {
+	const [loading, setLoading] = useState(false);
 	const [showError, setShowError] = useState("");
 	const [form, setForm] = useState<EventPostData>({
 		text: "",
 		files: null,
 	});
-	const { updateModalHeight } = useContext(ModalRootContext);
-
-	useEffect(() => {
-		updateModalHeight();
-	}, [form]);
 
 	const creatNewPost = async (): Promise<void> => {
+		setLoading(true);
 		try {
-			const postId = await createNewEventPost(form, eventId);
-			if (!postId) return;
+			await createNewEventPost(form, eventId);
 			onCreate();
 		} catch (err) {
 			console.error(err);
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	return (
 		<ModalPage
 			id={id}
-			dynamicContentHeight
 			onClose={onClose}
 			header={
 				<ModalPageHeader
 					left={<PanelHeaderClose onClick={onClose} />}
-					right={<PanelHeaderSubmit onClick={creatNewPost} />}
+					right={
+						<PanelHeaderSubmit disabled={loading} onClick={creatNewPost} />
+					}
 				>
 					Новый пост
 				</ModalPageHeader>
