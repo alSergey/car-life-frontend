@@ -7,22 +7,21 @@ import { EventInfo } from "./EventInfo";
 import { EventMembers } from "./EventMembers";
 import { EventViewers } from "./EventViewers";
 import { EventPosts } from "./EventPosts";
-import { getEventPageQuery } from "../../router";
+import {
+	getEventPageQuery,
+	redirectClubPage,
+	redirectUserPage,
+} from "../../router";
 import { emptyEventData, getEvent } from "./api";
+import { useRouter } from "@happysanta/router";
 
 interface Props {
 	id: string;
-	onUserClick: (userId: number) => void;
-	onClubClick: (clubId: number) => void;
-	onBackClick?: () => void;
+	pagePrefix: string;
 }
 
-export const EventPage: React.FC<Props> = ({
-	id,
-	onUserClick,
-	onClubClick,
-	onBackClick,
-}) => {
+export const EventPage: React.FC<Props> = ({ id, pagePrefix }) => {
+	const router = useRouter();
 	const { eventId } = getEventPageQuery();
 
 	const [activeTab, setActiveTab] = useState(EventTab.Info);
@@ -43,32 +42,40 @@ export const EventPage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={() => router.popPage()} />}>
 				Событие
 			</PanelHeader>
 			<EventHeader eventData={eventData} onButtonClick={handleGetEventData} />
 			<EventBar activeTab={activeTab} setActiveTab={setActiveTab} />
 			{activeTab === EventTab.Info && (
-				<EventInfo event={eventData} onClubClick={onClubClick} />
+				<EventInfo
+					event={eventData}
+					onClubClick={(clubId) =>
+						redirectClubPage(router, pagePrefix, { clubId })
+					}
+				/>
 			)}
 			{activeTab === EventTab.Posts && (
 				<EventPosts
 					eventId={eventId}
 					userStatus={eventData.userStatus}
-					onUserClick={onUserClick}
+					onUserClick={(userId) =>
+						redirectUserPage(router, pagePrefix, { userId })
+					}
 				/>
 			)}
 			{activeTab === EventTab.Members && (
 				<EventMembers
 					eventId={eventId}
 					userStatus={eventData.userStatus}
-					onClick={onUserClick}
+					onClick={(userId) => redirectUserPage(router, pagePrefix, { userId })}
 				/>
 			)}
 			{activeTab === EventTab.Viewers && (
-				<EventViewers eventId={eventId} onClick={onUserClick} />
+				<EventViewers
+					eventId={eventId}
+					onClick={(userId) => redirectUserPage(router, pagePrefix, { userId })}
+				/>
 			)}
 		</Panel>
 	);

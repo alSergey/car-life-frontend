@@ -1,20 +1,24 @@
 import { Page } from "@happysanta/router";
 import {
-	mainQuery,
-	eventQuery,
-	clubQuery,
-	userQuery,
-	carQuery,
-} from "./pagesQuery";
+	getCreateEventPage,
+	getCreateClubPage,
+	getCarPage,
+	getClubPage,
+	getEventPage,
+	getUserPage,
+} from "./routes";
+
+// page url prefix
+export const MAIN_PAGE_PREFIX = "/main";
 
 // url
-export const MAIN_PAGE = `/main/${mainQuery}`;
-export const MAIN_CREATE_EVENT_PAGE = "/main/event/create";
-export const MAIN_CREATE_CLUB_PAGE = "/main/club/create";
-export const MAIN_EVENT_PAGE = `/main/event/${eventQuery}`;
-export const MAIN_CLUB_PAGE = `/main/club/${clubQuery}`;
-export const MAIN_USER_PAGE = `/main/user/${userQuery}`;
-export const MAIN_CAR_PAGE = `/main/car/${carQuery}`;
+export const MAIN_PAGE = `/main`;
+const MAIN_CREATE_EVENT_PAGE = getCreateEventPage(MAIN_PAGE_PREFIX);
+const MAIN_CREATE_CLUB_PAGE = getCreateClubPage(MAIN_PAGE_PREFIX);
+const MAIN_EVENT_PAGE = getEventPage(MAIN_PAGE_PREFIX);
+const MAIN_CLUB_PAGE = getClubPage(MAIN_PAGE_PREFIX);
+const MAIN_USER_PAGE = getUserPage(MAIN_PAGE_PREFIX);
+const MAIN_CAR_PAGE = getCarPage(MAIN_PAGE_PREFIX);
 
 // panel
 export const MAIN_PANEL = "main_page";

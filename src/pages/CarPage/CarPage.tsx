@@ -13,13 +13,15 @@ import { CarHeader } from "./CarHeader";
 import { getCarPageQuery } from "../../router";
 import { emptyCarData, getCar } from "./api";
 import { getPrettyYear } from "../../constants/time";
+import { useRouter } from "@happysanta/router";
 
 interface Prop {
 	id: string;
-	onBackClick?: () => void;
+	pagePrefix: string;
 }
 
-export const CarPage: React.FC<Prop> = ({ id, onBackClick }) => {
+export const CarPage: React.FC<Prop> = ({ id }) => {
+	const router = useRouter();
 	const { carId } = getCarPageQuery();
 
 	const [carData, setCarData] = useState(emptyCarData);
@@ -39,9 +41,7 @@ export const CarPage: React.FC<Prop> = ({ id, onBackClick }) => {
 
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={() => router.popPage()} />}>
 				{!!carData.name ? carData.name : `${carData.brand} ${carData.model}`}
 			</PanelHeader>
 			<CarHeader img={carData.avatar_url} />

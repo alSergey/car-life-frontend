@@ -8,25 +8,22 @@ import { ClubEvents } from "./ClubEvents";
 import { ClubGarage } from "./ClubGarage";
 import { ClubMembers } from "./ClubMembers";
 import { ClubSubscribers } from "./ClubSubscribers";
-import { getClubPageQuery } from "../../router";
+import {
+	getClubPageQuery,
+	redirectCreateEventPage,
+	redirectCarPage,
+	redirectEventPage,
+	redirectUserPage,
+} from "../../router";
+import { useRouter } from "@happysanta/router";
 
 interface Props {
 	id: string;
-	onEventClick: (eventId: number) => void;
-	onCarClick: (carId: number) => void;
-	onUserClick: (userId: number) => void;
-	onCreateEventClick: (clubId: number) => void;
-	onBackClick?: () => void;
+	pagePrefix: string;
 }
 
-export const ClubPage: React.FC<Props> = ({
-	id,
-	onBackClick,
-	onUserClick,
-	onCarClick,
-	onEventClick,
-	onCreateEventClick,
-}) => {
+export const ClubPage: React.FC<Props> = ({ id, pagePrefix }) => {
+	const router = useRouter();
 	const { clubId } = getClubPageQuery();
 
 	const [activeTab, setActiveTab] = useState(ClubTab.Events);
@@ -47,9 +44,7 @@ export const ClubPage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={() => router.popPage()} />}>
 				{clubData.name}
 			</PanelHeader>
 			<ClubHeader clubData={clubData} onButtonClick={handleGetClubData} />
@@ -58,22 +53,30 @@ export const ClubPage: React.FC<Props> = ({
 				<ClubEvents
 					clubId={clubId}
 					userStatus={clubData.userStatus}
-					onClick={onEventClick}
-					onCreateClick={() => onCreateEventClick(clubId)}
+					onCreateClick={() => redirectCreateEventPage(router, pagePrefix)}
+					onClick={(eventId) =>
+						redirectEventPage(router, pagePrefix, { eventId })
+					}
 				/>
 			)}
 			{activeTab === ClubTab.Garage && (
-				<ClubGarage clubId={clubId} onClick={onCarClick} />
+				<ClubGarage
+					clubId={clubId}
+					onClick={(carId) => redirectCarPage(router, pagePrefix, { carId })}
+				/>
 			)}
 			{activeTab === ClubTab.Members && (
 				<ClubMembers
 					clubId={clubId}
 					userStatus={clubData.userStatus}
-					onClick={onUserClick}
+					onClick={(userId) => redirectUserPage(router, pagePrefix, { userId })}
 				/>
 			)}
 			{activeTab === ClubTab.Subscribers && (
-				<ClubSubscribers clubId={clubId} onClick={onUserClick} />
+				<ClubSubscribers
+					clubId={clubId}
+					onClick={(userId) => redirectUserPage(router, pagePrefix, { userId })}
+				/>
 			)}
 		</Panel>
 	);

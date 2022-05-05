@@ -10,24 +10,22 @@ import {
 	UserBar,
 } from "../../components/UserPage";
 import { defaultUserData } from "../../context/userContext";
-import { getUserPageQuery } from "../../router";
+import {
+	getUserPageQuery,
+	redirectCarPage,
+	redirectClubPage,
+	redirectEventPage,
+} from "../../router";
 import { getUserData } from "./api";
+import { useRouter } from "@happysanta/router";
 
 interface Props {
 	id: string;
-	onClubClick: (clubId: number) => void;
-	onEventClick: (eventId: number) => void;
-	onCarClick: (carId: number) => void;
-	onBackClick?: () => void;
+	pagePrefix: string;
 }
 
-export const UserPage: React.FC<Props> = ({
-	id,
-	onBackClick,
-	onCarClick,
-	onClubClick,
-	onEventClick,
-}) => {
+export const UserPage: React.FC<Props> = ({ id, pagePrefix }) => {
+	const router = useRouter();
 	const { userId } = getUserPageQuery();
 
 	const [activeTab, setActiveTab] = useState(UserTab.Info);
@@ -50,19 +48,30 @@ export const UserPage: React.FC<Props> = ({
 		<Panel id={id}>
 			<PanelHeader
 				separator={false}
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
+				left={<PanelHeaderBack onClick={() => router.popPage()} />}
 			/>
 			<UserHeader userData={userData} />
 			<UserBar activeTab={activeTab} setActiveTab={setActiveTab} />
 			{activeTab === UserTab.Info && <UserInfo userData={userData} />}
 			{activeTab === UserTab.Garage && (
-				<UserGarage userId={userId} onClick={onCarClick} />
+				<UserGarage
+					userId={userId}
+					onClick={(carId) => redirectCarPage(router, pagePrefix, { carId })}
+				/>
 			)}
 			{activeTab === UserTab.Event && (
-				<UserEvent userId={userId} onClick={onEventClick} />
+				<UserEvent
+					userId={userId}
+					onClick={(eventId) =>
+						redirectEventPage(router, pagePrefix, { eventId })
+					}
+				/>
 			)}
 			{activeTab === UserTab.Club && (
-				<UserClub userId={userId} onClick={onClubClick} />
+				<UserClub
+					userId={userId}
+					onClick={(clubId) => redirectClubPage(router, pagePrefix, { clubId })}
+				/>
 			)}
 		</Panel>
 	);
