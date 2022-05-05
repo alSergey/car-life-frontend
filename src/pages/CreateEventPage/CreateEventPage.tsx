@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
-
-import { createNewEvent } from "./api";
+import { useRouter } from "@happysanta/router";
 import { CreateEventForm, EventForm } from "../../components/CreateEventForm";
+import { createNewEvent } from "./api";
+import { redirectEventPage } from "../../router";
 
 interface Props {
 	id: string;
-	onBackClick?: () => void;
-	onSubmit: (eventId: number) => void;
+	pagePrefix: string;
 }
 
-export const CreateEventPage: React.FC<Props> = ({
-	id,
-	onSubmit,
-	onBackClick,
-}) => {
+export const CreateEventPage: React.FC<Props> = ({ id, pagePrefix }) => {
+	const router = useRouter();
+
 	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (form: EventForm): Promise<void> => {
@@ -23,7 +21,7 @@ export const CreateEventPage: React.FC<Props> = ({
 			const eventId = await createNewEvent(form);
 			if (!eventId) return;
 
-			onSubmit(eventId);
+			redirectEventPage(router, pagePrefix, { eventId });
 		} catch (err) {
 			console.error(err);
 		} finally {
@@ -33,9 +31,7 @@ export const CreateEventPage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={() => router.popPage()} />}>
 				Новое событие
 			</PanelHeader>
 			<CreateEventForm loading={loading} onSubmit={handleSubmit} />

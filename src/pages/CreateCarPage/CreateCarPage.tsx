@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
-
-import { createNewCar } from "./api";
+import { useRouter } from "@happysanta/router";
 import { CarForm, CreateCarFom } from "../../components/CreateCarForm";
+import { createNewCar } from "./api";
+import { redirectCarPage } from "../../router";
 
 interface Props {
 	id: string;
-	onBackClick?: () => void;
-	onSubmit: (carId: number) => void;
+	pagePrefix: string;
 }
 
-export const CreateCarPage: React.FC<Props> = ({
-	id,
-	onBackClick,
-	onSubmit,
-}) => {
+export const CreateCarPage: React.FC<Props> = ({ id, pagePrefix }) => {
+	const router = useRouter();
+
 	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (form: CarForm): Promise<void> => {
@@ -23,7 +21,7 @@ export const CreateCarPage: React.FC<Props> = ({
 			const carId = await createNewCar(form);
 			if (!carId) return;
 
-			onSubmit(carId);
+			redirectCarPage(router, pagePrefix, { carId });
 		} catch (err) {
 			console.error(err);
 		} finally {
@@ -33,9 +31,7 @@ export const CreateCarPage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={() => router.popPage()} />}>
 				Новая машина
 			</PanelHeader>
 			<CreateCarFom loading={loading} onSubmit={handleSubmit} />

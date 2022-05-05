@@ -5,22 +5,22 @@ import styles from "./MainListPage.module.css";
 import { MainBar, MainTab } from "./MainBar";
 import { MainEventList } from "./MainEventList";
 import { MainClubList } from "./MainClubList";
+import { useRouter } from "@happysanta/router";
+import {
+	redirectCreateEventPage,
+	redirectCreateClubPage,
+	redirectClubPage,
+	redirectEventPage,
+} from "../../router";
 
 interface Props {
 	id: string;
-	onEventCreateClick: () => void;
-	onEventClick: (eventId: number) => void;
-	onClubCreateClick: () => void;
-	onClubClick: (clubId: number) => void;
+	pagePrefix: string;
 }
 
-export const MainListPage: React.FC<Props> = ({
-	id,
-	onEventCreateClick,
-	onEventClick,
-	onClubCreateClick,
-	onClubClick,
-}) => {
+export const MainListPage: React.FC<Props> = ({ id, pagePrefix }) => {
+	const router = useRouter();
+
 	const [searchText, setSearchText] = useState("");
 	const [activeTab, setActiveTab] = useState(MainTab.Club);
 
@@ -35,12 +35,22 @@ export const MainListPage: React.FC<Props> = ({
 			/>
 			{activeTab === MainTab.Event && (
 				<div className={styles.list}>
-					<MainEventList searchText={searchText} onClick={onEventClick} />
+					<MainEventList
+						searchText={searchText}
+						onClick={(eventId) =>
+							redirectEventPage(router, pagePrefix, { eventId })
+						}
+					/>
 				</div>
 			)}
 			{activeTab === MainTab.Club && (
 				<div className={styles.list}>
-					<MainClubList searchText={searchText} onClick={onClubClick} />
+					<MainClubList
+						searchText={searchText}
+						onClick={(clubId) =>
+							redirectClubPage(router, pagePrefix, { clubId })
+						}
+					/>
 				</div>
 			)}
 			<Button
@@ -51,11 +61,11 @@ export const MainListPage: React.FC<Props> = ({
 				before={<Icon28AddOutline width={35} height={35} />}
 				onClick={() => {
 					if (activeTab === MainTab.Event) {
-						onEventCreateClick();
+						redirectCreateEventPage(router, pagePrefix);
 						return;
 					}
 
-					onClubCreateClick();
+					redirectCreateClubPage(router, pagePrefix);
 				}}
 			/>
 		</Panel>

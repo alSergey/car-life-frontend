@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
-
-import { createNewClub } from "./api";
+import { useRouter } from "@happysanta/router";
 import { ClubForm, CreateClubForm } from "../../components/CreateClubForm";
+import { createNewClub } from "./api";
+import { redirectClubPage } from "../../router";
 
 interface Props {
 	id: string;
-	onBackClick?: () => void;
-	onSubmit: (clubId: number) => void;
+	pagePrefix: string;
 }
 
-export const CreateClubPage: React.FC<Props> = ({
-	id,
-	onBackClick,
-	onSubmit,
-}) => {
+export const CreateClubPage: React.FC<Props> = ({ id, pagePrefix }) => {
+	const router = useRouter();
+
 	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (form: ClubForm): Promise<void> => {
@@ -23,7 +21,7 @@ export const CreateClubPage: React.FC<Props> = ({
 			const clubId = await createNewClub(form);
 			if (!clubId) return;
 
-			onSubmit(clubId);
+			redirectClubPage(router, pagePrefix, { clubId });
 		} catch (err) {
 			console.error(err);
 		} finally {
@@ -33,9 +31,7 @@ export const CreateClubPage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={() => router.popPage()} />}>
 				Новый клуб
 			</PanelHeader>
 			<CreateClubForm loading={loading} onSubmit={handleSubmit} />

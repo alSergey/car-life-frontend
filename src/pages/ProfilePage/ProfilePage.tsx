@@ -10,13 +10,17 @@ import {
 	UserInfoEdit,
 } from "../../components/UserPage";
 import { UserContext } from "../../context/userContext";
+import { useRouter } from "@happysanta/router";
+import {
+	redirectCarPage,
+	redirectClubPage,
+	redirectCreateCarPage,
+	redirectEventPage,
+} from "../../router";
 
 interface Props {
 	id: string;
-	onClubClick: (clubId: number) => void;
-	onEventClick: (eventId: number) => void;
-	onCarClick: (carId: number) => void;
-	onCreateCarClick: () => void;
+	pagePrefix: string;
 }
 
 export enum UserTab {
@@ -31,13 +35,9 @@ export enum UserInfoTab {
 	Edit = "edit",
 }
 
-export const ProfilePage: React.FC<Props> = ({
-	id,
-	onCarClick,
-	onCreateCarClick,
-	onClubClick,
-	onEventClick,
-}) => {
+export const ProfilePage: React.FC<Props> = ({ id, pagePrefix }) => {
+	const router = useRouter();
+
 	const [activeTab, setActiveTab] = useState(UserTab.Info);
 	const [infoTab, setInfoTab] = useState(UserInfoTab.Info);
 	const { userState, refreshUserState } = useContext(UserContext);
@@ -66,15 +66,23 @@ export const ProfilePage: React.FC<Props> = ({
 			{activeTab === UserTab.Garage && (
 				<UserGarage
 					userId={userState.id}
-					onClick={onCarClick}
-					onCreateClick={onCreateCarClick}
+					onCreateClick={() => redirectCreateCarPage(router, pagePrefix)}
+					onClick={(carId) => redirectCarPage(router, pagePrefix, { carId })}
 				/>
 			)}
 			{activeTab === UserTab.Event && (
-				<UserEvent userId={userState.id} onClick={onEventClick} />
+				<UserEvent
+					userId={userState.id}
+					onClick={(eventId) =>
+						redirectEventPage(router, pagePrefix, { eventId })
+					}
+				/>
 			)}
 			{activeTab === UserTab.Club && (
-				<UserClub userId={userState.id} onClick={onClubClick} />
+				<UserClub
+					userId={userState.id}
+					onClick={(clubId) => redirectClubPage(router, pagePrefix, { clubId })}
+				/>
 			)}
 		</Panel>
 	);

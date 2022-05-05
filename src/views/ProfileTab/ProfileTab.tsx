@@ -5,23 +5,14 @@ import { ClubPage } from "../../pages/ClubPage";
 import { EventPage } from "../../pages/EventPage";
 import {
 	PROFILE_PANEL,
-	PROFILE_EVENT_PAGE,
-	PROFILE_EVENT_PANEL,
-	PROFILE_CLUB_PAGE,
-	PROFILE_CLUB_PANEL,
-	PROFILE_CAR_PAGE,
-	PROFILE_CAR_PANEL,
-	PROFILE_CREATE_CAR_PAGE,
-	PROFILE_CREATE_CAR_PANEL,
-	PROFILE_USER_PAGE,
-	PROFILE_USER_PANEL,
+	PROFILE_PAGE_PREFIX,
 	REG_WELCOME_PAGE,
-	PROFILE_CREATE_EVENT_PAGE,
+	PROFILE_EVENT_PANEL,
+	PROFILE_CLUB_PANEL,
+	PROFILE_CAR_PANEL,
+	PROFILE_CREATE_CAR_PANEL,
+	PROFILE_USER_PANEL,
 	PROFILE_CREATE_EVENT_PANEL,
-	setEventPageQuery,
-	setClubPageQuery,
-	setCarPageQuery,
-	setUserPageQuery,
 } from "../../router";
 import { UserPage } from "../../pages/UserPage";
 import { CreateCarPage } from "../../pages/CreateCarPage";
@@ -44,77 +35,27 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 		if (isLoggedIn === false) return router.pushPage(REG_WELCOME_PAGE);
 	}, []);
 
-	const handleBackClick = (): void => {
-		router.popPage();
-	};
-
-	const handleUserCLick = (userId: number): void => {
-		router.pushPage(PROFILE_USER_PAGE, setUserPageQuery(userId));
-	};
-
-	const handleClubCLick = (clubId: number): void => {
-		router.pushPage(PROFILE_CLUB_PAGE, setClubPageQuery(clubId));
-	};
-
-	const handleEventCLick = (eventId: number): void => {
-		router.pushPage(PROFILE_EVENT_PAGE, setEventPageQuery(eventId));
-	};
-
-	const handleCarCLick = (carId: number): void => {
-		router.pushPage(PROFILE_CAR_PAGE, setCarPageQuery(carId));
-	};
-
-	const handleCreateEventCLick = (): void => {
-		router.pushPage(PROFILE_CREATE_EVENT_PAGE);
-	};
-
 	return (
 		<View
 			id={id}
 			history={location.getViewHistory(id)}
-			onSwipeBack={handleBackClick}
+			onSwipeBack={() => router.popPage()}
 			// @ts-ignore
 			activePanel={location.getViewActivePanel(id)}
 		>
-			<ProfilePage
-				id={PROFILE_PANEL}
-				onCreateCarClick={() => router.pushPage(PROFILE_CREATE_CAR_PAGE)}
-				onEventClick={handleEventCLick}
-				onClubClick={handleClubCLick}
-				onCarClick={handleCarCLick}
-			/>
+			<ProfilePage id={PROFILE_PANEL} pagePrefix={PROFILE_PAGE_PREFIX} />
 			<CreateEventPage
 				id={PROFILE_CREATE_EVENT_PANEL}
-				onBackClick={handleBackClick}
-				onSubmit={handleEventCLick}
+				pagePrefix={PROFILE_PAGE_PREFIX}
 			/>
 			<CreateCarPage
 				id={PROFILE_CREATE_CAR_PANEL}
-				onBackClick={handleBackClick}
-				onSubmit={handleCarCLick}
+				pagePrefix={PROFILE_PAGE_PREFIX}
 			/>
-			<ClubPage
-				id={PROFILE_CLUB_PANEL}
-				onBackClick={handleBackClick}
-				onEventClick={handleEventCLick}
-				onCarClick={handleCarCLick}
-				onUserClick={handleUserCLick}
-				onCreateEventClick={handleCreateEventCLick}
-			/>
-			<EventPage
-				id={PROFILE_EVENT_PANEL}
-				onBackClick={handleBackClick}
-				onClubClick={handleClubCLick}
-				onUserClick={handleUserCLick}
-			/>
-			<UserPage
-				id={PROFILE_USER_PANEL}
-				onBackClick={handleBackClick}
-				onEventClick={handleEventCLick}
-				onClubClick={handleClubCLick}
-				onCarClick={handleCarCLick}
-			/>
-			<CarPage id={PROFILE_CAR_PANEL} onBackClick={handleBackClick} />
+			<ClubPage id={PROFILE_CLUB_PANEL} pagePrefix={PROFILE_PAGE_PREFIX} />
+			<EventPage id={PROFILE_EVENT_PANEL} pagePrefix={PROFILE_PAGE_PREFIX} />
+			<UserPage id={PROFILE_USER_PANEL} pagePrefix={PROFILE_PAGE_PREFIX} />
+			<CarPage id={PROFILE_CAR_PANEL} pagePrefix={PROFILE_PAGE_PREFIX} />
 		</View>
 	);
 };

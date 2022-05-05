@@ -3,13 +3,17 @@ import { Panel, PanelHeader } from "@vkontakte/vkui";
 import { MapBar, MapTab } from "./MapBar";
 import { MapEventsWidget } from "../../widgets/MapEventsWidget";
 import { MapPeopleWidget } from "../../widgets/MapPeopleWidget";
+import { useRouter } from "@happysanta/router";
+import { redirectEventPage } from "../../router";
 
 interface Props {
 	id: string;
-	onEventClick: (eventId: number) => void;
+	pagePrefix: string;
 }
 
-export const MapPage: React.FC<Props> = ({ id, onEventClick }) => {
+export const MapPage: React.FC<Props> = ({ id, pagePrefix }) => {
+	const router = useRouter();
+
 	const [activeTab, setActiveTab] = useState(MapTab.Event);
 	const panelHref = useRef<HTMLDivElement>(null);
 
@@ -22,7 +26,9 @@ export const MapPage: React.FC<Props> = ({ id, onEventClick }) => {
 					mapHeight={
 						window.innerHeight - 95 - (panelHref.current?.offsetHeight || 0)
 					}
-					onEventClick={onEventClick}
+					onEventClick={(eventId) =>
+						redirectEventPage(router, pagePrefix, { eventId })
+					}
 				/>
 			)}
 			{activeTab === MapTab.People && (
