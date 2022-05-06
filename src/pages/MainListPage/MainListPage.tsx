@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Panel, PanelHeader, Search, Button } from "@vkontakte/vkui";
-import { Icon28AddOutline } from "@vkontakte/icons";
+import { Panel, PanelHeader, Search } from "@vkontakte/vkui";
 import styles from "./MainListPage.module.css";
 import { MainBar, MainTab } from "./MainBar";
 import { MainEventList } from "./MainEventList";
 import { MainClubList } from "./MainClubList";
+import { AddButton } from "../../components/AddButton";
 
 interface Props {
 	id: string;
@@ -43,12 +43,7 @@ export const MainListPage: React.FC<Props> = ({
 					<MainClubList searchText={searchText} onClick={onClubClick} />
 				</div>
 			)}
-			<Button
-				className={styles.addButton}
-				size="l"
-				style={{ width: 55, height: 55 }}
-				mode="secondary"
-				before={<Icon28AddOutline width={35} height={35} />}
+			<AddButton
 				onClick={() => {
 					if (activeTab === MainTab.Event) {
 						onEventCreateClick();

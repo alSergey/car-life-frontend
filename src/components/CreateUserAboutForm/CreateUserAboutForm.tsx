@@ -27,7 +27,7 @@ export const CreateUserAboutForm: React.FC<Props> = ({
 	buttonSlot,
 	buttonText,
 }) => {
-	const [form, setFormData] = useState(emptyUserAboutForm);
+	const [formData, setFormData] = useState(emptyUserAboutForm);
 
 	useEffect(() => {
 		if (userAbout) setFormData(userAbout);
@@ -37,17 +37,17 @@ export const CreateUserAboutForm: React.FC<Props> = ({
 		<FormLayout
 			onSubmit={(e) => {
 				e.preventDefault();
-				onSubmit(form);
+				onSubmit(formData);
 			}}
 		>
 			<FormItem top="Выберите интересы">
 				<ClubTagWidget
-					values={form.tags}
+					values={formData.tags}
 					onChange={(tags) => {
-						setFormData({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							tags,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
@@ -55,12 +55,12 @@ export const CreateUserAboutForm: React.FC<Props> = ({
 				<Textarea
 					rows={1}
 					placeholder="Не указано"
-					value={form.description}
+					value={formData.description}
 					onChange={({ target: { value } }) => {
-						setFormData({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							description: value,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
@@ -70,7 +70,7 @@ export const CreateUserAboutForm: React.FC<Props> = ({
 					stretched
 					size="l"
 					type="submit"
-					disabled={!isUserAboutFormFilled(form)}
+					disabled={!isUserAboutFormFilled(formData)}
 				>
 					{buttonText || "Создать"}
 				</Button>

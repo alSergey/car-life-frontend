@@ -8,19 +8,19 @@ import { ClubPage } from "../../pages/ClubPage";
 import { UserPage } from "../../pages/UserPage";
 import {
 	MAIN_PANEL,
-	MAIN_CLUB_PAGE,
-	MAIN_CLUB_PANEL,
-	MAIN_EVENT_PAGE,
-	MAIN_EVENT_PANEL,
-	MAIN_CAR_PAGE,
-	MAIN_CAR_PANEL,
-	MAIN_CREATE_CLUB_PAGE,
-	MAIN_CREATE_CLUB_PANEL,
-	MAIN_CREATE_EVENT_PAGE,
-	MAIN_CREATE_EVENT_PANEL,
-	MAIN_USER_PAGE,
-	MAIN_USER_PANEL,
 	REG_WELCOME_PAGE,
+	MAIN_CREATE_CLUB_PANEL,
+	MAIN_CREATE_CLUB_PAGE,
+	MAIN_CREATE_EVENT_PANEL,
+	MAIN_CREATE_EVENT_PAGE,
+	MAIN_CLUB_PANEL,
+	MAIN_CLUB_PAGE,
+	MAIN_EVENT_PANEL,
+	MAIN_EVENT_PAGE,
+	MAIN_USER_PANEL,
+	MAIN_USER_PAGE,
+	MAIN_CAR_PANEL,
+	MAIN_CAR_PAGE,
 	setEventPageQuery,
 	setClubPageQuery,
 	setUserPageQuery,
@@ -82,10 +82,10 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 		>
 			<MainListPage
 				id={MAIN_PANEL}
-				onEventClick={handleEventCLick}
-				onClubClick={handleClubCLick}
-				onEventCreateClick={handleCreateEventCLick}
 				onClubCreateClick={handleCreateClubCLick}
+				onEventCreateClick={handleCreateEventCLick}
+				onClubClick={handleClubCLick}
+				onEventClick={handleEventCLick}
 			/>
 			<CreateEventPage
 				id={MAIN_CREATE_EVENT_PANEL}
@@ -106,16 +106,16 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 			<ClubPage
 				id={MAIN_CLUB_PANEL}
 				onBackClick={handleBackClick}
+				onCreateEventClick={handleCreateEventCLick}
 				onEventClick={handleEventCLick}
 				onUserClick={handleUserCLick}
 				onCarClick={handleCarCLick}
-				onCreateEventClick={handleCreateEventCLick}
 			/>
 			<UserPage
 				id={MAIN_USER_PANEL}
 				onBackClick={handleBackClick}
-				onEventClick={handleEventCLick}
 				onClubClick={handleClubCLick}
+				onEventClick={handleEventCLick}
 				onCarClick={handleCarCLick}
 			/>
 			<CarPage id={MAIN_CAR_PANEL} onBackClick={handleBackClick} />

@@ -15,25 +15,25 @@ export const CreateClubForm: React.FC<Props> = ({
 	loading,
 	onSubmit,
 }) => {
-	const [form, setFormData] = useState(emptyClubForm);
+	const [formData, setFormData] = useState(emptyClubForm);
 
 	return (
 		<FormLayout
 			onSubmit={(e) => {
 				e.preventDefault();
-				onSubmit(form);
+				onSubmit(formData);
 			}}
 		>
 			<FormItem top="Название *">
 				<Input
 					type="text"
 					placeholder="Не указано"
-					value={form.name}
+					value={formData.name}
 					onChange={({ target: { value } }) => {
-						setFormData({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							name: value,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
@@ -41,34 +41,34 @@ export const CreateClubForm: React.FC<Props> = ({
 				<Textarea
 					rows={1}
 					placeholder="Не указано"
-					value={form.description}
+					value={formData.description}
 					onChange={({ target: { value } }) => {
-						setFormData({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							description: value,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
 			<FormItem top="Теги *">
 				<ClubTagWidget
-					values={form.tags}
+					values={formData.tags}
 					onChange={(tags) => {
-						setFormData({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							tags,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
 			<FormItem top="Аватарка *">
 				<UploadFile
-					fileList={form.file && [form.file]}
+					fileList={formData.file && [formData.file]}
 					onChange={(fileList) => {
-						setFormData({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							file: fileList[0],
-						});
+						}));
 					}}
 				/>
 			</FormItem>
@@ -78,7 +78,7 @@ export const CreateClubForm: React.FC<Props> = ({
 					size="l"
 					type="submit"
 					loading={loading}
-					disabled={!isClubFormFilled(form) || loading}
+					disabled={!isClubFormFilled(formData) || loading}
 				>
 					{buttonText || "Создать"}
 				</Button>

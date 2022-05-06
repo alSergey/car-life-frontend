@@ -40,16 +40,16 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 	const { refreshUserState, isLoggedIn, setIsLoggedIn } =
 		useContext(UserContext);
 
-	const [form, setForm] = useState(emptyRegForm);
+	const [formData, setFormData] = useState(emptyRegForm);
 	const [loading, setLoading] = useState(false);
 
 	const handleGetUserInfo = async (): Promise<void> => {
 		try {
 			const userForm = await bridge.send("VKWebAppGetUserInfo");
-			setForm({
-				...form,
+			setFormData((oldForm) => ({
+				...oldForm,
 				userForm,
-			});
+			}));
 		} catch (e) {
 			console.error(e);
 		}
@@ -58,7 +58,7 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 	const handleReg = async (): Promise<void> => {
 		setLoading(true);
 		try {
-			const session = await regUser(form);
+			const session = await regUser(formData);
 			setToken(session);
 			setIsLoggedIn(true);
 			refreshUserState();
@@ -109,10 +109,10 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 				onBackClick={() => router.popPage()}
 				onNextClick={() => router.pushPage(REG_CAR_PAGE)}
 				onFormSubmit={(userAboutForm) => {
-					setForm({
-						...form,
+					setFormData((oldForm) => ({
+						...oldForm,
 						userAboutForm,
-					});
+					}));
 				}}
 			/>
 			<CarPage
@@ -120,10 +120,10 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 				onBackClick={() => router.popPage()}
 				onNextClick={() => router.pushPage(REG_PAGE)}
 				onFormSubmit={(carForm) => {
-					setForm({
-						...form,
+					setFormData((oldForm) => ({
+						...oldForm,
 						carForm,
-					});
+					}));
 				}}
 			/>
 			<RegPage

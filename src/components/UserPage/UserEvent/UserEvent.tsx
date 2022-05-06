@@ -1,6 +1,7 @@
 import { Group, Header } from "@vkontakte/vkui";
 import React, { useEffect, useState } from "react";
 import { EventList } from "../../EventList";
+import { AddButton } from "../../AddButton";
 import {
 	emptyAdminEventList,
 	emptyMemberEventList,
@@ -13,9 +14,14 @@ import {
 interface Props {
 	userId: number;
 	onClick: (id: number) => void;
+	onCreateClick?: () => void;
 }
 
-export const UserEvent: React.FC<Props> = ({ userId, onClick }) => {
+export const UserEvent: React.FC<Props> = ({
+	userId,
+	onClick,
+	onCreateClick,
+}) => {
 	const [adminEventList, setAdminEventList] = useState(emptyAdminEventList);
 	const [memberEventList, setMemberEventList] = useState(emptyMemberEventList);
 	const [viewerEventList, setViewerEventList] = useState(emptyViewerEventList);
@@ -79,6 +85,7 @@ export const UserEvent: React.FC<Props> = ({ userId, onClick }) => {
 					onClick={onClick}
 				/>
 			</Group>
+			{onCreateClick && <AddButton onClick={onCreateClick} />}
 		</div>
 	);
 };

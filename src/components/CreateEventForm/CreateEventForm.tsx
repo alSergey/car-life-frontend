@@ -23,25 +23,25 @@ export const CreateEventForm: React.FC<Props> = ({
 	loading,
 	onSubmit,
 }) => {
-	const [form, setFormData] = useState(emptyEventForm);
+	const [formData, setFormData] = useState(emptyEventForm);
 
 	return (
 		<FormLayout
 			onSubmit={(e) => {
 				e.preventDefault();
-				onSubmit(form);
+				onSubmit(formData);
 			}}
 		>
 			<FormItem top="Название *">
 				<Input
 					type="text"
 					placeholder="Не указано"
-					value={form.name}
+					value={formData.name}
 					onChange={({ target: { value } }) => {
-						setFormData({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							name: value,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
@@ -49,23 +49,23 @@ export const CreateEventForm: React.FC<Props> = ({
 				<Textarea
 					rows={1}
 					placeholder="Не указано"
-					value={form.description}
+					value={formData.description}
 					onChange={({ target: { value } }) => {
-						setFormData({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							description: value,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
 			<FormItem top="Клуб *">
 				<OwnerClubWidget
-					selected={form.club}
+					selected={formData.club}
 					onChange={(club) => {
-						setFormData({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							club,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
@@ -73,47 +73,47 @@ export const CreateEventForm: React.FC<Props> = ({
 				<FormItem top="Дата *">
 					<Input
 						type="date"
-						value={form.date}
+						value={formData.date}
 						onChange={({ target: { value } }) => {
-							setFormData({
-								...form,
+							setFormData((oldForm) => ({
+								...oldForm,
 								date: value,
-							});
+							}));
 						}}
 					/>
 				</FormItem>
 				<FormItem top="Время *">
 					<Input
 						type="time"
-						value={form.time}
+						value={formData.time}
 						onChange={({ target: { value } }) => {
-							setFormData({
-								...form,
+							setFormData((oldForm) => ({
+								...oldForm,
 								time: value,
-							});
+							}));
 						}}
 					/>
 				</FormItem>
 			</FormLayoutGroup>
 			<FormItem top="Место *">
 				<CreateEventMap
-					location={form.location}
+					location={formData.location}
 					onChange={(location) => {
-						setFormData({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							location,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
 			<FormItem top="Аватарка *">
 				<UploadFile
-					fileList={form.file && [form.file]}
+					fileList={formData.file && [formData.file]}
 					onChange={(fileList) => {
-						setFormData({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							file: fileList[0],
-						});
+						}));
 					}}
 				/>
 			</FormItem>
@@ -123,7 +123,7 @@ export const CreateEventForm: React.FC<Props> = ({
 					size="l"
 					type="submit"
 					loading={loading}
-					disabled={!isEventFormFilled(form) || loading}
+					disabled={!isEventFormFilled(formData) || loading}
 				>
 					{buttonText || "Создать"}
 				</Button>

@@ -21,72 +21,72 @@ export const CreateCarFom: React.FC<Props> = ({
 	loading,
 	onSubmit,
 }) => {
-	const [form, setForm] = useState(emptyCarForm);
+	const [formData, setFormData] = useState(emptyCarForm);
 
 	return (
 		<FormLayout
 			onSubmit={(e) => {
 				e.preventDefault();
-				onSubmit(form);
+				onSubmit(formData);
 			}}
 		>
 			<FormItem
 				top="Марка *"
-				bottom={form.brand ? "" : "Укажите марку автомобиля"}
-				status={form.brand ? "valid" : "error"}
+				bottom={formData.brand ? "" : "Укажите марку автомобиля"}
+				status={formData.brand ? "valid" : "error"}
 			>
 				<Input
 					type="text"
-					value={form.brand}
+					value={formData.brand}
 					placeholder="Не указано"
 					onChange={({ target: { value } }) => {
-						setForm({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							brand: value,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
 			<FormItem
 				top="Модель *"
-				bottom={form.model ? "" : "Укажите модель автомобиля"}
-				status={form.model ? "valid" : "error"}
+				bottom={formData.model ? "" : "Укажите модель автомобиля"}
+				status={formData.model ? "valid" : "error"}
 			>
 				<Input
 					type="text"
-					value={form.model}
+					value={formData.model}
 					placeholder="Не указано"
 					onChange={({ target: { value } }) => {
-						setForm({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							model: value,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
 			<FormItem top="Кузов">
 				<Input
 					type="text"
-					value={form.body}
+					value={formData.body}
 					placeholder="Не указано"
 					onChange={({ target: { value } }) => {
-						setForm({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							body: value,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
 			<FormItem top="Мотор">
 				<Input
 					type="text"
-					value={form.engine}
+					value={formData.engine}
 					placeholder="Не указано"
 					onChange={({ target: { value } }) => {
-						setForm({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							engine: value,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
@@ -94,35 +94,37 @@ export const CreateCarFom: React.FC<Props> = ({
 				<FormItem
 					top="Год выпуска *"
 					bottom={
-						+form.date > 1000 && +form.date < 2200
+						+formData.date > 1000 && +formData.date < 2200
 							? ""
 							: "Укажите корректный год выпуска автомобиля"
 					}
-					status={+form.date > 1000 && +form.date < 2200 ? "valid" : "error"}
+					status={
+						+formData.date > 1000 && +formData.date < 2200 ? "valid" : "error"
+					}
 				>
 					<Input
 						pattern="\d{4}"
 						type="number"
-						value={form.date}
+						value={formData.date}
 						placeholder="Не указано"
 						onChange={({ target: { value } }) => {
-							setForm({
-								...form,
+							setFormData((oldForm) => ({
+								...oldForm,
 								date: value,
-							});
+							}));
 						}}
 					/>
 				</FormItem>
 				<FormItem top="Лошадиные силы">
 					<Input
 						type="number"
-						value={form.horsePower}
+						value={formData.horsePower}
 						placeholder="Не указано"
 						onChange={({ target: { value } }) => {
-							setForm({
-								...form,
+							setFormData((oldForm) => ({
+								...oldForm,
 								horsePower: value,
-							});
+							}));
 						}}
 					/>
 				</FormItem>
@@ -133,13 +135,13 @@ export const CreateCarFom: React.FC<Props> = ({
 			>
 				<Input
 					type="text"
-					value={form.name}
+					value={formData.name}
 					placeholder="Не указано"
 					onChange={({ target: { value } }) => {
-						setForm({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							name: value,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
@@ -150,23 +152,23 @@ export const CreateCarFom: React.FC<Props> = ({
 				<Textarea
 					rows={1}
 					placeholder="Не указано"
-					value={form.description}
+					value={formData.description}
 					onChange={({ target: { value } }) => {
-						setForm({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							description: value,
-						});
+						}));
 					}}
 				/>
 			</FormItem>
 			<FormItem top="Фотокарточка *">
 				<UploadFile
-					fileList={form.file && [form.file]}
+					fileList={formData.file && [formData.file]}
 					onChange={(fileList) => {
-						setForm({
-							...form,
+						setFormData((oldForm) => ({
+							...oldForm,
 							file: fileList[0],
-						});
+						}));
 					}}
 				/>
 			</FormItem>
@@ -176,7 +178,7 @@ export const CreateCarFom: React.FC<Props> = ({
 					size="l"
 					type="submit"
 					loading={loading}
-					disabled={!isCarFormFilled(form) || loading}
+					disabled={!isCarFormFilled(formData) || loading}
 				>
 					{buttonText || "Создать"}
 				</Button>
