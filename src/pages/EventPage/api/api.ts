@@ -18,5 +18,9 @@ export const getEvent = (id: number): Promise<EventData> => {
 			longitude: data.longitude,
 		},
 		avatar: data.avatar,
+		counters: {
+			members: data.participants_count,
+			viewers: data.spectators_count,
+		},
 	}));
 };

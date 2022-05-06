@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Group } from "@vkontakte/vkui";
 import { UserList } from "../../../components/UserList";
+import { CounterHeader } from "../../../components/CounterHeader";
 import { emptyEventViewersList, getEventViewersList } from "./api";
 
 interface Props {
 	eventId: number;
+	viewersCount: number;
 	onClick: (id: number) => void;
 }
 
-export const EventViewers: React.FC<Props> = ({ eventId, onClick }) => {
+export const EventViewers: React.FC<Props> = ({
+	eventId,
+	viewersCount,
+	onClick,
+}) => {
 	const [viewersList, setViewersList] = useState(emptyEventViewersList);
 
 	const handleGetViewersList = async (): Promise<void> => {
@@ -26,6 +32,11 @@ export const EventViewers: React.FC<Props> = ({ eventId, onClick }) => {
 
 	return (
 		<Group>
+			<CounterHeader
+				length={viewersCount}
+				text="Список зрителей"
+				mode="primary"
+			/>
 			<UserList userList={viewersList} onClick={onClick} />
 		</Group>
 	);

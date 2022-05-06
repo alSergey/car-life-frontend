@@ -46,6 +46,7 @@ export interface ModelsClub {
   name: string;
   owner_id: number;
   participants_count: number;
+  subscribers_count: number;
   tags: string[];
   user_status: string;
 }
@@ -55,6 +56,7 @@ export interface ModelsClubCard {
   id: number;
   name: string;
   participants_count: number;
+  subscribers_count: number;
   tags: string[];
 }
 
@@ -98,6 +100,7 @@ export interface ModelsEvent {
   longitude: number;
   name: string;
   participants_count: number;
+  spectators_count: number;
   user_status: string;
 }
 
@@ -108,6 +111,8 @@ export interface ModelsEventCard {
   latitude: number;
   longitude: number;
   name: string;
+  participants_count: number;
+  spectators_count: number;
 }
 
 export interface ModelsEventPost {

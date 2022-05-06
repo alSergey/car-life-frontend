@@ -16,4 +16,8 @@ export const emptyEventData: EventData = {
 		longitude: 0,
 	},
 	avatar: "",
+	counters: {
+		members: 0,
+		viewers: 0,
+	},
 };

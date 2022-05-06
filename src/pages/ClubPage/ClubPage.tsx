@@ -68,12 +68,17 @@ export const ClubPage: React.FC<Props> = ({
 			{activeTab === ClubTab.Members && (
 				<ClubMembers
 					clubId={clubId}
+					membersCount={clubData.counters.members}
 					userStatus={clubData.userStatus}
 					onClick={onUserClick}
 				/>
 			)}
 			{activeTab === ClubTab.Subscribers && (
-				<ClubSubscribers clubId={clubId} onClick={onUserClick} />
+				<ClubSubscribers
+					clubId={clubId}
+					subscribersCount={clubData.counters.subscribers}
+					onClick={onUserClick}
+				/>
 			)}
 		</Panel>
 	);

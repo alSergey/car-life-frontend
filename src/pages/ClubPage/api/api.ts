@@ -9,4 +9,8 @@ export const getClub = (id: number): Promise<ClubData> =>
 		tags: data.tags,
 		avatar: data.avatar,
 		userStatus: data.user_status,
+		counters: {
+			members: data.participants_count,
+			subscribers: data.subscribers_count,
+		},
 	}));
