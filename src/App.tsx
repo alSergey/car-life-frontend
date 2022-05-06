@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "@vkontakte/vkui/dist/vkui.css";
-import "@vkontakte/vkui/dist/unstable.css";
 import { AppRoot, Epic, Spinner } from "@vkontakte/vkui";
+import bridge from "@vkontakte/vk-bridge";
+import { useRouter, useLocation } from "@happysanta/router";
 import { NavBar } from "./components/NavBar";
 import { MainTab } from "./views/MainTab";
 import { MapTab } from "./views/MapTab";
@@ -12,7 +12,6 @@ import {
 	getUserData,
 	UserProvider,
 } from "./context/userContext";
-import { withRouter, RouterProps } from "@happysanta/router";
 import {
 	MAIN_VIEW,
 	MAP_PAGE,
@@ -21,10 +20,12 @@ import {
 	REG_VIEW,
 	REG_WELCOME_PAGE,
 } from "./router";
-import bridge from "@vkontakte/vk-bridge";
 import { api, setToken } from "./api";
 
-const App: React.FC<RouterProps> = ({ location, router }) => {
+export const App: React.FC = () => {
+	const router = useRouter();
+	const location = useLocation();
+
 	const [userData, setUserData] = useState(defaultUserData);
 	const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);
 	const [loading, setLoading] = useState(true);
@@ -50,10 +51,6 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 			setIsLoggedIn(true);
 			handleGetUserData();
 			if (location.getViewId() === REG_VIEW) router.pushPage(MAP_PAGE);
-
-			await bridge.send("VKWebAppAllowMessagesFromGroup", {
-				group_id: 212586637,
-			});
 		} catch (err) {
 			console.error(err);
 			if (err.response.status !== 401) return;
@@ -92,5 +89,3 @@ const App: React.FC<RouterProps> = ({ location, router }) => {
 		</UserProvider>
 	);
 };
-
-export default withRouter(App);
