@@ -103,7 +103,7 @@ export const CreateMiniEventForm: React.FC<Props> = ({
 							<Button
 								type="submit"
 								loading={loading}
-								disabled={!isMiniEventFormFilled(formData)}
+								disabled={!isMiniEventFormFilled(formData) || loading}
 								onClick={handleCreateMiniEvent}
 							>
 								Создать
