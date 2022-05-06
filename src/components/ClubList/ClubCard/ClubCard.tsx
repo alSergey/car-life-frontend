@@ -4,6 +4,7 @@ import { ContentCard } from "@vkontakte/vkui";
 interface Props {
 	title: string;
 	img: string;
+	members: number;
 	subscribers: number;
 	onClick: () => void;
 }
@@ -11,13 +12,14 @@ interface Props {
 export const ClubCard: React.FC<Props> = ({
 	title,
 	img,
+	members,
 	subscribers,
 	onClick,
 }) => (
 	<ContentCard
 		style={{ marginBottom: 7 }}
 		header={title}
-		caption={`${subscribers} участников`}
+		caption={`Автолюбители: ${members + subscribers}`}
 		src={img}
 		height="150px"
 		onClick={onClick}

@@ -7,6 +7,7 @@ interface ClubInfo {
 	name: string;
 	avatar: string;
 	participants_count: number;
+	subscribers_count: number;
 }
 
 interface Props {
@@ -21,15 +22,18 @@ export const ClubList: React.FC<Props> = ({
 	onClick,
 }) => {
 	const getCardList = (): ReactNode =>
-		clubList.map(({ id, name, avatar, participants_count }) => (
-			<ClubCard
-				key={id}
-				title={name}
-				subscribers={participants_count}
-				img={avatar}
-				onClick={() => onClick(id)}
-			/>
-		));
+		clubList.map(
+			({ id, name, avatar, participants_count, subscribers_count }) => (
+				<ClubCard
+					key={id}
+					title={name}
+					members={participants_count}
+					subscribers={subscribers_count}
+					img={avatar}
+					onClick={() => onClick(id)}
+				/>
+			)
+		);
 
 	return (
 		<div>
