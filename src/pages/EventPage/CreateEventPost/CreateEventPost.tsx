@@ -10,7 +10,7 @@ import {
 	FormLayout,
 	FormStatus,
 } from "@vkontakte/vkui";
-import { createNewEventPost } from "./api";
+import { createNewEventPost, emptyPostForm } from "./api";
 import { UploadFile } from "../../../components/UploadFile";
 
 interface Props {
@@ -33,15 +33,12 @@ export const CreateEventPost: React.FC<Props> = ({
 }) => {
 	const [loading, setLoading] = useState(false);
 	const [showError, setShowError] = useState("");
-	const [form, setForm] = useState<EventPostData>({
-		text: "",
-		files: null,
-	});
+	const [formData, setFormData] = useState(emptyPostForm);
 
 	const creatNewPost = async (): Promise<void> => {
 		setLoading(true);
 		try {
-			await createNewEventPost(form, eventId);
+			await createNewEventPost(formData, eventId);
 			onCreate();
 		} catch (err) {
 			console.error(err);
@@ -75,14 +72,14 @@ export const CreateEventPost: React.FC<Props> = ({
 					<Textarea
 						rows={1}
 						placeholder="Здесь было очень круто"
-						value={form.text}
+						value={formData.text}
 						onChange={({ target: { value } }) => {
 							setShowError("");
 
-							setForm({
-								...form,
+							setFormData((oldForm) => ({
+								...oldForm,
 								text: value,
-							});
+							}));
 						}}
 					/>
 				</FormItem>
@@ -91,7 +88,7 @@ export const CreateEventPost: React.FC<Props> = ({
 					bottom="Можно загрузить не больше 10 фото"
 				>
 					<UploadFile
-						fileList={form.files}
+						fileList={formData.files}
 						multiple
 						onChange={(fileList) => {
 							setShowError("");
@@ -102,10 +99,10 @@ export const CreateEventPost: React.FC<Props> = ({
 								return;
 							}
 
-							setForm({
-								...form,
+							setFormData((oldForm) => ({
+								...oldForm,
 								files: fileList,
-							});
+							}));
 						}}
 					/>
 				</FormItem>

@@ -32,12 +32,12 @@ export const CreateMiniEventForm: React.FC<Props> = ({
 }) => {
 	const [isOpened, setIsOpened] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [form, setFormData] = useState(emptyMiniEventForm);
+	const [formData, setFormData] = useState(emptyMiniEventForm);
 
 	const handleCreateMiniEvent = async () => {
 		setLoading(true);
 		try {
-			await createNewMiniEvent(form);
+			await createNewMiniEvent(formData);
 			setIsOpened(false);
 			onCreate();
 		} catch (err) {
@@ -50,10 +50,10 @@ export const CreateMiniEventForm: React.FC<Props> = ({
 	useEffect(() => {
 		if (!location) return;
 
-		setFormData({
-			...form,
+		setFormData((oldForm) => ({
+			...oldForm,
 			...location,
-		});
+		}));
 	}, [location]);
 
 	return (
@@ -65,12 +65,12 @@ export const CreateMiniEventForm: React.FC<Props> = ({
 							<CustomSelect
 								placeholder="Не выбран"
 								options={EventsTypes}
-								value={form.type_id}
+								value={formData.type_id}
 								onChange={({ target: { value } }) => {
-									setFormData({
-										...form,
+									setFormData((oldForm) => ({
+										...oldForm,
 										type_id: Number(value),
-									});
+									}));
 								}}
 							/>
 						</FormItem>
@@ -78,24 +78,24 @@ export const CreateMiniEventForm: React.FC<Props> = ({
 							<Textarea
 								rows={1}
 								placeholder="Не указано"
-								value={form.description}
+								value={formData.description}
 								onChange={({ target: { value } }) => {
-									setFormData({
-										...form,
+									setFormData((oldForm) => ({
+										...oldForm,
 										description: value,
-									});
+									}));
 								}}
 							/>
 						</FormItem>
 						<FormItem top="До скольки актуальна точка">
 							<Input
 								type="time"
-								value={form.ended_at}
+								value={formData.ended_at}
 								onChange={({ target: { value } }) => {
-									setFormData({
-										...form,
+									setFormData((oldForm) => ({
+										...oldForm,
 										ended_at: value,
-									});
+									}));
 								}}
 							/>
 						</FormItem>
@@ -103,7 +103,7 @@ export const CreateMiniEventForm: React.FC<Props> = ({
 							<Button
 								type="submit"
 								loading={loading}
-								disabled={!isMiniEventFormFilled(form)}
+								disabled={!isMiniEventFormFilled(formData) || loading}
 								onClick={handleCreateMiniEvent}
 							>
 								Создать

@@ -4,16 +4,16 @@ import { EventPage } from "../../pages/EventPage";
 import {
 	MAP_PANEL,
 	REG_WELCOME_PAGE,
-	MAP_EVENT_PAGE,
-	MAP_EVENT_PANEL,
-	MAP_USER_PAGE,
-	MAP_USER_PANEL,
-	MAP_CLUB_PAGE,
-	MAP_CLUB_PANEL,
-	MAP_CAR_PAGE,
-	MAP_CAR_PANEL,
-	MAP_CREATE_EVENT_PAGE,
 	MAP_CREATE_EVENT_PANEL,
+	MAP_CREATE_EVENT_PAGE,
+	MAP_CLUB_PANEL,
+	MAP_CLUB_PAGE,
+	MAP_EVENT_PANEL,
+	MAP_EVENT_PAGE,
+	MAP_USER_PANEL,
+	MAP_USER_PAGE,
+	MAP_CAR_PANEL,
+	MAP_CAR_PAGE,
 	setCarPageQuery,
 	setClubPageQuery,
 	setUserPageQuery,
@@ -45,8 +45,8 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 		router.popPage();
 	};
 
-	const handleUserCLick = (userId: number): void => {
-		router.pushPage(MAP_USER_PAGE, setUserPageQuery(userId));
+	const handleCreateEventCLick = (): void => {
+		router.pushPage(MAP_CREATE_EVENT_PAGE);
 	};
 
 	const handleClubCLick = (clubId: number): void => {
@@ -57,12 +57,12 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 		router.pushPage(MAP_EVENT_PAGE, setEventPageQuery(eventId));
 	};
 
-	const handleCarCLick = (carId: number): void => {
-		router.pushPage(MAP_CAR_PAGE, setCarPageQuery(carId));
+	const handleUserCLick = (userId: number): void => {
+		router.pushPage(MAP_USER_PAGE, setUserPageQuery(userId));
 	};
 
-	const handleCreateEventCLick = (): void => {
-		router.pushPage(MAP_CREATE_EVENT_PAGE);
+	const handleCarCLick = (carId: number): void => {
+		router.pushPage(MAP_CAR_PAGE, setCarPageQuery(carId));
 	};
 
 	return (
@@ -88,16 +88,16 @@ export const MapTab: React.FC<Props> = ({ id }) => {
 			<ClubPage
 				id={MAP_CLUB_PANEL}
 				onBackClick={handleBackClick}
-				onEventClick={handleEventCLick}
-				onCarClick={handleCarCLick}
-				onUserClick={handleUserCLick}
 				onCreateEventClick={handleCreateEventCLick}
+				onEventClick={handleEventCLick}
+				onUserClick={handleUserCLick}
+				onCarClick={handleCarCLick}
 			/>
 			<UserPage
 				id={MAP_USER_PANEL}
 				onBackClick={handleBackClick}
-				onEventClick={handleEventCLick}
 				onClubClick={handleClubCLick}
+				onEventClick={handleEventCLick}
 				onCarClick={handleCarCLick}
 			/>
 			<CarPage id={MAP_CAR_PANEL} onBackClick={handleBackClick} />

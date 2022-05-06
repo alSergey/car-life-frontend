@@ -1,6 +1,7 @@
 import { Group, Header } from "@vkontakte/vkui";
 import React, { useEffect, useState } from "react";
 import { ClubList } from "../../ClubList";
+import { AddButton } from "../../AddButton";
 import {
 	emptyAdminClubList,
 	emptyMemberClubList,
@@ -13,9 +14,14 @@ import {
 interface Props {
 	userId: number;
 	onClick: (id: number) => void;
+	onCreateClick?: () => void;
 }
 
-export const UserClub: React.FC<Props> = ({ userId, onClick }) => {
+export const UserClub: React.FC<Props> = ({
+	userId,
+	onClick,
+	onCreateClick,
+}) => {
 	const [adminClubList, setAdminClubList] = useState(emptyAdminClubList);
 	const [memberClubList, setMemberClubList] = useState(emptyMemberClubList);
 	const [subscriberClubList, setSubscriberClubList] = useState(
@@ -81,6 +87,7 @@ export const UserClub: React.FC<Props> = ({ userId, onClick }) => {
 					onClick={onClick}
 				/>
 			</Group>
+			{onCreateClick && <AddButton onClick={onCreateClick} />}
 		</div>
 	);
 };

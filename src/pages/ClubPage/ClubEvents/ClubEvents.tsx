@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Group } from "@vkontakte/vkui";
-import { Icon28AddOutline } from "@vkontakte/icons";
-import styles from "./ClubEvents.module.css";
+import { Group } from "@vkontakte/vkui";
 import { EventList } from "../../../components/EventList";
 import { emptyClubEventList, getClubEventList } from "./api";
+import { AddButton } from "../../../components/AddButton";
 
 interface Props {
 	clubId: number;
@@ -36,16 +35,7 @@ export const ClubEvents: React.FC<Props> = ({
 	return (
 		<Group>
 			<EventList eventList={eventList} onClick={onClick} />
-			{userStatus === "admin" && (
-				<Button
-					className={styles.addButton}
-					size="l"
-					style={{ width: 55, height: 55 }}
-					mode="secondary"
-					before={<Icon28AddOutline width={35} height={35} />}
-					onClick={onCreateClick}
-				/>
-			)}
+			{userStatus === "admin" && <AddButton onClick={onCreateClick} />}
 		</Group>
 	);
 };

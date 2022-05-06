@@ -13,10 +13,12 @@ import { UserContext } from "../../context/userContext";
 
 interface Props {
 	id: string;
+	onCreateClubClick: () => void;
+	onCreateEventClick: () => void;
+	onCreateCarClick: () => void;
 	onClubClick: (clubId: number) => void;
 	onEventClick: (eventId: number) => void;
 	onCarClick: (carId: number) => void;
-	onCreateCarClick: () => void;
 }
 
 export enum UserTab {
@@ -33,10 +35,12 @@ export enum UserInfoTab {
 
 export const ProfilePage: React.FC<Props> = ({
 	id,
-	onCarClick,
+	onCreateClubClick,
+	onCreateEventClick,
 	onCreateCarClick,
 	onClubClick,
 	onEventClick,
+	onCarClick,
 }) => {
 	const [activeTab, setActiveTab] = useState(UserTab.Info);
 	const [infoTab, setInfoTab] = useState(UserInfoTab.Info);
@@ -71,10 +75,18 @@ export const ProfilePage: React.FC<Props> = ({
 				/>
 			)}
 			{activeTab === UserTab.Event && (
-				<UserEvent userId={userState.id} onClick={onEventClick} />
+				<UserEvent
+					userId={userState.id}
+					onClick={onEventClick}
+					onCreateClick={onCreateEventClick}
+				/>
 			)}
 			{activeTab === UserTab.Club && (
-				<UserClub userId={userState.id} onClick={onClubClick} />
+				<UserClub
+					userId={userState.id}
+					onClick={onClubClick}
+					onCreateClick={onCreateClubClick}
+				/>
 			)}
 		</Panel>
 	);
