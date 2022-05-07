@@ -36,7 +36,7 @@ export const ClubList: React.FC<Props> = ({
 		);
 
 	return (
-		<div>
+		<div style={{ width: "100%" }}>
 			{scrollType === "horizontal" ? (
 				<CardScroll size="s">{getCardList()}</CardScroll>
 			) : (

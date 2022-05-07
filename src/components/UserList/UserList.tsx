@@ -22,7 +22,7 @@ export const UserList: React.FC<Props> = ({
 	onReject,
 	onClick,
 }) => (
-	<div>
+	<div style={{ width: "100%" }}>
 		<div>
 			{userList.map(({ vkid, name, surname, avatar_url }) => (
 				<UserCard

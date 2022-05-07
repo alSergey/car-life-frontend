@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const CarList: React.FC<Props> = ({ carList, onClick }) => (
-	<div>
+	<div style={{ width: "100%" }}>
 		<div className={styles.list}>
 			{carList.map(({ id, brand, model, date, name, avatar_url }) => (
 				<CarCard
