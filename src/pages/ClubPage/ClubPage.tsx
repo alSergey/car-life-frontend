@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
+import React, { Fragment, ReactNode, useEffect, useState } from "react";
+import {
+	Panel,
+	PanelHeader,
+	PanelHeaderBack,
+	PanelHeaderButton,
+} from "@vkontakte/vkui";
+import { Icon28MoreHorizontal } from "@vkontakte/icons";
 
 import { emptyClubData, getClub } from "./api";
+import { ClubActionMenu } from "./ClubActionMenu";
 import { ClubHeader } from "./ClubHeader";
 import { ClubBar, ClubTab } from "./ClubBar";
 import { ClubEvents } from "./ClubEvents";
@@ -12,15 +19,17 @@ import { getClubPageQuery } from "../../router";
 
 interface Props {
 	id: string;
+	setPopout: (popout: ReactNode | null) => void;
+	onBackClick: () => void;
 	onEventClick: (eventId: number) => void;
 	onCarClick: (carId: number) => void;
 	onUserClick: (userId: number) => void;
 	onCreateEventClick: (clubId: number) => void;
-	onBackClick?: () => void;
 }
 
 export const ClubPage: React.FC<Props> = ({
 	id,
+	setPopout,
 	onBackClick,
 	onUserClick,
 	onCarClick,
@@ -45,10 +54,27 @@ export const ClubPage: React.FC<Props> = ({
 		handleGetClubData();
 	}, []);
 
+	const openPopout = () => {
+		setPopout(
+			<ClubActionMenu
+				clubId={clubId}
+				userStatus={clubData.userStatus}
+				onClose={() => setPopout(null)}
+			/>
+		);
+	};
+
 	return (
 		<Panel id={id}>
 			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
+				left={
+					<Fragment>
+						<PanelHeaderBack onClick={onBackClick} />
+						<PanelHeaderButton aria-label="Меню">
+							<Icon28MoreHorizontal onClick={openPopout} />
+						</PanelHeaderButton>
+					</Fragment>
+				}
 			>
 				{clubData.name}
 			</PanelHeader>

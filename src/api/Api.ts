@@ -648,7 +648,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary complain post
      * @request POST:/event_posts/{post_id}/complain
      */
-    complainCreate: (id: number, postId: string, body: ModelsComplaintReq, params: RequestParams = {}) =>
+    complainCreate: (postId: number, body: ModelsComplaintReq, params: RequestParams = {}) =>
       this.request<void, UtilsError>({
         path: `/event_posts/${postId}/complain`,
         method: "POST",

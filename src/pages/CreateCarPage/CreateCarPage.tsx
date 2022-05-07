@@ -6,7 +6,7 @@ import { CarForm, CreateCarFom } from "../../components/CreateCarForm";
 
 interface Props {
 	id: string;
-	onBackClick?: () => void;
+	onBackClick: () => void;
 	onSubmit: (carId: number) => void;
 }
 
@@ -33,9 +33,7 @@ export const CreateCarPage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
 				Новая машина
 			</PanelHeader>
 			<CreateCarFom loading={loading} onSubmit={handleSubmit} />

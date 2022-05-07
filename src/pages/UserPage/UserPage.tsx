@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
+import React, { Fragment, ReactNode, useEffect, useState } from "react";
+import {
+	Panel,
+	PanelHeader,
+	PanelHeaderBack,
+	PanelHeaderButton,
+} from "@vkontakte/vkui";
+import { Icon28MoreHorizontal } from "@vkontakte/icons";
+import { UserActionMenu } from "./UserActionMenu";
 import {
 	UserTab,
 	UserGarage,
@@ -15,14 +22,16 @@ import { getUserData } from "./api";
 
 interface Props {
 	id: string;
+	setPopout: (popout: ReactNode | null) => void;
+	onBackClick: () => void;
 	onClubClick: (clubId: number) => void;
 	onEventClick: (eventId: number) => void;
 	onCarClick: (carId: number) => void;
-	onBackClick?: () => void;
 }
 
 export const UserPage: React.FC<Props> = ({
 	id,
+	setPopout,
 	onBackClick,
 	onCarClick,
 	onClubClick,
@@ -46,11 +55,24 @@ export const UserPage: React.FC<Props> = ({
 		handleGetUserData();
 	}, []);
 
+	const openPopout = () => {
+		setPopout(
+			<UserActionMenu userId={userId} onClose={() => setPopout(null)} />
+		);
+	};
+
 	return (
 		<Panel id={id}>
 			<PanelHeader
+				left={
+					<Fragment>
+						<PanelHeaderBack onClick={onBackClick} />
+						<PanelHeaderButton aria-label="Меню">
+							<Icon28MoreHorizontal onClick={openPopout} />
+						</PanelHeaderButton>
+					</Fragment>
+				}
 				separator={false}
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
 			/>
 			<UserHeader userData={userData} />
 			<UserBar activeTab={activeTab} setActiveTab={setActiveTab} />

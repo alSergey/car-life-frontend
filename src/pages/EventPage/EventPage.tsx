@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Panel, PanelHeader, PanelHeaderBack } from "@vkontakte/vkui";
+import React, { Fragment, ReactNode, useEffect, useState } from "react";
+import {
+	Panel,
+	PanelHeader,
+	PanelHeaderBack,
+	PanelHeaderButton,
+} from "@vkontakte/vkui";
+import { Icon28MoreHorizontal } from "@vkontakte/icons";
 
-import { EventBar, EventTab } from "./EventBar";
+import { EventActionMenu } from "./EventActionMenu";
 import { EventHeader } from "./EventHeader";
+import { EventBar, EventTab } from "./EventBar";
 import { EventInfo } from "./EventInfo";
 import { EventMembers } from "./EventMembers";
 import { EventViewers } from "./EventViewers";
@@ -12,16 +19,18 @@ import { emptyEventData, getEvent } from "./api";
 
 interface Props {
 	id: string;
+	setPopout: (popout: ReactNode | null) => void;
+	onBackClick: () => void;
 	onUserClick: (userId: number) => void;
 	onClubClick: (clubId: number) => void;
-	onBackClick?: () => void;
 }
 
 export const EventPage: React.FC<Props> = ({
 	id,
+	setPopout,
+	onBackClick,
 	onUserClick,
 	onClubClick,
-	onBackClick,
 }) => {
 	const { eventId } = getEventPageQuery();
 
@@ -41,10 +50,27 @@ export const EventPage: React.FC<Props> = ({
 		handleGetEventData();
 	}, []);
 
+	const openPopout = () => {
+		setPopout(
+			<EventActionMenu
+				eventId={eventId}
+				userStatus={eventData.userStatus}
+				onClose={() => setPopout(null)}
+			/>
+		);
+	};
+
 	return (
 		<Panel id={id}>
 			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
+				left={
+					<Fragment>
+						<PanelHeaderBack onClick={onBackClick} />
+						<PanelHeaderButton aria-label="Меню">
+							<Icon28MoreHorizontal onClick={openPopout} />
+						</PanelHeaderButton>
+					</Fragment>
+				}
 			>
 				Событие
 			</PanelHeader>
@@ -56,6 +82,7 @@ export const EventPage: React.FC<Props> = ({
 			{activeTab === EventTab.Posts && (
 				<EventPosts
 					eventId={eventId}
+					setPopout={setPopout}
 					userStatus={eventData.userStatus}
 					onUserClick={onUserClick}
 				/>

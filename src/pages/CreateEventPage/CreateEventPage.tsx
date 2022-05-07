@@ -6,7 +6,7 @@ import { CreateEventForm, EventForm } from "../../components/CreateEventForm";
 
 interface Props {
 	id: string;
-	onBackClick?: () => void;
+	onBackClick: () => void;
 	onSubmit: (eventId: number) => void;
 }
 
@@ -33,9 +33,7 @@ export const CreateEventPage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
 				Новое событие
 			</PanelHeader>
 			<CreateEventForm loading={loading} onSubmit={handleSubmit} />
