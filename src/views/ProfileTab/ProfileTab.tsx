@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { View } from "@vkontakte/vkui";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
+import { SplitLayout, View } from "@vkontakte/vkui";
 import { ProfilePage } from "../../pages/ProfilePage";
 import { ClubPage } from "../../pages/ClubPage";
 import { EventPage } from "../../pages/EventPage";
@@ -41,6 +41,7 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 	const location = useLocation();
 	const router = useRouter();
 
+	const [popout, setPopout] = useState<ReactNode | null>(null);
 	const { isLoggedIn } = useContext(UserContext);
 
 	useEffect(() => {
@@ -80,59 +81,68 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 	};
 
 	return (
-		<View
-			id={id}
-			history={location.getViewHistory(id)}
-			onSwipeBack={handleBackClick}
-			// @ts-ignore
-			activePanel={location.getViewActivePanel(id)}
-		>
-			<ProfilePage
-				id={PROFILE_PANEL}
-				onCreateClubClick={handleCreateClubCLick}
-				onCreateEventClick={handleCreateEventCLick}
-				onCreateCarClick={handleCreateCarCLick}
-				onClubClick={handleClubCLick}
-				onEventClick={handleEventCLick}
-				onCarClick={handleCarCLick}
-			/>
-			<CreateClubPage
-				id={PROFILE_CREATE_CLUB_PANEL}
-				onBackClick={handleBackClick}
-				onSubmit={handleClubCLick}
-			/>
-			<CreateEventPage
-				id={PROFILE_CREATE_EVENT_PANEL}
-				onBackClick={handleBackClick}
-				onSubmit={handleEventCLick}
-			/>
-			<CreateCarPage
-				id={PROFILE_CREATE_CAR_PANEL}
-				onBackClick={handleBackClick}
-				onSubmit={handleCarCLick}
-			/>
-			<ClubPage
-				id={PROFILE_CLUB_PANEL}
-				onBackClick={handleBackClick}
-				onCreateEventClick={handleCreateEventCLick}
-				onEventClick={handleEventCLick}
-				onUserClick={handleUserCLick}
-				onCarClick={handleCarCLick}
-			/>
-			<EventPage
-				id={PROFILE_EVENT_PANEL}
-				onBackClick={handleBackClick}
-				onClubClick={handleClubCLick}
-				onUserClick={handleUserCLick}
-			/>
-			<UserPage
-				id={PROFILE_USER_PANEL}
-				onBackClick={handleBackClick}
-				onClubClick={handleClubCLick}
-				onEventClick={handleEventCLick}
-				onCarClick={handleCarCLick}
-			/>
-			<CarPage id={PROFILE_CAR_PANEL} onBackClick={handleBackClick} />
-		</View>
+		<SplitLayout popout={popout}>
+			<View
+				id={id}
+				history={location.getViewHistory(id)}
+				onSwipeBack={handleBackClick}
+				// @ts-ignore
+				activePanel={location.getViewActivePanel(id)}
+			>
+				<ProfilePage
+					id={PROFILE_PANEL}
+					onCreateClubClick={handleCreateClubCLick}
+					onCreateEventClick={handleCreateEventCLick}
+					onCreateCarClick={handleCreateCarCLick}
+					onClubClick={handleClubCLick}
+					onEventClick={handleEventCLick}
+					onCarClick={handleCarCLick}
+				/>
+				<CreateClubPage
+					id={PROFILE_CREATE_CLUB_PANEL}
+					onBackClick={handleBackClick}
+					onSubmit={handleClubCLick}
+				/>
+				<CreateEventPage
+					id={PROFILE_CREATE_EVENT_PANEL}
+					onBackClick={handleBackClick}
+					onSubmit={handleEventCLick}
+				/>
+				<CreateCarPage
+					id={PROFILE_CREATE_CAR_PANEL}
+					onBackClick={handleBackClick}
+					onSubmit={handleCarCLick}
+				/>
+				<ClubPage
+					id={PROFILE_CLUB_PANEL}
+					setPopout={setPopout}
+					onBackClick={handleBackClick}
+					onCreateEventClick={handleCreateEventCLick}
+					onEventClick={handleEventCLick}
+					onUserClick={handleUserCLick}
+					onCarClick={handleCarCLick}
+				/>
+				<EventPage
+					id={PROFILE_EVENT_PANEL}
+					setPopout={setPopout}
+					onBackClick={handleBackClick}
+					onClubClick={handleClubCLick}
+					onUserClick={handleUserCLick}
+				/>
+				<UserPage
+					id={PROFILE_USER_PANEL}
+					setPopout={setPopout}
+					onBackClick={handleBackClick}
+					onClubClick={handleClubCLick}
+					onEventClick={handleEventCLick}
+					onCarClick={handleCarCLick}
+				/>
+				<CarPage
+					id={PROFILE_CAR_PANEL}
+					setPopout={setPopout}
+					onBackClick={handleBackClick}
+				/>
+			</View>
+		</SplitLayout>
 	);
 };

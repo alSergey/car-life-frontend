@@ -19,10 +19,15 @@ interface EventPostInfo {
 
 interface Props {
 	postList: EventPostInfo[];
+	onActionMenuClick: (post: EventPostInfo) => void;
 	onUserClick: (id: number) => void;
 }
 
-export const EventPostList: React.FC<Props> = ({ postList, onUserClick }) => (
+export const EventPostList: React.FC<Props> = ({
+	postList,
+	onUserClick,
+	onActionMenuClick,
+}) => (
 	<div style={{ width: "100%" }}>
 		<CardGrid size="l">
 			{postList.map((post) => (
@@ -34,6 +39,7 @@ export const EventPostList: React.FC<Props> = ({ postList, onUserClick }) => (
 					userName={post.user.name}
 					userSurname={post.user.surname}
 					onUserClick={() => onUserClick(post.user.vkid)}
+					onActionMenuClick={() => onActionMenuClick(post)}
 				/>
 			))}
 		</CardGrid>

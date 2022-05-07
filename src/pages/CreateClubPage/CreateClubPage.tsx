@@ -6,7 +6,7 @@ import { ClubForm, CreateClubForm } from "../../components/CreateClubForm";
 
 interface Props {
 	id: string;
-	onBackClick?: () => void;
+	onBackClick: () => void;
 	onSubmit: (clubId: number) => void;
 }
 
@@ -33,9 +33,7 @@ export const CreateClubPage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
-			>
+			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
 				Новый клуб
 			</PanelHeader>
 			<CreateClubForm loading={loading} onSubmit={handleSubmit} />

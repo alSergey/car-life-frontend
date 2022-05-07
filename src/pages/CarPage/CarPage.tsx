@@ -1,4 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {
+	Fragment,
+	ReactNode,
+	useContext,
+	useEffect,
+	useState,
+} from "react";
 import {
 	Div,
 	Group,
@@ -7,21 +13,27 @@ import {
 	PanelHeader,
 	PanelHeaderBack,
 	Text,
+	PanelHeaderButton,
 } from "@vkontakte/vkui";
+import { Icon28MoreHorizontal } from "@vkontakte/icons";
 import styles from "./CarPage.module.css";
+import { CarActionMenu } from "./CarActionMenu";
 import { CarHeader } from "./CarHeader";
 import { getCarPageQuery } from "../../router";
-import { emptyCarData, getCar } from "./api";
 import { getPrettyYear } from "../../constants/time";
+import { emptyCarData, getCar } from "./api";
+import { UserContext } from "../../context/userContext";
 
 interface Prop {
 	id: string;
-	onBackClick?: () => void;
+	setPopout: (popout: ReactNode | null) => void;
+	onBackClick: () => void;
 }
 
-export const CarPage: React.FC<Prop> = ({ id, onBackClick }) => {
+export const CarPage: React.FC<Prop> = ({ id, setPopout, onBackClick }) => {
 	const { carId } = getCarPageQuery();
 
+	const { userState } = useContext(UserContext);
 	const [carData, setCarData] = useState(emptyCarData);
 
 	const handleGetCarData = async (): Promise<void> => {
@@ -37,10 +49,23 @@ export const CarPage: React.FC<Prop> = ({ id, onBackClick }) => {
 		handleGetCarData();
 	}, []);
 
+	const openPopout = () => {
+		setPopout(<CarActionMenu carId={carId} onClose={() => setPopout(null)} />);
+	};
+
 	return (
 		<Panel id={id}>
 			<PanelHeader
-				left={onBackClick && <PanelHeaderBack onClick={onBackClick} />}
+				left={
+					<Fragment>
+						<PanelHeaderBack onClick={onBackClick} />
+						{userState.id === carData.owner_id && (
+							<PanelHeaderButton aria-label="Меню">
+								<Icon28MoreHorizontal onClick={openPopout} />
+							</PanelHeaderButton>
+						)}
+					</Fragment>
+				}
 			>
 				{!!carData.name ? carData.name : `${carData.brand} ${carData.model}`}
 			</PanelHeader>
