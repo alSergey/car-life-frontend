@@ -68,6 +68,7 @@ export const ClubPage: React.FC<Props> = ({
 			{activeTab === ClubTab.Members && (
 				<ClubMembers
 					clubId={clubId}
+					owner={clubData.owner}
 					membersCount={clubData.counters.members}
 					userStatus={clubData.userStatus}
 					onClick={onUserClick}

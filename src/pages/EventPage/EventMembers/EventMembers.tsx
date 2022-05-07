@@ -9,9 +9,11 @@ import {
 	getEventMembersList,
 	memberEventApproveReject,
 } from "./api";
+import { EventData } from "../api";
 
 interface Props {
 	eventId: number;
+	creator: EventData["creator"];
 	membersCount: number;
 	userStatus: string;
 	onClick: (id: number) => void;
@@ -19,6 +21,7 @@ interface Props {
 
 export const EventMembers: React.FC<Props> = ({
 	eventId,
+	creator,
 	membersCount,
 	userStatus,
 	onClick,
@@ -76,6 +79,7 @@ export const EventMembers: React.FC<Props> = ({
 						mode="prominent"
 					/>
 					<UserList
+						showEmpty
 						userList={membersRequestList}
 						onClick={onClick}
 						onApprove={(id) => handleApproveReject(id, "approve")}
@@ -89,15 +93,13 @@ export const EventMembers: React.FC<Props> = ({
 					text="Список участников"
 					mode="primary"
 				/>
-				{membersList[0] && (
-					<UserCard
-						name={membersList[0].name}
-						surname={membersList[0].surname}
-						description="Организатор"
-						img={membersList[0].avatar_url}
-						onClick={() => onClick(membersList[0].vkid)}
-					/>
-				)}
+				<UserCard
+					description="Организатор"
+					name={creator.name}
+					surname={creator.surname}
+					img={creator.avatar}
+					onClick={() => onClick(creator.id)}
+				/>
 				<UserList userList={membersList} onClick={onClick} />
 			</Group>
 		</div>

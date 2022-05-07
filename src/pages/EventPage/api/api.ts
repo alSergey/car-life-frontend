@@ -6,6 +6,12 @@ export const getEvent = (id: number): Promise<EventData> => {
 		id: data.id,
 		name: data.name,
 		userStatus: data.user_status,
+		creator: {
+			id: data.creator.vkid,
+			name: data.creator.name,
+			surname: data.creator.surname,
+			avatar: data.creator.avatar_url,
+		},
 		club: {
 			id: data.club.id,
 			name: data.club.name,

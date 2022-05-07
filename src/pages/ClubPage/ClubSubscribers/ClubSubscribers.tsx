@@ -39,7 +39,7 @@ export const ClubSubscribers: React.FC<Props> = ({
 				text="Список подписчиков"
 				mode="primary"
 			/>
-			<UserList userList={subscribersList} onClick={onClick} />
+			<UserList showEmpty userList={subscribersList} onClick={onClick} />
 		</Group>
 	);
 };

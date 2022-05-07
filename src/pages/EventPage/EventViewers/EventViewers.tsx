@@ -37,7 +37,7 @@ export const EventViewers: React.FC<Props> = ({
 				text="Список зрителей"
 				mode="primary"
 			/>
-			<UserList userList={viewersList} onClick={onClick} />
+			<UserList showEmpty userList={viewersList} onClick={onClick} />
 		</Group>
 	);
 };
