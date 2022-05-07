@@ -1,9 +1,7 @@
-export const deleteCar = (carId: number): Promise<number> => {
-	console.log("delete car", carId);
-	return Promise.resolve(1);
-};
+import { api } from "../../../../api";
 
-export const complainCar = (carId: number): Promise<number> => {
-	console.log("complain car", carId);
-	return Promise.resolve(1);
-};
+export const deleteCar = (carId: number): Promise<number> =>
+	api.garage.deleteCreate(carId).then(({ status }) => status);
+
+export const complainCar = (carId: number): Promise<number> =>
+	api.garage.complainCreate(carId, {}).then(({ status }) => status);

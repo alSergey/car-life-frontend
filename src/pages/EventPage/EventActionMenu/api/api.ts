@@ -1,9 +1,7 @@
-export const deleteEvent = (eventId: number): Promise<number> => {
-	console.log("delete event", eventId);
-	return Promise.resolve(1);
-};
+import { api } from "../../../../api";
 
-export const complainEvent = (eventId: number): Promise<number> => {
-	console.log("complain event", eventId);
-	return Promise.resolve(1);
-};
+export const deleteEvent = (eventId: number): Promise<number> =>
+	api.events.deleteCreate(eventId).then(({ status }) => status);
+
+export const complainEvent = (eventId: number): Promise<number> =>
+	api.events.complainCreate(eventId, {}).then(({ status }) => status);

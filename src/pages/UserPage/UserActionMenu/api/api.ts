@@ -1,4 +1,4 @@
-export const complainUser = (userId: number): Promise<number> => {
-	console.log("complain user", userId);
-	return Promise.resolve(1);
-};
+import { api } from "../../../../api";
+
+export const complainUser = (userId: number): Promise<number> =>
+	api.user.complainCreate(userId, {}).then(({ status }) => status);
