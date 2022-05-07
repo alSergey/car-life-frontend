@@ -60,6 +60,7 @@ export const EventPosts: React.FC<Props> = ({
 				postId={postId}
 				userStatus={userId === userState.id ? "owner" : "unknown"}
 				onClose={() => setPopout(null)}
+				onDelete={handleGetAllPosts}
 			/>
 		);
 	};

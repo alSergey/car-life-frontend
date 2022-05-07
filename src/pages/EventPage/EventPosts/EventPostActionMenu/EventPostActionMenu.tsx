@@ -6,17 +6,20 @@ interface Props {
 	postId: number;
 	userStatus: "owner" | "unknown";
 	onClose: () => void;
+	onDelete: () => void;
 }
 
 export const EventPostActionMenu: React.FC<Props> = ({
 	postId,
 	userStatus,
 	onClose,
+	onDelete,
 }) => {
 	const handleDelete = async (): Promise<void> => {
 		try {
 			await deleteEventPost(postId);
 			onClose();
+			onDelete();
 		} catch (err) {
 			console.error(err);
 		}

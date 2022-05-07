@@ -6,17 +6,20 @@ interface Props {
 	carId: number;
 	userStatus: "owner" | "unknown";
 	onClose: () => void;
+	onDelete: () => void;
 }
 
 export const CarActionMenu: React.FC<Props> = ({
 	carId,
 	userStatus,
 	onClose,
+	onDelete,
 }) => {
 	const handleDelete = async (): Promise<void> => {
 		try {
 			await deleteCar(carId);
 			onClose();
+			onDelete();
 		} catch (err) {
 			console.error(err);
 		}

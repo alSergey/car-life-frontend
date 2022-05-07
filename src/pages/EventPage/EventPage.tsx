@@ -56,6 +56,7 @@ export const EventPage: React.FC<Props> = ({
 				eventId={eventId}
 				userStatus={eventData.userStatus}
 				onClose={() => setPopout(null)}
+				onDelete={onBackClick}
 			/>
 		);
 	};

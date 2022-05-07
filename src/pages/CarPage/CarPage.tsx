@@ -55,6 +55,7 @@ export const CarPage: React.FC<Prop> = ({ id, setPopout, onBackClick }) => {
 				carId={carId}
 				userStatus={carData.owner_id === userState.id ? "owner" : "unknown"}
 				onClose={() => setPopout(null)}
+				onDelete={onBackClick}
 			/>
 		);
 	};

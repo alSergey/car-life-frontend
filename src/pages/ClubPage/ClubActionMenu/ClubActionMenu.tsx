@@ -6,17 +6,20 @@ interface Props {
 	clubId: number;
 	userStatus: string;
 	onClose: () => void;
+	onDelete: () => void;
 }
 
 export const ClubActionMenu: React.FC<Props> = ({
 	clubId,
 	userStatus,
 	onClose,
+	onDelete,
 }) => {
 	const handleDelete = async (): Promise<void> => {
 		try {
 			await deleteClub(clubId);
 			onClose();
+			onDelete();
 		} catch (err) {
 			console.error(err);
 		}

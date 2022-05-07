@@ -60,6 +60,7 @@ export const ClubPage: React.FC<Props> = ({
 				clubId={clubId}
 				userStatus={clubData.userStatus}
 				onClose={() => setPopout(null)}
+				onDelete={onBackClick}
 			/>
 		);
 	};
