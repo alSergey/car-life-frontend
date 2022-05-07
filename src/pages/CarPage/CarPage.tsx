@@ -50,7 +50,13 @@ export const CarPage: React.FC<Prop> = ({ id, setPopout, onBackClick }) => {
 	}, []);
 
 	const openPopout = () => {
-		setPopout(<CarActionMenu carId={carId} onClose={() => setPopout(null)} />);
+		setPopout(
+			<CarActionMenu
+				carId={carId}
+				userStatus={carData.owner_id === userState.id ? "owner" : "unknown"}
+				onClose={() => setPopout(null)}
+			/>
+		);
 	};
 
 	return (
@@ -59,11 +65,9 @@ export const CarPage: React.FC<Prop> = ({ id, setPopout, onBackClick }) => {
 				left={
 					<Fragment>
 						<PanelHeaderBack onClick={onBackClick} />
-						{userState.id === carData.owner_id && (
-							<PanelHeaderButton aria-label="Меню">
-								<Icon28MoreHorizontal onClick={openPopout} />
-							</PanelHeaderButton>
-						)}
+						<PanelHeaderButton aria-label="Меню">
+							<Icon28MoreHorizontal onClick={openPopout} />
+						</PanelHeaderButton>
 					</Fragment>
 				}
 			>

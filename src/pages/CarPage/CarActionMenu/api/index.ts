@@ -1,1 +1,1 @@
-export { deleteCar } from "./api";
+export { deleteCar, complainCar } from "./api";
