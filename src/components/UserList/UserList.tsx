@@ -11,6 +11,7 @@ interface UserInfo {
 
 interface Props {
 	userList: UserInfo[];
+	showEmpty?: boolean;
 	onApprove?: (id: number) => void;
 	onReject?: (id: number) => void;
 	onClick: (id: number) => void;
@@ -18,6 +19,7 @@ interface Props {
 
 export const UserList: React.FC<Props> = ({
 	userList,
+	showEmpty,
 	onApprove,
 	onReject,
 	onClick,
@@ -36,6 +38,6 @@ export const UserList: React.FC<Props> = ({
 				/>
 			))}
 		</div>
-		{userList.length === 0 && <Footer>Ничего не найдено</Footer>}
+		{userList.length === 0 && showEmpty && <Footer>Ничего не найдено</Footer>}
 	</div>
 );

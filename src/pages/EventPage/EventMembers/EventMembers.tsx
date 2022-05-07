@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Group } from "@vkontakte/vkui";
 import { CounterHeader } from "../../../components/CounterHeader";
-import { UserList } from "../../../components/UserList";
+import { UserCard, UserList } from "../../../components/UserList";
 import {
 	emptyEventMembersList,
 	emptyEventMembersRequestList,
@@ -9,9 +9,11 @@ import {
 	getEventMembersList,
 	memberEventApproveReject,
 } from "./api";
+import { EventData } from "../api";
 
 interface Props {
 	eventId: number;
+	creator: EventData["creator"];
 	membersCount: number;
 	userStatus: string;
 	onClick: (id: number) => void;
@@ -19,6 +21,7 @@ interface Props {
 
 export const EventMembers: React.FC<Props> = ({
 	eventId,
+	creator,
 	membersCount,
 	userStatus,
 	onClick,
@@ -76,6 +79,7 @@ export const EventMembers: React.FC<Props> = ({
 						mode="prominent"
 					/>
 					<UserList
+						showEmpty
 						userList={membersRequestList}
 						onClick={onClick}
 						onApprove={(id) => handleApproveReject(id, "approve")}
@@ -88,6 +92,13 @@ export const EventMembers: React.FC<Props> = ({
 					length={membersCount}
 					text="Список участников"
 					mode="primary"
+				/>
+				<UserCard
+					description="Организатор"
+					name={creator.name}
+					surname={creator.surname}
+					img={creator.avatar}
+					onClick={() => onClick(creator.id)}
 				/>
 				<UserList userList={membersList} onClick={onClick} />
 			</Group>

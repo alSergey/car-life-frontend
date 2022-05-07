@@ -44,7 +44,7 @@ export interface ModelsClub {
   events_count: number;
   id: number;
   name: string;
-  owner_id: number;
+  owner: ModelsUserCard;
   participants_count: number;
   subscribers_count: number;
   tags: string[];
@@ -58,6 +58,10 @@ export interface ModelsClubCard {
   participants_count: number;
   subscribers_count: number;
   tags: string[];
+}
+
+export interface ModelsComplaintReq {
+  text?: string;
 }
 
 export interface ModelsCreateClubRequest {
@@ -92,7 +96,7 @@ export interface ModelsCreatePostRequest {
 export interface ModelsEvent {
   avatar: string;
   club: ModelsClub;
-  creator_id: number;
+  creator: ModelsUserCard;
   description: string;
   event_date: string;
   id: number;
@@ -451,6 +455,39 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
+     * @description Handler for complaining club
+     *
+     * @tags Clubs
+     * @name ComplainCreate
+     * @summary complain club
+     * @request POST:/clubs/{id}/complain
+     */
+    complainCreate: (id: number, body: ModelsComplaintReq, params: RequestParams = {}) =>
+      this.request<void, UtilsError>({
+        path: `/clubs/${id}/complain`,
+        method: "POST",
+        body: body,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * @description Handler for deleting club
+     *
+     * @tags Clubs
+     * @name DeleteCreate
+     * @summary delete club
+     * @request POST:/clubs/{id}/delete
+     */
+    deleteCreate: (id: number, params: RequestParams = {}) =>
+      this.request<void, UtilsError>({
+        path: `/clubs/${id}/delete`,
+        method: "POST",
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
      * @description Handler for getting tags list
      *
      * @tags Clubs
@@ -602,6 +639,39 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         format: "json",
         ...params,
       }),
+
+    /**
+     * @description Handler for complaining post
+     *
+     * @tags EventsPosts
+     * @name ComplainCreate
+     * @summary complain post
+     * @request POST:/event_posts/{post_id}/complain
+     */
+    complainCreate: (id: number, postId: string, body: ModelsComplaintReq, params: RequestParams = {}) =>
+      this.request<void, UtilsError>({
+        path: `/event_posts/${postId}/complain`,
+        method: "POST",
+        body: body,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * @description Handler for deleting post
+     *
+     * @tags EventsPosts
+     * @name DeleteCreate
+     * @summary delete post
+     * @request POST:/event_posts/{post_id}/delete
+     */
+    deleteCreate: (postId: number, params: RequestParams = {}) =>
+      this.request<void, UtilsError>({
+        path: `/event_posts/${postId}/delete`,
+        method: "POST",
+        type: ContentType.Json,
+        ...params,
+      }),
   };
   events = {
     /**
@@ -618,7 +688,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         IdLte?: number;
         Limit?: number;
         Query?: string;
-        OnlyActual?: boolean;
         UpperRightLatitude?: number;
         UpperRightLongitude?: number;
         DownLeftLatitude?: number;
@@ -682,6 +751,39 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "GET",
         type: ContentType.Json,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for complaining event
+     *
+     * @tags Events
+     * @name ComplainCreate
+     * @summary complain event
+     * @request POST:/events/{id}/complain
+     */
+    complainCreate: (id: number, body: ModelsComplaintReq, params: RequestParams = {}) =>
+      this.request<void, UtilsError>({
+        path: `/events/${id}/complain`,
+        method: "POST",
+        body: body,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * @description Handler for deleting event
+     *
+     * @tags Events
+     * @name DeleteCreate
+     * @summary delete event
+     * @request POST:/events/{id}/delete
+     */
+    deleteCreate: (id: number, params: RequestParams = {}) =>
+      this.request<void, UtilsError>({
+        path: `/events/${id}/delete`,
+        method: "POST",
+        type: ContentType.Json,
         ...params,
       }),
 
@@ -794,6 +896,39 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "GET",
         type: ContentType.Json,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for complaining car
+     *
+     * @tags Users
+     * @name ComplainCreate
+     * @summary complain car
+     * @request POST:/garage/{id}/complain
+     */
+    complainCreate: (id: number, body: ModelsComplaintReq, params: RequestParams = {}) =>
+      this.request<void, UtilsError>({
+        path: `/garage/${id}/complain`,
+        method: "POST",
+        body: body,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * @description Handler for deleting car
+     *
+     * @tags Users
+     * @name DeleteCreate
+     * @summary delete car
+     * @request POST:/garage/{id}/delete
+     */
+    deleteCreate: (id: number, params: RequestParams = {}) =>
+      this.request<void, UtilsError>({
+        path: `/garage/${id}/delete`,
+        method: "POST",
+        type: ContentType.Json,
         ...params,
       }),
 
@@ -1019,6 +1154,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         query: query,
         type: ContentType.Json,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Handler for complaining user
+     *
+     * @tags Users
+     * @name ComplainCreate
+     * @summary complain user
+     * @request POST:/user/{id}/complain
+     */
+    complainCreate: (id: number, body: ModelsComplaintReq, params: RequestParams = {}) =>
+      this.request<void, UtilsError>({
+        path: `/user/${id}/complain`,
+        method: "POST",
+        body: body,
+        type: ContentType.Json,
         ...params,
       }),
 

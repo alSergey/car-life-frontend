@@ -4,6 +4,12 @@ export const emptyEventData: EventData = {
 	id: 0,
 	name: "",
 	userStatus: "",
+	creator: {
+		id: 0,
+		name: "",
+		surname: "",
+		avatar: "",
+	},
 	club: {
 		id: 1,
 		name: "",

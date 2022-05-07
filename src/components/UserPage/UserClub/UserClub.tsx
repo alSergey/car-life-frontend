@@ -64,7 +64,7 @@ export const UserClub: React.FC<Props> = ({
 	return (
 		<div>
 			<Group>
-				<Header>Админ клуба</Header>
+				<Header>Администратор клуба</Header>
 				<ClubList
 					scrollType="horizontal"
 					clubList={adminClubList}

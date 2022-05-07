@@ -7,6 +7,7 @@ import styles from "./UserCard.module.css";
 interface Props {
 	name: string;
 	surname: string;
+	description?: string;
 	img: string;
 	onClick: () => void;
 	onApprove?: () => void;
@@ -16,6 +17,7 @@ interface Props {
 export const UserCard: React.FC<Props> = ({
 	name,
 	surname,
+	description,
 	img,
 	onClick,
 	onApprove,
@@ -24,6 +26,7 @@ export const UserCard: React.FC<Props> = ({
 	<SimpleCell
 		before={<Avatar className={styles.avatar} size={40} src={img} />}
 		onClick={onClick}
+		description={description}
 		after={
 			<div className={styles.container}>
 				{onApprove && (

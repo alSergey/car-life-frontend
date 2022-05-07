@@ -9,6 +9,12 @@ export const getClub = (id: number): Promise<ClubData> =>
 		tags: data.tags,
 		avatar: data.avatar,
 		userStatus: data.user_status,
+		owner: {
+			id: data.owner.vkid,
+			name: data.owner.name,
+			surname: data.owner.surname,
+			avatar: data.owner.avatar_url,
+		},
 		counters: {
 			members: data.participants_count,
 			subscribers: data.subscribers_count,

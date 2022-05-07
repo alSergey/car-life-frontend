@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Group } from "@vkontakte/vkui";
-import { UserList } from "../../../components/UserList";
+import { UserCard, UserList } from "../../../components/UserList";
 import { CounterHeader } from "../../../components/CounterHeader";
 import {
 	emptyClubMembersList,
@@ -9,9 +9,11 @@ import {
 	getClubMembersRequestList,
 	memberClubApproveReject,
 } from "./api";
+import { ClubData } from "../api";
 
 interface Props {
 	clubId: number;
+	owner: ClubData["owner"];
 	membersCount: number;
 	userStatus: string;
 	onClick: (id: number) => void;
@@ -19,6 +21,7 @@ interface Props {
 
 export const ClubMembers: React.FC<Props> = ({
 	clubId,
+	owner,
 	membersCount,
 	userStatus,
 	onClick,
@@ -76,6 +79,7 @@ export const ClubMembers: React.FC<Props> = ({
 						mode="prominent"
 					/>
 					<UserList
+						showEmpty
 						userList={membersRequestList}
 						onClick={onClick}
 						onApprove={(id) => handleApproveReject(id, "approve")}
@@ -88,6 +92,13 @@ export const ClubMembers: React.FC<Props> = ({
 					length={membersCount}
 					text="Список участников"
 					mode="primary"
+				/>
+				<UserCard
+					description="Администратор"
+					name={owner.name}
+					surname={owner.surname}
+					img={owner.avatar}
+					onClick={() => onClick(owner.id)}
 				/>
 				<UserList userList={membersList} onClick={onClick} />
 			</Group>

@@ -2,6 +2,12 @@ export interface EventData {
 	id: number;
 	name: string;
 	userStatus: string;
+	creator: {
+		id: number;
+		name: string;
+		surname: string;
+		avatar: string;
+	};
 	club: {
 		id: number;
 		name: string;
