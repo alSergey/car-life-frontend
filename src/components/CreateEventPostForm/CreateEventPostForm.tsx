@@ -6,24 +6,16 @@ import { EventPostForm } from "./api";
 interface Props {
 	formData: EventPostForm;
 	setFormData: Dispatch<SetStateAction<EventPostForm>>;
-	onSubmit: (form: EventPostForm) => void;
 }
 
 export const CreateEventPostForm: React.FC<Props> = ({
 	formData,
 	setFormData,
-	onSubmit,
 }) => {
 	const [errorText, setErrorText] = useState("");
 
 	return (
-		<FormLayout
-			style={{ height: 650 }}
-			onSubmit={(e) => {
-				e.preventDefault();
-				onSubmit(formData);
-			}}
-		>
+		<FormLayout style={{ height: 650 }}>
 			{Boolean(errorText) && (
 				<FormItem>
 					<FormStatus mode="error">{errorText}</FormStatus>

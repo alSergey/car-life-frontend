@@ -54,11 +54,7 @@ export const CreateEventPostModal: React.FC<Props> = ({ id, onClose }) => {
 				</ModalPageHeader>
 			}
 		>
-			<CreateEventPostForm
-				formData={formData}
-				setFormData={setFormData}
-				onSubmit={handleCreateEventPost}
-			/>
+			<CreateEventPostForm formData={formData} setFormData={setFormData} />
 		</ModalPage>
 	);
 };
