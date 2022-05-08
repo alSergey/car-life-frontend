@@ -1,0 +1,1 @@
+export { CreateClubComplainModal } from "./CreateClubComplainModal";

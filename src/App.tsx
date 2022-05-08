@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AppRoot, Epic, Spinner } from "@vkontakte/vkui";
+import { Epic, Spinner } from "@vkontakte/vkui";
 import bridge from "@vkontakte/vk-bridge";
 import { useRouter, useLocation } from "@happysanta/router";
 import { NavBar } from "./components/NavBar";
@@ -40,11 +40,11 @@ export const App: React.FC = () => {
 	};
 
 	const handleLogin = async () => {
-		const data = await bridge.send("VKWebAppGetUserInfo");
+		// const data = await bridge.send("VKWebAppGetUserInfo");
 
 		try {
 			const session = await api.login.loginCreate({
-				vkid: data.id,
+				vkid: 146506479,
 			});
 
 			setToken(session.data.value);
@@ -75,17 +75,15 @@ export const App: React.FC = () => {
 				refreshUserState: handleGetUserData,
 			}}
 		>
-			<AppRoot>
-				{loading && <Spinner size="large" />}
-				{location.getViewId() !== REG_VIEW && (
-					<Epic activeStory={location.getViewId()} tabbar={<NavBar />}>
-						<MainTab id={MAIN_VIEW} />
-						<MapTab id={MAP_VIEW} />
-						<ProfileTab id={PROFILE_VIEW} />
-					</Epic>
-				)}
-				{location.getViewId() === REG_VIEW && <RegView id={REG_VIEW} />}
-			</AppRoot>
+			{loading && <Spinner size="large" />}
+			{location.getViewId() !== REG_VIEW && (
+				<Epic activeStory={location.getViewId()} tabbar={<NavBar />}>
+					<MainTab id={MAIN_VIEW} />
+					<MapTab id={MAP_VIEW} />
+					<ProfileTab id={PROFILE_VIEW} />
+				</Epic>
+			)}
+			{location.getViewId() === REG_VIEW && <RegView id={REG_VIEW} />}
 		</UserProvider>
 	);
 };

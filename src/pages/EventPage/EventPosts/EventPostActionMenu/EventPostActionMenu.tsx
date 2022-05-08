@@ -1,6 +1,11 @@
 import React from "react";
 import { ActionSheet, ActionSheetItem } from "@vkontakte/vkui";
-import { deleteEventPost, complainEventPost } from "./api";
+import {
+	CREATE_EVENT_POST_COMPLAIN_MODAL,
+	setCreateEventPostComplainModalQuery,
+} from "../../../../router";
+import { useRouter } from "@happysanta/router";
+import { deleteEventPost } from "./api";
 
 interface Props {
 	postId: number;
@@ -15,20 +20,13 @@ export const EventPostActionMenu: React.FC<Props> = ({
 	onClose,
 	onDelete,
 }) => {
-	const handleDelete = async (): Promise<void> => {
+	const router = useRouter();
+
+	const handleDeleteEventPost = async (): Promise<void> => {
 		try {
 			await deleteEventPost(postId);
 			onClose();
 			onDelete();
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
-	const handleComplain = async (): Promise<void> => {
-		try {
-			await complainEventPost(postId);
-			onClose();
 		} catch (err) {
 			console.error(err);
 		}
@@ -44,12 +42,24 @@ export const EventPostActionMenu: React.FC<Props> = ({
 			}
 		>
 			{userStatus !== "owner" && (
-				<ActionSheetItem autoclose onClick={handleComplain}>
+				<ActionSheetItem
+					autoclose
+					onClick={() =>
+						router.pushModal(
+							CREATE_EVENT_POST_COMPLAIN_MODAL,
+							setCreateEventPostComplainModalQuery(postId)
+						)
+					}
+				>
 					Пожаловаться
 				</ActionSheetItem>
 			)}
 			{userStatus === "owner" && (
-				<ActionSheetItem autoclose mode="destructive" onClick={handleDelete}>
+				<ActionSheetItem
+					autoclose
+					mode="destructive"
+					onClick={handleDeleteEventPost}
+				>
 					Удалить
 				</ActionSheetItem>
 			)}

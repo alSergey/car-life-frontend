@@ -1,6 +1,10 @@
 import React from "react";
 import { ActionSheet, ActionSheetItem } from "@vkontakte/vkui";
-import { complainUser } from "./api";
+import {
+	CREATE_USER_COMPLAIN_MODAL,
+	setCreateUserComplainModalQuery,
+} from "../../../router";
+import { useRouter } from "@happysanta/router";
 
 interface Props {
 	userId: number;
@@ -8,14 +12,7 @@ interface Props {
 }
 
 export const UserActionMenu: React.FC<Props> = ({ userId, onClose }) => {
-	const handleComplain = async (): Promise<void> => {
-		try {
-			await complainUser(userId);
-			onClose();
-		} catch (err) {
-			console.error(err);
-		}
-	};
+	const router = useRouter();
 
 	return (
 		<ActionSheet
@@ -26,7 +23,15 @@ export const UserActionMenu: React.FC<Props> = ({ userId, onClose }) => {
 				</ActionSheetItem>
 			}
 		>
-			<ActionSheetItem autoclose onClick={handleComplain}>
+			<ActionSheetItem
+				autoclose
+				onClick={() =>
+					router.pushModal(
+						CREATE_USER_COMPLAIN_MODAL,
+						setCreateUserComplainModalQuery(userId)
+					)
+				}
+			>
 				Пожаловаться
 			</ActionSheetItem>
 		</ActionSheet>

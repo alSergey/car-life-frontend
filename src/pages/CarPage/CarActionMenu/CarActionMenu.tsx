@@ -1,6 +1,11 @@
 import React from "react";
 import { ActionSheet, ActionSheetItem } from "@vkontakte/vkui";
-import { complainCar, deleteCar } from "./api";
+import {
+	CREATE_CAR_COMPLAIN_MODAL,
+	setCreateCarComplainModalQuery,
+} from "../../../router";
+import { useRouter } from "@happysanta/router";
+import { deleteCar } from "./api";
 
 interface Props {
 	carId: number;
@@ -15,20 +20,13 @@ export const CarActionMenu: React.FC<Props> = ({
 	onClose,
 	onDelete,
 }) => {
-	const handleDelete = async (): Promise<void> => {
+	const router = useRouter();
+
+	const handleDeleteCar = async (): Promise<void> => {
 		try {
 			await deleteCar(carId);
 			onClose();
 			onDelete();
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
-	const handleComplain = async (): Promise<void> => {
-		try {
-			await complainCar(carId);
-			onClose();
 		} catch (err) {
 			console.error(err);
 		}
@@ -44,12 +42,20 @@ export const CarActionMenu: React.FC<Props> = ({
 			}
 		>
 			{userStatus !== "owner" && (
-				<ActionSheetItem autoclose onClick={handleComplain}>
+				<ActionSheetItem
+					autoclose
+					onClick={() =>
+						router.pushModal(
+							CREATE_CAR_COMPLAIN_MODAL,
+							setCreateCarComplainModalQuery(carId)
+						)
+					}
+				>
 					Пожаловаться
 				</ActionSheetItem>
 			)}
 			{userStatus === "owner" && (
-				<ActionSheetItem autoclose mode="destructive" onClick={handleDelete}>
+				<ActionSheetItem autoclose mode="destructive" onClick={handleDeleteCar}>
 					Удалить
 				</ActionSheetItem>
 			)}

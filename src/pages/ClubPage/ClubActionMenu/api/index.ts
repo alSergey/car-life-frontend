@@ -1,1 +1,1 @@
-export { deleteClub, complainClub } from "./api";
+export { deleteClub } from "./api";

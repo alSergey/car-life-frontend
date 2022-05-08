@@ -1,6 +1,11 @@
 import React from "react";
 import { ActionSheet, ActionSheetItem } from "@vkontakte/vkui";
-import { complainClub, deleteClub } from "./api";
+import {
+	CREATE_CLUB_COMPLAIN_MODAL,
+	setCreateClubComplainModalQuery,
+} from "../../../router";
+import { useRouter } from "@happysanta/router";
+import { deleteClub } from "./api";
 
 interface Props {
 	clubId: number;
@@ -15,20 +20,13 @@ export const ClubActionMenu: React.FC<Props> = ({
 	onClose,
 	onDelete,
 }) => {
-	const handleDelete = async (): Promise<void> => {
+	const router = useRouter();
+
+	const handleDeleteClub = async (): Promise<void> => {
 		try {
 			await deleteClub(clubId);
 			onClose();
 			onDelete();
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
-	const handleComplain = async (): Promise<void> => {
-		try {
-			await complainClub(clubId);
-			onClose();
 		} catch (err) {
 			console.error(err);
 		}
@@ -44,12 +42,24 @@ export const ClubActionMenu: React.FC<Props> = ({
 			}
 		>
 			{userStatus !== "admin" && (
-				<ActionSheetItem autoclose onClick={handleComplain}>
+				<ActionSheetItem
+					autoclose
+					onClick={() =>
+						router.pushModal(
+							CREATE_CLUB_COMPLAIN_MODAL,
+							setCreateClubComplainModalQuery(clubId)
+						)
+					}
+				>
 					Пожаловаться
 				</ActionSheetItem>
 			)}
 			{userStatus === "admin" && (
-				<ActionSheetItem autoclose mode="destructive" onClick={handleDelete}>
+				<ActionSheetItem
+					autoclose
+					mode="destructive"
+					onClick={handleDeleteClub}
+				>
 					Удалить
 				</ActionSheetItem>
 			)}
