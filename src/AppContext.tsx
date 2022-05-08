@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { AdaptivityProvider, AppRoot, ConfigProvider } from "@vkontakte/vkui";
+import { AdaptivityProvider, ConfigProvider } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 import "@vkontakte/vkui/dist/unstable.css";
 import bridge from "@vkontakte/vk-bridge";
 import { RouterContext } from "@happysanta/router";
 import { router } from "./router";
-import { AppModals } from "./AppModals";
+import { App } from "./App";
 
 export const AppContext: React.FC = () => {
 	useEffect(() => {
@@ -18,9 +18,7 @@ export const AppContext: React.FC = () => {
 		<ConfigProvider>
 			<AdaptivityProvider>
 				<RouterContext.Provider value={router}>
-					<AppRoot>
-						<AppModals />
-					</AppRoot>
+					<App />
 				</RouterContext.Provider>
 			</AdaptivityProvider>
 		</ConfigProvider>

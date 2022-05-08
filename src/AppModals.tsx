@@ -15,9 +15,8 @@ import { CreateClubComplainModal } from "./modals/CreateClubComplainModal";
 import { CreateEventComplainModal } from "./modals/CreateEventComplainModal";
 import { CreateUserComplainModal } from "./modals/CreateUserComplainModal";
 import { CreateCarComplainModal } from "./modals/CreateCarComplainModal";
-import { App } from "./App";
 
-export const AppModals: React.FC = () => {
+export const AppModals: React.FC = ({ children }) => {
 	const router = useRouter();
 	const location = useLocation();
 
@@ -52,7 +51,7 @@ export const AppModals: React.FC = () => {
 				</ModalRoot>
 			}
 		>
-			<App />
+			{children}
 		</SplitLayout>
 	);
 };

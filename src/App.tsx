@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Epic, Spinner } from "@vkontakte/vkui";
+import { AppRoot, Epic, Spinner } from "@vkontakte/vkui";
 import bridge from "@vkontakte/vk-bridge";
 import { useRouter, useLocation } from "@happysanta/router";
 import { NavBar } from "./components/NavBar";
@@ -7,6 +7,7 @@ import { MainTab } from "./views/MainTab";
 import { MapTab } from "./views/MapTab";
 import { ProfileTab } from "./views/ProfileTab";
 import { RegView } from "./views/RegView";
+import { AppModals } from "./AppModals";
 import {
 	defaultUserData,
 	getUserData,
@@ -75,15 +76,19 @@ export const App: React.FC = () => {
 				refreshUserState: handleGetUserData,
 			}}
 		>
-			{loading && <Spinner size="large" />}
-			{location.getViewId() !== REG_VIEW && (
-				<Epic activeStory={location.getViewId()} tabbar={<NavBar />}>
-					<MainTab id={MAIN_VIEW} />
-					<MapTab id={MAP_VIEW} />
-					<ProfileTab id={PROFILE_VIEW} />
-				</Epic>
-			)}
-			{location.getViewId() === REG_VIEW && <RegView id={REG_VIEW} />}
+			<AppRoot>
+				{loading && <Spinner size="large" />}
+				<AppModals>
+					{location.getViewId() !== REG_VIEW && (
+						<Epic activeStory={location.getViewId()} tabbar={<NavBar />}>
+							<MainTab id={MAIN_VIEW} />
+							<MapTab id={MAP_VIEW} />
+							<ProfileTab id={PROFILE_VIEW} />
+						</Epic>
+					)}
+					{location.getViewId() === REG_VIEW && <RegView id={REG_VIEW} />}
+				</AppModals>
+			</AppRoot>
 		</UserProvider>
 	);
 };
