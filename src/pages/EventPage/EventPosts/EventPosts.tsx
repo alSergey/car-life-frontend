@@ -63,12 +63,12 @@ export const EventPosts: React.FC<Props> = ({
 			/>
 			{!location.getModalId() && isAddButtonShown(userStatus) && (
 				<AddButton
-					onClick={() =>
+					onClick={() => {
 						router.pushModal(
 							CREATE_EVENT_POST_MODAL,
 							setCreateEventPostModalQuery(eventId)
-						)
-					}
+						);
+					}}
 				/>
 			)}
 		</div>

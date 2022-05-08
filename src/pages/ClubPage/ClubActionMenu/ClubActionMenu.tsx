@@ -44,12 +44,12 @@ export const ClubActionMenu: React.FC<Props> = ({
 			{userStatus !== "admin" && (
 				<ActionSheetItem
 					autoclose
-					onClick={() =>
+					onClick={() => {
 						router.pushModal(
 							CREATE_CLUB_COMPLAIN_MODAL,
 							setCreateClubComplainModalQuery(clubId)
-						)
-					}
+						);
+					}}
 				>
 					Пожаловаться
 				</ActionSheetItem>

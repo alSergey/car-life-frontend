@@ -25,12 +25,12 @@ export const UserActionMenu: React.FC<Props> = ({ userId, onClose }) => {
 		>
 			<ActionSheetItem
 				autoclose
-				onClick={() =>
+				onClick={() => {
 					router.pushModal(
 						CREATE_USER_COMPLAIN_MODAL,
 						setCreateUserComplainModalQuery(userId)
-					)
-				}
+					);
+				}}
 			>
 				Пожаловаться
 			</ActionSheetItem>

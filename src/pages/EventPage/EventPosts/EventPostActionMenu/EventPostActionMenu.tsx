@@ -44,12 +44,12 @@ export const EventPostActionMenu: React.FC<Props> = ({
 			{userStatus !== "owner" && (
 				<ActionSheetItem
 					autoclose
-					onClick={() =>
+					onClick={() => {
 						router.pushModal(
 							CREATE_EVENT_POST_COMPLAIN_MODAL,
 							setCreateEventPostComplainModalQuery(postId)
-						)
-					}
+						);
+					}}
 				>
 					Пожаловаться
 				</ActionSheetItem>

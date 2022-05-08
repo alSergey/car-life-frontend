@@ -44,12 +44,12 @@ export const CarActionMenu: React.FC<Props> = ({
 			{userStatus !== "owner" && (
 				<ActionSheetItem
 					autoclose
-					onClick={() =>
+					onClick={() => {
 						router.pushModal(
 							CREATE_CAR_COMPLAIN_MODAL,
 							setCreateCarComplainModalQuery(carId)
-						)
-					}
+						);
+					}}
 				>
 					Пожаловаться
 				</ActionSheetItem>
