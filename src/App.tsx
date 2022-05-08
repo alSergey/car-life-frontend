@@ -40,11 +40,11 @@ export const App: React.FC = () => {
 	};
 
 	const handleLogin = async () => {
-		// const data = await bridge.send("VKWebAppGetUserInfo");
+		const data = await bridge.send("VKWebAppGetUserInfo");
 
 		try {
 			const session = await api.login.loginCreate({
-				vkid: 146506479,
+				vkid: data.id,
 			});
 
 			setToken(session.data.value);
