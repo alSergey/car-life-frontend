@@ -1,18 +1,13 @@
 import { Page } from "@happysanta/router";
-import {
-	eventIdQuery,
-	clubIdQuery,
-	userIdQuery,
-	carIdQuery,
-} from "./pagesQuery";
+import { eventQuery, clubQuery, userQuery, carQuery } from "./pages";
 
 // url
 export const MAP_PAGE = "/";
 export const MAP_CREATE_EVENT_PAGE = "/map/event/create";
-export const MAP_CLUB_PAGE = `/map/club/${clubIdQuery}`;
-export const MAP_EVENT_PAGE = `/map/event/${eventIdQuery}`;
-export const MAP_USER_PAGE = `/map/user/${userIdQuery}`;
-export const MAP_CAR_PAGE = `/map/car/${carIdQuery}`;
+export const MAP_CLUB_PAGE = `/map/club/${clubQuery}`;
+export const MAP_EVENT_PAGE = `/map/event/${eventQuery}`;
+export const MAP_USER_PAGE = `/map/user/${userQuery}`;
+export const MAP_CAR_PAGE = `/map/car/${carQuery}`;
 
 // panel
 export const MAP_PANEL = "map_panel";

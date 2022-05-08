@@ -3,4 +3,5 @@ export * from "./map";
 export * from "./profile";
 export * from "./reg";
 export * from "./router";
-export * from "./pagesQuery";
+export * from "./pages";
+export * from "./modals";

@@ -1,12 +1,15 @@
 import React, { ReactNode, useContext, useEffect, useState } from "react";
-import { ModalRoot, SplitLayout } from "@vkontakte/vkui";
 import { emptyEventPostsList, getEventPosts } from "./api";
-import { CreateEventPost } from "../CreateEventPost";
 import { EventPostList } from "../../../components/EventPostList";
 import { isAddButtonShown } from "./EventPosts.utils";
 import { AddButton } from "../../../components/AddButton";
 import { EventPostActionMenu } from "./EventPostActionMenu";
 import { UserContext } from "../../../context/userContext";
+import { useLocation, useRouter } from "@happysanta/router";
+import {
+	CREATE_EVENT_POST_MODAL,
+	setCreateEventPostModalQuery,
+} from "../../../router";
 
 interface Props {
 	eventId: number;
@@ -15,16 +18,16 @@ interface Props {
 	onUserClick: (id: number) => void;
 }
 
-const createModal = "create";
-
 export const EventPosts: React.FC<Props> = ({
 	eventId,
 	setPopout,
 	userStatus,
 	onUserClick,
 }) => {
+	const location = useLocation();
+	const router = useRouter();
 	const { userState } = useContext(UserContext);
-	const [isOpenAdd, setIsOpenAdd] = useState<string | null>(null);
+
 	const [posts, setPosts] = useState(emptyEventPostsList);
 
 	const handleGetAllPosts = async (): Promise<void> => {
@@ -38,21 +41,7 @@ export const EventPosts: React.FC<Props> = ({
 
 	useEffect(() => {
 		handleGetAllPosts();
-	}, []);
-
-	const modal = (
-		<ModalRoot activeModal={isOpenAdd}>
-			<CreateEventPost
-				id={createModal}
-				eventId={eventId}
-				onClose={() => setIsOpenAdd(null)}
-				onCreate={() => {
-					setIsOpenAdd(null);
-					handleGetAllPosts();
-				}}
-			/>
-		</ModalRoot>
-	);
+	}, [location.getModalId()]);
 
 	const openPopout = (postId: number, userId: number) => {
 		setPopout(
@@ -66,15 +55,22 @@ export const EventPosts: React.FC<Props> = ({
 	};
 
 	return (
-		<SplitLayout modal={modal}>
+		<div>
 			<EventPostList
 				postList={posts}
 				onActionMenuClick={({ id, user }) => openPopout(id, user.vkid)}
 				onUserClick={onUserClick}
 			/>
-			{!isOpenAdd && isAddButtonShown(userStatus) && (
-				<AddButton onClick={() => setIsOpenAdd(createModal)} />
+			{!location.getModalId() && isAddButtonShown(userStatus) && (
+				<AddButton
+					onClick={() => {
+						router.pushModal(
+							CREATE_EVENT_POST_MODAL,
+							setCreateEventPostModalQuery(eventId)
+						);
+					}}
+				/>
 			)}
-		</SplitLayout>
+		</div>
 	);
 };

@@ -1,6 +1,11 @@
 import React from "react";
 import { ActionSheet, ActionSheetItem } from "@vkontakte/vkui";
-import { complainEvent, deleteEvent } from "./api";
+import {
+	CREATE_EVENT_COMPLAIN_MODAL,
+	setCreateEventComplainModalQuery,
+} from "../../../router";
+import { useRouter } from "@happysanta/router";
+import { deleteEvent } from "./api";
 
 interface Props {
 	eventId: number;
@@ -15,20 +20,13 @@ export const EventActionMenu: React.FC<Props> = ({
 	onClose,
 	onDelete,
 }) => {
-	const handleDelete = async (): Promise<void> => {
+	const router = useRouter();
+
+	const handleDeleteEvent = async (): Promise<void> => {
 		try {
 			await deleteEvent(eventId);
 			onClose();
 			onDelete();
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
-	const handleComplain = async (): Promise<void> => {
-		try {
-			await complainEvent(eventId);
-			onClose();
 		} catch (err) {
 			console.error(err);
 		}
@@ -44,12 +42,24 @@ export const EventActionMenu: React.FC<Props> = ({
 			}
 		>
 			{userStatus !== "admin" && (
-				<ActionSheetItem autoclose onClick={handleComplain}>
+				<ActionSheetItem
+					autoclose
+					onClick={() => {
+						router.pushModal(
+							CREATE_EVENT_COMPLAIN_MODAL,
+							setCreateEventComplainModalQuery(eventId)
+						);
+					}}
+				>
 					Пожаловаться
 				</ActionSheetItem>
 			)}
 			{userStatus === "admin" && (
-				<ActionSheetItem autoclose mode="destructive" onClick={handleDelete}>
+				<ActionSheetItem
+					autoclose
+					mode="destructive"
+					onClick={handleDeleteEvent}
+				>
 					Удалить
 				</ActionSheetItem>
 			)}

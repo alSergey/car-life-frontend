@@ -1,1 +1,1 @@
-export { deleteEventPost, complainEventPost } from "./api";
+export { deleteEventPost } from "./api";

@@ -1,19 +1,14 @@
 import { Page } from "@happysanta/router";
-import {
-	eventIdQuery,
-	clubIdQuery,
-	userIdQuery,
-	carIdQuery,
-} from "./pagesQuery";
+import { eventQuery, clubQuery, userQuery, carQuery } from "./pages";
 
 // url
 export const MAIN_PAGE = "/main";
 export const MAIN_CREATE_EVENT_PAGE = "/main/event/create";
 export const MAIN_CREATE_CLUB_PAGE = "/main/club/create";
-export const MAIN_CLUB_PAGE = `/main/club/${clubIdQuery}`;
-export const MAIN_EVENT_PAGE = `/main/event/${eventIdQuery}`;
-export const MAIN_USER_PAGE = `/main/user/${userIdQuery}`;
-export const MAIN_CAR_PAGE = `/main/car/${carIdQuery}`;
+export const MAIN_CLUB_PAGE = `/main/club/${clubQuery}`;
+export const MAIN_EVENT_PAGE = `/main/event/${eventQuery}`;
+export const MAIN_USER_PAGE = `/main/user/${userQuery}`;
+export const MAIN_CAR_PAGE = `/main/car/${carQuery}`;
 
 // panel
 export const MAIN_PANEL = "main_page";
