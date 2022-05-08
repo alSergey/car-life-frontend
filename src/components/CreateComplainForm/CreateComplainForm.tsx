@@ -13,10 +13,10 @@ export const CreateComplainForm: React.FC<Props> = ({
 }) => {
 	return (
 		<FormLayout style={{ height: 450 }}>
-			<FormItem top="Описание">
+			<FormItem top="Комментарий">
 				<Textarea
 					rows={1}
-					placeholder="Не указано"
+					placeholder="Опишите причину жалобы"
 					value={formData.text}
 					onChange={({ target: { value } }) => {
 						setFormData((oldForm) => ({
