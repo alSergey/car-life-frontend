@@ -83,7 +83,7 @@ export const CarPage: React.FC<Prop> = ({
 				{!!carData.name ? carData.name : `${carData.brand} ${carData.model}`}
 			</PanelHeader>
 			<CarHeader img={carData.avatar_url} />
-			<Group onClick={() => onUserClick(carData.owner_id)}>
+			<Group onClick={() => onUserClick(carData.owner.id)}>
 				<div className={styles.userContainer}>
 					<div className={styles.userTextContainer}>
 						<Caption level="3" weight="3">
@@ -96,7 +96,7 @@ export const CarPage: React.FC<Prop> = ({
 					<Avatar
 						className={styles.avatar}
 						size={45}
-						src={carData.owner.avatar}
+						src={carData.owner.avatar_url}
 					/>
 				</div>
 			</Group>
