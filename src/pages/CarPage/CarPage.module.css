@@ -8,3 +8,19 @@
 
 	gap: 10px;
 }
+
+.userContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.avatar img {
+	object-fit: cover;
+}
+.userTextContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-right: 10px;
+}

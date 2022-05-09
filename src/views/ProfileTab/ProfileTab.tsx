@@ -141,6 +141,7 @@ export const ProfileTab: React.FC<Props> = ({ id }) => {
 					id={PROFILE_CAR_PANEL}
 					setPopout={setPopout}
 					onBackClick={handleBackClick}
+					onUserClick={handleUserCLick}
 				/>
 			</View>
 		</SplitLayout>

@@ -127,6 +127,7 @@ export const MainTab: React.FC<Props> = ({ id }) => {
 					id={MAIN_CAR_PANEL}
 					setPopout={setPopout}
 					onBackClick={handleBackClick}
+					onUserClick={handleUserCLick}
 				/>
 			</View>
 		</SplitLayout>
