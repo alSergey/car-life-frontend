@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-	GeolocationControl,
-	Map,
-	Placemark,
-	YMaps,
-	ZoomControl,
-} from "react-yandex-maps";
+import { Map, Placemark, YMaps, ZoomControl } from "react-yandex-maps";
 import { defaultMapData, YandexKey } from "../../constants/yandexKey";
 import { getPrettyTime } from "../../constants/time";
 import { emptyEventList, getMiniEventList } from "./api";
 import { PlacemarkImage } from "./MapPeopleWidget.config";
 import { CreateMiniEventForm } from "./CreateMiniEventForm";
-import bridge from "@vkontakte/vk-bridge";
-import { Avatar, Snackbar } from "@vkontakte/vkui";
-import { Icon20PlaceOutline } from "@vkontakte/icons";
 
 interface Location {
 	latitude: number;
@@ -30,11 +21,6 @@ export const MapPeopleWidget: React.FC<Props> = ({ mapHeight }) => {
 	const [newEventLocation, setNewEventLocation] = useState<Location | null>(
 		null
 	);
-	const [notify, setNotify] = useState<React.ReactNode | null>(null);
-	const [userLocation, setUserLocation] = useState({
-		latitude: 0,
-		longitude: 0,
-	});
 
 	const getExtraOptions = (id: number) => {
 		switch (id) {
@@ -48,44 +34,6 @@ export const MapPeopleWidget: React.FC<Props> = ({ mapHeight }) => {
 				return PlacemarkImage.default;
 		}
 	};
-	const showGeoNotify = (content: string) => {
-		if (notify) return;
-		setNotify(
-			<Snackbar
-				onClose={() => setNotify(null)}
-				before={
-					<Avatar size={24} style={{ background: "var(--accent)" }}>
-						<Icon20PlaceOutline fill="#fff" width={14} height={14} />
-					</Avatar>
-				}
-			>
-				{content}
-			</Snackbar>
-		);
-	};
-	const getUserGeo = async () => {
-		const data = await bridge.send("VKWebAppGetGeodata");
-
-		try {
-			if (data.available === 0) {
-				showGeoNotify(
-					"Включите использование геолокации в настройках телефона"
-				);
-			}
-			if (data.available === 1) {
-				setMapState({
-					location: [data.lat, data.long],
-					zoom: 12,
-				});
-				setUserLocation({ latitude: data.lat, longitude: data.long });
-			}
-		} catch (err) {
-			console.error(err);
-			showGeoNotify(
-				"Разрешите приложению доступ к местоположению и включите геолокацию"
-			);
-		}
-	};
 
 	const handleGetEventList = async (): Promise<void> => {
 		try {
@@ -97,7 +45,6 @@ export const MapPeopleWidget: React.FC<Props> = ({ mapHeight }) => {
 	};
 
 	useEffect(() => {
-		getUserGeo();
 		handleGetEventList();
 	}, []);
 
@@ -121,28 +68,9 @@ export const MapPeopleWidget: React.FC<Props> = ({ mapHeight }) => {
 							longitude: e.get("coords")[1],
 						})
 					}
-					modules={[
-						"templateLayoutFactory",
-						"layout.ImageWithContent",
-						"geolocation",
-					]}
+					modules={["templateLayoutFactory", "layout.ImageWithContent"]}
 				>
 					<ZoomControl />
-					<GeolocationControl
-						options={{ noPlacemark: true }}
-						onClick={() => {
-							getUserGeo();
-						}}
-						onLoad={() => {
-							getUserGeo();
-						}}
-					/>
-					{userLocation.latitude !== 0 && (
-						<Placemark
-							geometry={[userLocation.latitude, userLocation.longitude]}
-							options={PlacemarkImage.location}
-						/>
-					)}
 					{events.map((e) => (
 						<Placemark
 							key={e.id}
@@ -187,7 +115,6 @@ export const MapPeopleWidget: React.FC<Props> = ({ mapHeight }) => {
 					setNewEventLocation(null);
 				}}
 			/>
-			{notify}
 		</div>
 	);
 };

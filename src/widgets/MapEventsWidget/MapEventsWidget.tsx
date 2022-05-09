@@ -1,19 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-	GeolocationControl,
-	Map,
-	Placemark,
-	YMaps,
-	ZoomControl,
-} from "react-yandex-maps";
+import React, { useRef, useState } from "react";
+import { Map, Placemark, YMaps, ZoomControl } from "react-yandex-maps";
 import { defaultMapData, YandexKey } from "../../constants/yandexKey";
 import { getEventList, emptyEventList } from "./api";
 import { ModelsEventCard } from "../../api/Api";
 import { MapEventList } from "./MapEventList";
-import bridge from "@vkontakte/vk-bridge";
-import { Avatar, Snackbar } from "@vkontakte/vkui";
-import { Icon20PlaceOutline } from "@vkontakte/icons";
-import { PlacemarkImage } from "../MapPeopleWidget/MapPeopleWidget.config";
 
 interface Props {
 	mapHeight?: number;
@@ -29,57 +19,6 @@ export const MapEventsWidget: React.FC<Props> = ({
 	const [events, setEvents] = useState(emptyEventList);
 	const [activeEvent, setActiveEvent] = useState<number | null>(null);
 	const [mapState, setMapState] = useState(defaultMapData);
-	const [notify, setNotify] = useState<React.ReactNode | null>(null);
-	const [userLocation, setUserLocation] = useState({
-		latitude: 0,
-		longitude: 0,
-	});
-
-	const showGeoNotify = (text: string) => {
-		// if (notify) return;
-		setNotify(
-			<Snackbar
-				onClose={() => setNotify(null)}
-				before={
-					<Avatar size={24} style={{ background: "var(--accent)" }}>
-						<Icon20PlaceOutline fill="#fff" width={14} height={14} />
-					</Avatar>
-				}
-			>
-				{text}
-			</Snackbar>
-		);
-	};
-
-	const getUserGeo = async () => {
-		const data = await bridge.send("VKWebAppGetGeodata");
-
-		try {
-			if (data.available === 0) {
-				showGeoNotify(
-					"Включите использование геолокации в настройках телефона"
-				);
-			}
-			if (data.available === 1) {
-				setMapState({
-					location: [data.lat, data.long],
-					zoom: 10,
-				});
-				setUserLocation({ latitude: data.lat, longitude: data.long });
-			}
-		} catch (err) {
-			console.error(err);
-			showGeoNotify(
-				"Разрешите приложению доступ к местоположению и включите геолокацию"
-			);
-		}
-	};
-
-	useEffect(() => {
-		console.log("sdkjnlfgk;jhwerj");
-
-		getUserGeo();
-	}, []);
 
 	const handleGetEventList = async (): Promise<void> => {
 		try {
@@ -111,7 +50,6 @@ export const MapEventsWidget: React.FC<Props> = ({
 				<Map
 					height={mapHeight}
 					width="100%"
-					modules={["geolocation"]}
 					state={{
 						center: mapState.location,
 						zoom: mapState.zoom,
@@ -129,21 +67,6 @@ export const MapEventsWidget: React.FC<Props> = ({
 					onActionEnd={handleGetEventList}
 				>
 					<ZoomControl />
-					<GeolocationControl
-						options={{ noPlacemark: true }}
-						onClick={() => {
-							getUserGeo();
-						}}
-						onLoad={() => {
-							getUserGeo();
-						}}
-					/>
-					{userLocation.latitude !== 0 && (
-						<Placemark
-							geometry={[userLocation.latitude, userLocation.longitude]}
-							options={PlacemarkImage.location}
-						/>
-					)}
 					{events.map((event) => (
 						<Placemark
 							key={event.id}
@@ -158,7 +81,6 @@ export const MapEventsWidget: React.FC<Props> = ({
 				activeEvent={activeEvent}
 				onEventClick={handleClickEvent}
 			/>
-			{notify}
 		</div>
 	);
 };

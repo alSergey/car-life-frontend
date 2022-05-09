@@ -77,7 +77,6 @@ export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 						}}
 					>
 						<ZoomControl />
-						{/* <GeolocationControl /> */}
 						<Placemark
 							geometry={[event.location.latitude, event.location.longitude]}
 						/>

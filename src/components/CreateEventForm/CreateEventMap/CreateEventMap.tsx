@@ -87,7 +87,6 @@ export const CreateEventMap: React.FC<Props> = ({ location, onChange }) => {
 					}}
 				>
 					<ZoomControl />
-					{/* <GeolocationControl /> */}
 					{location && (
 						<Placemark geometry={[location.latitude, location.longitude]} />
 					)}
