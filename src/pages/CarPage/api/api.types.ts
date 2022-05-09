@@ -9,5 +9,7 @@ export interface CarData {
 	name?: string;
 	description?: string;
 	avatar_url: string;
-	owner_id: number;
+	owner: {
+		id: number;
+	};
 }
