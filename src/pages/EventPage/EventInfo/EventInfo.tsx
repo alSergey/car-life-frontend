@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Caption, Group, Text, Title } from "@vkontakte/vkui";
-import { EventData } from "../api";
 import { Map, Placemark, YMaps, ZoomControl } from "react-yandex-maps";
-
-import styles from "./EventInfo.module.css";
 import { defaultMapData, YandexKey } from "../../../constants/yandexKey";
+import styles from "./EventInfo.module.css";
+import { EventData } from "../api";
+import { GeolocationButton } from "../../../components/GeolocationButton";
 
 interface Props {
 	event: EventData;
@@ -13,6 +13,14 @@ interface Props {
 
 export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 	const [locationText, setLocationText] = useState("");
+	const [mapState, setMapState] = useState(defaultMapData);
+
+	useEffect(() => {
+		setMapState({
+			location: [event.location.latitude, event.location.longitude],
+			zoom: defaultMapData.zoom,
+		});
+	}, [event.location]);
 
 	return (
 		<div>
@@ -57,9 +65,9 @@ export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 						height="300px"
 						width="100%"
 						modules={["geocode"]}
-						defaultState={{
-							center: [event.location.latitude, event.location.longitude],
-							zoom: defaultMapData.zoom,
+						state={{
+							center: mapState.location,
+							zoom: mapState.zoom,
 						}}
 						options={{
 							suppressMapOpenBlock: true,
@@ -77,6 +85,14 @@ export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 						}}
 					>
 						<ZoomControl />
+						<GeolocationButton
+							onUpdate={(location) => {
+								setMapState({
+									location,
+									zoom: 13,
+								});
+							}}
+						/>
 						<Placemark
 							geometry={[event.location.latitude, event.location.longitude]}
 						/>

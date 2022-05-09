@@ -4,6 +4,7 @@ import { defaultMapData, YandexKey } from "../../constants/yandexKey";
 import { getEventList, emptyEventList } from "./api";
 import { ModelsEventCard } from "../../api/Api";
 import { MapEventList } from "./MapEventList";
+import { GeolocationButton } from "../../components/GeolocationButton";
 
 interface Props {
 	mapHeight?: number;
@@ -56,7 +57,6 @@ export const MapEventsWidget: React.FC<Props> = ({
 					}}
 					options={{
 						suppressMapOpenBlock: true,
-						mapStateAutoApply: true,
 					}}
 					instanceRef={(ref) => {
 						// @ts-ignore
@@ -67,6 +67,15 @@ export const MapEventsWidget: React.FC<Props> = ({
 					onActionEnd={handleGetEventList}
 				>
 					<ZoomControl />
+					<GeolocationButton
+						onLoadLocation
+						onUpdate={(location) => {
+							setMapState({
+								location,
+								zoom: 13,
+							});
+						}}
+					/>
 					{events.map((event) => (
 						<Placemark
 							key={event.id}

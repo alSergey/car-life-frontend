@@ -10,6 +10,7 @@ import {
 } from "react-yandex-maps";
 import { defaultMapData, YandexKey } from "../../../constants/yandexKey";
 import { EventLocation } from "../api";
+import { GeolocationButton } from "../../GeolocationButton";
 
 interface Props {
 	location: EventLocation | null;
@@ -19,7 +20,7 @@ interface Props {
 export const CreateEventMap: React.FC<Props> = ({ location, onChange }) => {
 	const [yMaps, setYMaps] = useState<YMapsApi | null>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
-	const [centerLocation, setCenterLocation] = useState(defaultMapData.location);
+	const [mapState, setMapState] = useState(defaultMapData);
 
 	return (
 		<div>
@@ -36,8 +37,8 @@ export const CreateEventMap: React.FC<Props> = ({ location, onChange }) => {
 					height="400px"
 					modules={["geocode", "SuggestView"]}
 					state={{
-						center: centerLocation,
-						zoom: defaultMapData.zoom,
+						center: mapState.location,
+						zoom: mapState.zoom,
 					}}
 					options={{
 						yandexMapDisablePoiInteractivity: true,
@@ -56,7 +57,10 @@ export const CreateEventMap: React.FC<Props> = ({ location, onChange }) => {
 									const coordinates =
 										res.geoObjects.get(0).geometry._coordinates;
 
-									setCenterLocation(coordinates);
+									setMapState({
+										location: coordinates,
+										zoom: defaultMapData.zoom,
+									});
 
 									onChange({
 										latitude: coordinates[0],
@@ -87,6 +91,15 @@ export const CreateEventMap: React.FC<Props> = ({ location, onChange }) => {
 					}}
 				>
 					<ZoomControl />
+					<GeolocationButton
+						onLoadLocation
+						onUpdate={(userLocation) => {
+							setMapState({
+								location: userLocation,
+								zoom: 13,
+							});
+						}}
+					/>
 					{location && (
 						<Placemark geometry={[location.latitude, location.longitude]} />
 					)}
