@@ -13,5 +13,7 @@ export const getCar = (carId: number): Promise<CarData> =>
 		name: data.name,
 		description: data.description,
 		avatar_url: data.avatar_url,
-		owner_id: data.owner_id,
+		owner: {
+			id: data.owner.vkid,
+		},
 	}));

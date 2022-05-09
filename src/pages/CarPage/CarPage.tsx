@@ -61,7 +61,7 @@ export const CarPage: React.FC<Prop> = ({
 		setPopout(
 			<CarActionMenu
 				carId={carId}
-				userStatus={carData.owner_id === userState.id ? "owner" : "unknown"}
+				userStatus={carData.owner.id === userState.id ? "owner" : "unknown"}
 				onClose={() => setPopout(null)}
 				onDelete={onBackClick}
 			/>

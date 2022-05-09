@@ -20,7 +20,7 @@ export interface ModelsCarCard {
   id: number;
   model: string;
   name: string;
-  owner_id: number;
+  owner: ModelsUserCard;
 }
 
 export interface ModelsCarRequest {
