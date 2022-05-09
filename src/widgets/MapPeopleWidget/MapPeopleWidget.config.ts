@@ -19,6 +19,9 @@ export const PlacemarkImage = {
 		iconImageSize: [25, 30],
 		iconImageOffset: [-12, -15],
 	},
+	location: {
+		preset: "islands#geolocationIcon",
+	},
 	default: {
 		preset: "islands#oliveDotIcon",
 	},

@@ -11,26 +11,18 @@ interface Props {
 
 export const MapPage: React.FC<Props> = ({ id, onEventClick }) => {
 	const [activeTab, setActiveTab] = useState(MapTab.Event);
-	const panelHref = useRef<HTMLDivElement>(null);
 
 	return (
 		<Panel id={id}>
-			<PanelHeader getRef={panelHref} separator={false} />
 			<MapBar activeTab={activeTab} setActive={setActiveTab} />
 			{activeTab === MapTab.Event && (
 				<MapEventsWidget
-					mapHeight={
-						window.innerHeight - 95 - (panelHref.current?.offsetHeight || 0)
-					}
+					mapHeight={window.innerHeight - 95 - 40}
 					onEventClick={onEventClick}
 				/>
 			)}
 			{activeTab === MapTab.People && (
-				<MapPeopleWidget
-					mapHeight={
-						window.innerHeight - 95 - (panelHref.current?.offsetHeight || 0)
-					}
-				/>
+				<MapPeopleWidget mapHeight={window.innerHeight - 95 - 40} />
 			)}
 		</Panel>
 	);
