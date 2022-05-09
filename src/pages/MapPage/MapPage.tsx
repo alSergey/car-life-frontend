@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Panel, PanelHeader } from "@vkontakte/vkui";
+import React, { useState } from "react";
+import { Panel } from "@vkontakte/vkui";
 import { MapBar, MapTab } from "./MapBar";
 import { MapEventsWidget } from "../../widgets/MapEventsWidget";
 import { MapPeopleWidget } from "../../widgets/MapPeopleWidget";

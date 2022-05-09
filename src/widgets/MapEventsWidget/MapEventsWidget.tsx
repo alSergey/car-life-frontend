@@ -11,8 +11,7 @@ import { getEventList, emptyEventList } from "./api";
 import { ModelsEventCard } from "../../api/Api";
 import { MapEventList } from "./MapEventList";
 import bridge from "@vkontakte/vk-bridge";
-import { REG_VIEW, REG_WELCOME_PAGE } from "../../router";
-import { Avatar, Panel, Snackbar } from "@vkontakte/vkui";
+import { Avatar, Snackbar } from "@vkontakte/vkui";
 import { Icon20PlaceOutline } from "@vkontakte/icons";
 import { PlacemarkImage } from "../MapPeopleWidget/MapPeopleWidget.config";
 
