@@ -28,7 +28,7 @@ export const MapEventList: React.FC<Props> = ({
 		<Group
 			style={{
 				position: "absolute",
-				bottom: "40px",
+				bottom: "48px",
 				zIndex: 1,
 				backgroundColor: "rgba(217,216,216,0.63)",
 				width: "100%",
