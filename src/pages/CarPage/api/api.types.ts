@@ -10,6 +10,9 @@ export interface CarData {
 	description?: string;
 	avatar_url: string;
 	owner: {
+		avatar_url?: string;
+		name: string;
+		surname: string;
 		id: number;
 	};
 }

@@ -7,6 +7,9 @@ export const emptyCarData: CarData = {
 	date: "",
 	avatar_url: "",
 	owner: {
+		avatar_url: "",
+		name: "",
+		surname: "",
 		id: -1,
 	},
 };

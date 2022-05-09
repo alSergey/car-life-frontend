@@ -14,6 +14,8 @@ import {
 	PanelHeaderBack,
 	Text,
 	PanelHeaderButton,
+	Caption,
+	Avatar,
 } from "@vkontakte/vkui";
 import { Icon28MoreHorizontal } from "@vkontakte/icons";
 import styles from "./CarPage.module.css";
@@ -28,9 +30,15 @@ interface Prop {
 	id: string;
 	setPopout: (popout: ReactNode | null) => void;
 	onBackClick: () => void;
+	onUserClick: (userId: number) => void;
 }
 
-export const CarPage: React.FC<Prop> = ({ id, setPopout, onBackClick }) => {
+export const CarPage: React.FC<Prop> = ({
+	id,
+	setPopout,
+	onBackClick,
+	onUserClick,
+}) => {
 	const { carId } = getCarPageQuery();
 
 	const { userState } = useContext(UserContext);
@@ -75,6 +83,23 @@ export const CarPage: React.FC<Prop> = ({ id, setPopout, onBackClick }) => {
 				{!!carData.name ? carData.name : `${carData.brand} ${carData.model}`}
 			</PanelHeader>
 			<CarHeader img={carData.avatar_url} />
+			<Group onClick={() => onUserClick(carData.owner.id)}>
+				<div className={styles.userContainer}>
+					<div className={styles.userTextContainer}>
+						<Caption level="3" weight="3">
+							Hosted by
+						</Caption>
+						<Title level="3" weight="2">
+							{carData.owner.name} {carData.owner.surname}
+						</Title>
+					</div>
+					<Avatar
+						className={styles.avatar}
+						size={45}
+						src={carData.owner.avatar_url}
+					/>
+				</div>
+			</Group>
 			<Div>
 				{carData.brand && (
 					<Group>

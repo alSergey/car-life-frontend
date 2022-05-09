@@ -97,6 +97,7 @@ export const MapPeopleWidget: React.FC<Props> = ({ mapHeight }) => {
 	};
 
 	useEffect(() => {
+		getUserGeo();
 		handleGetEventList();
 	}, []);
 
