@@ -40,6 +40,8 @@ export const CreateMiniEventForm: React.FC<Props> = ({
 			await createNewMiniEvent(formData);
 			setIsOpened(false);
 			onCreate();
+
+			setFormData(emptyMiniEventForm);
 		} catch (err) {
 			console.error(err);
 		} finally {
