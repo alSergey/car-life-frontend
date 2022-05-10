@@ -19,6 +19,8 @@
 .text {
 	color: var(--text_secondary);
 	margin-top: 10px;
+
+	white-space: break-spaces;
 }
 
 .avatar img {
