@@ -18,4 +18,5 @@
 .text {
 	padding: 12px;
 	white-space: pre-wrap;
+	user-select: text;
 }
