@@ -5,6 +5,7 @@ import { getPrettyTime } from "../../constants/time";
 import { emptyEventList, getMiniEventList } from "./api";
 import { PlacemarkImage } from "./MapPeopleWidget.config";
 import { CreateMiniEventForm } from "./CreateMiniEventForm";
+import { GeolocationButton } from "../../components/GeolocationButton";
 
 interface Location {
 	latitude: number;
@@ -54,6 +55,7 @@ export const MapPeopleWidget: React.FC<Props> = ({ mapHeight }) => {
 				<Map
 					height={mapHeight}
 					width="100%"
+					modules={["templateLayoutFactory", "layout.ImageWithContent"]}
 					state={{
 						center: mapState.location,
 						zoom: mapState.zoom,
@@ -68,16 +70,24 @@ export const MapPeopleWidget: React.FC<Props> = ({ mapHeight }) => {
 							longitude: e.get("coords")[1],
 						})
 					}
-					modules={["templateLayoutFactory", "layout.ImageWithContent"]}
 				>
 					<ZoomControl />
+					<GeolocationButton
+						onLoadLocation
+						onUpdate={(location) => {
+							setMapState({
+								location,
+								zoom: 13,
+							});
+						}}
+					/>
 					{events.map((e) => (
 						<Placemark
 							key={e.id}
 							onClick={() => {
 								setMapState({
 									location: [e.latitude, e.longitude],
-									zoom: 13,
+									zoom: defaultMapData.zoom,
 								});
 							}}
 							geometry={[e.latitude, e.longitude]}
