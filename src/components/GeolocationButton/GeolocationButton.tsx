@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import { Avatar, Snackbar } from "@vkontakte/vkui";
 import { Icon20PlaceOutline } from "@vkontakte/icons";
-import { Button, Placemark } from "react-yandex-maps";
+import { GeolocationControl, Placemark } from "react-yandex-maps";
 import bridge from "@vkontakte/vk-bridge";
 
 interface Props {
@@ -33,26 +33,31 @@ export const GeolocationButton: React.FC<Props> = ({
 	};
 
 	const getUserLocation = async (): Promise<void> => {
-		const data = await bridge.send("VKWebAppGetGeodata");
+		try {
+			const data = await bridge.send("VKWebAppGetGeodata");
+			console.log(data);
 
-		if (data.available === 0) {
+			if (data.available === 0 || !data.available) {
+				openSnackbar();
+			}
+
+			if (data.available === 1 || data.available) {
+				const location = [data.lat, data.long];
+				onUpdate(location);
+				setUserLocation(location);
+			}
+		} catch (e) {
+			console.log(e);
 			openSnackbar();
-		}
-
-		if (data.available === 1) {
-			const location = [data.lat, data.long];
-
-			onUpdate(location);
-			setUserLocation(location);
 		}
 	};
 
 	return (
 		<div>
-			<Button
+			<GeolocationControl
 				options={{
-					image: "geolocation",
 					selectOnClick: false,
+					noPlacemark: true,
 				}}
 				onClick={() => {
 					getUserLocation();
