@@ -35,7 +35,6 @@ export const GeolocationButton: React.FC<Props> = ({
 	const getUserLocation = async (): Promise<void> => {
 		try {
 			const data = await bridge.send("VKWebAppGetGeodata");
-			console.log(data);
 
 			if (data.available === 0 || !data.available) {
 				openSnackbar();
@@ -46,8 +45,8 @@ export const GeolocationButton: React.FC<Props> = ({
 				onUpdate(location);
 				setUserLocation(location);
 			}
-		} catch (e) {
-			console.log(e);
+		} catch (err) {
+			console.error(err);
 			openSnackbar();
 		}
 	};

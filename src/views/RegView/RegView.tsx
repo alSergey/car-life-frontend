@@ -50,8 +50,8 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 				...oldForm,
 				userForm,
 			}));
-		} catch (e) {
-			console.error(e);
+		} catch (err) {
+			console.error(err);
 		}
 	};
 
@@ -63,8 +63,8 @@ export const RegView: React.FC<Prop> = ({ id }) => {
 			setIsLoggedIn(true);
 			refreshUserState();
 			router.pushPage(MAP_PAGE);
-		} catch (e) {
-			console.error(e);
+		} catch (err) {
+			console.error(err);
 		} finally {
 			setLoading(false);
 		}

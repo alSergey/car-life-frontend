@@ -19,8 +19,8 @@ export const UserInfoEdit: React.FC<Prop> = ({
 		try {
 			await updateUserInfo(data);
 			onUpdate();
-		} catch (e) {
-			console.error(e);
+		} catch (err) {
+			console.error(err);
 		}
 	};
 
