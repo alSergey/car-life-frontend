@@ -70,6 +70,7 @@ export const MapEventsWidget: React.FC<Props> = ({
 					<GeolocationButton
 						onLoadLocation
 						onUpdate={(location) => {
+							handleGetEventList();
 							setMapState({
 								location,
 								zoom: 13,
