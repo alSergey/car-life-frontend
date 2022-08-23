@@ -42,7 +42,7 @@ export const CarCard: React.FC<Props> = ({
 				mode="image"
 				header={
 					<div>
-						<Text weight="semibold" size={2} style={{ paddingTop: "160px" }}>
+						<Text weight="1" size={2} style={{ paddingTop: "160px" }}>
 							{!!name ? name : `${brand} ${model}`}
 						</Text>
 					</div>

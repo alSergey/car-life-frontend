@@ -64,7 +64,7 @@ export const EventPage: React.FC<Props> = ({
 	return (
 		<Panel id={id}>
 			<PanelHeader
-				left={
+				before={
 					<Fragment>
 						<PanelHeaderBack onClick={onBackClick} />
 						<PanelHeaderButton aria-label="Меню">

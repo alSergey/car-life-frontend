@@ -33,7 +33,7 @@ export const CreateCarPage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
+			<PanelHeader before={<PanelHeaderBack onClick={onBackClick} />}>
 				Новая машина
 			</PanelHeader>
 			<CreateCarFom loading={loading} onSubmit={handleSubmit} />

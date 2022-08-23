@@ -42,8 +42,8 @@ export const CreateUserComplainModal: React.FC<Props> = ({ id, onClose }) => {
 			onClose={onClose}
 			header={
 				<ModalPageHeader
-					left={<PanelHeaderClose onClick={onClose} />}
-					right={
+					before={<PanelHeaderClose onClick={onClose} />}
+					after={
 						<PanelHeaderSubmit
 							disabled={!isComplainFormFilled(formData) || loading}
 							onClick={handleComplainUser}

@@ -15,7 +15,7 @@ export const UserInfo: React.FC<Prop> = ({ userData, onEditClick }) => (
 			<Title level="3" weight="1">
 				Мои интересы
 			</Title>
-			<Text weight="regular" className={styles.tags}>
+			<Text weight="3" className={styles.tags}>
 				{userData.tags.join(", ")}
 			</Text>
 		</Group>
@@ -23,7 +23,7 @@ export const UserInfo: React.FC<Prop> = ({ userData, onEditClick }) => (
 			<Title level="3" weight="1">
 				О себе
 			</Title>
-			<Text weight="regular" className={styles.tags}>
+			<Text weight="3" className={styles.tags}>
 				{userData.description}
 			</Text>
 		</Group>

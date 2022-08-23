@@ -71,7 +71,7 @@ export const CarPage: React.FC<Prop> = ({
 	return (
 		<Panel id={id}>
 			<PanelHeader
-				left={
+				before={
 					<Fragment>
 						<PanelHeaderBack onClick={onBackClick} />
 						<PanelHeaderButton aria-label="Меню">
@@ -106,7 +106,7 @@ export const CarPage: React.FC<Prop> = ({
 						<Title level="3" weight="1">
 							Марка
 						</Title>
-						<Text weight="regular" className={styles.text}>
+						<Text weight="3" className={styles.text}>
 							{carData.brand}
 						</Text>
 					</Group>
@@ -116,7 +116,7 @@ export const CarPage: React.FC<Prop> = ({
 						<Title level="3" weight="1">
 							Модель
 						</Title>
-						<Text weight="regular" className={styles.text}>
+						<Text weight="3" className={styles.text}>
 							{carData.model}
 						</Text>
 					</Group>
@@ -126,7 +126,7 @@ export const CarPage: React.FC<Prop> = ({
 						<Title level="3" weight="1">
 							Кузов
 						</Title>
-						<Text weight="regular" className={styles.text}>
+						<Text weight="3" className={styles.text}>
 							{carData.body}
 						</Text>
 					</Group>
@@ -136,7 +136,7 @@ export const CarPage: React.FC<Prop> = ({
 						<Title level="3" weight="1">
 							Мотор
 						</Title>
-						<Text weight="regular" className={styles.text}>
+						<Text weight="3" className={styles.text}>
 							{carData.engine}
 						</Text>
 					</Group>
@@ -146,7 +146,7 @@ export const CarPage: React.FC<Prop> = ({
 						<Title level="3" weight="1">
 							Год выпуска
 						</Title>
-						<Text weight="regular" className={styles.text}>
+						<Text weight="3" className={styles.text}>
 							{getPrettyYear(carData.date)}
 						</Text>
 					</Group>
@@ -156,7 +156,7 @@ export const CarPage: React.FC<Prop> = ({
 						<Title level="3" weight="1">
 							Лошадиные силы
 						</Title>
-						<Text weight="regular" className={styles.text}>
+						<Text weight="3" className={styles.text}>
 							{carData.horse_power}
 						</Text>
 					</Group>
@@ -166,7 +166,7 @@ export const CarPage: React.FC<Prop> = ({
 						<Title level="3" weight="1">
 							Кличка автомобиля
 						</Title>
-						<Text weight="regular" className={styles.text}>
+						<Text weight="3" className={styles.text}>
 							{carData.name}
 						</Text>
 					</Group>
@@ -176,7 +176,7 @@ export const CarPage: React.FC<Prop> = ({
 						<Title level="3" weight="1">
 							Подробности
 						</Title>
-						<Text weight="regular" className={styles.text}>
+						<Text weight="3" className={styles.text}>
 							{carData.description}
 						</Text>
 					</Group>

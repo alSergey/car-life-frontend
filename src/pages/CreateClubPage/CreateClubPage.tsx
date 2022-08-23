@@ -33,7 +33,7 @@ export const CreateClubPage: React.FC<Props> = ({
 
 	return (
 		<Panel id={id}>
-			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
+			<PanelHeader before={<PanelHeaderBack onClick={onBackClick} />}>
 				Новый клуб
 			</PanelHeader>
 			<CreateClubForm loading={loading} onSubmit={handleSubmit} />

@@ -17,10 +17,10 @@ export const ClubHeader: React.FC<Prop> = ({ clubData, onButtonClick }) => (
 	<Div>
 		<div className={styles.top}>
 			<div>
-				<Text weight="regular" className={styles.desc}>
+				<Text weight="3" className={styles.desc}>
 					Инфо о клубе
 				</Text>
-				<Text weight="regular" className={styles.descText}>
+				<Text weight="3" className={styles.descText}>
 					{clubData.description}
 				</Text>
 			</div>
@@ -35,7 +35,7 @@ export const ClubHeader: React.FC<Prop> = ({ clubData, onButtonClick }) => (
 			{clubData.tags.map((t) => (
 				<Text
 					key={t}
-					weight="regular"
+					weight="3"
 					className={styles.tag}
 					style={{
 						backgroundColor: `rgba(${getRandom(0, 255)}, ${getRandom(
