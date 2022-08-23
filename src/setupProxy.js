@@ -1,5 +1,5 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
-const target = process.env.PROXY;
+const target = process.env.BE_URL;
 
 module.exports = (app) => {
 	if (!target) return;
