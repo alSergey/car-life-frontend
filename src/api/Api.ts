@@ -1,5 +1,5 @@
 /* eslint-disable */
-// @ts-nocheck
+/* tslint:disable */
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
