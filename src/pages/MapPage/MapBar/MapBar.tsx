@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const MapBar: React.FC<Props> = ({ activeTab, setActive }) => (
-	<Tabs mode="buttons" className={styles.tabs}>
+	<Tabs mode="secondary" className={styles.tabs}>
 		<TabsItem
 			selected={activeTab === MapTab.Event}
 			onClick={() => setActive(MapTab.Event)}

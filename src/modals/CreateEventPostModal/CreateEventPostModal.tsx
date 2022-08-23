@@ -42,8 +42,8 @@ export const CreateEventPostModal: React.FC<Props> = ({ id, onClose }) => {
 			onClose={onClose}
 			header={
 				<ModalPageHeader
-					left={<PanelHeaderClose onClick={onClose} />}
-					right={
+					before={<PanelHeaderClose onClick={onClose} />}
+					after={
 						<PanelHeaderSubmit
 							disabled={!isEventPostFormFilled(formData) || loading}
 							onClick={handleCreateEventPost}

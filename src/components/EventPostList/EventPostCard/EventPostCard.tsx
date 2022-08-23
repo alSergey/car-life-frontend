@@ -48,7 +48,7 @@ export const EventPostCard: React.FC<Props> = ({
 				))}
 			</Gallery>
 		)}
-		<Text className={styles.text} weight="regular">
+		<Text className={styles.text} weight="3">
 			{text}
 		</Text>
 	</Card>

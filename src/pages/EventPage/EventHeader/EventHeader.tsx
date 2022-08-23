@@ -18,7 +18,7 @@ export const EventHeader: React.FC<Prop> = ({ eventData, onButtonClick }) => (
 				<Title level="1" weight="1">
 					{eventData.name}
 				</Title>
-				<Text weight="regular">{getPrettyDateTime(eventData.event_date)}</Text>
+				<Text weight="3">{getPrettyDateTime(eventData.event_date)}</Text>
 			</div>
 			<EventButtons
 				eventId={eventData.id}

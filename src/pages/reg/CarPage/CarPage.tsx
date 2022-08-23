@@ -18,7 +18,7 @@ export const CarPage: React.FC<Props> = ({
 }) => {
 	return (
 		<Panel id={id}>
-			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
+			<PanelHeader before={<PanelHeaderBack onClick={onBackClick} />}>
 				Автомобиль
 			</PanelHeader>
 			<CreateCarFom

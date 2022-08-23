@@ -23,7 +23,7 @@ export const RegPage: React.FC<Props> = ({
 }) => {
 	return (
 		<Panel id={id} centered>
-			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
+			<PanelHeader before={<PanelHeaderBack onClick={onBackClick} />}>
 				Регистрация
 			</PanelHeader>
 			<Div className={styles.container}>

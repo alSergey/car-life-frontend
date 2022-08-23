@@ -42,7 +42,7 @@ export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 					<Title level="3" weight="3">
 						Описание
 					</Title>
-					<Text weight="regular" className={styles.text}>
+					<Text weight="3" className={styles.text}>
 						{event.description}
 					</Text>
 				</div>
@@ -52,11 +52,7 @@ export const EventInfo: React.FC<Props> = ({ event, onClubClick }) => {
 					<Title level="3" weight="3">
 						Место
 					</Title>
-					<Text
-						weight="regular"
-						className={styles.text}
-						style={{ marginBottom: 15 }}
-					>
+					<Text weight="3" className={styles.text} style={{ marginBottom: 15 }}>
 						{locationText}
 					</Text>
 				</div>

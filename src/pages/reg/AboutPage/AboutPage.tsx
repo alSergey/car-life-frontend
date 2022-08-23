@@ -20,7 +20,7 @@ export const AboutPage: React.FC<Props> = ({
 }) => {
 	return (
 		<Panel id={id}>
-			<PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
+			<PanelHeader before={<PanelHeaderBack onClick={onBackClick} />}>
 				О себе
 			</PanelHeader>
 			<CreateUserAboutForm
